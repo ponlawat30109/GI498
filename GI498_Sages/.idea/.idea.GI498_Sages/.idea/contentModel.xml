@@ -7,9 +7,29 @@
     <e p="N:\@BU\64-1\GI498\GI498_Project\GI498\GI498_Sages" t="IncludeRecursive">
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
+        <e p="_Scriptable Object" t="Include">
+          <e p="Inventorys" t="Include">
+            <e p="Scripts" t="Include">
+              <e p="FoodUtility.cs" t="Include" />
+              <e p="ItemContainer.cs" t="Include" />
+            </e>
+          </e>
+          <e p="Items" t="Include">
+            <e p="Scripts" t="Include">
+              <e p="FoodObject.cs" t="Include" />
+              <e p="IngredientObject.cs" t="Include" />
+              <e p="ItemObject.cs" t="Include" />
+            </e>
+          </e>
+        </e>
         <e p="_Scripts" t="Include">
           <e p="EditorScript" t="Include">
             <e p="SceneHandlerEditor.cs" t="Include" />
+          </e>
+          <e p="Inventory System" t="Include">
+            <e p="ContainerHandler.cs" t="Include" />
+            <e p="FoodUtility.cs" t="Include" />
+            <e p="Item.cs" t="Include" />
           </e>
           <e p="SceneHandler.cs" t="Include" />
         </e>
