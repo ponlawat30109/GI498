@@ -7,16 +7,16 @@ using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
 {
-    [Header("Start")]
+    [Header("MainMenu")]
     [SerializeField] private Button buttonStart;
+    [SerializeField] private Button buttonOption;
+    [SerializeField] private Button buttonExit;
 
     [Header("Option")]
     [SerializeField] private GameObject panelOption;
-    [SerializeField] private Button buttonOption;
+    [SerializeField] private Slider sliderMusic;
+    [SerializeField] private Slider sliderSound;
     [SerializeField] private Button buttonOptionClose;
-
-    [Header("Exit")]
-    [SerializeField] private Button buttonExit;
 
     [Header("Information")]
     [SerializeField] private GameObject panelInformation;
@@ -34,18 +34,22 @@ public class MenuController : MonoBehaviour
         Debug.LogWarning("Fon : Don't forget to coding [change scene to profile] ให้เหมือนนนท์");
         Debug.Log("--------------");
 
-        Debug.Assert(buttonStart != null, "MainMenu UI: buttonStart is null");
-        Debug.Assert(buttonOption != null, "MainMenu UI: buttonOption is null");
-        Debug.Assert(buttonOptionClose != null, "MainMenu UI: buttonOptionClose is null");
-        Debug.Assert(buttonInformation != null, "MainMenu UI: buttonInformation is null");
-        Debug.Assert(buttonInformationClose != null, "MainMenu UI: buttonInformationClose is null");
-        Debug.Assert(buttonExit != null, "MainMenu UI: buttonExit is null");
+        Debug.Assert(buttonStart != null, "MainMenu UI ("+name+"): buttonStart is null");
+        Debug.Assert(buttonOption != null, "MainMenu UI (" + name + "): buttonOption is null");
+        Debug.Assert(sliderMusic != null, "MainMenu UI (" + name + "): sliderMusic is null");
+        Debug.Assert(sliderSound != null, "MainMenu UI (" + name + "): sliderSound is null");
+        Debug.Assert(buttonOptionClose != null, "MainMenu UI (" + name + "): buttonOptionClose is null");
+        Debug.Assert(buttonInformation != null, "MainMenu UI (" + name + "): buttonInformation is null");
+        Debug.Assert(buttonInformationClose != null, "MainMenu UI (" + name + "): buttonInformationClose is null");
+        Debug.Assert(buttonExit != null, "MainMenu UI (" + name + "): buttonExit is null");
 
-        Debug.Assert(panelOption != null, "MainMenu UI: panelOption is null");
-        Debug.Assert(panelInformation != null, "MainMenu UI: panelInformation is null");
+        Debug.Assert(panelOption != null, "MainMenu UI (" + name + "): panelOption is null");
+        Debug.Assert(panelInformation != null, "MainMenu UI (" + name + "): panelInformation is null");
 
         buttonStart.onClick.AddListener(ChangeSceneToProfileScene);
         buttonOption.onClick.AddListener(OpenOptionPanel);
+        sliderMusic.onValueChanged.AddListener((volumn) => SetOption("music", volumn));
+        sliderSound.onValueChanged.AddListener((volumn) => SetOption("sound", volumn));
         buttonOptionClose.onClick.AddListener(CloseOptionPanel);
         buttonInformation.onClick.AddListener(OpenInformationPanel);
         buttonInformationClose.onClick.AddListener(CloseInformationPanel);
@@ -76,14 +80,30 @@ public class MenuController : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
+    private void OpenOptionPanel()
+    {
+        panelOption.SetActive(true);
+    }
+
     private void CloseOptionPanel()
     {
         panelOption.SetActive(false);
     }
 
-    private void OpenOptionPanel()
+    public void SetOption(string content, float volumn)
     {
-        panelOption.SetActive(true);
+        switch(content)
+        {
+            case "music":
+                {
+                    break;
+                }
+            case "sound":
+                {
+                    break;
+                }
+        }
+        Debug.Log(content + ": " + volumn);
     }
 
     private void Exit()
