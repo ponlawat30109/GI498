@@ -77,7 +77,7 @@ public class MenuController : MonoBehaviour
         2. กด Load/Unload Specific Scene*/
 
         //temp code (ลบ using UnityEngine.SceneManagement; ด้วย)
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        //SceneManager.LoadScene("CharacterProfileScene");
     }
 
     private void OpenOptionPanel()
@@ -103,7 +103,7 @@ public class MenuController : MonoBehaviour
                     break;
                 }
         }
-        Debug.Log(content + ": " + volumn);
+        //Debug.Log(content + ": " + volumn);
     }
 
     private void Exit()
