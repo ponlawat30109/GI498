@@ -19,8 +19,6 @@ public class CustomModel : MonoBehaviour
     public int currentModelIndex;
     private GameObject currentModel;
 
-    
-
     private void Start()
     {
         Debug.Assert(modelsToSelect != null, name + " : modelsToSelect is null");
