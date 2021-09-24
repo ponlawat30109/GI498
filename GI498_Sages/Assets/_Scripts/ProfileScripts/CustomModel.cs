@@ -19,8 +19,6 @@ public class CustomModel : MonoBehaviour
     public int currentModelIndex;
     private GameObject currentModel;
 
-    
-
     private void Start()
     {
         Debug.Assert(modelsToSelect != null, name + " : modelsToSelect is null");
@@ -28,12 +26,6 @@ public class CustomModel : MonoBehaviour
         Debug.Assert(selectorRight != null, name + " : selectorRight is null");
         Debug.LogWarning("currentModel have to assign from load-save");
         currentModelIndex = 0;
-        
-        selectorLeft.onClick.AddListener(() => ChangeModel(-1));
-        selectorRight.onClick.AddListener(() => ChangeModel(1));
-
-        selectorLeft.onClick.AddListener(() => ChangeModelColor(-1));
-        selectorLeft.onClick.AddListener(() => ChangeModelColor(1));
     }
 
     private void ChangeModel(int i)
