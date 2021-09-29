@@ -23,6 +23,9 @@ public class MenuController : MonoBehaviour
     [SerializeField] private Button buttonInformation;
     [SerializeField] private Button buttonInformationClose;
 
+    private const string MusicVolKey = "MusicVol";
+    private const string SoundVolKey = "SoundVol";
+
     // Start is called before the first frame update
     void Start()
     {
@@ -57,6 +60,8 @@ public class MenuController : MonoBehaviour
 
         panelOption.SetActive(false);
         panelInformation.SetActive(false);
+
+        LoadOptionPrefs();
     }
 
     private void CloseInformationPanel()
@@ -87,6 +92,7 @@ public class MenuController : MonoBehaviour
 
     private void CloseOptionPanel()
     {
+        SaveOptionPrefs();
         panelOption.SetActive(false);
     }
 
@@ -104,6 +110,19 @@ public class MenuController : MonoBehaviour
                 }
         }
         //Debug.Log(content + ": " + volumn);
+    }
+
+    public void SaveOptionPrefs()
+    {
+        PlayerPrefs.SetFloat(MusicVolKey, sliderMusic.value);
+        PlayerPrefs.SetFloat(SoundVolKey, sliderSound.value);
+        PlayerPrefs.Save();
+    }
+
+    public void LoadOptionPrefs()
+    {
+        sliderMusic.value = PlayerPrefs.GetFloat(MusicVolKey, sliderMusic.normalizedValue);
+        sliderSound.value = PlayerPrefs.GetFloat(SoundVolKey, sliderSound.normalizedValue);
     }
 
     private void Exit()
