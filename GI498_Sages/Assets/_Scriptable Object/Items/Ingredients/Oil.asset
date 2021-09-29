@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3e44ef90f84c5843b6568e4c4d8e240, type: 3}
   m_Name: Oil
   m_EditorClassIdentifier: 
-  defaultPrefab: {fileID: 0}
+  itemName: Oil
+  itemIcon: {fileID: 21300000, guid: 56c2a3276907b98489d97a82ce53886b, type: 3}
   type: 0
+  ingamePrefab: {fileID: 0}
   description: By definition, oils are 100% fat. Regardless of the source (from almond
     to walnut oil), a tablespoon of oil has 14g of fat and about 120 calories.
   nutrition:

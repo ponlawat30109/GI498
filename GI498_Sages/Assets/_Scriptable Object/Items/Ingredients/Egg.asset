@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3e44ef90f84c5843b6568e4c4d8e240, type: 3}
   m_Name: Egg
   m_EditorClassIdentifier: 
-  defaultPrefab: {fileID: 0}
+  itemName: Egg
+  itemIcon: {fileID: 21300000, guid: 2a261cad1a0ed2d409c017db576160c4, type: 3}
   type: 0
-  description: 
+  ingamePrefab: {fileID: 1389210929416449978, guid: 9136bb2a24540d7468c5f0b041b19a00, type: 3}
+  description: Just Egg
   nutrition:
     cholesterol: 184
     sugars: 0

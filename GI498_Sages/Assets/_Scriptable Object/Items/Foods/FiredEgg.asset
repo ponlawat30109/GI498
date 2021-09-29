@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cd1f895fd8ab2a46bf96578d9516cef, type: 3}
   m_Name: FiredEgg
   m_EditorClassIdentifier: 
-  defaultPrefab: {fileID: 0}
-  type: 0
-  description: Just Egg
+  itemName: 
+  itemIcon: {fileID: 21300000, guid: 56c2a3276907b98489d97a82ce53886b, type: 3}
+  type: 2
+  ingamePrefab: {fileID: 0}
+  description: Just Fried Egg
   cookedPrefab: {fileID: 0}
   ingredients:
   - {fileID: 11400000, guid: 3016351532d3d8e41afdeb9eb3554655, type: 2}

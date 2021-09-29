@@ -14,7 +14,7 @@ public class FoodObject : ItemObject
     
     private void Awake()
     {
-        type = ItemType.Ingredient;
+        type = ItemType.Food;
     }
 
     public void CheckNutrition()
