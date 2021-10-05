@@ -102,11 +102,6 @@ public class ProfileSceneController : MonoBehaviour
 
     private void ChangeSceneToCustomCharacterScene()
     {
-        Debug.Log("ChangeSceneToCustomCharacterScene");
-
-        //temp code (ลบ using UnityEngine.SceneManagement; ด้วย)
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-
         cameraModelViewer.SetTrigger("Custom");
         mainUICanvas.SetTrigger("Custom");
     }

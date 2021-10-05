@@ -5,9 +5,9 @@ using UnityEngine;
 [System.Serializable]
 public class Rank
 {
-    public string name;
+    public string rankName;
     public Sprite sprite;
-    public int experience; //Minimum Exp to be in this rank
+    public int minExperience; //Minimum Exp to be in this rank
     public Rank nextRank;
     //public int different;
     //public new recipe
