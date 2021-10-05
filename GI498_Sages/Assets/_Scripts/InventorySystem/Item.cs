@@ -21,26 +21,24 @@ namespace _Scripts.InventorySystem
             whereToPutIn.AddItem(item);
         }
 
-        // private void OnTriggerEnter(Collider other)
-        // {
-        //     // if (other.gameObject.tag == "Player")
-        //         interactableCanvas.gameObject.SetActive(true);
-        // }
-
-        private void OnTriggerStay(Collider other)
+        private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.tag == "Player")
-            {
-                interactableCanvas.gameObject.SetActive(true);
-            }
+            // if (other.gameObject.tag == "Player")
+            interactableCanvas.gameObject.SetActive(true);
         }
+
+        // private void OnTriggerStay(Collider other)
+        // {
+        // if (other.gameObject.tag == "Player")
+        // {
+        // interactableCanvas.gameObject.SetActive(true);
+        // }
+        // }
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.gameObject.tag == "Player")
-            {
-                interactableCanvas.gameObject.SetActive(false);
-            }
+            // if (other.gameObject.tag == "Player")
+            interactableCanvas.gameObject.SetActive(false);
         }
     }
 }
