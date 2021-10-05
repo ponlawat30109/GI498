@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class RankManager : MonoBehaviour
 {
+    public static RankManager Instance;
+
     [SerializeField] private Button chefRankButton;
     [SerializeField] private GameObject rankListPanel;
     [SerializeField] private GameObject rankBoxPrefab;
@@ -13,13 +15,25 @@ public class RankManager : MonoBehaviour
     [SerializeField] private Button blankAreaExit;
 
     [SerializeField] private List<Rank> rankList;
-    private Rank playerRank;
 
     //[SerializeField] private Button buttonRank;
     //[SerializeField] private Slider sliderEXP;
     //Player Profile
     //private int playerEXP;
     //private int gainEXP; //EXP from the lastest game
+
+    private void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(this);
+
+        for (int i = 0; i < rankList.Count - 1; i++)
+        {
+            rankList[i].nextRank = rankList[i + 1];
+        }
+    }
 
     private void Start()
     {
@@ -34,12 +48,6 @@ public class RankManager : MonoBehaviour
 
         rankListPanel.SetActive(false);
 
-        //Load current rank
-        if (playerRank == null)
-        {
-            playerRank = rankList[0];
-        }
-
         foreach(Rank r in rankList)
         {
             var rankbox = Instantiate(rankBoxPrefab, rankListViewportContent);
@@ -47,5 +55,16 @@ public class RankManager : MonoBehaviour
         }
 
         //buttonRank.onClick.AddListener(() => gameObject.SetActive(true));
+    }
+
+    public Rank GetRank(int exp)
+    {
+        var rank = rankList[0];
+        while (exp > rank.minExperience && rank.nextRank != null)
+        {
+            rank = rank.nextRank;
+        }
+
+        return rank;
     }
 }

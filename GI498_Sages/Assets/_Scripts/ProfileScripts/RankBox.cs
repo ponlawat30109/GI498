@@ -18,7 +18,7 @@ public class RankBox : MonoBehaviour
 
     public void SetDetail(Rank rank)
     {
-        rankNameText.text = rank.name;
+        rankNameText.text = rank.rankName;
 
         //rankImage.sprite = rank.sprite;
         if(rank.sprite != null)
