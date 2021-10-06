@@ -39,7 +39,7 @@ public class ContainerHandler : MonoBehaviour
             currentTime += Time.deltaTime;
         }
 
-        if (Input.GetKeyDown(KeyCode.E) || (InteractUIType.instance.isClick && InteractUIType.instance._objectType == InteractUIType.UIType.Item))
+        if (Input.GetKeyDown(KeyCode.E)/* || (isClick && objType == InteractObjectType.ObjectType.Item)*/)
         {
             FindClosestCollectableItem(collectableObjects);
             if (closestCollectableItem != null)
@@ -52,13 +52,46 @@ public class ContainerHandler : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.F) || (InteractUIType.instance.isClick && InteractUIType.instance._objectType == InteractUIType.UIType.Object))
+        if (Input.GetMouseButton(0))
+        {
+            var isClick = InteractObjectType.instance.isClick;
+            var objType = InteractObjectType.instance._objectType;
+            if ((isClick && objType == InteractObjectType.ObjectType.Item))
+            {
+                FindClosestCollectableItem(collectableObjects);
+                if (closestCollectableItem != null)
+                {
+                    var target = closestCollectableItem.gameObject.GetComponent<ICollectableObject>();
+                    var inventory = Manager.Instance.playerManager.inventory;
+                    target?.CollectTo(inventory);
+                    SetHoldingItem(closestCollectableItem);
+                    Destroy(closestCollectableItem.gameObject);
+                }
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.F))
         {
             FindClosestInteractableItem(interactableObjects);
             if (closestInteractableItem != null)
             {
                 var target = closestInteractableItem.gameObject.GetComponent<IInteractableObject>();
                 target?.Interacted();
+            }
+        }
+
+        if (Input.GetMouseButton(0))
+        {
+            var isClick = InteractObjectType.instance.isClick;
+            var objType = InteractObjectType.instance._objectType;
+            if ((isClick && objType == InteractObjectType.ObjectType.Object))
+            {
+                FindClosestInteractableItem(interactableObjects);
+                if (closestInteractableItem != null)
+                {
+                    var target = closestInteractableItem.gameObject.GetComponent<IInteractableObject>();
+                    target?.Interacted();
+                }
             }
         }
     }

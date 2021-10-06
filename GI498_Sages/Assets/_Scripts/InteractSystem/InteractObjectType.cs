@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InteractUIType : MonoBehaviour
+public class InteractObjectType : MonoBehaviour
 {
-    public static InteractUIType instance;
-    public enum UIType
+    public static InteractObjectType instance;
+    public enum ObjectType
     {
         Item,
         Object
     };
 
-    public UIType _uitype;
+    public ObjectType _objectType;
     public bool isClick = false;
     public bool isPlayerNearby = false;
 
@@ -29,6 +29,14 @@ public class InteractUIType : MonoBehaviour
 
         // isClick = isPlayerNearby ? true : false;
     }
+
+    // private void OnMouseUp()
+    // {
+    //     if (isPlayerNearby)
+    //     {
+    //         isClick = false;
+    //     }
+    // }
 
     private void OnTriggerEnter(Collider other)
     {
