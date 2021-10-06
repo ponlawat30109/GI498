@@ -39,7 +39,7 @@ public class ContainerHandler : MonoBehaviour
             currentTime += Time.deltaTime;
         }
 
-        if (Input.GetKeyDown(KeyCode.E) || (InteractUIType.instance.isClick && InteractUIType.instance._uitype == InteractUIType.UIType.Item))
+        if (Input.GetKeyDown(KeyCode.E) || (InteractUIType.instance.isClick && InteractUIType.instance._objectType == InteractUIType.UIType.Item))
         {
             FindClosestCollectableItem(collectableObjects);
             if (closestCollectableItem != null)
@@ -52,7 +52,7 @@ public class ContainerHandler : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.F) || (InteractUIType.instance.isClick && InteractUIType.instance._uitype == InteractUIType.UIType.Object))
+        if (Input.GetKeyDown(KeyCode.F) || (InteractUIType.instance.isClick && InteractUIType.instance._objectType == InteractUIType.UIType.Object))
         {
             FindClosestInteractableItem(interactableObjects);
             if (closestInteractableItem != null)

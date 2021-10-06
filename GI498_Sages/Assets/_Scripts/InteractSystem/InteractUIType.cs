@@ -20,11 +20,6 @@ public class InteractUIType : MonoBehaviour
         instance = this;
     }
 
-    private void Update()
-    {
-
-    }
-
     private void OnMouseDown()
     {
         if (isPlayerNearby)
