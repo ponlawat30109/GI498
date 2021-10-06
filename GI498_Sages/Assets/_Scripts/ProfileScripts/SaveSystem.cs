@@ -6,14 +6,14 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public static class SaveSystem
 {
-    public static void SavepPlayerProfile (PlayerProfile playerProfile)
+    public static void SavepPlayerProfile (PlayerProfile playerProfile, CustomModelManager customModelManager)
     {
         BinaryFormatter formatter = new BinaryFormatter();
         //string path = "C:/System/"
         string path = Application.persistentDataPath + "/player.fun";
         FileStream stream = new FileStream(path, FileMode.Create);
 
-        PlayerData data = new PlayerData(playerProfile);
+        PlayerData data = new PlayerData(playerProfile, customModelManager);
 
         formatter.Serialize(stream, data);
         stream.Close();
@@ -38,4 +38,17 @@ public static class SaveSystem
             return null;
         }
     }
+
+    //public static void SaveCustomModel()
+    //{
+    //    BinaryFormatter formatter = new BinaryFormatter();
+    //    //string path = "C:/System/"
+    //    string path = Application.persistentDataPath + "/player.fun";
+    //    FileStream stream = new FileStream(path, FileMode.Create);
+
+    //    PlayerData data = new PlayerData(playerProfile);
+
+    //    formatter.Serialize(stream, data);
+    //    stream.Close();
+    //}
 }

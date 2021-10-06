@@ -8,11 +8,13 @@ public class PlayerData
     public string playerName;
     public int exp;
     //public string rank;
+    public CustomData customData;
 
-    public PlayerData(PlayerProfile playerProfile)
+    public PlayerData(PlayerProfile playerProfile, CustomModelManager customModelManager)
     {
         playerName = playerProfile.playerName;
         exp = playerProfile.exp;
+        customData = customModelManager.SaveCustomData();
         //rank = JsonUtility.ToJson(playerProfile.rank);
     }
 

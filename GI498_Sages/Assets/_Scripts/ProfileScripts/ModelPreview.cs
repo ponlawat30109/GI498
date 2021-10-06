@@ -4,10 +4,35 @@ using UnityEngine;
 
 public class ModelPreview : MonoBehaviour
 {
+    public bool onProfile;
+    public bool onCustom;
+    private Quaternion defaulRotation;
+    private Quaternion lastRotation;
+    public float rotationSpeed = 3f;
 
-    // Update is called once per frame
+    private void Start()
+    {
+        onProfile = true;
+        onCustom = false;
+        defaulRotation = transform.rotation;
+    }
     void Update()
     {
-        transform.Rotate(0, 0.1f, 0);
+        if (onProfile)
+        {
+            onCustom = false;
+            transform.Rotate(0, 0.1f, 0);
+        }
+        else if (!onCustom) //profile = false, custom = false
+        {
+            onCustom = true;
+            lastRotation = transform.rotation;
+            transform.rotation = Quaternion.Lerp(transform.rotation, defaulRotation, Time.deltaTime * rotationSpeed);
+        }
+        else
+        {
+            transform.rotation = Quaternion.Lerp(transform.rotation, defaulRotation, Time.deltaTime * rotationSpeed);
+        }    
+        
     }
 }
