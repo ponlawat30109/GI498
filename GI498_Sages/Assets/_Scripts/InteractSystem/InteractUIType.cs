@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class InteractUIType : MonoBehaviour
 {
@@ -14,6 +13,7 @@ public class InteractUIType : MonoBehaviour
 
     public UIType _uitype;
     public bool isClick = false;
+    public bool isPlayerNearby = false;
 
     private void Awake()
     {
@@ -22,10 +22,32 @@ public class InteractUIType : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+
+    }
+
+    private void OnMouseDown()
+    {
+        if (isPlayerNearby)
         {
             isClick = true;
-            Debug.Log("Test");
+        }
+
+        // isClick = isPlayerNearby ? true : false;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            isPlayerNearby = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            isPlayerNearby = false;
         }
     }
 }

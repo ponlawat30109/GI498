@@ -23,7 +23,6 @@ namespace _Scripts.InventorySystem
 
         private void OnTriggerEnter(Collider other)
         {
-            // if (other.gameObject.tag == "Player")
             interactableCanvas.gameObject.SetActive(true);
         }
 
@@ -37,7 +36,6 @@ namespace _Scripts.InventorySystem
 
         private void OnTriggerExit(Collider other)
         {
-            // if (other.gameObject.tag == "Player")
             interactableCanvas.gameObject.SetActive(false);
         }
     }
