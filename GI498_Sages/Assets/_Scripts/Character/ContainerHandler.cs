@@ -16,10 +16,10 @@ public class ContainerHandler : MonoBehaviour
     public Transform holdingPosition;
     public GameObject currentHolding;
     public ItemObject holdingItem;
-    
+
     [SerializeField] private Item closestCollectableItem;
     [SerializeField] private Container closestInteractableItem;
-        
+
     public List<Item> collectableObjects = new List<Item>();
     public List<Container> interactableObjects = new List<Container>();
 
@@ -35,11 +35,11 @@ public class ContainerHandler : MonoBehaviour
                 ClearNull();
                 currentTime = 0;
             }
-            
+
             currentTime += Time.deltaTime;
         }
-        
-        if (Input.GetKeyDown(KeyCode.E) || (InteractUIType.instance.isClick && InteractUIType.instance._uitype == InteractUIType.UIType.Item))
+
+        if (Input.GetKeyDown(KeyCode.E)/* || (isClick && objType == InteractObjectType.ObjectType.Item)*/)
         {
             FindClosestCollectableItem(collectableObjects);
             if (closestCollectableItem != null)
@@ -52,13 +52,46 @@ public class ContainerHandler : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.F) || (InteractUIType.instance.isClick && InteractUIType.instance._uitype == InteractUIType.UIType.Object))
+        if (Input.GetMouseButton(0))
+        {
+            var isClick = InteractObjectType.instance.isClick;
+            var objType = InteractObjectType.instance._objectType;
+            if ((isClick && objType == InteractObjectType.ObjectType.Item))
+            {
+                FindClosestCollectableItem(collectableObjects);
+                if (closestCollectableItem != null)
+                {
+                    var target = closestCollectableItem.gameObject.GetComponent<ICollectableObject>();
+                    var inventory = Manager.Instance.playerManager.inventory;
+                    target?.CollectTo(inventory);
+                    SetHoldingItem(closestCollectableItem);
+                    Destroy(closestCollectableItem.gameObject);
+                }
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.F))
         {
             FindClosestInteractableItem(interactableObjects);
             if (closestInteractableItem != null)
             {
                 var target = closestInteractableItem.gameObject.GetComponent<IInteractableObject>();
                 target?.Interacted();
+            }
+        }
+
+        if (Input.GetMouseButton(0))
+        {
+            var isClick = InteractObjectType.instance.isClick;
+            var objType = InteractObjectType.instance._objectType;
+            if ((isClick && objType == InteractObjectType.ObjectType.Object))
+            {
+                FindClosestInteractableItem(interactableObjects);
+                if (closestInteractableItem != null)
+                {
+                    var target = closestInteractableItem.gameObject.GetComponent<IInteractableObject>();
+                    target?.Interacted();
+                }
             }
         }
     }
@@ -71,19 +104,19 @@ public class ContainerHandler : MonoBehaviour
             return;
             //ClearHoldingItemModel();
         }
-        
+
         //Show Food Model
         holdingItem = item.GetItem();
-        currentHolding = Instantiate(holdingItem.ingamePrefab,holdingPosition);
+        currentHolding = Instantiate(holdingItem.ingamePrefab, holdingPosition);
         currentHolding.transform.localPosition = Vector3.zero;
         currentHolding.transform.rotation = Quaternion.identity;
     }
 
     private void PlaceItem()
     {
-        
+
     }
-    
+
     private void ClearHoldingItemModel()
     {
         currentHolding = null;
@@ -94,16 +127,16 @@ public class ContainerHandler : MonoBehaviour
         Item objMin = null;
         float minDist = Mathf.Infinity;
         Vector3 currentPos = transform.position;
-            
+
         foreach (var t in toFindList)
         {
             if (t == null)
             {
                 continue;
             }
-                
+
             float dist = Vector3.Distance(t.transform.position, currentPos);
-                
+
             if (dist < minDist)
             {
                 objMin = t;
@@ -113,22 +146,22 @@ public class ContainerHandler : MonoBehaviour
 
         closestCollectableItem = objMin;
     }
-    
+
     private void FindClosestInteractableItem(List<Container> toFindList)
     {
         Container objMin = null;
         float minDist = Mathf.Infinity;
         Vector3 currentPos = transform.position;
-            
+
         foreach (var t in toFindList)
         {
             if (t == null)
             {
                 continue;
             }
-                
+
             float dist = Vector3.Distance(t.transform.position, currentPos);
-                
+
             if (dist < minDist)
             {
                 objMin = t;
@@ -138,7 +171,7 @@ public class ContainerHandler : MonoBehaviour
 
         closestInteractableItem = objMin;
     }
-    
+
     private bool IsCollectObjectsInList(Item target)
     {
         foreach (var obj in collectableObjects)
@@ -151,7 +184,7 @@ public class ContainerHandler : MonoBehaviour
 
         return false;
     }
-        
+
     private bool IsInteractObjectsInList(Container target)
     {
         foreach (var obj in interactableObjects)
@@ -175,7 +208,7 @@ public class ContainerHandler : MonoBehaviour
                 collectableObjects.RemoveAt(index);
             }
         }
-            
+
         foreach (var obj in interactableObjects)
         {
             if (obj == null)
@@ -185,15 +218,15 @@ public class ContainerHandler : MonoBehaviour
             }
         }
     }
-    
-    
+
+
     private void OnTriggerEnter(Collider other)
     {
 
         if (other.GetComponent<Item>())
         {
             var itemForAddToList = other.GetComponent<Item>();
-            
+
             if (IsCollectObjectsInList(itemForAddToList) == false)
             {
                 Debug.Log($"Add {itemForAddToList} to List");
@@ -204,7 +237,7 @@ public class ContainerHandler : MonoBehaviour
         if (other.CompareTag("InteractableObject"))
         {
             var interactForAddToList = other.GetComponent<Container>();
-            
+
             if (IsInteractObjectsInList(interactForAddToList) == false)
             {
                 Debug.Log($"Add {interactForAddToList} to List");
@@ -212,7 +245,7 @@ public class ContainerHandler : MonoBehaviour
             }
         }
     }
-    
+
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag($"CollectableItem"))
@@ -220,7 +253,7 @@ public class ContainerHandler : MonoBehaviour
             var index = collectableObjects.FindIndex(x => x.Equals(other.gameObject.GetComponent<Item>()));
             collectableObjects.RemoveAt(index);
         }
-            
+
         if (other.CompareTag($"InteractableObject"))
         {
             var index = interactableObjects.FindIndex(x => x.Equals(other.gameObject.GetComponent<Container>()));
@@ -232,11 +265,11 @@ public class ContainerHandler : MonoBehaviour
     {
         // Save or somethings...
         var playerInventory = Manager.Instance.playerManager.inventory;
-        
+
         if (playerInventory.Container != null)
         {
             playerInventory.Container.Clear();
         }
-        
+
     }
 }

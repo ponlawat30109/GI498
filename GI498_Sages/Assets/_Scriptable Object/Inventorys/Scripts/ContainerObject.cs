@@ -7,21 +7,21 @@ using UnityEngine;
 public class ContainerObject : ScriptableObject
 {
     public List<ContainerSlot> Container = new List<ContainerSlot>();
-    
+
     private int maxSlot;
     private bool isContainerStackable;
 
 
-    public void InitializeContainerObject(int _maxSlot,bool isStackable)
+    public void InitializeContainerObject(int _maxSlot, bool isStackable)
     {
         maxSlot = _maxSlot;
         isContainerStackable = isStackable;
     }
-    
+
     public bool AddItem(ItemObject itemToAdd)
     {
         bool successful = false;
-        
+
         if (!HasFreeSpace())
         {
             return false;
@@ -51,7 +51,7 @@ public class ContainerObject : ScriptableObject
     public bool RemoveItem(ItemObject itemToRemove)
     {
         var successful = false;
-        
+
         if (HasItem(itemToRemove))
         {
             var index = Container.FindIndex(x => x.item.Equals(itemToRemove));
@@ -66,11 +66,11 @@ public class ContainerObject : ScriptableObject
         return successful;
     }
 
-    
+
     public bool HasItem(ItemObject itemToCheck)
     {
         var hasItem = false;
-        
+
         for (int i = 0; i < Container.Count; i++)
         {
             if (Container[i].item == itemToCheck) // If has item
@@ -97,10 +97,10 @@ public class ContainerObject : ScriptableObject
                 return false;
             }
         }
-        
+
         return true;
     }
-    
+
     public bool IsLimitedSlot()
     {
         if (maxSlot <= 0)
@@ -115,7 +115,7 @@ public class ContainerObject : ScriptableObject
     {
         return Container.Count;
     }
-    
+
 }
 
 [Serializable]
