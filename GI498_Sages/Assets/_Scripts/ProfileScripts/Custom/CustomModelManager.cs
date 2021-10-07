@@ -47,18 +47,11 @@ public class CustomModelManager : MonoBehaviour
     private GameObject[] hats;
     private int hatIndex = 0;
 
-    private void Awake()
-    {
-        if (ModelComponent.Instance == null)
-        {
-            var player = Instantiate(playerPref);
-            ModelComponent.Instance = player.GetComponent<ModelComponent>();
-        }
-        ModelComponent.Instance.GetModel(out bodys, out hairs, out faces, out outfits, out hats);
-    }
 
     private void Start()
     {
+        ModelComponent.Instance.GetModel(out bodys, out hairs, out faces, out outfits, out hats);
+
         ConfirmExitCustom.onClick.AddListener(() => LoadCustomData());
 
         bodySkinMatSelectLeft.onClick.AddListener(() => SetBodySkinMat(-1));
