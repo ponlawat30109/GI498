@@ -11,6 +11,7 @@ public class ProfileSceneController : MonoBehaviour
 
     [Header("Model")]
     [SerializeField] private Animator cameraModelViewer;
+    [SerializeField] private ModelPreview cameraModelViewerGroup;
 
     [Header("Custom")]
     [SerializeField] private Button quitCustomButton;
@@ -37,33 +38,31 @@ public class ProfileSceneController : MonoBehaviour
         Debug.LogWarning("Fon : Don't forget to coding [change scene to Main Menu Scene] ให้เหมือนนนท์");
         Debug.LogWarning("Fon : Don't forget to coding [change scene to Game Play Scene] ให้เหมือนนนท์");
 
-        Debug.Assert(mainUICanvas != null, "Profile UI: mainUICanvas is null");
+        Debug.Assert(mainUICanvas != null, "Profile UI (Canvas): mainUICanvas is null");
         //Model
-        Debug.Assert(cameraModelViewer != null, "Profile UI: ModelViewer is null");
-        
+        Debug.Assert(cameraModelViewer != null, "Profile UI (Canvas): ModelViewer is null");
+        Debug.Assert(cameraModelViewerGroup != null, "Profile UI (Canvas): cameraModelViewerGroup is null");
+
         //Custom
-        Debug.Assert(quitCustomButton != null, "Profile UI: quitCustomButton is null");
-        Debug.Assert(alertUnsavePanel != null, "Profile UI: alertUnsavePanel is null");
-        Debug.Assert(alertYesButton != null, "Profile UI: alertYesButton is null");
-        Debug.Assert(alertNoButton != null, "Profile UI: alertNoButton is null");
+        Debug.Assert(quitCustomButton != null, "Profile UI (Canvas): quitCustomButton is null");
+        Debug.Assert(alertUnsavePanel != null, "Profile UI (Canvas): alertUnsavePanel is null");
+        Debug.Assert(alertYesButton != null, "Profile UI (Canvas): alertYesButton is null");
+        Debug.Assert(alertNoButton != null, "Profile UI (Canvas): alertNoButton is null");
         //Information
-        Debug.Assert(informationPanel != null, "Profile UI: informationPanel is null");
-        Debug.Assert(informationButton != null, "Profile UI: informationButton is null");
-        Debug.Assert(informationCloseButton != null, "Profile UI: informationCloseButton is null");
+        Debug.Assert(informationPanel != null, "Profile UI (Canvas): informationPanel is null");
+        Debug.Assert(informationButton != null, "Profile UI (Canvas): informationButton is null");
+        Debug.Assert(informationCloseButton != null, "Profile UI (Canvas): informationCloseButton is null");
         //ChangeScene
-        Debug.Assert(openKitchenOButton != null, "Profile UI: openKitchenOButton is null");
-        Debug.Assert(customCharacterButton != null, "Profile UI: customCharacterButton is null");
-        Debug.Assert(backButton != null, "Profile UI: backButton is null");
+        Debug.Assert(openKitchenOButton != null, "Profile UI (Canvas): openKitchenOButton is null");
+        Debug.Assert(customCharacterButton != null, "Profile UI (Canvas): customCharacterButton is null");
+        Debug.Assert(backButton != null, "Profile UI (Canvas): backButton is null");
 
         //buttonRank.onClick.AddListener()
 
 
         //Custom Button
         quitCustomButton.onClick.AddListener(() => alertUnsavePanel.SetActive(true));
-        alertYesButton.onClick.AddListener(() => {
-            ChangeSceneToProfileScene();
-            Debug.Log("Fon : ยังบ่ได๋เซฟเด้อค่ะ");
-            });
+        alertYesButton.onClick.AddListener(ChangeSceneToProfileScene);
         alertNoButton.onClick.AddListener(() => alertUnsavePanel.SetActive(false));
 
         //Information Button
@@ -104,6 +103,7 @@ public class ProfileSceneController : MonoBehaviour
     {
         cameraModelViewer.SetTrigger("Custom");
         mainUICanvas.SetTrigger("Custom");
+        cameraModelViewerGroup.onProfile = false;
     }
 
     private void ChangeSceneToProfileScene()
@@ -112,5 +112,6 @@ public class ProfileSceneController : MonoBehaviour
         alertUnsavePanel.SetActive(false);
         cameraModelViewer.SetTrigger("Profile");
         mainUICanvas.SetTrigger("Profile");
+        cameraModelViewerGroup.onProfile = true;
     }
 }

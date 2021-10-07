@@ -21,6 +21,7 @@ public class PlayerProfile : MonoBehaviour
 
     [SerializeField] private TMP_InputField playerNameInput;
     [SerializeField] private Button saveProfileButton;
+    [SerializeField] private CustomModelManager customModelManager;
 
     void Start()
     {
@@ -32,7 +33,7 @@ public class PlayerProfile : MonoBehaviour
     public void SaveProfile()
     {
         playerName = playerNameInput.text;
-        SaveSystem.SavepPlayerProfile(this);
+        SaveSystem.SavepPlayerProfile(this, customModelManager);
     }
 
     public void LoadProfile()
@@ -45,6 +46,7 @@ public class PlayerProfile : MonoBehaviour
             playerNameInput.text = playerName;
             exp = data.exp;
             LoadRank();
+            customModelManager.LoadCustomData(data.customData);
         }
         else
         {
