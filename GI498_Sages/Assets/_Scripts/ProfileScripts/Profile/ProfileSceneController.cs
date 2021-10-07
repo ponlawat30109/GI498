@@ -62,10 +62,7 @@ public class ProfileSceneController : MonoBehaviour
 
         //Custom Button
         quitCustomButton.onClick.AddListener(() => alertUnsavePanel.SetActive(true));
-        alertYesButton.onClick.AddListener(() => {
-            ChangeSceneToProfileScene();
-            Debug.Log("Fon : ยังบ่ได๋เซฟเด้อค่ะ");
-            });
+        alertYesButton.onClick.AddListener(ChangeSceneToProfileScene);
         alertNoButton.onClick.AddListener(() => alertUnsavePanel.SetActive(false));
 
         //Information Button

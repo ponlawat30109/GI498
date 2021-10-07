@@ -3736,7 +3736,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8022196997241627727, guid: c1938f40a5f57ab4c94e78c0591606ff, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7175914790987368181, guid: c1938f40a5f57ab4c94e78c0591606ff, type: 3}
@@ -5130,9 +5130,9 @@ RectTransform:
   m_Father: {fileID: 2054560250}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 10, y: -44.425}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 10, y: 0}
   m_SizeDelta: {x: 0, y: 82.24}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1308430862

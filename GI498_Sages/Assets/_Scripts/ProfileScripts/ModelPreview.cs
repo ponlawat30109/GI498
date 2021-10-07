@@ -29,7 +29,7 @@ public class ModelPreview : MonoBehaviour
             lastRotation = transform.rotation;
             transform.rotation = Quaternion.Lerp(transform.rotation, defaulRotation, Time.deltaTime * rotationSpeed);
         }
-        else
+        else //profile = false, custom = true
         {
             transform.rotation = Quaternion.Lerp(transform.rotation, defaulRotation, Time.deltaTime * rotationSpeed);
         }    

@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CustomModel : MonoBehaviour
+public class ModelComponent : MonoBehaviour
 {
-    public static CustomModel Instance;
+    public static ModelComponent Instance;
     [SerializeField] private GameObject[] bodys;
     [SerializeField] private GameObject[] hairs;
     [SerializeField] private GameObject[] faces;

@@ -46,6 +46,7 @@ public class PlayerProfile : MonoBehaviour
             playerNameInput.text = playerName;
             exp = data.exp;
             LoadRank();
+            customModelManager.LoadCustomData(data.customData);
         }
         else
         {
