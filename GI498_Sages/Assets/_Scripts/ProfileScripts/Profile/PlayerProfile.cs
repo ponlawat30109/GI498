@@ -25,9 +25,11 @@ public class PlayerProfile : MonoBehaviour
 
     void Start()
     {
+        saveProfileButton.onClick.AddListener(SaveProfile);
         LoadProfile();
         UpdateExp();
-        saveProfileButton.onClick.AddListener(SaveProfile);
+
+        Debug.Log("PlayerProfile Start: LoadProfile");
     }
 
     public void SaveProfile()
@@ -38,6 +40,7 @@ public class PlayerProfile : MonoBehaviour
 
     public void LoadProfile()
     {
+        
         PlayerData data = SaveSystem.LoadPlayerProfile();
 
         if (data != null)

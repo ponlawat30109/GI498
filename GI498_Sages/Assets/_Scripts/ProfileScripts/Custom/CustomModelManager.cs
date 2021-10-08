@@ -50,7 +50,6 @@ public class CustomModelManager : MonoBehaviour
 
     private void Start()
     {
-        ModelComponent.Instance.GetModel(out bodys, out hairs, out faces, out outfits, out hats);
 
         ConfirmExitCustom.onClick.AddListener(() => LoadCustomData());
 
@@ -71,6 +70,7 @@ public class CustomModelManager : MonoBehaviour
 
         hatSelectLeft.onClick.AddListener(() => SetHatActive(-1));
         hatSelectRight.onClick.AddListener(() => SetHatActive(1));
+
     }
 
     private void SetMatMultiObj(GameObject[] objArray, Material mat)
@@ -82,6 +82,7 @@ public class CustomModelManager : MonoBehaviour
         }
     }
 
+    #region Set Mat or Set Active
     private void SetBodySkinMat(int selector)
     {
         if (bodys == null || mats == null)
@@ -287,6 +288,10 @@ public class CustomModelManager : MonoBehaviour
         hats[hatIndex].SetActive(true);
     }
 
+    #endregion
+
+    #region SaveLoad
+
     public CustomData SaveCustomData()
     {
         if(customData == null)
@@ -315,6 +320,13 @@ public class CustomModelManager : MonoBehaviour
         {
             customData = new CustomData();
         }
+
+        if(ModelComponent.Instance == null)
+        {
+            Instantiate(playerPref);
+        }
+        ModelComponent.Instance.GetModel(out bodys, out hairs, out faces, out outfits, out hats);
+        LoadCustomData();
     }
 
     private void LoadCustomData()
@@ -326,15 +338,5 @@ public class CustomModelManager : MonoBehaviour
         DirectSetOutfitActive(customData.outfit);
         DirectSetHatActive(customData.hat);
     }
-
-    //public void GetPlayerModel(PlayerHolder playerHolder)
-    //{
-    //    CustomModel model = playerHolder.playerObj.GetComponent<CustomModel>();
-    //    hairs = model.hairs;
-    //    faces = model.faces;
-    //    outfits = model.outfits;
-    //    hats = model.hats;
-    //}
-
-
+    #endregion
 }
