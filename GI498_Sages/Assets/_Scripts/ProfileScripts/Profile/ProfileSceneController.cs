@@ -7,13 +7,16 @@ using UnityEngine.SceneManagement;
 
 public class ProfileSceneController : MonoBehaviour
 {
-    [SerializeField] private Animator mainUICanvas;
+    [SerializeField] private Animator mainPanelAnimator;
+    [SerializeField] private Animator addPanelAnimator;
 
     [Header("Model")]
     [SerializeField] private Animator cameraModelViewer;
     [SerializeField] private ModelPreview cameraModelViewerGroup;
 
     [Header("Custom")]
+    [SerializeField] private Button saveCustomButton;
+    [SerializeField] private GameObject savedFeedbackPanel;
     [SerializeField] private Button quitCustomButton;
     [SerializeField] private GameObject alertUnsavePanel;
     [SerializeField] private Button alertYesButton;
@@ -38,12 +41,13 @@ public class ProfileSceneController : MonoBehaviour
         Debug.LogWarning("Fon : Don't forget to coding [change scene to Main Menu Scene] ให้เหมือนนนท์");
         Debug.LogWarning("Fon : Don't forget to coding [change scene to Game Play Scene] ให้เหมือนนนท์");
 
-        Debug.Assert(mainUICanvas != null, "Profile UI (Canvas): mainUICanvas is null");
+        Debug.Assert(mainPanelAnimator != null, "Profile UI (Canvas): mainUICanvas is null");
         //Model
         Debug.Assert(cameraModelViewer != null, "Profile UI (Canvas): ModelViewer is null");
         Debug.Assert(cameraModelViewerGroup != null, "Profile UI (Canvas): cameraModelViewerGroup is null");
 
         //Custom
+        Debug.Assert(savedFeedbackPanel != null, "Profile UI (Canvas): savedFeedbackPanel is null");
         Debug.Assert(quitCustomButton != null, "Profile UI (Canvas): quitCustomButton is null");
         Debug.Assert(alertUnsavePanel != null, "Profile UI (Canvas): alertUnsavePanel is null");
         Debug.Assert(alertYesButton != null, "Profile UI (Canvas): alertYesButton is null");
@@ -61,6 +65,7 @@ public class ProfileSceneController : MonoBehaviour
 
 
         //Custom Button
+        saveCustomButton.onClick.AddListener(SavedFeedback);
         quitCustomButton.onClick.AddListener(() => alertUnsavePanel.SetActive(true));
         alertYesButton.onClick.AddListener(ChangeSceneToProfileScene);
         alertNoButton.onClick.AddListener(() => alertUnsavePanel.SetActive(false));
@@ -74,6 +79,7 @@ public class ProfileSceneController : MonoBehaviour
         backButton.onClick.AddListener(ChangeSceneToToMainMenuScene);
 
         informationPanel.SetActive(false);
+        savedFeedbackPanel.SetActive(false);
         alertUnsavePanel.SetActive(false);
     }
 
@@ -102,7 +108,7 @@ public class ProfileSceneController : MonoBehaviour
     private void ChangeSceneToCustomCharacterScene()
     {
         cameraModelViewer.SetTrigger("Custom");
-        mainUICanvas.SetTrigger("Custom");
+        mainPanelAnimator.SetTrigger("Custom");
         cameraModelViewerGroup.onProfile = false;
     }
 
@@ -111,7 +117,14 @@ public class ProfileSceneController : MonoBehaviour
         Debug.Log("ChangeSceneToProfileScene");
         alertUnsavePanel.SetActive(false);
         cameraModelViewer.SetTrigger("Profile");
-        mainUICanvas.SetTrigger("Profile");
+        mainPanelAnimator.SetTrigger("Profile");
         cameraModelViewerGroup.onProfile = true;
+    }
+
+    private void SavedFeedback()
+    {
+        //savedFeedbackPanel.SetActive(true);
+        //mainPanelAnimator.SetTrigger("Saved");
+        addPanelAnimator.SetTrigger("Saved");
     }
 }
