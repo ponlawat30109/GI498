@@ -43,11 +43,14 @@ public class IngredientInfoManager : MonoBehaviour
     }
 
 
-    public void OpenIngredientInfo(/*ingredient class*/)
+    public void OpenIngredientInfo(IngredientObject ingredient)
     {
         //name = recipe.name;
         //description = recipe.description;
         //image.sprite = recipe.image;
+        ingredientName.text = ingredient.name;
+        description.text = ingredient.description;
+        image.sprite = ingredient.itemIcon;
         panel.SetActive(true);
     }
 

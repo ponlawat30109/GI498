@@ -102,6 +102,8 @@ public class CustomModelManager : MonoBehaviour
     {
         if (bodys == null || mats == null)
         {
+            if (bodys == null) Debug.Log("bodys == null");
+            if (mats == null) Debug.Log("mats == null");
             Debug.Log("DirectSetBodySkinMat Error: no body or no mat");
             return;
         }
@@ -118,7 +120,7 @@ public class CustomModelManager : MonoBehaviour
     {
         if (hairs == null)
         {
-            Debug.Log("SetBodySkinMat Error: no hair");
+            Debug.Log("SetHairActive Error: no hair");
             return;
         }
         hairs[hairIndex].SetActive(false);
@@ -134,7 +136,7 @@ public class CustomModelManager : MonoBehaviour
     {
         if (hairs == null)
         {
-            Debug.Log("SetBodySkinMat Error: no hair");
+            Debug.Log("DirectSetHairActive Error: no hair");
             return;
         }
         else if (selector < 0 || selector >= hairs.Length)
@@ -152,7 +154,7 @@ public class CustomModelManager : MonoBehaviour
     {
         if (hairs == null || mats == null)
         {
-            Debug.Log("SetBodySkinMat Error: no hair or no mat");
+            Debug.Log("SetHairMat Error: no hair or no mat");
             return;
         }
 
@@ -177,7 +179,7 @@ public class CustomModelManager : MonoBehaviour
         }
         else if (selector < 0 || selector >= mats.Length)
         {
-            Debug.Log("DirectSetBodySkinMat Error: invalid mat index");
+            Debug.Log("DirectSetHairMat Error: invalid mat index");
             return;
         }
         hairMatIndex = selector;
@@ -204,7 +206,7 @@ public class CustomModelManager : MonoBehaviour
     {
         if (faces == null)
         {
-            Debug.Log("SetBodySkinMat Error: no hair");
+            Debug.Log("DirectSetFaceActive Error: no faces");
             return;
         }
         else if (selector < 0 || selector >= faces.Length)
@@ -238,7 +240,7 @@ public class CustomModelManager : MonoBehaviour
     {
         if (outfits == null)
         {
-            Debug.Log("SetBodySkinMat Error: no hair");
+            Debug.Log("DirectSetOutfitActive Error: no outfits");
             return;
         }
         else if (selector < 0 || selector >= outfits.Length)
@@ -256,7 +258,7 @@ public class CustomModelManager : MonoBehaviour
     {
         if (hats == null)
         {
-            Debug.Log("SetOutfitActive Error: no outfits");
+            Debug.Log("SetHatActive Error: no hats");
             return;
         }
         hats[hatIndex].SetActive(false);
@@ -274,7 +276,7 @@ public class CustomModelManager : MonoBehaviour
     {
         if (hats == null)
         {
-            Debug.Log("SetBodySkinMat Error: no hair");
+            Debug.Log("DirectSetHatActive Error: no hats");
             return;
         }
         else if (selector < 0 || selector >= hats.Length)
@@ -314,7 +316,6 @@ public class CustomModelManager : MonoBehaviour
         if (data != null)
         {
             customData = data;
-            LoadCustomData();
         }
         else
         {
