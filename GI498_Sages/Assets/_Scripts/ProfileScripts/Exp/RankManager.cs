@@ -31,6 +31,8 @@ public class RankManager : MonoBehaviour
     [SerializeField] private Button chefRankCloseButton;
     [SerializeField] private Button blankAreaExit;
 
+    [Header("Player Rank Holder")]
+    [SerializeField] private RankSystem playerRankHolder;
     [SerializeField] private List<Rank> rankList;
     private List<RankBox> rankBoxList = new List<RankBox>();
 
@@ -127,7 +129,7 @@ public class RankManager : MonoBehaviour
 
     public void InitialRankListPanel(int currentExp)
     {
-
+        
         for (int i = 0; i < rankList.Count; i++)
         {
             var targetRank = rankList[i];
