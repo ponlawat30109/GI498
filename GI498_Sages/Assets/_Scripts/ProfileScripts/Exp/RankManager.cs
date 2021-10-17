@@ -33,7 +33,7 @@ public class RankManager : MonoBehaviour
 
     [Header("Player Rank Holder")]
     [SerializeField] private RankSystem playerRankHolder;
-    [SerializeField] private List<Rank> rankList;
+    //[SerializeField] private List<Rank> rankList;
     private List<RankBox> rankBoxList = new List<RankBox>();
 
     private int currentRankIndex = -1; //default for check
@@ -129,7 +129,7 @@ public class RankManager : MonoBehaviour
 
     public void InitialRankListPanel(int currentExp)
     {
-        
+        var rankList = playerRankHolder.RankList;
         for (int i = 0; i < rankList.Count; i++)
         {
             var targetRank = rankList[i];
@@ -167,6 +167,7 @@ public class RankManager : MonoBehaviour
 
     public void SetCurrentRankVisual()
     {
+        var rankList = playerRankHolder.RankList;
         var currentRank = rankList[currentRankIndex];
         rankNameText.SetText(currentRank.rankName);
         rankImage.sprite = currentRank.sprite;
