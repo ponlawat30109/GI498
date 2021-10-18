@@ -182,4 +182,9 @@ public class RankManager : MonoBehaviour
         rankBox.SetDetail(rank, isActive);
         rankBoxList.Add(rankBox);
     }
+
+    private void OnApplicationQuit()
+    {
+        playerRankHolder.ClearList();
+    }
 }
