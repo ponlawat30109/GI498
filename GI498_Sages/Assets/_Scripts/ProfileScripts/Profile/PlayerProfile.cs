@@ -67,14 +67,18 @@ public class PlayerProfile : MonoBehaviour
         }
         else
         {
+            data = new PlayerData();
             playerName = "Player Name";
+            playerNameInput.text = playerName;
             exp = 0;
+            customModelManager.LoadCustomData(data.customData);
             //LoadRank();
         }
     }
 
     private void OnApplicationQuit()
     {
+        PlayerPrefs.SetInt("OnSetRankHolder", 0);
         SaveProfile();
     }
 

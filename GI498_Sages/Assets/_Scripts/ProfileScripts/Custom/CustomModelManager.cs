@@ -320,6 +320,12 @@ public class CustomModelManager : MonoBehaviour
         else
         {
             customData = new CustomData();
+            customData.bodySkin = 0;
+            customData.hair = 0;
+            customData.hairColor = 0;
+            customData.face = 0;
+            customData.outfit = 0;
+            customData.hat = 0;
         }
 
         if(ModelComponent.Instance == null)

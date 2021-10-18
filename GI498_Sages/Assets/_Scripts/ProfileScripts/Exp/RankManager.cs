@@ -40,15 +40,6 @@ public class RankManager : MonoBehaviour
     private int gainExp = -1;
     private int currentExp = -1;
 
-    //[SerializeField] private List<FoodObject> availableFoodList
-    //[SerializeField] private List<IngredientObject> availableIngredientList
-
-    //[SerializeField] private Button buttonRank;
-    //[SerializeField] private Slider sliderEXP;
-    //Player Profile
-    //private int playerEXP;
-    //private int gainEXP; //EXP from the lastest game
-
     private void Awake()
     {
         if (Instance == null)
@@ -71,6 +62,8 @@ public class RankManager : MonoBehaviour
         blankAreaExit.onClick.AddListener(() => rankListPanel.SetActive(false));
 
         rankListPanel.SetActive(false);
+
+        playerRankHolder.InitialHolder();
     }
 
     public void UpdateExp(int _currentExp, int _gainExp)
@@ -98,6 +91,7 @@ public class RankManager : MonoBehaviour
 
     private IEnumerator SliderAnimation()
     {
+        Debug.Log("Coroutine Slider Animation");
         var newExp = currentExp + gainExp;
         WaitForSeconds Wait = new WaitForSeconds(1f / countFPS);
         int previousValue = Mathf.CeilToInt(expSlider.value);
@@ -144,8 +138,10 @@ public class RankManager : MonoBehaviour
             }
             else
             {
-                //availableFoodList.add(rankList.newRecipe)
-                //availableIngredientList.add(rankList.newRecipe)
+                if(targetRank.newRecipe)
+                    playerRankHolder.AddFoodList(targetRank.newRecipe);
+                if(targetRank.newIngredient)
+                    playerRankHolder.AddIngredientList(targetRank.newIngredient);
                 SetRankBox(targetRank, true);
             }
         }

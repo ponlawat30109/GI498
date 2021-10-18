@@ -17,27 +17,33 @@ public class RankSystem : ScriptableObject
 
     [Header ("Base Element")]
     [SerializeField] private List<FoodObject> baseFoodList = new List<FoodObject>();
-    public List<FoodObject> BaseFoodList
-    {
-        get
-        {
-            return baseFoodList;
-        }
-    }
     [SerializeField] private List<IngredientObject> baseIngredientList = new List<IngredientObject>();
-    public List<IngredientObject> BaseIngerdientList
+
+    [Header("Rank Element")]
+    [SerializeField] private List<FoodObject> foodList = new List<FoodObject>(); //Food from player rank
+    public List<FoodObject> FoodList
     {
         get
         {
-            return baseIngredientList;
+            return foodList;
         }
     }
-
-    private List<FoodObject> foodList = new List<FoodObject>(); //Food from player rank
-    private List<IngredientObject> ingredientList = new List<IngredientObject>(); //Ingredient from player rank
+    [SerializeField] private List<IngredientObject> ingredientList = new List<IngredientObject>(); //Ingredient from player rank
+    public List<IngredientObject> IngredientList
+    {
+        get
+        {
+            return ingredientList;
+        }
+    }
 
     public void InitialHolder()
     {
+        if(PlayerPrefs.GetInt("OnSetRankHolder",0) == 0)
+        {
+            return;
+        }
+        PlayerPrefs.SetInt("OnSetRankHolder", 1);
         foodList.Clear();
         ingredientList.Clear();
         foreach (FoodObject food in baseFoodList)
@@ -52,11 +58,13 @@ public class RankSystem : ScriptableObject
 
     public void AddFoodList(FoodObject food)
     {
-        foodList.Add(food);
+        if (!foodList.Contains(food))
+            foodList.Add(food);
     }
 
     public void AddIngredientList(IngredientObject ingredient)
     {
-        ingredientList.Add(ingredient);
+        if (!ingredientList.Contains(ingredient))
+            ingredientList.Add(ingredient);
     }
 }
