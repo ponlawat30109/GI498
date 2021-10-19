@@ -28,24 +28,19 @@ MonoBehaviour:
     minExperience: 200
     newRecipe: {fileID: 0}
     newIngredient: {fileID: 11400000, guid: a1b2263d34376354ca0becc4dd9e927a, type: 2}
-  - rankName: Golden Egg
+  - rankName: Diamond Egg
     sprite: {fileID: 0}
     minExperience: 300
     newRecipe: {fileID: 0}
     newIngredient: {fileID: 0}
-  - rankName: Diamond Egg
+  - rankName: Platinum Egg
     sprite: {fileID: 0}
     minExperience: 400
     newRecipe: {fileID: 0}
     newIngredient: {fileID: 0}
-  - rankName: Platinum Egg
-    sprite: {fileID: 0}
-    minExperience: 500
-    newRecipe: {fileID: 0}
-    newIngredient: {fileID: 0}
   - rankName: Star Platinum Egg
     sprite: {fileID: 0}
-    minExperience: 600
+    minExperience: 500
     newRecipe: {fileID: 0}
     newIngredient: {fileID: 0}
   baseFoodList:
@@ -54,9 +49,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3016351532d3d8e41afdeb9eb3554655, type: 2}
   - {fileID: 11400000, guid: c350c3817bb7c414a90b27386e68d31d, type: 2}
   - {fileID: 11400000, guid: 722f6f1644823524a908b68a0bf0ccfb, type: 2}
-  foodList:
-  - {fileID: 11400000, guid: 3ea755e8d17177e459767eda83f3ca8b, type: 2}
-  ingredientList:
-  - {fileID: 11400000, guid: 3016351532d3d8e41afdeb9eb3554655, type: 2}
-  - {fileID: 11400000, guid: c350c3817bb7c414a90b27386e68d31d, type: 2}
-  - {fileID: 11400000, guid: 722f6f1644823524a908b68a0bf0ccfb, type: 2}
+  foodList: []
+  ingredientList: []

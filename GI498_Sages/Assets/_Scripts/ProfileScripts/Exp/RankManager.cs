@@ -125,6 +125,7 @@ public class RankManager : MonoBehaviour
 
     public void InitialRankListPanel(int currentExp)
     {
+        expSlider.maxValue = 0;
         playerRankHolder.InitialHolder();
         var rankList = playerRankHolder.RankList;
         for (int i = 0; i < rankList.Count; i++)
@@ -162,6 +163,12 @@ public class RankManager : MonoBehaviour
         currentRankIndex++;
         SetCurrentRankVisual();
         rankImage.GetComponent<Animator>().SetTrigger("RankUp");
+
+        var targetRank = playerRankHolder.RankList[currentRankIndex];
+        if (targetRank.newRecipe != null)
+            playerRankHolder.AddFoodList(targetRank.newRecipe);
+        if (targetRank.newIngredient != null)
+            playerRankHolder.AddIngredientList(targetRank.newIngredient);
     }
 
     public void SetCurrentRankVisual()
@@ -201,4 +208,5 @@ public class RankManager : MonoBehaviour
     {
         playerRankHolder.ClearList();
     }
+
 }

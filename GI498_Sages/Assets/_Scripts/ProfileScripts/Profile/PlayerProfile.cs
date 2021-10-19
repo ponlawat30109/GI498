@@ -30,7 +30,7 @@ public class PlayerProfile : MonoBehaviour
     {
         saveProfileButton.onClick.AddListener(SaveProfile);
         LoadProfile();
-        RankManager.Instance.InitialRankListPanel(exp);
+        
         GetPlayerPrefExp();
     }
 
@@ -54,7 +54,7 @@ public class PlayerProfile : MonoBehaviour
 
     public void LoadProfile()
     {
-        PlayerData data = SaveSystem.LoadPlayerProfile();
+        var data = SaveSystem.LoadPlayerProfile();
 
         if (data != null)
         {
@@ -63,17 +63,24 @@ public class PlayerProfile : MonoBehaviour
             exp = data.exp;
             //LoadRank();
             customModelManager.LoadCustomData(data.customData);
+            RankManager.Instance.InitialRankListPanel(exp);
 
         }
         else
         {
-            data = new PlayerData();
-            playerName = "Player Name";
-            playerNameInput.text = playerName;
-            exp = 0;
-            customModelManager.LoadCustomData(data.customData);
-            //LoadRank();
+            ResetProfile();
         }
+    }
+
+    public void ResetProfile()
+    {
+        Debug.Log("Reset");
+        PlayerData data = new PlayerData();
+        playerName = "Player Name";
+        playerNameInput.text = playerName;
+        exp = 0;
+        customModelManager.LoadCustomData(data.customData);
+        RankManager.Instance.InitialRankListPanel(exp);
     }
 
     private void OnApplicationQuit()
