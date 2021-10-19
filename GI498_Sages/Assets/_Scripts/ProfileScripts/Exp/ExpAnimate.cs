@@ -15,17 +15,17 @@ public class ExpAnimate : MonoBehaviour
 
     public void SetXP(int xp)
     {
-        //XPText.SetText(xp.ToString("N0"));
         XPText.text = xp.ToString("N0");
-        Debug.Log("SetText");
     }
 
+    public void SliderUpdate()
+    {
+        RankManager.Instance.SliderUpdate();
+    }
 
     public void EndAnimation()
     {
-        Debug.Log("EndAnimation");
-        RankManager.Instance.SliderUpdate();
-        //Destroy(this);
+        Destroy(gameObject);
     }
 
 

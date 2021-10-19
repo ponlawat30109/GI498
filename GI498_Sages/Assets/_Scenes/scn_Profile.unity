@@ -1278,13 +1278,13 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 868444017}
-  m_Father: {fileID: 283903272}
-  m_RootOrder: 1
+  m_Father: {fileID: 2040366241}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 270, y: 430}
+  m_SizeDelta: {x: -20, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &173165733
 MonoBehaviour:
@@ -1480,7 +1480,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2040366241}
-  - {fileID: 173165732}
   m_Father: {fileID: 2015348887}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2077,6 +2076,81 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 430798445}
+  m_CullTransparentMesh: 1
+--- !u!1 &447935157
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 447935158}
+  - component: {fileID: 447935160}
+  - component: {fileID: 447935159}
+  m_Layer: 5
+  m_Name: Panel_BlockInteraction
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &447935158
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 447935157}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2015348887}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &447935159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 447935157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &447935160
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 447935157}
   m_CullTransparentMesh: 1
 --- !u!1 &479253768
 GameObject:
@@ -6472,6 +6546,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gainExp: {fileID: 1319732840}
   savePlayerPrefButton: {fileID: 2079837798}
+  resetPlayerProfile: {fileID: 0}
 --- !u!4 &1462510443
 Transform:
   m_ObjectHideFlags: 0
@@ -9012,37 +9087,6 @@ MonoBehaviour:
   chefRankCloseButton: {fileID: 1407238398}
   blankAreaExit: {fileID: 2026292123}
   playerRankHolder: {fileID: 11400000, guid: 3a9e8e246b9a05546a8c1fc7d52cc18c, type: 2}
-  rankList:
-  - rankName: Bronze Egg
-    sprite: {fileID: 0}
-    minExperience: 0
-    newRecipe: {fileID: 11400000, guid: 3ea755e8d17177e459767eda83f3ca8b, type: 2}
-    newIngredient: {fileID: 11400000, guid: 3016351532d3d8e41afdeb9eb3554655, type: 2}
-  - rankName: Silver Egg
-    sprite: {fileID: 0}
-    minExperience: 100
-    newRecipe: {fileID: 0}
-    newIngredient: {fileID: 11400000, guid: c350c3817bb7c414a90b27386e68d31d, type: 2}
-  - rankName: Golden Egg
-    sprite: {fileID: 0}
-    minExperience: 200
-    newRecipe: {fileID: 0}
-    newIngredient: {fileID: 11400000, guid: 1e2c4347a7b27d34f8ffca18cc8502fe, type: 2}
-  - rankName: Diamond Egg
-    sprite: {fileID: 0}
-    minExperience: 300
-    newRecipe: {fileID: 0}
-    newIngredient: {fileID: 0}
-  - rankName: Platinum Egg
-    sprite: {fileID: 0}
-    minExperience: 400
-    newRecipe: {fileID: 0}
-    newIngredient: {fileID: 0}
-  - rankName: Star Platinum Egg
-    sprite: {fileID: 0}
-    minExperience: 500
-    newRecipe: {fileID: 0}
-    newIngredient: {fileID: 0}
 --- !u!4 &2011800748
 Transform:
   m_ObjectHideFlags: 0
@@ -9089,6 +9133,7 @@ RectTransform:
   - {fileID: 283903272}
   - {fileID: 1621757543}
   - {fileID: 708947489875378487}
+  - {fileID: 447935158}
   m_Father: {fileID: 1243727094}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9351,7 +9396,8 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 173165732}
   m_Father: {fileID: 283903272}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

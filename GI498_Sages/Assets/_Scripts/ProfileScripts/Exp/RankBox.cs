@@ -53,7 +53,7 @@ public class RankBox : MonoBehaviour
 
     public void ActiveDetail(bool haveRecipe, bool haveIngredient)
     {
-        if (haveRecipe) newRecipe.GetComponent<Button>().interactable = true;
+        if (haveRecipe) newRecipe.GetComponent<Button>().interactable = haveRecipe;
         if (haveIngredient) newIngredient.GetComponent<Button>().interactable = haveIngredient;
     }
 }

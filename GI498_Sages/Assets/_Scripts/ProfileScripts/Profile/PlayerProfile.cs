@@ -82,29 +82,4 @@ public class PlayerProfile : MonoBehaviour
         SaveProfile();
     }
 
-    //private void LoadRank()
-    //{
-    //    rank = RankManager.Instance.GetRank(exp);
-    //    maxExp = rank.nextRank.minExperience;
-    //}
-
-    //private void SetupRank()
-    //{
-
-    //}
-
-    //private void UpdateRank()
-    //{
-    //    //Find if new rank
-    //    //Play RankUp Animation
-    //    /*
-    //     * send
-    //     * - gain Exp
-    //     * - rank (get max exp)
-    //     * - slider (set max exp)
-    //     */
-    //    gainExp = 0;
-    //}
-
-
 }

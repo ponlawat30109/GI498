@@ -158,8 +158,6 @@ public class CustomModelManager : MonoBehaviour
             return;
         }
 
-        Debug.Log("old hatIndex: " + hairMatIndex);
-
         hairMatIndex += selector;
 
         if (hairMatIndex < 0) hairMatIndex = mats.Length - 1;

@@ -39,7 +39,7 @@ public class RankSystem : ScriptableObject
 
     public void InitialHolder()
     {
-        if(PlayerPrefs.GetInt("OnSetRankHolder",0) == 0)
+        if(PlayerPrefs.GetInt("OnSetRankHolder",0) == 1)
         {
             return;
         }
