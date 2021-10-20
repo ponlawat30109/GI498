@@ -6,12 +6,14 @@ using UnityEngine;
 
 namespace _Scripts.InventorySystem
 {
-    public class Storage : MonoBehaviour,IInteractableObject,ITakeAble
+    public class Storage : MonoBehaviour,IInteractableObject
     {
         [SerializeField] private StorageObject inventory;
         [SerializeField] private StorageUI storageUI;
         [SerializeField] private ItemSlotUI currentSelectSlot;
 
+        [SerializeField] private int maxSlot;
+        [SerializeField] private bool isStackable;
         [SerializeField] private bool isSlotUISelectable;
         
         public event Action OnInteracted;
@@ -19,11 +21,17 @@ namespace _Scripts.InventorySystem
         private void Start()
         {
             storageUI.gameObject.SetActive(false);
+            inventory.InitializeStorageObject(maxSlot, isStackable);
         }
 
         public StorageObject GetInventory()
         {
             return inventory;
+        }
+
+        public StorageUI GetStorageUI()
+        {
+            return storageUI;
         }
 
         public void Interacted()
@@ -42,64 +50,31 @@ namespace _Scripts.InventorySystem
             set => isSlotUISelectable = value;
         }
 
-        //Take Into other Storage
-        public void TakeIn(StorageObject otherStorage, StorageObject playerStorage, ItemObject takeInItem)
+        //Put Into Storage
+        public void PutIn(StorageObject a,StorageObject b, ItemObject item)
         {
-            if (playerStorage.HasItem(takeInItem) && otherStorage.HasFreeSpace()) 
-            {
-                otherStorage.AddItem(takeInItem);
-                playerStorage.RemoveItem(takeInItem);
-            }
-            else
-            {
-                //Debug session
-                var msg = "";
-                if (!playerStorage.HasItem(takeInItem))
-                {
-                    msg += $"Don't have {takeInItem} in Player Container. ";
-                }
-
-                if (!otherStorage.HasFreeSpace())
-                {
-                    msg += "Other Container don't have free space";
-                }
-                
-                Debug.Log(msg);
-            }
+            inventory.PutIn(a, b, item);
+            Debug.Log($"[Storage.cs] Put {item.itemName} from {b.storageType} to {a.storageType}.");
         }
 
-        //Take Out from other Storage
-        public void TakeOut(StorageObject playerStorage, StorageObject oldStorage, ItemObject takeOutItem)
+        //Take Out to other Storage
+        public void TakeOut(StorageObject a, StorageObject b, ItemObject item)
         {
-            // If able to Take Item from Old and able to Add New Item to player.
-            if (oldStorage.HasItem(takeOutItem) && playerStorage.HasFreeSpace()) 
-            {
-                playerStorage.AddItem(takeOutItem);
-                oldStorage.RemoveItem(takeOutItem);
-            }
-            else
-            {
-                //Debug session
-                var msg = "";
-                if (!oldStorage.HasItem(takeOutItem))
-                {
-                    msg += $"Don't have {takeOutItem} in Old Container. ";
-                }
-
-                if (!playerStorage.HasFreeSpace())
-                {
-                    msg += "Player don't have free space";
-                }
-                
-                Debug.Log(msg);
-            }
+            inventory.TakeOut(a, b, item);
+            Debug.Log($"[Storage.cs] Take {item.itemName} from {a.storageType} to {b.storageType}.");
         }
 
         
         // Slot UI
-        public void SetSelectSlot(ItemSlotUI itemSlotUI)
+        public void SetSelectSlot(ItemSlotUI itemFridgeSlotUI)
         {
-            currentSelectSlot = itemSlotUI;
+            currentSelectSlot = itemFridgeSlotUI;
+        }
+
+        public void DeSelectSlot()
+        {
+            SetSelectSlot(null);
+            Debug.Log("Deselect Slot");
         }
 
         public ItemSlotUI GetSelectSlot()

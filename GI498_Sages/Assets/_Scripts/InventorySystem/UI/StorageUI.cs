@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
+using _Scripts.InventorySystem.Interface;
+using _Scripts.InventorySystem.ScriptableObjects.Storage;
 using _Scripts.ManagerCollection;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace _Scripts.InventorySystem.UI
 {
@@ -13,8 +16,8 @@ namespace _Scripts.InventorySystem.UI
         [SerializeField] private Transform storageSlotInformation;
 
         public List<ItemSlotUI> slotList = new List<ItemSlotUI>();
-    
-        private float currentTime;
+
+        private float currentTime = 0;
         private float refreshInterval = 1;
     
         void Start()
@@ -35,7 +38,8 @@ namespace _Scripts.InventorySystem.UI
                 currentTime++;
             }
         }
-        
+
+        // Storage UI Method 
         public void UpdateUI()
         {
             CreateUI();
@@ -53,14 +57,21 @@ namespace _Scripts.InventorySystem.UI
 
         public void CreateUI()
         {
-            var slot = parent.GetInventory().storage;
+            var slot = parent.GetInventory().storageSlots;
         
             for (int i = 0; i < slot.Count; i++)
             {
-                var newSlot = Instantiate(slotPrefab, Vector3.zero, Quaternion.identity);
-                var componentSlot = newSlot.gameObject.GetComponent<ItemSlotUI>();
-                componentSlot.InitializeItem(slot[i].item,this,storageSlotInformation);
-                slotList.Add(componentSlot);
+                if (slot[i].quantity > 0)
+                {
+                    var newSlot = Instantiate(slotPrefab, Vector3.zero, Quaternion.identity);
+                    var componentSlot = newSlot.gameObject.GetComponent<ItemSlotUI>();
+                    componentSlot.InitializeItem(slot[i].item,this,storageSlotInformation);
+                    slotList.Add(componentSlot);
+                }
+                else
+                {
+                    parent.GetInventory().storageSlots.RemoveAt(i);
+                }
             }
         }
     }

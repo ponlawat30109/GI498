@@ -13,10 +13,6 @@ MonoBehaviour:
   m_Name: Fridge Storage
   m_EditorClassIdentifier: 
   storageType: 1
-  storage:
-  - item: {fileID: 11400000, guid: 3016351532d3d8e41afdeb9eb3554655, type: 2}
-    quantity: 2
+  storageSlots:
   - item: {fileID: 11400000, guid: c350c3817bb7c414a90b27386e68d31d, type: 2}
-    quantity: 4
-  maxSlot: 0
-  isStorageStackable: 1
+    quantity: 2

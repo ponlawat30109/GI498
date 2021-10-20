@@ -6,7 +6,6 @@ namespace _Scripts.ManagerCollection
     {
         [Header("Manager")]
         [SerializeField] public StorageManager storageManager;
-
         [SerializeField] public PlayerManager playerManager;
         
         public static Manager Instance{ set; get;} // Instance

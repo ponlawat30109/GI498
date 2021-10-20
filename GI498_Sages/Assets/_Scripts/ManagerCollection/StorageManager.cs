@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using _Scripts.InventorySystem;
+using _Scripts.InventorySystem.ScriptableObjects.Storage;
 using _Scripts.InventorySystem.UI;
 using UnityEngine;
 
@@ -9,31 +11,27 @@ namespace _Scripts.ManagerCollection
     {
 
         [Serializable]
-        public struct ContainerCollection
+        public struct StorageCollection
         {
-            public enum ContainerType
-            {
-                Fridge,
-                Storage
-            }
-
-            public ContainerType type;
-            public StorageUI containerUI;
+            public StorageObject.StorageTypeEnum type;
+            public Storage storage;
         }
         
-        public List<ContainerCollection> containerCollections;
+        public List<StorageCollection> storageCollections;
 
-        public StorageUI GetContainerByType(ContainerCollection.ContainerType type)
+        public Storage GetStorageByType(StorageObject.StorageTypeEnum type)
         {
-            foreach (var collection in containerCollections)
+            var obj = gameObject.GetComponent<Storage>();
+            
+            foreach (var storage in storageCollections)
             {
-                if (collection.type == type)
+                if (storage.type == type)
                 {
-                    return collection.containerUI;
+                    obj = storage.storage;
                 }
             }
 
-            return null;
+            return obj;
         }
     }
 }

@@ -6,9 +6,7 @@ namespace _Scripts.InventorySystem.UI
 {
     public class ItemSlotUI : MonoBehaviour,IPointerClickHandler,IPointerEnterHandler,IPointerExitHandler
     {
-        
-    
-        [SerializeField] public ItemObject item;
+        [SerializeField] private ItemObject item;
         [SerializeField] private Image itemImage;
         [SerializeField] private Image itemFrameImage;
         [SerializeField] private Sprite selectUiSprite;
@@ -19,15 +17,20 @@ namespace _Scripts.InventorySystem.UI
         [SerializeField] private Transform storageInfoTransform;
         [SerializeField] private StorageInformationUI informationUI;
     
-        public void InitializeItem(ItemObject toInitItem,StorageUI parentStorage,Transform transformContainerInfo)
+        public void InitializeItem(ItemObject toInitItem,StorageUI parentStorage,Transform transformStorageInfo)
         {
             item = toInitItem;
             itemImage.sprite = toInitItem.itemIcon;
         
             parentStorageUI = parentStorage;
-            storageInfoTransform = transformContainerInfo;
+            storageInfoTransform = transformStorageInfo;
 
             transform.SetParent(parentStorageUI.GetStorageSlotTransform());
+        }
+
+        public ItemObject GetItem()
+        {
+            return item;
         }
 
         private void Update()
@@ -46,26 +49,35 @@ namespace _Scripts.InventorySystem.UI
         {
             if (parentStorageUI.GetParent().IsSlotUISelectable)
             {
-                parentStorageUI.GetParent().SetSelectSlot(this);
+                if (parentStorageUI.GetParent().GetSelectSlot() == this)
+                {
+                    itemFrameImage.sprite = deselectUiSprite;
+                    parentStorageUI.GetParent().DeSelectSlot();
+                    
+                }
+                else
+                {
+                    parentStorageUI.GetParent().SetSelectSlot(this);
+                }
             }
         }
     
         public void OnPointerEnter(PointerEventData eventData)
         {
-            //if (parentStorageUI.GetParent().IsSlotUISelectable)
-            //{
+            if (parentStorageUI.GetParent().IsSlotUISelectable)
+            {
                 var newInfo = Instantiate(infoPrefab, Vector3.zero, Quaternion.identity);
                 informationUI = newInfo.gameObject.GetComponent<StorageInformationUI>();
                 informationUI.InitializeInformation(item.itemName, item.description, item.itemIcon);
                 informationUI.transform.SetParent(storageInfoTransform.transform);
-            //}
+            }
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
             informationUI.Clear();
         }
-
-   
     }
+    
+    
 }

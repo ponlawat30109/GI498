@@ -15,12 +15,17 @@
             <e p="Interface" t="Include">
               <e p="ICollectableObject.cs" t="Include" />
               <e p="IInteractableObject.cs" t="Include" />
-              <e p="ITakeAble.cs" t="Include" />
             </e>
           </e>
           <e p="InventorySystem" t="Include">
             <e p="FoodUtility.cs" t="Include" />
+            <e p="Interface" t="Include">
+              <e p="ITakeAble.cs" t="Include" />
+            </e>
             <e p="Item.cs" t="Include" />
+            <e p="Player" t="Include">
+              <e p="PlayerStorageHandler.cs" t="Include" />
+            </e>
             <e p="ScriptableObjects" t="Include">
               <e p="Items" t="Include">
                 <e p="FoodObject.cs" t="Include" />
@@ -36,11 +41,13 @@
             <e p="Storage.cs" t="Include" />
             <e p="Table.cs" t="Include" />
             <e p="UI" t="Include">
-              <e p="ItemHoldingUI.cs" t="Include" />
               <e p="ItemSlotUI.cs" t="Include" />
-              <e p="PlayerStorageUI.cs" t="Include" />
+              <e p="Player" t="Include">
+                <e p="ItemHoldingUI.cs" t="Include" />
+              </e>
               <e p="StorageInformationUI.cs" t="Include" />
               <e p="StorageUI.cs" t="Include" />
+              <e p="StorageWithUI.cs" t="Include" />
             </e>
           </e>
           <e p="ManagerCollection" t="Include">
