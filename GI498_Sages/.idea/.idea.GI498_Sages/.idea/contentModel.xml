@@ -7,26 +7,7 @@
     <e p="N:\@BU\64-1\GI498\GI498_Project\GI498\GI498_Sages" t="IncludeRecursive">
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
-        <e p="_Scriptable Object" t="Include">
-          <e p="Inventorys" t="Include">
-            <e p="Scripts" t="Include">
-              <e p="ContainerObject.cs" t="Include" />
-              <e p="FoodUtility.cs" t="Include" />
-            </e>
-          </e>
-          <e p="Items" t="Include">
-            <e p="Scripts" t="Include">
-              <e p="FoodObject.cs" t="Include" />
-              <e p="IngredientObject.cs" t="Include" />
-              <e p="ItemObject.cs" t="Include" />
-              <e p="ToolObject.cs" t="Include" />
-            </e>
-          </e>
-        </e>
         <e p="_Scripts" t="Include">
-          <e p="Character" t="Include">
-            <e p="ContainerHandler.cs" t="Include" />
-          </e>
           <e p="EditorScript" t="Include">
             <e p="SceneHandlerEditor.cs" t="Include" />
           </e>
@@ -38,22 +19,34 @@
             </e>
           </e>
           <e p="InventorySystem" t="Include">
-            <e p="Container.cs" t="Include" />
             <e p="FoodUtility.cs" t="Include" />
             <e p="Item.cs" t="Include" />
+            <e p="ScriptableObjects" t="Include">
+              <e p="Items" t="Include">
+                <e p="FoodObject.cs" t="Include" />
+                <e p="IngredientObject.cs" t="Include" />
+                <e p="ItemObject.cs" t="Include" />
+                <e p="ToolObject.cs" t="Include" />
+              </e>
+              <e p="Storage" t="Include">
+                <e p="FoodUtility.cs" t="Include" />
+                <e p="StorageObject.cs" t="Include" />
+              </e>
+            </e>
+            <e p="Storage.cs" t="Include" />
             <e p="Table.cs" t="Include" />
             <e p="UI" t="Include">
-              <e p="ContainerInformationUI.cs" t="Include" />
-              <e p="ContainerUI.cs" t="Include" />
               <e p="ItemHoldingUI.cs" t="Include" />
               <e p="ItemSlotUI.cs" t="Include" />
-              <e p="PlayerContainerUI.cs" t="Include" />
+              <e p="PlayerStorageUI.cs" t="Include" />
+              <e p="StorageInformationUI.cs" t="Include" />
+              <e p="StorageUI.cs" t="Include" />
             </e>
           </e>
           <e p="ManagerCollection" t="Include">
-            <e p="ContainerManager.cs" t="Include" />
             <e p="Manager.cs" t="Include" />
             <e p="PlayerManager.cs" t="Include" />
+            <e p="StorageManager.cs" t="Include" />
           </e>
           <e p="SceneHandler.cs" t="Include" />
         </e>

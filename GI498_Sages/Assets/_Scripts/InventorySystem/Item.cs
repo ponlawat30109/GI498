@@ -1,6 +1,6 @@
 ﻿using System;
-using _Scripts.Interact_System.Interface;
 using _Scripts.InteractSystem.Interface;
+using _Scripts.InventorySystem.ScriptableObjects.Storage;
 using UnityEngine;
 
 namespace _Scripts.InventorySystem
@@ -16,7 +16,7 @@ namespace _Scripts.InventorySystem
             return item;
         }
         
-        public void CollectTo(ContainerObject whereToPutIn)
+        public void CollectTo(StorageObject whereToPutIn)
         {
             whereToPutIn.AddItem(item);
         }

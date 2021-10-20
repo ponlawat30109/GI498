@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 140598904}
   - component: {fileID: 140598903}
   m_Layer: 0
-  m_Name: Container Manager
+  m_Name: Storage Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -152,7 +152,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19236bd2dea4492bb18652c3ef257f27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  containerCollections: []
+  containerCollections:
+  - type: 0
+    containerUI: {fileID: 0}
+  - type: 1
+    containerUI: {fileID: 0}
 --- !u!4 &140598904
 Transform:
   m_ObjectHideFlags: 0
@@ -196,7 +200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68089dc34d3448518dbd973414ed3019, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  containerManager: {fileID: 140598903}
+  storageManager: {fileID: 140598903}
   playerManager: {fileID: 5147411694150319821, guid: 94f3c4a60709b634ba69018caa0a2fd7, type: 3}
 --- !u!4 &635458066
 Transform:

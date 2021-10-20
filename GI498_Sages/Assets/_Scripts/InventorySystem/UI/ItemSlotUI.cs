@@ -1,65 +1,71 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ItemSlotUI : MonoBehaviour,IPointerClickHandler,IPointerEnterHandler,IPointerExitHandler
+namespace _Scripts.InventorySystem.UI
 {
-    [SerializeField] private GameObject infoPrefab;
-    
-    [SerializeField] public ItemObject item;
-    [SerializeField] private Image itemImage;
-    [SerializeField] private Image itemFrameImage;
-    [SerializeField] private Sprite selectUiSlot;
-    [SerializeField] private Sprite deselectUiSlot;
-    
-    [SerializeField] private ContainerUI parentContainerUI;
-    [SerializeField] private Transform containerInfo;
-
-    [SerializeField] private ContainerInformationUI informationUI;
-    
-    public void InitializeItem(ItemObject toInitItem,ContainerUI _parentContainer,Transform transformContainerInfo)
+    public class ItemSlotUI : MonoBehaviour,IPointerClickHandler,IPointerEnterHandler,IPointerExitHandler
     {
-        item = toInitItem;
-        itemImage.sprite = toInitItem.itemIcon;
         
-        parentContainerUI = _parentContainer;
-        containerInfo = transformContainerInfo;
-
-        transform.SetParent(parentContainerUI.transform);
-    }
-
-    private void Update()
-    {
-        if (parentContainerUI.GetParent().GetSelectSlot() == this)
-        {
-            itemFrameImage.sprite = selectUiSlot;
-        }
-        else
-        {
-            itemFrameImage.sprite = deselectUiSlot;
-        }
-    }
-
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        parentContainerUI.GetParent().SetSelectSlot(this);
-    }
     
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        var newInfo = Instantiate(infoPrefab, Vector3.zero, Quaternion.identity);
-        informationUI = newInfo.gameObject.GetComponent<ContainerInformationUI>();
-        informationUI.InitializeInformation(item.itemName, item.description, item.itemIcon);
-        informationUI.transform.SetParent(containerInfo.transform);
-    }
+        [SerializeField] public ItemObject item;
+        [SerializeField] private Image itemImage;
+        [SerializeField] private Image itemFrameImage;
+        [SerializeField] private Sprite selectUiSprite;
+        [SerializeField] private Sprite deselectUiSprite;
+        [SerializeField] private StorageUI parentStorageUI;
+        
+        [SerializeField] private GameObject infoPrefab;
+        [SerializeField] private Transform storageInfoTransform;
+        [SerializeField] private StorageInformationUI informationUI;
+    
+        public void InitializeItem(ItemObject toInitItem,StorageUI parentStorage,Transform transformContainerInfo)
+        {
+            item = toInitItem;
+            itemImage.sprite = toInitItem.itemIcon;
+        
+            parentStorageUI = parentStorage;
+            storageInfoTransform = transformContainerInfo;
 
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        informationUI.Clear();
-    }
+            transform.SetParent(parentStorageUI.GetStorageSlotTransform());
+        }
+
+        private void Update()
+        {
+            if (parentStorageUI.GetParent().GetSelectSlot() == this)
+            {
+                itemFrameImage.sprite = selectUiSprite;
+            }
+            else
+            {
+                itemFrameImage.sprite = deselectUiSprite;
+            }
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            if (parentStorageUI.GetParent().IsSlotUISelectable)
+            {
+                parentStorageUI.GetParent().SetSelectSlot(this);
+            }
+        }
+    
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            //if (parentStorageUI.GetParent().IsSlotUISelectable)
+            //{
+                var newInfo = Instantiate(infoPrefab, Vector3.zero, Quaternion.identity);
+                informationUI = newInfo.gameObject.GetComponent<StorageInformationUI>();
+                informationUI.InitializeInformation(item.itemName, item.description, item.itemIcon);
+                informationUI.transform.SetParent(storageInfoTransform.transform);
+            //}
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            informationUI.Clear();
+        }
 
    
+    }
 }
