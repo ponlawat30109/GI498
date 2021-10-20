@@ -20,7 +20,7 @@ namespace _Scripts
 
         [Header("Single Scene Handler")] 
         public string sceneName;
-        
+
         public void LoadAllScene()
         {
             foreach (var scene in scenePackages)
