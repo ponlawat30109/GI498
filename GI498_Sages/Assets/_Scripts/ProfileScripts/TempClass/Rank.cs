@@ -8,7 +8,8 @@ public class Rank
     public string rankName;
     public Sprite sprite;
     public int minExperience; //Minimum Exp to be in this rank
-    //public Rank nextRank;
-    public FoodObject newRecipe;
-    public IngredientObject newIngredient;
+    public Rank nextRank;
+    //public int different;
+    //public new recipe
+    //public new ingredient
 }

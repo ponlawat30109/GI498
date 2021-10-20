@@ -16,7 +16,7 @@ public class RankBox : MonoBehaviour
     //[SerializeField]
     //private Sprite rank;
 
-    public void SetDetail(Rank rank, bool isActive)
+    public void SetDetail(Rank rank)
     {
         rankNameText.text = rank.rankName;
 
@@ -25,35 +25,28 @@ public class RankBox : MonoBehaviour
         {
             rankImage.sprite = rank.sprite;
         }
+        //newRecipe.GetComponent<Image>().sprite = rank.newRecipe.image;
+        //newIngredient.GetComponent<Image>().sprite = rank.newIngredient.image;
 
-        if (rank.newRecipe == null)
-        {
-            newRecipe.GetComponent<Image>().enabled = false;
-            Destroy(newRecipe.GetComponent<Button>());
-        }
-        else
-        {
-            newRecipe.GetComponent<Image>().sprite = rank.newRecipe.itemIcon;
-            newRecipe.GetComponent<Button>().onClick.AddListener(() => RecipeInfoManager.Instance.OpenRecipeInfo(rank.newRecipe));
-            newRecipe.GetComponent<Button>().interactable = isActive;
-        }
+        //if(rank.newRecipe == null)
+        //{
+        //    Destroy(newRecipe.gameObject);
+        //}
+        //else
+        //{
+        //    //newRecipe.GetComponent<Button>().onClick.AddListener(()=> RecipeInfoManager.Instance.OpenRecipeInfo(recipe class));
+        //}
+        newRecipe.GetComponent<Button>().onClick.AddListener(() => RecipeInfoManager.Instance.OpenRecipeInfo());
 
-        if (rank.newIngredient == null)
-        {
-            newIngredient.GetComponent<Image>().enabled = false;
-            Destroy(newIngredient.GetComponent<Button>());
-        }
-        else
-        {
-            newIngredient.GetComponent<Image>().sprite = rank.newIngredient.itemIcon;
-            newIngredient.GetComponent<Button>().onClick.AddListener(() => IngredientInfoManager.Instance.OpenIngredientInfo(rank.newIngredient));
-            newIngredient.GetComponent<Button>().interactable = isActive;
-        }
-    }
 
-    public void ActiveDetail(bool haveRecipe, bool haveIngredient)
-    {
-        if (haveRecipe) newRecipe.GetComponent<Button>().interactable = true;
-        if (haveIngredient) newIngredient.GetComponent<Button>().interactable = haveIngredient;
+        //if(rank.newIngredient == null)
+        //{
+        //    Destroy(newIngredient.gameObject);
+        //}
+        //else
+        //{
+        //    //newIngredient.GetComponent<Button>().onClick.AddListener(() => IngredientInfoManager.Instance.OpenIngredientInfo(recipe class));
+        //}
+        newIngredient.GetComponent<Button>().onClick.AddListener(() => IngredientInfoManager.Instance.OpenIngredientInfo());
     }
 }

@@ -42,11 +42,11 @@ public class RecipeInfoManager : MonoBehaviour
         closeButton.onClick.AddListener(ClosePanel);
     }
 
-    public void OpenRecipeInfo(FoodObject food)
+    public void OpenRecipeInfo(/*recipe class*/)
     {
-        recipeName.text = food.itemName;
-        description.text = food.description;
-        image.sprite = food.itemIcon;
+        //name = recipe.name;
+        //description = recipe.description;
+        //image.sprite = recipe.image;
         panel.SetActive(true);
     }
 
