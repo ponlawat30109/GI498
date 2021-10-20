@@ -39,13 +39,14 @@ public class RankSystem : ScriptableObject
 
     public void InitialHolder()
     {
-        if(PlayerPrefs.GetInt("OnSetRankHolder",0) == 0)
+        if(PlayerPrefs.GetInt("OnSetRankHolder",0) == 1)
         {
             return;
         }
         PlayerPrefs.SetInt("OnSetRankHolder", 1);
-        foodList.Clear();
-        ingredientList.Clear();
+
+        ClearList();
+        
         foreach (FoodObject food in baseFoodList)
         {
             foodList.Add(food);
@@ -66,5 +67,11 @@ public class RankSystem : ScriptableObject
     {
         if (!ingredientList.Contains(ingredient))
             ingredientList.Add(ingredient);
+    }
+
+    public void ClearList()
+    {
+        foodList.Clear();
+        ingredientList.Clear();
     }
 }

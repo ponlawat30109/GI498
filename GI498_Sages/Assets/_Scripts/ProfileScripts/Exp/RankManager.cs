@@ -62,8 +62,6 @@ public class RankManager : MonoBehaviour
         blankAreaExit.onClick.AddListener(() => rankListPanel.SetActive(false));
 
         rankListPanel.SetActive(false);
-
-        playerRankHolder.InitialHolder();
     }
 
     public void UpdateExp(int _currentExp, int _gainExp)
@@ -71,10 +69,9 @@ public class RankManager : MonoBehaviour
         if(_currentExp == expSlider.value)
         {
             var xPAnimation = Instantiate(XPPrefab, profilePanel);
-            xPAnimation.GetComponent<ExpAnimate>().SetXP(gainExp);
+            xPAnimation.GetComponent<ExpAnimate>().SetXP(_gainExp);
             currentExp = _currentExp;
             gainExp = _gainExp;
-            SliderUpdate();
         }
         else
         {
@@ -91,38 +88,45 @@ public class RankManager : MonoBehaviour
 
     private IEnumerator SliderAnimation()
     {
-        Debug.Log("Coroutine Slider Animation");
         var newExp = currentExp + gainExp;
         WaitForSeconds Wait = new WaitForSeconds(1f / countFPS);
-        int previousValue = Mathf.CeilToInt(expSlider.value);
-        int stepAmount;
-        if (newExp - previousValue < 0)
+
+        while (expSlider.value <= newExp)
         {
-            yield break;
+            float previousValue = Mathf.CeilToInt(expSlider.value);
+            int stepAmount;
+            if (newExp - previousValue < 0)
+            {
+                yield break;
+            }
+
+            stepAmount = Mathf.CeilToInt((newExp - previousValue) / (countFPS * Duration));
+
+            previousValue += stepAmount;
+            if (previousValue > newExp)
+            {
+                previousValue = newExp;
+            }
+
+            if (previousValue >= expSlider.maxValue)
+            {
+                previousValue = expSlider.maxValue;
+                UpRank();
+            }
+
+            expSlider.value = (float)previousValue;
+
+            if (previousValue == newExp)
+                yield break;
+
+            yield return Wait;
         }
-        
-        stepAmount = Mathf.CeilToInt((newExp - previousValue) / (countFPS * Duration));
-
-        previousValue += stepAmount;
-        if (previousValue > newExp)
-        {
-            previousValue = newExp;
-        }
-
-        //expText.SetText(previousValue.ToString("N0"));
-        expSlider.value = previousValue;
-
-        if(previousValue > expSlider.maxValue)
-            UpRank();
-
-        if(previousValue == newExp)
-            yield break;
-
-        yield return Wait;
     }
 
     public void InitialRankListPanel(int currentExp)
     {
+        expSlider.maxValue = 0;
+        playerRankHolder.InitialHolder();
         var rankList = playerRankHolder.RankList;
         for (int i = 0; i < rankList.Count; i++)
         {
@@ -138,9 +142,9 @@ public class RankManager : MonoBehaviour
             }
             else
             {
-                if(targetRank.newRecipe)
+                if (targetRank.newRecipe != null)
                     playerRankHolder.AddFoodList(targetRank.newRecipe);
-                if(targetRank.newIngredient)
+                if (targetRank.newIngredient != null)
                     playerRankHolder.AddIngredientList(targetRank.newIngredient);
                 SetRankBox(targetRank, true);
             }
@@ -156,22 +160,39 @@ public class RankManager : MonoBehaviour
 
     private void UpRank()
     {
+        currentRankIndex++;
         SetCurrentRankVisual();
-        //UpRankAnimation
         rankImage.GetComponent<Animator>().SetTrigger("RankUp");
+
+        var targetRank = playerRankHolder.RankList[currentRankIndex];
+        if (targetRank.newRecipe != null)
+            playerRankHolder.AddFoodList(targetRank.newRecipe);
+        if (targetRank.newIngredient != null)
+            playerRankHolder.AddIngredientList(targetRank.newIngredient);
     }
 
     public void SetCurrentRankVisual()
     {
         var rankList = playerRankHolder.RankList;
-        var currentRank = rankList[currentRankIndex];
-        rankNameText.SetText(currentRank.rankName);
-        rankImage.sprite = currentRank.sprite;
+        var rank = rankList[currentRankIndex];
+        rankNameText.SetText(rank.rankName);
+        rankImage.sprite = rank.sprite;
 
         if (currentRankIndex + 1 < rankList.Count)
+        {
             expSlider.maxValue = rankList[currentRankIndex + 1].minExperience;
+        }
         else
-            expSlider.maxValue = expSlider.value;
+        {
+            expSlider.maxValue = currentExp;
+        }
+
+
+        bool haveRecipe = rank.newRecipe != null ? true : false;
+        bool haveIngredient = rank.newIngredient != null ? true : false;
+
+        var rankBox = rankBoxList[currentRankIndex].GetComponent<RankBox>();
+        rankBox.ActiveDetail(haveRecipe, haveIngredient);
     }
 
     private void SetRankBox(Rank rank, bool isActive)
@@ -182,4 +203,10 @@ public class RankManager : MonoBehaviour
         rankBox.SetDetail(rank, isActive);
         rankBoxList.Add(rankBox);
     }
+
+    private void OnApplicationQuit()
+    {
+        playerRankHolder.ClearList();
+    }
+
 }

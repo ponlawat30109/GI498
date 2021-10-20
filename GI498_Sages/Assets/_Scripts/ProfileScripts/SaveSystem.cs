@@ -39,8 +39,6 @@ public static class SaveSystem
         }
     }
 
-
-
     //public static void SaveCustomModel()
     //{
     //    BinaryFormatter formatter = new BinaryFormatter();

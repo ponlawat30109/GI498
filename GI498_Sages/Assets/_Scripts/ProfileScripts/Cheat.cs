@@ -1,26 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Cheat : MonoBehaviour
 {
-    [SerializeField] private InputField gainExp;
-    [SerializeField] private Button savePlayerPrefButton;
-    [SerializeField] private Button resetPlayerProfile;
-
+    [SerializeField] private PlayerProfile playerProfile;
     private const string GainExpKey = "GainExp";
+    private string gainXp;
 
-    private void Start()
+    private void OnGUI()
     {
-        savePlayerPrefButton.onClick.AddListener(savePlayerPref);
-        //resetPlayerProfile.onClick.AddListener(CustomModelManager.instan.resetPlayerProfile);
-    }
+        gainXp = GUILayout.TextField(gainXp);
+        if (GUILayout.Button("Save gainXP"))
+        {
+            Debug.Log("savePlayerPref " + gainXp);
+            PlayerPrefs.SetInt(GainExpKey, int.Parse(gainXp, System.Globalization.NumberStyles.AllowLeadingSign));
+        }
 
-    private void savePlayerPref()
-    {
-        Debug.Log("savePlayerPref " + gainExp.text);
-        PlayerPrefs.SetInt(GainExpKey, int.Parse(gainExp.text,System.Globalization.NumberStyles.AllowLeadingSign));
+        if (GUILayout.Button("ResetProfile"))
+            playerProfile.ResetProfile();
     }
 
 }

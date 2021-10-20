@@ -158,16 +158,12 @@ public class CustomModelManager : MonoBehaviour
             return;
         }
 
-        Debug.Log("old hatIndex: " + hairMatIndex);
-
         hairMatIndex += selector;
 
         if (hairMatIndex < 0) hairMatIndex = mats.Length - 1;
         else if (hairMatIndex >= mats.Length) hairMatIndex = 0;
 
         SetMatMultiObj(hairs, mats[hairMatIndex]);
-
-        Debug.Log("new hatIndex: " + hairMatIndex);
     }
 
     private void DirectSetHairMat(int selector)
