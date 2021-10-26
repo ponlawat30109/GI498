@@ -40,7 +40,7 @@ public class MenuController : MonoBehaviour
         Debug.Assert(buttonStart != null, "MainMenu UI ("+name+"): buttonStart is null");
         Debug.Assert(buttonOption != null, "MainMenu UI (" + name + "): buttonOption is null");
         Debug.Assert(sliderMusic != null, "MainMenu UI (" + name + "): sliderMusic is null");
-        Debug.Assert(sliderSound != null, "MainMenu UI (" + name + "): sliderSound is null");
+        //Debug.Assert(sliderSound != null, "MainMenu UI (" + name + "): sliderSound is null");
         Debug.Assert(buttonOptionClose != null, "MainMenu UI (" + name + "): buttonOptionClose is null");
         Debug.Assert(buttonInformation != null, "MainMenu UI (" + name + "): buttonInformation is null");
         Debug.Assert(buttonInformationClose != null, "MainMenu UI (" + name + "): buttonInformationClose is null");
@@ -51,17 +51,20 @@ public class MenuController : MonoBehaviour
 
         buttonStart.onClick.AddListener(ChangeSceneToProfileScene);
         buttonOption.onClick.AddListener(OpenOptionPanel);
-        sliderMusic.onValueChanged.AddListener((volumn) => SetOption("music", volumn));
-        sliderSound.onValueChanged.AddListener((volumn) => SetOption("sound", volumn));
         buttonOptionClose.onClick.AddListener(CloseOptionPanel);
         buttonInformation.onClick.AddListener(OpenInformationPanel);
         buttonInformationClose.onClick.AddListener(CloseInformationPanel);
-        buttonExit.onClick.AddListener(Exit);
-
+        buttonExit.onClick.AddListener(() => Application.Quit());
+        
         panelOption.SetActive(false);
         panelInformation.SetActive(false);
 
         LoadOptionPrefs();
+        //set soundVolumn in soundManager
+        AudioManager.Instance.PlayMusic(AudioManager.Track.BGMMenu01);
+
+        sliderMusic.onValueChanged.AddListener((volumn) => SetOption("music", volumn));
+        //sliderSound.onValueChanged.AddListener((volumn) => SetOption("sound", volumn));
     }
 
     private void CloseInformationPanel()
@@ -102,10 +105,12 @@ public class MenuController : MonoBehaviour
         {
             case "music":
                 {
+                    AudioManager.Instance.ChangeAudioVolumn(volumn);
                     break;
                 }
             case "sound":
                 {
+                    AudioManager.Instance.ChangeSfxVolumn(volumn);
                     break;
                 }
         }
@@ -114,21 +119,18 @@ public class MenuController : MonoBehaviour
 
     public void SaveOptionPrefs()
     {
-        PlayerPrefs.SetFloat(MusicVolKey, sliderMusic.value);
-        PlayerPrefs.SetFloat(SoundVolKey, sliderSound.value);
+        PlayerPrefs.SetFloat(MusicVolKey, sliderMusic.normalizedValue);
+        PlayerPrefs.SetFloat(SoundVolKey, sliderSound.normalizedValue);
         PlayerPrefs.Save();
     }
 
     public void LoadOptionPrefs()
     {
-        sliderMusic.value = PlayerPrefs.GetFloat(MusicVolKey, sliderMusic.normalizedValue);
-        sliderSound.value = PlayerPrefs.GetFloat(SoundVolKey, sliderSound.normalizedValue);
-    }
+        sliderMusic.value = PlayerPrefs.GetFloat(MusicVolKey, 50f);
+        sliderSound.value = PlayerPrefs.GetFloat(SoundVolKey, 50f);
 
-    private void Exit()
-    {
-        Debug.Log("Application.Quit");
-        Application.Quit();
+        AudioManager.Instance.ChangeAudioVolumn(sliderMusic.value);
+        AudioManager.Instance.ChangeSfxVolumn(sliderSound.value);
     }
 
 }
