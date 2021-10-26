@@ -24,21 +24,13 @@ namespace _Scripts.ManagerCollection
         
         ////////////////////////////////////////////////////////////////////////////////////////////
 
-        private void Awake()
+        private void Start()
         {
-            InitializeMiniStorageCollections();
+            
         }
 
-        ////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////////////
 
-        public void InitializeMiniStorageCollections()
-        {
-            for (int i = 0; i < miniStorageCollections.Count; i++)
-            {
-                miniStorageCollections[i].SetMiniStorageId(i);
-            }
-        }
-        
         public Storage GetStorageByType(StorageObject.StorageTypeEnum type)
         {
             var obj = gameObject.GetComponent<Storage>();
@@ -52,6 +44,11 @@ namespace _Scripts.ManagerCollection
             }
 
             return obj;
+        }
+        
+        private void OnApplicationQuit()
+        {
+            
         }
     }
 }

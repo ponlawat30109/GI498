@@ -1,5 +1,6 @@
 ﻿using System;
 using _Scripts.InteractSystem.Interface;
+using _Scripts.InventorySystem.Player;
 using _Scripts.InventorySystem.ScriptableObjects.Storage;
 using _Scripts.ManagerCollection;
 using UnityEngine;
@@ -8,51 +9,17 @@ namespace _Scripts.InventorySystem
 {
     public class MiniStorage : MonoBehaviour,IInteractableObject
     {
-        [SerializeField] private int miniStorageId;
-        
         [Header("Data")]
-        [SerializeField] private StorageObject storageObject;
         public ItemObject currentHoldItemObject;
 
-        [SerializeField] private int maxSlot;
-        [SerializeField] private bool isStackable;
-        //[SerializeField] private bool isSlotUISelectable;
-        
         [Header("Model")]
         public Transform holdingPosition; // Position of Model On Player Hand
         public GameObject currentHoldItemModel; // Model to Show On Player Hand
         
         public event Action OnInteracted;
 
-        private void Start()
-        {
-            storageObject.InitializeStorageObject(maxSlot, isStackable);
-            
-            if (storageObject.GetSlotCount() < Manager.Instance.storageManager.miniStorageCollections.Count)
-            {
-                for (int i = 0; i < Manager.Instance.storageManager.miniStorageCollections.Count; i++)
-                {
-                    storageObject.GetStorageSlot().Add(null);
-                }
-            }
-        }
-        
         private void Update()
         {
-            if (currentHoldItemObject == null)
-            {
-                if (storageObject.GetSlotCount() > 0)
-                {
-                    if (storageObject.GetStorageSlot()[miniStorageId] != null)
-                    {
-                        if (storageObject.IsSlotIndexHasItem(miniStorageId))
-                        {
-                            SetCurrentItem();
-                        }
-                    }
-                }
-            }
-
             if (currentHoldItemModel.transform.childCount < 1)
             {
                 if (IsCurrentItemNotNull())
@@ -80,35 +47,26 @@ namespace _Scripts.InventorySystem
             */
             
             var psHandler = Manager.Instance.playerManager.PSHandler();
-            var psStorage = psHandler.storage.GetStorageObject();
+            //var psStorage = psHandler.storage.GetStorageObject();
 
             if (psHandler.IsHoldingItem()) // Have Item on Player Hand
             {
                 // Note
                 // True -> Have Item => Don't have free space.
                 // False -> Don't have Item => Have free space.
-                if (storageObject.IsSlotIndexHasItem(miniStorageId) == false) // Have free space
+                if (IsCurrentItemNotNull() == false) // Have free space
                 {
                     // Put Item to Mini Storage
-                    // Pre Slot
-                    storageObject.GetStorageSlot()[miniStorageId].item = psHandler.currentHoldItemObject;
-                    storageObject.GetStorageSlot()[miniStorageId].quantity = 1;
-                    psHandler.TakeOut(psStorage, storageObject, psHandler.currentHoldItemObject);
-                    // ^ TakeOut from     ^   and put in    ^      ->   ^-Item
-
-                    
+                    PlaceItem(psHandler, psHandler.currentHoldItemObject);
                 }
             }
             else // 'Do not' have Item on Player Hand
             {
-                if (storageObject.IsSlotIndexHasItem(miniStorageId) == true) // 'Do not' have Free Space (have item)
+                if (IsCurrentItemNotNull() == true) // 'Do not' have Free Space (have item)
                 {
                     // Take Item from Mini Storage
-                    // Clear Slot
-                    storageObject.GetStorageSlot()[miniStorageId].item = null;
-                    storageObject.GetStorageSlot()[miniStorageId].quantity = 0;
-                    psHandler.PutIn(psStorage,storageObject,storageObject.GetItemFromSlotIndex(miniStorageId));
-                    // ^ Put into        ^   and take out  ^      ->     ^-Item
+                    TakeItem(psHandler);
+                    
                 }
             }
             
@@ -131,16 +89,29 @@ namespace _Scripts.InventorySystem
             }*/
         }
 
-        public void SetMiniStorageId(int value)
+        public void PlaceItem(PlayerStorageHandler ps,ItemObject item)
         {
-            miniStorageId = value;
+            if (currentHoldItemObject != null)
+            {
+                return;
+            }
+
+            currentHoldItemObject = item; // +
+            ps.JustTakeOut(ps.storage.GetStorageObject(),item); // -
+
         }
 
-        public StorageObject GetStorageObject()
+        public void TakeItem(PlayerStorageHandler ps)
         {
-            return storageObject;
+            ps.JustPutIn(ps.storage.GetStorageObject(), currentHoldItemObject); // +
+            currentHoldItemObject = null; // -
         }
         
+        //public void SetMiniStorageId(int value)
+        //{
+        //    miniStorageId = value;
+        //}
+
         /// <summary>
         /// Meaning of return...
         /// <para>True mean currentHoldItemObject is Not Null</para>
@@ -151,14 +122,6 @@ namespace _Scripts.InventorySystem
         {
             return currentHoldItemObject != null;
         }
-        
-        private void SetCurrentItem()
-        {
-            if (storageObject.IsSlotIndexHasItem(miniStorageId))
-            {
-                currentHoldItemObject = storageObject.GetItemFromSlotIndex(miniStorageId);
-            }
-        }
 
         private void SetModel()
         {
@@ -166,7 +129,6 @@ namespace _Scripts.InventorySystem
             newProp.transform.SetParent(currentHoldItemModel.transform);
             //newProp.transform.localPosition = Vector3.zero;
             //newProp.transform.rotation = Quaternion.identity;
-            
         }
 
         private void ClearHolding()
@@ -182,14 +144,6 @@ namespace _Scripts.InventorySystem
             {
                 Destroy(currentHoldItemModel.transform.GetChild(i).gameObject);
             }
-            
-            //Destroy(currentHoldItemModel.child);
-        }
-        
-        private void GetItem(StorageObject output)
-        {
-            //Take out A to B
-            storageObject.TakeOut(storageObject, output, currentHoldItemObject);
         }
     }
 }

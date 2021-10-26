@@ -74,7 +74,8 @@ namespace _Scripts.InventorySystem.Player
             {
                 SetModel();
             }
-            else
+            
+            if(currentHoldItemObject == null && currentHoldItemModel.transform.childCount > 0)
             {
                 ClearModel();
             }
@@ -152,10 +153,11 @@ namespace _Scripts.InventorySystem.Player
                     if (toInteractItemObject.IsCurrentItemNotNull() == false) // Has Space
                     {
                         toInteractItemObject.Interacted();
+                        Debug.Log($"Press {collectItemKey.ToString()} Key.");
                     }
                     
                     _justPressCollectItem = true;
-                    //Debug.Log($"Press {collectItemKey.ToString()} Key.");
+                    
                 }
             }
             else
@@ -180,7 +182,7 @@ namespace _Scripts.InventorySystem.Player
                 {
                     _currentCollectItemTimeCount = 0;
                     _justPressCollectItem = false;
-                    Debug.Log($"Set Just Press {collectItemKey.ToString()} Key to False");
+                    //Debug.Log($"Set Just Press {collectItemKey.ToString()} Key to False");
                 }
             }
             else
@@ -225,13 +227,28 @@ namespace _Scripts.InventorySystem.Player
             ClearHoldingItem();
         }
 
+        public void JustPutIn(StorageObject a, ItemObject item)
+        {
+            a.AddItem(item);
+            SetHoldingItem(item);
+        }
+
+        public void JustTakeOut(StorageObject a,ItemObject item)
+        {
+            a.RemoveItem(item);
+            ClearHoldingItem();
+        }
+        
         public void SetHoldingItem(ItemObject item)
         {
             if (IsHoldingItem() == false) // IsHoldingItem return FALSE
             {
-                if (currentHoldItemObject == null && storage.GetStorageObject().IsSlotIndexHasItem(0))
+                if (currentHoldItemObject == null)
                 {
-                    currentHoldItemObject = storage.GetStorageObject().GetItemFromSlotIndex(0);
+                    if (storage.GetStorageObject().IsSlotIndexHasItem(0))
+                    {
+                        currentHoldItemObject = storage.GetStorageObject().GetItemFromSlotIndex(0);
+                    }
                 }
                 else
                 {
@@ -294,7 +311,6 @@ namespace _Scripts.InventorySystem.Player
             // Else holdingItem != null mean There are "Some Item" on Player Hand
             return isHolding;
         }
-        
         
         ////////////////////////////////////////////////////////////////////////////////////////////////////////
 

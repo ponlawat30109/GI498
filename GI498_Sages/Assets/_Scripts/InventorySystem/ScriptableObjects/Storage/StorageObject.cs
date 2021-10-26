@@ -93,6 +93,10 @@ namespace _Scripts.InventorySystem.ScriptableObjects.Storage
                 if (storageSlots[index].quantity > 0)
                 {
                     storageSlots[index].SubAmount(1);
+                    if (storageSlots[index].quantity - 1 <= 0)
+                    {
+                        UpdateStorageSlot();
+                    }
                 }
                 else
                 {
@@ -108,7 +112,7 @@ namespace _Scripts.InventorySystem.ScriptableObjects.Storage
 
             return successful;
         }
-        
+
         public bool HasItem(ItemObject itemToCheck)
         {
             var hasItem = false;
@@ -176,7 +180,16 @@ namespace _Scripts.InventorySystem.ScriptableObjects.Storage
         public bool IsSlotIndexHasItem(int index)
         {
             //Debug.Log($"Looking at index {index}");
-            var result = GetItemFromSlotIndex(index) != null;
+            var result = false; //GetItemFromSlotIndex(index) != null;
+
+            if (storageSlots.Count > 0)
+            {
+                if (storageSlots[index] != null)
+                {
+                    result = true;
+                }
+            }
+            
             return result;
         }
         
