@@ -20,6 +20,7 @@ namespace _Scripts.InventorySystem.Player
         [Header("Model")]
         public Transform holdingPosition; // Position of Model On Player Hand
         public GameObject currentHoldItemModel; // Model to Show On Player Hand
+        [SerializeField] private int childCount;
         
         [Header("Storage Object")]
         public Storage toInteractStorageObject;
@@ -65,7 +66,7 @@ namespace _Scripts.InventorySystem.Player
                 {
                     if (storage.GetStorageObject().IsSlotIndexHasItem(0))
                     {
-                        SetHoldingItem(storage.GetStorageObject().GetItemFromSlotIndex(0));
+                        SetHoldingItem();
                     }
                 }
             }
@@ -75,10 +76,12 @@ namespace _Scripts.InventorySystem.Player
                 SetModel();
             }
             
-            if(currentHoldItemObject == null && currentHoldItemModel.transform.childCount > 0)
+            if(currentHoldItemObject == null || storage.GetStorageObject().GetSlotCount() < 1 || currentHoldItemModel.transform.childCount > 1)
             {
                 ClearModel();
             }
+
+            childCount = currentHoldItemModel.transform.childCount;
         }
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -150,11 +153,8 @@ namespace _Scripts.InventorySystem.Player
                 
                 if (Input.GetKeyDown(collectItemKey))
                 {
-                    if (toInteractItemObject.IsCurrentItemNotNull() == false) // Has Space
-                    {
-                        toInteractItemObject.Interacted();
-                        Debug.Log($"Press {collectItemKey.ToString()} Key.");
-                    }
+                    toInteractItemObject.Interacted();
+                    Debug.Log($"Press {collectItemKey.ToString()} Key.");
                     
                     _justPressCollectItem = true;
                     
@@ -216,7 +216,7 @@ namespace _Scripts.InventorySystem.Player
         {
             a.AddItem(item);
             b.RemoveItem(item);
-            SetHoldingItem(item);
+            SetHoldingItem();
         }
 
         // Take Out Item from A storage and Add to B storage
@@ -227,19 +227,20 @@ namespace _Scripts.InventorySystem.Player
             ClearHoldingItem();
         }
 
-        public void JustPutIn(StorageObject a, ItemObject item)
+        public void JustPutIn(ItemObject item)
         {
-            a.AddItem(item);
-            SetHoldingItem(item);
+            //Debug.Log($"Direct Put {item} in {storage.GetStorageObject().storageType.ToString()}");
+            storage.GetStorageObject().AddItem(item);
+            SetHoldingItem();
         }
 
-        public void JustTakeOut(StorageObject a,ItemObject item)
+        public void JustTakeOut(ItemObject item)
         {
-            a.RemoveItem(item);
+            storage.GetStorageObject().RemoveItem(item);
             ClearHoldingItem();
         }
         
-        public void SetHoldingItem(ItemObject item)
+        public void SetHoldingItem()
         {
             if (IsHoldingItem() == false) // IsHoldingItem return FALSE
             {
@@ -259,7 +260,7 @@ namespace _Scripts.InventorySystem.Player
             }
 
             //Show Food Model
-            currentHoldItemObject = item;
+            //currentHoldItemObject = item;
             
         }
 
@@ -288,13 +289,11 @@ namespace _Scripts.InventorySystem.Player
         private void ClearModel()
         {
             int childs = currentHoldItemModel.transform.childCount;
-            
-            for (int i = childs - 1; i > 0; i--)
+
+            for (int i = 0; i < childs; i++)
             {
                 Destroy(currentHoldItemModel.transform.GetChild(i).gameObject);
             }
-            
-            //Destroy(currentHoldItemModel.child);
         }
         
 

@@ -166,11 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e34d3e268fbe405db0f129186c9652ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  miniStorageId: 0
-  storageObject: {fileID: 11400000, guid: 1a872fced4c7fe748bfedf77d0b589c3, type: 2}
   currentHoldItemObject: {fileID: 0}
-  maxSlot: 1
-  isStackable: 0
   holdingPosition: {fileID: 328264909}
   currentHoldItemModel: {fileID: 1240738312}
 --- !u!4 &39655381
@@ -360,11 +356,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e34d3e268fbe405db0f129186c9652ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  miniStorageId: 0
-  storageObject: {fileID: 11400000, guid: 1a872fced4c7fe748bfedf77d0b589c3, type: 2}
   currentHoldItemObject: {fileID: 0}
-  maxSlot: 1
-  isStackable: 0
   holdingPosition: {fileID: 804813822}
   currentHoldItemModel: {fileID: 1025750050}
 --- !u!4 &603684856
@@ -885,6 +877,7 @@ MonoBehaviour:
   currentHoldItemObject: {fileID: 0}
   holdingPosition: {fileID: 1820391570}
   currentHoldItemModel: {fileID: 8747318109276851985}
+  childCount: 0
   toInteractStorageObject: {fileID: 0}
   _nearestStorageObject: {fileID: 0}
   _collideStorageObjects: []
@@ -1005,11 +998,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e34d3e268fbe405db0f129186c9652ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  miniStorageId: 0
-  storageObject: {fileID: 11400000, guid: 1a872fced4c7fe748bfedf77d0b589c3, type: 2}
   currentHoldItemObject: {fileID: 0}
-  maxSlot: 1
-  isStackable: 0
   holdingPosition: {fileID: 2138278071}
   currentHoldItemModel: {fileID: 1343765488}
 --- !u!4 &1477688227
@@ -1020,7 +1009,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1477688224}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3, y: 0, z: 6}
+  m_LocalPosition: {x: 2.12, y: 0, z: 5.82}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 543460649}

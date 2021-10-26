@@ -12,4 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1322e4b0392f62d4e86586cd883fb720, type: 3}
   m_Name: Player Storage Test
   m_EditorClassIdentifier: 
-  Container: []
+  storageType: 0
+  storageSlots:
+  - item: {fileID: 11400000, guid: a1b2263d34376354ca0becc4dd9e927a, type: 2}
+    quantity: 1

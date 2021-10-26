@@ -26,7 +26,11 @@ namespace _Scripts.InventorySystem
                 {
                     SetModel();
                 }
-                else
+            }
+            
+            if(currentHoldItemModel.transform.childCount > 0)
+            {
+                if (IsCurrentItemNotNull() == false)
                 {
                     ClearModel();
                 }
@@ -49,7 +53,7 @@ namespace _Scripts.InventorySystem
             var psHandler = Manager.Instance.playerManager.PSHandler();
             //var psStorage = psHandler.storage.GetStorageObject();
 
-            if (psHandler.IsHoldingItem()) // Have Item on Player Hand
+            if (psHandler.IsHoldingItem() == true) // Have Item on Player Hand
             {
                 // Note
                 // True -> Have Item => Don't have free space.
@@ -60,13 +64,12 @@ namespace _Scripts.InventorySystem
                     PlaceItem(psHandler, psHandler.currentHoldItemObject);
                 }
             }
-            else // 'Do not' have Item on Player Hand
+            else if(psHandler.IsHoldingItem() == false) // 'Do not' have Item on Player Hand
             {
-                if (IsCurrentItemNotNull() == true) // 'Do not' have Free Space (have item)
+                if (currentHoldItemObject != null) // 'Do not' have Free Space (have item) *fixed
                 {
                     // Take Item from Mini Storage
-                    TakeItem(psHandler);
-                    
+                    GrabItem(psHandler);
                 }
             }
             
@@ -97,14 +100,15 @@ namespace _Scripts.InventorySystem
             }
 
             currentHoldItemObject = item; // +
-            ps.JustTakeOut(ps.storage.GetStorageObject(),item); // -
+            ps.JustTakeOut(item); // -
 
         }
 
-        public void TakeItem(PlayerStorageHandler ps)
+        public void GrabItem(PlayerStorageHandler ps)
         {
-            ps.JustPutIn(ps.storage.GetStorageObject(), currentHoldItemObject); // +
+            ps.JustPutIn(currentHoldItemObject); // +
             currentHoldItemObject = null; // -
+            ClearModel();
         }
         
         //public void SetMiniStorageId(int value)
@@ -140,7 +144,7 @@ namespace _Scripts.InventorySystem
         {
             int childs = currentHoldItemModel.transform.childCount;
             
-            for (int i = childs - 1; i > 0; i--)
+            for (int i = 0; i < childs; i++)
             {
                 Destroy(currentHoldItemModel.transform.GetChild(i).gameObject);
             }
