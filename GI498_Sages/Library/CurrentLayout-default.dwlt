@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 1037
   m_ShowMode: 4
-  m_Title: Hierarchy
+  m_Title: Game
   m_RootView: {fileID: 6}
   m_MinSize: {x: 875, y: 542}
   m_MaxSize: {x: 10000, y: 10000}
@@ -45,10 +45,10 @@ MonoBehaviour:
     y: 30
     width: 1920
     height: 987
-  m_MinSize: {x: 679, y: 492}
-  m_MaxSize: {x: 14002, y: 14042}
+  m_MinSize: {x: 678, y: 492}
+  m_MaxSize: {x: 14001, y: 14042}
   vertical: 0
-  controlID: 15
+  controlID: 82
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -68,8 +68,8 @@ MonoBehaviour:
     y: 0
     width: 551
     height: 987
-  m_MinSize: {x: 276, y: 71}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 17}
   m_Panes:
   - {fileID: 17}
@@ -94,10 +94,10 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 401
+    width: 400
     height: 596
-  m_MinSize: {x: 201, y: 221}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 18}
   m_Panes:
   - {fileID: 18}
@@ -152,7 +152,7 @@ MonoBehaviour:
     y: 0
     width: 1920
     height: 1037
-  m_MinSize: {x: 875, y: 542}
+  m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
   m_UseTopView: 1
   m_TopViewHeight: 30
@@ -264,25 +264,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: SceneView
+  m_Name: GameView
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 401
+    x: 400
     y: 0
-    width: 968
+    width: 969
     height: 596
   m_MinSize: {x: 202, y: 221}
   m_MaxSize: {x: 4002, y: 4021}
-  m_ActualView: {fileID: 19}
+  m_ActualView: {fileID: 20}
   m_Panes:
   - {fileID: 19}
   - {fileID: 20}
   - {fileID: 15}
   - {fileID: 14}
-  m_Selected: 0
-  m_LastSelected: 1
+  m_Selected: 1
+  m_LastSelected: 0
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -421,33 +421,33 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/_Scripts/InventorySystem
+    - Assets/_ScriptableObject/StorageCollection
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/_Scripts/InventorySystem
+  - Assets/_ScriptableObject/StorageCollection
   m_LastFoldersGridSize: -1
   m_LastProjectPath: N:\@BU\64-1\GI498\GI498_Project\GI498\GI498_Sages
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 180}
-    m_SelectedIDs: 86830000
-    m_LastClickedID: 33670
-    m_ExpandedIDs: 00000000828300008483000086830000888300008a830000988300009c830000c08300004e850000ffffff7f
+    scrollPos: {x: 0, y: 60}
+    m_SelectedIDs: 5a490000
+    m_LastClickedID: 18778
+    m_ExpandedIDs: 000000002e49000030490000324900003449000036490000384900003a4900003c4900003e4900005249000064490000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: UI
-      m_OriginalName: UI
+      m_Name: Storage
+      m_OriginalName: Storage
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 33726
+      m_UserData: 18768
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
       m_OriginalEventType: 0
@@ -464,7 +464,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000828300008483000086830000888300008a830000
+    m_ExpandedIDs: 000000002e49000030490000324900003449000036490000384900003a4900003c4900003e490000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -546,7 +546,7 @@ MonoBehaviour:
     height: 966
   m_ViewDataDictionary: {fileID: 0}
   m_ObjectsLockedBeforeSerialization: []
-  m_InstanceIDsLockedBeforeSerialization: 
+  m_InstanceIDsLockedBeforeSerialization: 82a7ffff
   m_PreviewResizer:
     m_CachedPref: 160
     m_ControlHash: -371814159
@@ -555,7 +555,7 @@ MonoBehaviour:
   m_LastVerticalScrollValue: 0
   m_GlobalObjectId: 
   m_LockTracker:
-    m_IsLocked: 0
+    m_IsLocked: 1
   m_PreviewWindow: {fileID: 0}
 --- !u!114 &18
 MonoBehaviour:
@@ -579,29 +579,29 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 73
-    width: 400
+    width: 399
     height: 575
   m_ViewDataDictionary: {fileID: 0}
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
-      m_LastClickedID: 0
-      m_ExpandedIDs: b677feffb877feff147bfeff5e7ffeff8884feff1088feff3a8dfeffa693feff7094feff7c97feff2698feff0a9bfeffb49bfeffc0a0feff6aa1fefffea4feff16b0feff18b0feff1eb3feff60b6feff62b6feff84b9feffb0c1feff02c2feff0ac2feff26c2feff2cc2feff5ac2feff5cc2feffb0c6feff80d0feff88d0feff90d0feffe0d0feffe2d0feffd6d3feffd8d3feffb4d4feffb4d6feff88dafeff8adafeff04defeff06defeff4cdffeff94dffeffb2e0feff96e1feffdee1feffdae3feff3ce7feff8ce7feff0ee9feff10e9feffccecfeffceecfeff28effeff74f0feffc6f0feffd4f1feff26f2feff08f3feff0af4fefff4f5feff46f6feff48f6feff66f7feff340affff5e0affff920afffff00cfffff20cffff360effff460effff900effffda10ffff2a11ffffc211ffff5a13ffff8214ffff2625ffffc041ffffd841ffffe441ffff3299ffff5699ffff5e99ffff8699ffff9899ffffa499ffffe099ffff62a5fffffeb6ffff34bbffff46bbffff6ebbffffe8bbffffbebcffffccbcffffdebcfffff6bdffff2ed4ffff5ed4ffff88810000b2810000ba810000d48100001e82000028820000a48c0000ac8d0000d68d0000228e0000508e00005a8e0000be93000056970000829700009c97000032d200002ed4000070d5000008d60000e2d70000e6d80000c0de000068e200000ce5000060e60000c0e600005ae70000b6eb0000acec000030ed000026ee000074ee00005eef000082f0000090f2000078f3000062f40000a8f50000f2f60000dcf70000c6f80000b0f900009afa000084fb00006efc0000b2fd00009cfe00006e000100400201002c0301007a040100640501004e060100
+      m_SelectedIDs: c0f6ffff
+      m_LastClickedID: -2368
+      m_ExpandedIDs: 3cc4ffff76c6ffffd8c6ffff6ac8ffffe0c8ffff5cf6ffff9cf6ffffb2f6ffffc0f6ffff12f7ffff1af7ffff6af7ffffbaf7ffffe4f7fffff6f9ffff16fbfffff4ffffff224e00008c4e0000c84e0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: Fridge Storage Test UI
-        m_OriginalName: Fridge Storage Test UI
+        m_Name: 
+        m_OriginalName: 
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: -75208
+        m_UserData: 0
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 0
+        m_OriginalEventType: 11
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 4}
       m_SearchString: 
@@ -631,9 +631,9 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 401
+    x: 400
     y: 73
-    width: 966
+    width: 967
     height: 575
   m_ViewDataDictionary: {fileID: 0}
   m_ShowContextualTools: 0
@@ -647,9 +647,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 0.5490799, y: 0.6443963, z: 1.424346}
+    m_Target: {x: 1.6878536, y: 0.55388856, z: 5.1531644}
     speed: 2
-    m_Value: {x: 0.5490799, y: 0.6443963, z: 1.424346}
+    m_Value: {x: 1.6878536, y: 0.55388856, z: 5.1531644}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -696,13 +696,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.13386457, y: -0.52980965, z: 0.08512509, w: -0.83315897}
+    m_Target: {x: -0.22032529, y: -0.3391453, z: 0.08203205, w: -0.9109385}
     speed: 2
-    m_Value: {x: -0.13386336, y: -0.5298048, z: 0.085124314, w: -0.8331514}
+    m_Value: {x: -0.22031417, y: -0.3391282, z: 0.08202791, w: -0.91089255}
   m_Size:
-    m_Target: 2.9660254
+    m_Target: 5.121181
     speed: 2
-    m_Value: 2.9660254
+    m_Value: 5.121181
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -720,7 +720,7 @@ MonoBehaviour:
     m_FarClip: 10000
     m_DynamicClip: 1
     m_OcclusionCulling: 0
-  m_LastSceneViewRotation: {x: -0.09540964, y: -0.74617934, z: 0.10957838, w: -0.649704}
+  m_LastSceneViewRotation: {x: -0.31676075, y: -0.40424895, z: 0.1516201, w: -0.84460497}
   m_LastSceneViewOrtho: 0
   m_ReplacementShader: {fileID: 0}
   m_ReplacementString: 
@@ -747,9 +747,9 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 401
+    x: 400
     y: 73
-    width: 966
+    width: 967
     height: 575
   m_ViewDataDictionary: {fileID: 0}
   m_SerializedViewNames: []
@@ -758,7 +758,7 @@ MonoBehaviour:
   m_ShowGizmos: 0
   m_TargetDisplay: 0
   m_ClearColor: {r: 0, g: 0, b: 0, a: 0}
-  m_TargetSize: {x: 966, y: 554}
+  m_TargetSize: {x: 967, y: 554}
   m_TextureFilterMode: 0
   m_TextureHideFlags: 61
   m_RenderIMGUI: 1
@@ -773,8 +773,8 @@ MonoBehaviour:
     m_VRangeLocked: 0
     hZoomLockedByDefault: 0
     vZoomLockedByDefault: 0
-    m_HBaseRangeMin: -483
-    m_HBaseRangeMax: 483
+    m_HBaseRangeMin: -483.5
+    m_HBaseRangeMax: 483.5
     m_VBaseRangeMin: -277
     m_VBaseRangeMax: 277
     m_HAllowExceedBaseRangeMin: 1
@@ -785,7 +785,7 @@ MonoBehaviour:
     m_HSlider: 0
     m_VSlider: 0
     m_IgnoreScrollWheelUntilClicked: 0
-    m_EnableMouseInput: 0
+    m_EnableMouseInput: 1
     m_EnableSliderZoomHorizontal: 0
     m_EnableSliderZoomVertical: 0
     m_UniformScale: 1
@@ -794,23 +794,23 @@ MonoBehaviour:
       serializedVersion: 2
       x: 0
       y: 21
-      width: 966
+      width: 967
       height: 554
     m_Scale: {x: 1, y: 1}
-    m_Translation: {x: 483, y: 277}
+    m_Translation: {x: 483.5, y: 277}
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -483
+      x: -483.5
       y: -277
-      width: 966
+      width: 967
       height: 554
     m_MinimalGUI: 1
   m_defaultScale: 1
-  m_LastWindowPixelSize: {x: 966, y: 575}
+  m_LastWindowPixelSize: {x: 967, y: 575}
   m_ClearInEditMode: 1
   m_NoCameraWarning: 1
   m_LowResolutionForAspectRatios: 01000000000000000000
