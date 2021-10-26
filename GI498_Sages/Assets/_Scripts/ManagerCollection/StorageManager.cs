@@ -19,6 +19,26 @@ namespace _Scripts.ManagerCollection
         
         public List<StorageCollection> storageCollections;
 
+        public List<MiniStorage> miniStorageCollections;
+
+        
+        ////////////////////////////////////////////////////////////////////////////////////////////
+
+        private void Awake()
+        {
+            InitializeMiniStorageCollections();
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////
+
+        public void InitializeMiniStorageCollections()
+        {
+            for (int i = 0; i < miniStorageCollections.Count; i++)
+            {
+                miniStorageCollections[i].SetMiniStorageId(i);
+            }
+        }
+        
         public Storage GetStorageByType(StorageObject.StorageTypeEnum type)
         {
             var obj = gameObject.GetComponent<Storage>();

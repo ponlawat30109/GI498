@@ -57,7 +57,7 @@ namespace _Scripts.InventorySystem.UI
 
         public void CreateUI()
         {
-            var slot = parent.GetInventory().storageSlots;
+            var slot = parent.GetStorageObject().GetStorageSlot();
         
             for (int i = 0; i < slot.Count; i++)
             {
@@ -70,7 +70,7 @@ namespace _Scripts.InventorySystem.UI
                 }
                 else
                 {
-                    parent.GetInventory().storageSlots.RemoveAt(i);
+                    parent.GetStorageObject().GetStorageSlot().RemoveAt(i);
                 }
             }
         }

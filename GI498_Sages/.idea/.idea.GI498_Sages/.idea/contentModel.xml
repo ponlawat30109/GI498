@@ -23,6 +23,7 @@
               <e p="ITakeAble.cs" t="Include" />
             </e>
             <e p="Item.cs" t="Include" />
+            <e p="MiniStorage.cs" t="Include" />
             <e p="Player" t="Include">
               <e p="PlayerStorageHandler.cs" t="Include" />
             </e>
@@ -39,7 +40,6 @@
               </e>
             </e>
             <e p="Storage.cs" t="Include" />
-            <e p="Table.cs" t="Include" />
             <e p="UI" t="Include">
               <e p="ItemSlotUI.cs" t="Include" />
               <e p="Player" t="Include">
@@ -54,6 +54,7 @@
             <e p="Manager.cs" t="Include" />
             <e p="PlayerManager.cs" t="Include" />
             <e p="StorageManager.cs" t="Include" />
+            <e p="UIManager.cs" t="Include" />
           </e>
           <e p="SceneHandler.cs" t="Include" />
         </e>

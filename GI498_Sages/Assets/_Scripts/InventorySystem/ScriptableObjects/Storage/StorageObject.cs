@@ -14,11 +14,12 @@ namespace _Scripts.InventorySystem.ScriptableObjects.Storage
         {
             Player,
             Fridge,
-            CookingPot
+            CookingPot,
+            Other
         }
         
         public StorageTypeEnum storageType;
-        public List<StorageSlot> storageSlots = new List<StorageSlot>();
+        [SerializeField] private List<StorageSlot> storageSlots = new List<StorageSlot>();
     
         private int maxSlot;
         private bool isStorageStackable;
@@ -34,18 +35,24 @@ namespace _Scripts.InventorySystem.ScriptableObjects.Storage
         {
             bool successful = false;
         
-            if (!HasFreeSpace())
+            if (HasFreeSpace() == true)
             {
-                return false;
-            }
-
-            if (isStorageStackable)
-            {
-                if (HasItem(itemToAdd))
+                if (isStorageStackable)
                 {
-                    var index = storageSlots.FindIndex(x => x.item.Equals(itemToAdd));
-                    storageSlots[index].AddAmount(1);
-                    successful = true;
+                    if (HasItem(itemToAdd))
+                    {
+                        var index = storageSlots.FindIndex(x => x.item.Equals(itemToAdd));
+                        storageSlots[index].AddAmount(1);
+                        successful = true;
+                    }
+                    else
+                    {
+                        if (HasFreeSpace())
+                        {
+                            storageSlots.Add(new StorageSlot(itemToAdd, 1));
+                            successful = true;
+                        }
+                    }
                 }
                 else
                 {
@@ -54,9 +61,13 @@ namespace _Scripts.InventorySystem.ScriptableObjects.Storage
                         storageSlots.Add(new StorageSlot(itemToAdd, 1));
                         successful = true;
                     }
+                    else
+                    {
+                        successful = false;
+                    }
                 }
             }
-
+            
             return successful;
         }
 
@@ -119,10 +130,10 @@ namespace _Scripts.InventorySystem.ScriptableObjects.Storage
             var hasFreespace = false;
             
             //Condition
-            
-            
+
             if (IsUnlimitedSlot())
             {
+                
                 hasFreespace = true;
             }
             else
@@ -137,9 +148,38 @@ namespace _Scripts.InventorySystem.ScriptableObjects.Storage
                 }
             }
         
+            //Debug.Log($"Has Free Space of {this.storageType.ToString()} is : {hasFreespace}");
             return hasFreespace;
         }
-    
+
+        public bool HasAnyItem()
+        {
+            if (storageSlots.Count < 0)
+            {
+                // Empty
+                return false;
+            }
+            
+            var foundItem = false;
+
+            for (int i = 0; i < storageSlots.Count; i++)
+            {
+                if (storageSlots[i].item != null)
+                {
+                    foundItem = true;
+                }
+            }
+            
+            return foundItem;
+        }
+
+        public bool IsSlotIndexHasItem(int index)
+        {
+            //Debug.Log($"Looking at index {index}");
+            var result = GetItemFromSlotIndex(index) != null;
+            return result;
+        }
+        
         public bool IsUnlimitedSlot()
         {
             if (maxSlot <= 0)
@@ -155,6 +195,11 @@ namespace _Scripts.InventorySystem.ScriptableObjects.Storage
             return storageSlots.Count;
         }
 
+        public List<StorageSlot> GetStorageSlot()
+        {
+            return storageSlots;
+        }
+        
         public ItemObject GetItemFromSlotIndex(int index)
         {
             return storageSlots[index].item;
@@ -168,7 +213,7 @@ namespace _Scripts.InventorySystem.ScriptableObjects.Storage
             {
                 var psHandler = Manager.Instance.playerManager.PSHandler();
 
-                if (psHandler.IsHoldingItem() == false && psHandler.playerInventory.GetInventory().HasFreeSpace())
+                if (psHandler.IsHoldingItem() == false && psHandler.storage.GetStorageObject().HasFreeSpace())
                 {
                     psHandler.PutIn(a, b, item);
                     Debug.Log($"[StorageObject.cs] Put {item.itemName} from {b.storageType} to {a.storageType}.");
@@ -220,7 +265,7 @@ namespace _Scripts.InventorySystem.ScriptableObjects.Storage
                 if (a.HasItem(item) && b.HasFreeSpace())
                 {
                     psHandler.TakeOut(a, b, item);
-                    Debug.Log($"[StorageObject.cs] Take {item.itemName} from {a.storageType} to {b.storageType}.");
+                    Debug.Log($"[StorageObject.cs][case == Player] Take {item.itemName} from {a.storageType} to {b.storageType}.");
                     isSuccess = true;
                 }
                 else
@@ -247,7 +292,7 @@ namespace _Scripts.InventorySystem.ScriptableObjects.Storage
                 {
                     a.RemoveItem(item);
                     b.AddItem(item);
-                    Debug.Log($"[StorageObject.cs] Take {item.itemName} from {a.storageType} to {b.storageType}.");
+                    Debug.Log($"[StorageObject.cs][case == Else] Take {item.itemName} from {a.storageType} to {b.storageType}.");
                     isSuccess = true;
                 }
                 else

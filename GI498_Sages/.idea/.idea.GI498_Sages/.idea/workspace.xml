@@ -23,45 +23,43 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f193b64d-21bc-4e30-8ec0-71eeb3480d8a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/Interface.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/Interface/ITakeable.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/Interface/ITakeable.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/Player.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/Player/PlayerStorageHandler.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/Player/PlayerStorageHandler.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/UI/Player.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/UI/StorageWithUI.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/UI/StorageWithUI.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/MiniStorage.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/MiniStorage.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GI498_Sages/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GI498_Sages/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GI498_Sages/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GI498_Sages/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Prefabs/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Prefabs/Player.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Prefabs/Player.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Prefabs/Player.prefab.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Prefabs/UI/Item Holding Slot UI.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Prefabs/UI/Item Holding Slot UI.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Prefabs/UI/Item Slot.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Prefabs/UI/Item Slot.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Prefabs/Storage/Fridge.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Prefabs/Storage/Fridge.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Prefabs/Storage/Player Inventory.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Prefabs/Storage/Player Inventory.prefab.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Scenes/scn_ItemExample.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scenes/scn_ItemExample.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Scenes/scn_Manager.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scenes/scn_Manager.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scenes/scn_Starter.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scenes/scn_Starter.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_ScriptableObject/ItemCollection/Foods/Fried Egg.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_ScriptableObject/ItemCollection/Foods/Fried Egg.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_ScriptableObject/ItemCollection/Ingredients/Cooked Rice.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_ScriptableObject/ItemCollection/Ingredients/Cooked Rice.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_ScriptableObject/ItemCollection/Ingredients/Egg.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_ScriptableObject/ItemCollection/Ingredients/Egg.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_ScriptableObject/ItemCollection/Ingredients/Oil.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_ScriptableObject/ItemCollection/Ingredients/Oil.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_ScriptableObject/ItemCollection/Ingredients/Onion.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_ScriptableObject/ItemCollection/Ingredients/Onion.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_ScriptableObject/ItemCollection/Ingredients/Pork Slice.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_ScriptableObject/ItemCollection/Ingredients/Pork Slice.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_ScriptableObject/StorageCollection/Fridge Storage.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_ScriptableObject/StorageCollection/Fridge Storage.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/InteractSystem/Interface/ITakeAble.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/InteractSystem/Interface/ITakeAble.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/Player/PlayerStorageHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/Player/PlayerStorageHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/ScriptableObjects/Storage/StorageObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/ScriptableObjects/Storage/StorageObject.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/Storage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/Storage.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/UI/ItemHoldingUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/UI/Player/ItemHoldingUI.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/UI/ItemHoldingUI.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/UI/Player/ItemHoldingUI.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/UI/ItemSlotUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/UI/ItemSlotUI.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/UI/ItemSlotUI.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/UI/ItemSlotUI.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/UI/PlayerStorageUI.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/UI/PlayerStorageUI.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/Table.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/Table.cs.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/UI/StorageUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/UI/StorageUI.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/ManagerCollection/Manager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/ManagerCollection/Manager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/ManagerCollection/PlayerManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/ManagerCollection/PlayerManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/UI/StorageWithUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/UI/StorageWithUI.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Scripts/ManagerCollection/StorageManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/ManagerCollection/StorageManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Library/ArtifactDB" beforeDir="false" afterPath="$PROJECT_DIR$/Library/ArtifactDB" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Library/InspectorExpandedItems.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Library/InspectorExpandedItems.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Library/SceneVisibilityState.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Library/SceneVisibilityState.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Library/ShaderCache/EditorEncounteredVariants" beforeDir="false" afterPath="$PROJECT_DIR$/Library/ShaderCache/EditorEncounteredVariants" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Library/SourceAssetDB" beforeDir="false" afterPath="$PROJECT_DIR$/Library/SourceAssetDB" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Library/StateCache/MainStageHierarchy/2f/2fecdd5b41d67024c656cbd1304782f3.json" beforeDir="false" afterPath="$PROJECT_DIR$/Library/StateCache/MainStageHierarchy/2f/2fecdd5b41d67024c656cbd1304782f3.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Library/StateCache/SceneView/c4/c4c79f2801988007f4a2bcac3051ec6b.json" beforeDir="false" afterPath="$PROJECT_DIR$/Library/StateCache/SceneView/c4/c4c79f2801988007f4a2bcac3051ec6b.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe0.log" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe0.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe1.log" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe1.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe2.log" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe2.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe3.log" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe3.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -73,24 +71,22 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/_Scripts/ManagerCollection/Manager.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/_Scripts/InventorySystem/UI/StorageInformationUI.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/_Scripts/InventorySystem/Storage.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/_Scripts/InventorySystem/UI/StorageUI.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Scripts/ManagerCollection/StorageManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/_Scripts/ManagerCollection/Manager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Scripts/InventorySystem/ScriptableObjects/Storage/StorageObject.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/_Scripts/InventorySystem/UI/StorageInformationUI.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Scripts/InteractSystem/Interface/ICollectableObject.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/_Scripts/InventorySystem/Storage.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Scripts/ManagerCollection/PlayerManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Scripts/InventorySystem/Item.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.core@10.6.0/Editor/ShaderGenerator/ShaderGeneratorMenu.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/F2625FD8-44AA-4DD5-B6A3-882F24F14D79/b7/ac326af0/List`1.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Scripts/InteractSystem/Interface/IInteractableObject.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/_Scripts/InventorySystem/UI/StorageUI.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Assets/_Scripts/Inventory System/UI/ItemGridUI.cs" />
-        <option value="$PROJECT_DIR$/Assets/_Scriptable Object/Items/Scripts/ItemObject.cs" />
         <option value="$PROJECT_DIR$/Assets/ContainerInformationUI.cs" />
         <option value="$PROJECT_DIR$/Assets/_Scripts/Inventory System/UI/ContainerUI.cs" />
         <option value="$PROJECT_DIR$/Assets/_Scripts/Inventory System/UI/ItemSlotUI.cs" />
@@ -113,7 +109,6 @@
         <option value="$PROJECT_DIR$/Assets/_Scripts/InteractSystem/Interface/IInteractableObject.cs" />
         <option value="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/UI/ContainerUI.cs" />
         <option value="$PROJECT_DIR$/Assets/_ScriptableObject/Inventorys/Scripts/StorageObject.cs" />
-        <option value="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/Item.cs" />
         <option value="$PROJECT_DIR$/Assets/_Scripts/Character/ContainerHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/_Scripts/InteractSystem/Interface/ICollectableObject.cs" />
         <option value="$PROJECT_DIR$/Assets/_Scripts/InteractSystem/Interface/ITakeAble.cs" />
@@ -133,13 +128,16 @@
         <option value="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/UI/Fridge/FridgeStorageUI.cs" />
         <option value="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/UI/Fridge/StorageWithUI.cs" />
         <option value="$PROJECT_DIR$/Assets/_Scripts/ManagerCollection/Manager.cs" />
-        <option value="$PROJECT_DIR$/Assets/_Scripts/ManagerCollection/StorageManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/Player/PlayerStorageHandler.cs" />
-        <option value="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/UI/StorageWithUI.cs" />
-        <option value="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/UI/StorageUI.cs" />
-        <option value="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/ScriptableObjects/Storage/StorageObject.cs" />
-        <option value="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/Storage.cs" />
         <option value="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/UI/ItemSlotUI.cs" />
+        <option value="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/Storage.cs" />
+        <option value="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/UI/StorageUI.cs" />
+        <option value="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/MiniStorageHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/_Scripts/ManagerCollection/StorageManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/Item.cs" />
+        <option value="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/UI/StorageWithUI.cs" />
+        <option value="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/ScriptableObjects/Storage/StorageObject.cs" />
+        <option value="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/MiniStorage.cs" />
+        <option value="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/Player/PlayerStorageHandler.cs" />
       </list>
     </option>
   </component>
@@ -150,6 +148,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="Discover.Launch.Via.Unity" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -199,6 +198,7 @@
       <workItem from="1634695490336" duration="479000" />
       <workItem from="1634696410464" duration="36000" />
       <workItem from="1634696567088" duration="27116000" />
+      <workItem from="1635221038107" duration="22467000" />
     </task>
     <servers />
   </component>
@@ -223,25 +223,25 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="764" y="241" key="RiderGenerateDialog" timestamp="1634709797718">
+    <state x="764" y="241" key="RiderGenerateDialog" timestamp="1635228948667">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="764" y="241" key="RiderGenerateDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1634709797718" />
-    <state x="92" y="92" width="1736" height="896" key="VCS.FileHistoryDialog" timestamp="1634704444334">
+    <state x="764" y="241" key="RiderGenerateDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1635228948667" />
+    <state x="92" y="92" width="1736" height="896" key="VCS.FileHistoryDialog" timestamp="1635226801787">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="92" y="92" width="1736" height="896" key="VCS.FileHistoryDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1634704444334" />
+    <state x="92" y="92" width="1736" height="896" key="VCS.FileHistoryDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1635226801787" />
     <state x="638" y="273" width="644" height="534" key="find.popup" timestamp="1634715513674">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="638" y="273" width="644" height="534" key="find.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1634715513674" />
-    <state x="616" y="250" key="run.anything.popup" timestamp="1634722966386">
+    <state x="616" y="250" key="run.anything.popup" timestamp="1635225115140">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="616" y="250" key="run.anything.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1634722966386" />
-    <state x="623" y="235" width="672" height="678" key="search.everywhere.popup" timestamp="1634724530907">
+    <state x="616" y="250" key="run.anything.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1635225115140" />
+    <state x="623" y="235" width="672" height="678" key="search.everywhere.popup" timestamp="1635239861196">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="623" y="235" width="672" height="678" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1634724530907" />
+    <state x="623" y="235" width="672" height="678" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1635239861196" />
   </component>
 </project>

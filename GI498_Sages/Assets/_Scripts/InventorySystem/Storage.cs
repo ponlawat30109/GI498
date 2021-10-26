@@ -8,25 +8,25 @@ namespace _Scripts.InventorySystem
 {
     public class Storage : MonoBehaviour,IInteractableObject
     {
-        [SerializeField] private StorageObject inventory;
+        [SerializeField] private StorageObject storageObject;
         [SerializeField] private StorageUI storageUI;
         [SerializeField] private ItemSlotUI currentSelectSlot;
 
         [SerializeField] private int maxSlot;
         [SerializeField] private bool isStackable;
         [SerializeField] private bool isSlotUISelectable;
-        
+
         public event Action OnInteracted;
 
         private void Start()
         {
             storageUI.gameObject.SetActive(false);
-            inventory.InitializeStorageObject(maxSlot, isStackable);
+            storageObject.InitializeStorageObject(maxSlot, isStackable);
         }
 
-        public StorageObject GetInventory()
+        public StorageObject GetStorageObject()
         {
-            return inventory;
+            return storageObject;
         }
 
         public StorageUI GetStorageUI()
@@ -44,6 +44,11 @@ namespace _Scripts.InventorySystem
             storageUI.gameObject.SetActive(false);
         }
 
+        public bool IsUIOpen()
+        {
+            return storageUI.gameObject.activeSelf;
+        }
+        
         public bool IsSlotUISelectable
         {
             get => isSlotUISelectable;
@@ -53,14 +58,14 @@ namespace _Scripts.InventorySystem
         //Put Into Storage
         public void PutIn(StorageObject a,StorageObject b, ItemObject item)
         {
-            inventory.PutIn(a, b, item);
+            storageObject.PutIn(a, b, item);
             Debug.Log($"[Storage.cs] Put {item.itemName} from {b.storageType} to {a.storageType}.");
         }
 
         //Take Out to other Storage
         public void TakeOut(StorageObject a, StorageObject b, ItemObject item)
         {
-            inventory.TakeOut(a, b, item);
+            storageObject.TakeOut(a, b, item);
             Debug.Log($"[Storage.cs] Take {item.itemName} from {a.storageType} to {b.storageType}.");
         }
 

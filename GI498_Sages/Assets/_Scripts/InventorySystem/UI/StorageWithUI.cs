@@ -26,12 +26,11 @@ namespace _Scripts.InventorySystem.UI
         public void PutInButtonAction()
         {
             var psHandler = Manager.Instance.playerManager.PSHandler();
-            var a = parent.GetInventory();
-            var b = psHandler.playerInventory.GetInventory();
-            var item = psHandler.holdingItem;
+            var a = parent.GetStorageObject();
+            var b = psHandler.storage.GetStorageObject();
+            var item = psHandler.currentHoldItemObject;
             
             parent.PutIn(a, b, item);
-            
             Debug.Log($"[Button] Put {item.itemName} from {b.storageType} to {a.storageType}.");
         }
 
@@ -42,8 +41,8 @@ namespace _Scripts.InventorySystem.UI
         {
             var psHandler = Manager.Instance.playerManager.PSHandler();
             
-            var a = parent.GetInventory();
-            var b = psHandler.playerInventory.GetInventory();
+            var a = parent.GetStorageObject();
+            var b = psHandler.storage.GetStorageObject();
             var item = parent.GetSelectSlot().GetItem();
             
             parent.TakeOut(a, b, item);
