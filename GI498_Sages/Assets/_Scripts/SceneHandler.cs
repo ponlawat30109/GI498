@@ -70,7 +70,13 @@ namespace _Scripts
                 }
             }
         }
-    
+
+        public void LoadSpecificScene(string _sceneName)
+        {
+            sceneName = _sceneName;
+            LoadSpecificScene();
+        }
+
         public void UnloadSpecificScene()
         {
             if (sceneName != null || sceneName != "" || !sceneName.Contains(" "))
@@ -84,6 +90,12 @@ namespace _Scripts
                     scene.isLoaded = false;
                 }
             }
+        }
+
+        public void UnloadSpecificScene(string _sceneName)
+        {
+            sceneName = _sceneName;
+            UnloadSpecificScene();
         }
 
         private int GetScenePackageIndexByName(string toGetSceneName)

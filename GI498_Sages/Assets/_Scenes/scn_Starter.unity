@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -644,6 +644,76 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &526393250
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 526393251}
+  - component: {fileID: 526393252}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &526393251
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 526393250}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1900720634}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &526393252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 526393250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fe5366a0269db34bbeefc7b5c06018d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  musicVolumnOption: 0.5
+  sfxVolumnOption: 0.5
+  timeToFade: 1
+  timeSilentSpace: 0.2
+  audioSounds:
+  - name: 0
+    type: 0
+    clip: {fileID: 8300000, guid: 2aeb24a557c4c614eb18ec06b6a43591, type: 3}
+    volumn: 0.71
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: 1
+    type: 0
+    clip: {fileID: 8300000, guid: 3c09b09c5c0b35348965362a9d61357f, type: 3}
+    volumn: 0.71
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  sfxSounds:
+  - name: 2
+    type: 1
+    clip: {fileID: 8300000, guid: cfad460525ddebd4492ecbda34377a56, type: 3}
+    volumn: 0.71
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
 --- !u!1 &986616538
 GameObject:
   m_ObjectHideFlags: 3
@@ -1049,6 +1119,7 @@ Transform:
   m_LocalPosition: {x: 2.728325, y: -0.823617, z: 25.100006}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 526393251}
   - {fileID: 4477418128189875342}
   m_Father: {fileID: 0}
   m_RootOrder: 4
@@ -1153,12 +1224,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4477418128189875440}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.728325, y: 0.823617, z: -25.100006}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1900720634}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4477418128189875440
 GameObject:
@@ -1170,6 +1241,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4477418128189875342}
   - component: {fileID: 4477418128189875441}
+  - component: {fileID: 4477418128189875442}
   m_Layer: 0
   m_Name: Scene Handler
   m_TagString: Untagged
@@ -1205,4 +1277,24 @@ MonoBehaviour:
   - needLoad: 1
     isLoaded: 0
     sceneAsset: {fileID: 102900000, guid: 0b80992853aaa0245955895e303a91b9, type: 3}
+  - needLoad: 1
+    isLoaded: 0
+    sceneAsset: {fileID: 102900000, guid: 6cce25816fb4f524c85c522458df3237, type: 3}
+  - needLoad: 1
+    isLoaded: 0
+    sceneAsset: {fileID: 102900000, guid: a552be3bb1fb02047a1fda1c27e11aca, type: 3}
   sceneName: 
+--- !u!114 &4477418128189875442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4477418128189875440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64a9970fab132b94e974a3d5dce381b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneHandler: {fileID: 4477418128189875441}
+  currentScene: 

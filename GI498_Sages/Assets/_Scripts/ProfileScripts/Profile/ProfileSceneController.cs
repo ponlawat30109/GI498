@@ -85,13 +85,7 @@ public class ProfileSceneController : MonoBehaviour
 
     private void ChangeSceneToToMainMenuScene()
     {
-        Debug.Log("ChangeSceneToMainMenuScene");
-        /*วิธี Load/Unload Test เฉพาะ Scene
-        1. พิมพ์ชื่อ scn_name ในช่อง Inspector ของ Scene Handler ใน Starter Scene (scn_Starter)
-        2. กด Load/Unload Specific Scene*/
-
-        //temp code (ลบ using UnityEngine.SceneManagement; ด้วย)
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        _Scripts.SceneAnimator.Instance.ChangeScene(_Scripts.SceneEnum.scn_Profile, _Scripts.SceneEnum.scn_MainMenu);
     }
 
     private void ChangeSceneToToGamePlayScene()
@@ -123,8 +117,6 @@ public class ProfileSceneController : MonoBehaviour
 
     private void SavedFeedback()
     {
-        //savedFeedbackPanel.SetActive(true);
-        //mainPanelAnimator.SetTrigger("Saved");
         addPanelAnimator.SetTrigger("Saved");
     }
 }
