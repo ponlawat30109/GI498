@@ -304,6 +304,8 @@ public class CustomModelManager : MonoBehaviour
         customData.outfit = outfitIndex;
         customData.hat = hatIndex;
 
+        _Scripts.SceneAnimator.Instance.customData = customData;
+
         return customData;
     }
 
@@ -341,5 +343,6 @@ public class CustomModelManager : MonoBehaviour
         DirectSetOutfitActive(customData.outfit);
         DirectSetHatActive(customData.hat);
     }
+
     #endregion
 }
