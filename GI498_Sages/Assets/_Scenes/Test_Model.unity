@@ -459,7 +459,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 751c6d08944c08e4fae53bee3bbaaf6d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.662
+      value: 0.699
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 751c6d08944c08e4fae53bee3bbaaf6d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -493,6 +493,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 751c6d08944c08e4fae53bee3bbaaf6d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b2f1798db7ce64148bf3724e9bc18162, type: 2}
     - target: {fileID: 919132149155446097, guid: 751c6d08944c08e4fae53bee3bbaaf6d, type: 3}
       propertyPath: m_Name
       value: Shrimp FBX
@@ -631,6 +635,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 6790f313f61947d41ae05ed25bcdb4ea, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5c92acd0835b9b145b411561a8022104, type: 2}
     - target: {fileID: 919132149155446097, guid: 6790f313f61947d41ae05ed25bcdb4ea, type: 3}
       propertyPath: m_Name
       value: tofu
@@ -662,7 +670,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d32d77e086f4dde429e8f3fb98f7427f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.416
+      value: 1.483
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d32d77e086f4dde429e8f3fb98f7427f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -670,7 +678,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d32d77e086f4dde429e8f3fb98f7427f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.823
+      value: 2.394
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d32d77e086f4dde429e8f3fb98f7427f, type: 3}
       propertyPath: m_LocalRotation.w
@@ -976,6 +984,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: c0e0f854c634bcb48a6eafa1b4690bb2, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c60471e936d08e0459cd0f933c79fe84, type: 2}
     - target: {fileID: 919132149155446097, guid: c0e0f854c634bcb48a6eafa1b4690bb2, type: 3}
       propertyPath: m_Name
       value: bowl_mashed
@@ -1483,6 +1495,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -719817652671122319, guid: 8547c9fb14c373440801bf1e9bd55872, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 89f146e1a6a559843be1e9d83bfdfa4a, type: 2}
     - target: {fileID: 919132149155446097, guid: 8547c9fb14c373440801bf1e9bd55872, type: 3}
       propertyPath: m_Name
       value: lettuce
@@ -1552,6 +1568,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 3518ca97b9ed0c544a9d0ca297d9e439, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9821a58f0da92244babd9bb26c3d08e9, type: 2}
     - target: {fileID: 919132149155446097, guid: 3518ca97b9ed0c544a9d0ca297d9e439, type: 3}
       propertyPath: m_Name
       value: slide_tofu
@@ -1725,7 +1745,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f4865dcbf12a6144e9470e631579de69, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.806
+      value: 0.725
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f4865dcbf12a6144e9470e631579de69, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1759,6 +1779,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: f4865dcbf12a6144e9470e631579de69, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f5d45534f4adea748be8a82b6628c86a, type: 2}
+    - target: {fileID: -7511558181221131132, guid: f4865dcbf12a6144e9470e631579de69, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 89085826214d4534fa490d67989590aa, type: 2}
     - target: {fileID: 919132149155446097, guid: f4865dcbf12a6144e9470e631579de69, type: 3}
       propertyPath: m_Name
       value: bean_sprout
@@ -1828,6 +1856,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: d534df9f87290f146ae896716c5a70e7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9b913a8632519e34ba880b950666eb65, type: 2}
+    - target: {fileID: -7511558181221131132, guid: d534df9f87290f146ae896716c5a70e7, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9b913a8632519e34ba880b950666eb65, type: 2}
     - target: {fileID: 919132149155446097, guid: d534df9f87290f146ae896716c5a70e7, type: 3}
       propertyPath: m_Name
       value: leaf_lettuce
@@ -1916,15 +1952,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0b65d062f255db141862cca4ea8d6ccc, type: 3}
       propertyPath: m_LocalScale.x
-      value: 15
+      value: 8.104777
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0b65d062f255db141862cca4ea8d6ccc, type: 3}
       propertyPath: m_LocalScale.y
-      value: 15
+      value: 8.104777
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0b65d062f255db141862cca4ea8d6ccc, type: 3}
       propertyPath: m_LocalScale.z
-      value: 15
+      value: 8.104777
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0b65d062f255db141862cca4ea8d6ccc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1966,6 +2002,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -1915249436211983552, guid: 0b65d062f255db141862cca4ea8d6ccc, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 509678ff8b0815244b349a81a097a8ad, type: 2}
     - target: {fileID: 919132149155446097, guid: 0b65d062f255db141862cca4ea8d6ccc, type: 3}
       propertyPath: m_Name
       value: bread
@@ -2340,6 +2380,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 9f5111db262fb844892c6a9f4749d841, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 998ab2483ac604d47a79c34ad36c7ede, type: 2}
     - target: {fileID: 919132149155446097, guid: 9f5111db262fb844892c6a9f4749d841, type: 3}
       propertyPath: m_Name
       value: Sqiud FBX
@@ -2629,7 +2673,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 008027359cf7e9e4595faf2303099933, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.59
+      value: 0.646
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 008027359cf7e9e4595faf2303099933, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2663,6 +2707,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 008027359cf7e9e4595faf2303099933, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c2345b369af5eca4e9d3f52884c7cfbe, type: 2}
     - target: {fileID: 919132149155446097, guid: 008027359cf7e9e4595faf2303099933, type: 3}
       propertyPath: m_Name
       value: Chicken FBX
@@ -2805,6 +2853,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: egg
       objectReference: {fileID: 0}
+    - target: {fileID: 8762527604140350571, guid: cba61253fdce5a64e9a089b2cd8ffeab, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d9a8c453eca887f458683383ca9631e8, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cba61253fdce5a64e9a089b2cd8ffeab, type: 3}
 --- !u!1001 &1414314948
@@ -3008,6 +3060,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: c01bc9dbf98990f428df8aea24748984, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0e8dd0223a0acd848b7bb2d6dced0c94, type: 2}
     - target: {fileID: 919132149155446097, guid: c01bc9dbf98990f428df8aea24748984, type: 3}
       propertyPath: m_Name
       value: table
@@ -3165,15 +3221,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 09fe2b95732242f40a6f91fb14602067, type: 3}
       propertyPath: m_LocalScale.x
-      value: 15
+      value: 12.5646
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 09fe2b95732242f40a6f91fb14602067, type: 3}
       propertyPath: m_LocalScale.y
-      value: 15
+      value: 12.5646
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 09fe2b95732242f40a6f91fb14602067, type: 3}
       propertyPath: m_LocalScale.z
-      value: 15
+      value: 12.5646
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 09fe2b95732242f40a6f91fb14602067, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3215,6 +3271,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8108198257388530761, guid: 09fe2b95732242f40a6f91fb14602067, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: fb02448f9bf7ac64a9906031282f3364, type: 2}
     - target: {fileID: 919132149155446097, guid: 09fe2b95732242f40a6f91fb14602067, type: 3}
       propertyPath: m_Name
       value: tomato
@@ -3353,6 +3413,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 92001187785556122, guid: a368c17704bf1214eb2e2e3b2671cde1, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 004f2866a2dacd44bbe6e515e9759861, type: 2}
     - target: {fileID: 919132149155446097, guid: a368c17704bf1214eb2e2e3b2671cde1, type: 3}
       propertyPath: m_Name
       value: slide_tomato
@@ -3491,6 +3555,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: a178348f4dd8faf4c85c71f1cdf8c9e5, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: fecf5db2620fb874fb7b5d6104b5581c, type: 2}
+    - target: {fileID: -7511558181221131132, guid: a178348f4dd8faf4c85c71f1cdf8c9e5, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: cf78a3520f61a0648a15ca5b72ec486e, type: 2}
     - target: {fileID: 919132149155446097, guid: a178348f4dd8faf4c85c71f1cdf8c9e5, type: 3}
       propertyPath: m_Name
       value: sinamon
@@ -3560,6 +3632,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 9b85857df67359b44941d740147215e1, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9db40f2cff6c8de40bda904a14e3065f, type: 2}
     - target: {fileID: 919132149155446097, guid: 9b85857df67359b44941d740147215e1, type: 3}
       propertyPath: m_Name
       value: Fish FBX
@@ -3629,6 +3705,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 5a2f1129d2a420746889ac04f66e0640, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4697ebf5acf07cb498e6e2ef755c7da2, type: 2}
     - target: {fileID: 919132149155446097, guid: 5a2f1129d2a420746889ac04f66e0640, type: 3}
       propertyPath: m_Name
       value: Chicken Chop FBX
@@ -3698,6 +3778,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -2504883290348722869, guid: 6cdc00fae1ac56a4a9b04244889d2504, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 875397ad72dc32e468bff4911ed65fe7, type: 2}
     - target: {fileID: 919132149155446097, guid: 6cdc00fae1ac56a4a9b04244889d2504, type: 3}
       propertyPath: m_Name
       value: half_egg
@@ -3940,7 +4024,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d73846440d4a9414abaf7ef8a01367ec, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.593
+      value: 0.631
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d73846440d4a9414abaf7ef8a01367ec, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3974,6 +4058,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7864031512459559465, guid: d73846440d4a9414abaf7ef8a01367ec, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 656a05f54532b394499a3a6864c9ab14, type: 2}
     - target: {fileID: 919132149155446097, guid: d73846440d4a9414abaf7ef8a01367ec, type: 3}
       propertyPath: m_Name
       value: ear_mushroom
@@ -4112,6 +4200,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: e513a27120f61eb49b55ddeb63faf444, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: aab6367a66af03f41b48c554ab4466b0, type: 2}
     - target: {fileID: 919132149155446097, guid: e513a27120f61eb49b55ddeb63faf444, type: 3}
       propertyPath: m_Name
       value: Sqiud Chop FBX
@@ -4181,6 +4273,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 5a0ed64fa3d6b334ba7c707a84081d79, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: aaeac0f90cb657148830459320a157ea, type: 2}
     - target: {fileID: 919132149155446097, guid: 5a0ed64fa3d6b334ba7c707a84081d79, type: 3}
       propertyPath: m_Name
       value: Pig Chop
@@ -4256,6 +4352,79 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 136e02b0896811c45a12f88f3c3c3f95, type: 3}
+--- !u!1001 &1997760206
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: c0e0f854c634bcb48a6eafa1b4690bb2, type: 3}
+      propertyPath: m_RootOrder
+      value: 62
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c0e0f854c634bcb48a6eafa1b4690bb2, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 34.75885
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c0e0f854c634bcb48a6eafa1b4690bb2, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 34.75885
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c0e0f854c634bcb48a6eafa1b4690bb2, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 34.75885
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c0e0f854c634bcb48a6eafa1b4690bb2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.17
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c0e0f854c634bcb48a6eafa1b4690bb2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.578
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c0e0f854c634bcb48a6eafa1b4690bb2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 3.346
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c0e0f854c634bcb48a6eafa1b4690bb2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c0e0f854c634bcb48a6eafa1b4690bb2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c0e0f854c634bcb48a6eafa1b4690bb2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c0e0f854c634bcb48a6eafa1b4690bb2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c0e0f854c634bcb48a6eafa1b4690bb2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c0e0f854c634bcb48a6eafa1b4690bb2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c0e0f854c634bcb48a6eafa1b4690bb2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: c0e0f854c634bcb48a6eafa1b4690bb2, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 43f16270d35862444929217e57846645, type: 2}
+    - target: {fileID: 919132149155446097, guid: c0e0f854c634bcb48a6eafa1b4690bb2, type: 3}
+      propertyPath: m_Name
+      value: bowl_mashed (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c0e0f854c634bcb48a6eafa1b4690bb2, type: 3}
 --- !u!1001 &2010436945
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4388,6 +4557,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 3cbafd82c21d03b40af47fc424fac298, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 98a78e94cf04bd146b19fbcbd5ce9292, type: 2}
     - target: {fileID: 919132149155446097, guid: 3cbafd82c21d03b40af47fc424fac298, type: 3}
       propertyPath: m_Name
       value: Pig FBX
@@ -4503,15 +4676,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a26f9c3119732ad43858bb98382a4463, type: 3}
       propertyPath: m_LocalScale.x
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a26f9c3119732ad43858bb98382a4463, type: 3}
       propertyPath: m_LocalScale.y
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a26f9c3119732ad43858bb98382a4463, type: 3}
       propertyPath: m_LocalScale.z
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a26f9c3119732ad43858bb98382a4463, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4519,11 +4692,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a26f9c3119732ad43858bb98382a4463, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.592
+      value: 0.609
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a26f9c3119732ad43858bb98382a4463, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.8466
+      value: -1.999
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a26f9c3119732ad43858bb98382a4463, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4553,6 +4726,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: a26f9c3119732ad43858bb98382a4463, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 374a57c252557384582a022bd9ff2dfe, type: 2}
     - target: {fileID: 919132149155446097, guid: a26f9c3119732ad43858bb98382a4463, type: 3}
       propertyPath: m_Name
       value: Fish Chop FBX
