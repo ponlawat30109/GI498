@@ -26,10 +26,18 @@ public static class SaveSystem
         {
             BinaryFormatter formatter = new BinaryFormatter();
             FileStream stream = new FileStream(path, FileMode.Open);
+            PlayerData data;
 
-            PlayerData data = formatter.Deserialize(stream) as PlayerData;
+            try
+            {
+                data = formatter.Deserialize(stream) as PlayerData;
+            }
+            catch
+            {
+                data = new PlayerData();
+            }
+
             stream.Close();
-
             return data;
         }
         else

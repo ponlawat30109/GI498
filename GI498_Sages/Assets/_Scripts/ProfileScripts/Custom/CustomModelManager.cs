@@ -304,7 +304,8 @@ public class CustomModelManager : MonoBehaviour
         customData.outfit = outfitIndex;
         customData.hat = hatIndex;
 
-        _Scripts.SceneAnimator.Instance.customData = customData;
+        if(_Scripts.SceneAnimator.Instance != null)
+            _Scripts.SceneAnimator.Instance.customData = customData;
 
         return customData;
     }

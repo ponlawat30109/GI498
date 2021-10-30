@@ -106,20 +106,22 @@ namespace _Scripts
 
             while (sceneAsync.Count > 0)
             {
-                foreach(AsyncOperation a in sceneAsync)
+                for(int i = 0; i < sceneAsync.Count; i++)
                 {
-                    if(a.progress >= 100)
+                    if (sceneAsync[i].progress >= 1)
                     {
-                        sceneAsync.Remove(a);
+                        sceneAsync.RemoveAt(i);
+                        continue;
                     }
                 }
                 yield return null;
             }
-            loadingAnimation.SetTrigger("FinishLoading");
-        }
+            loadingAnimation.SetTrigger("Finish");
 
-        public void LoadFinish()
-        {
+            while (onLoading == true)
+            {
+                yield return null;
+            }
             canvas.sortingOrder = -10;
         }
     }
