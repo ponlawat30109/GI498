@@ -68,18 +68,31 @@ namespace _Scripts
             UnLoadScene(sceneName.ToString());
         }
 
-        public void ChangeScene(string unloadScene,string loadScene)
+        public void ChangeScene(string unLoadScene,string loadScene)
         {
-            //LoadingAnimation
+            //loadingAnimation.SetTrigger("Loading");
+            //StopAllCoroutines();
+            //StartCoroutine(WaitingforLoad(unloadScene, loadScene));
+            string[] unloadScenes = { unLoadScene };
+            string[] loadScenes = { loadScene };
+            ChangeScene(unloadScenes, loadScenes);
+        }
+
+        public void ChangeScene(string[] unLoadScenes, string[] loadScenes)
+        {
             loadingAnimation.SetTrigger("Loading");
             StopAllCoroutines();
-            StartCoroutine(countDownUnload(unloadScene, loadScene));
-            //Play Load Start Scene Animation
+            StartCoroutine(WaitingforLoad(unLoadScenes, loadScenes));
         }
 
         public void ChangeScene(SceneEnum unloadScene, SceneEnum loadScene)
         {
             ChangeScene(unloadScene.ToString(), loadScene.ToString());
+        }
+
+        public void ChangeScene(SceneEnum[] unloadScenes, SceneEnum[] loadScenes)
+        {
+            ChangeScene(unloadScenes.ToString(), loadScenes.ToString());
         }
 
         public void ChangeScene(string loadScene)
@@ -92,7 +105,7 @@ namespace _Scripts
             ChangeScene(currentScene, loadScene.ToString());
         }
 
-        private IEnumerator countDownUnload(string unloadScene, string loadScene)
+        private IEnumerator WaitingforLoad(string[] unloadScenes, string[] loadScenes)
         {
             canvas.sortingOrder = 10;
             while (onLoading == false)
@@ -101,8 +114,16 @@ namespace _Scripts
             }
 
             //onLoading == true
-            sceneAsync.Add(LoadScene(loadScene));
-            UnLoadScene(unloadScene);
+            foreach (string scene in loadScenes)
+            {
+                sceneAsync.Add(LoadScene(scene));
+            }
+            
+            
+            foreach(string scene in unloadScenes)
+            {
+                UnLoadScene(scene);
+            }
 
             while (sceneAsync.Count > 0)
             {
