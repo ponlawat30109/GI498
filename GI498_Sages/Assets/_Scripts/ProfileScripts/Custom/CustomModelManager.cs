@@ -73,15 +73,6 @@ public class CustomModelManager : MonoBehaviour
 
     }
 
-    private void SetMatMultiObj(GameObject[] objArray, Material mat)
-    {
-        foreach(GameObject obj in objArray)
-        {
-            if (!obj.name.Contains("Empty"))
-                obj.GetComponent<Renderer>().material = mat;
-        }
-    }
-
     #region Set Mat or Set Active
     private void SetBodySkinMat(int selector)
     {
@@ -98,6 +89,15 @@ public class CustomModelManager : MonoBehaviour
 
         SetMatMultiObj(bodys, mats[bodySkinMatIndex]);
     }
+    private void SetMatMultiObj(GameObject[] objArray, Material mat)
+    {
+        foreach(GameObject obj in objArray)
+        {
+            if (!obj.name.Contains("Empty"))
+                obj.GetComponent<Renderer>().material = mat;
+        }
+    }
+
     private void DirectSetBodySkinMat(int selector)
     {
         if (bodys == null || mats == null)
