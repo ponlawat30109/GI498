@@ -52,6 +52,7 @@ public class PlayerAnimController : MonoBehaviour
 
     public void SetTargetSpeed(Activity activity)
     {
+        //use for change speed while not do anything
         switch (activity)
         {
             case Activity.Stand:
@@ -83,7 +84,7 @@ public class PlayerAnimController : MonoBehaviour
 
     public void Move(Activity activity)
     {
-        /// <summary>Use after finish chop smth</summary>
+        // Use for finish choping
         animator.SetTrigger("Move");
         SetTargetSpeed(activity);
     }
