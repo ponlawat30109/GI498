@@ -23,7 +23,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f193b64d-21bc-4e30-8ec0-71eeb3480d8a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/_Scripts/CookingSystem/KitchenStorage.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Scripts/CookingSystem/KitchenStorage.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.GI498_Sages/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GI498_Sages/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GI498_Sages/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GI498_Sages/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Scenes/scn_ItemExample.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scenes/scn_ItemExample.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_ScriptableObject/ItemCollection/Foods.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_ScriptableObject/ItemCollection/Foods/Fried Egg.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_ScriptableObject/ItemCollection/Foods/Fried Egg.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_ScriptableObject/StorageCollection/Free Storage.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_ScriptableObject/StorageCollection/Free Storage.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/FoodUtility.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/FoodUtility.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/Player/PlayerStorageHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/Player/PlayerStorageHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/ScriptableObjects/Items/FoodObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/ScriptableObjects/Items/FoodObject.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Library/ArtifactDB" beforeDir="false" afterPath="$PROJECT_DIR$/Library/ArtifactDB" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Library/InspectorExpandedItems.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Library/InspectorExpandedItems.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Library/SceneVisibilityState.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Library/SceneVisibilityState.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Library/SourceAssetDB" beforeDir="false" afterPath="$PROJECT_DIR$/Library/SourceAssetDB" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Library/StateCache/MainStageHierarchy/2f/2fecdd5b41d67024c656cbd1304782f3.json" beforeDir="false" afterPath="$PROJECT_DIR$/Library/StateCache/MainStageHierarchy/2f/2fecdd5b41d67024c656cbd1304782f3.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,9 +67,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Assets/ContainerInformationUI.cs" />
-        <option value="$PROJECT_DIR$/Assets/_Scripts/Inventory System/UI/ContainerUI.cs" />
-        <option value="$PROJECT_DIR$/Assets/_Scripts/Inventory System/UI/ItemSlotUI.cs" />
         <option value="$PROJECT_DIR$/Assets/_Scripts/Interact System/Interface.cs" />
         <option value="$PROJECT_DIR$/Assets/_Scripts/Interact System/Interface/ICollectable.cs" />
         <option value="$PROJECT_DIR$/Assets/_Scripts/Interact System/Interface/IInteracable.cs" />
@@ -98,9 +112,12 @@
         <option value="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/Item.cs" />
         <option value="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/UI/StorageWithUI.cs" />
         <option value="$PROJECT_DIR$/Assets/_Scripts/ManagerCollection/StorageManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/ScriptableObjects/Storage/StorageObject.cs" />
         <option value="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/MiniStorage.cs" />
+        <option value="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/ScriptableObjects/Storage/StorageObject.cs" />
+        <option value="$PROJECT_DIR$/Assets/_Scripts/CookingSystem/KitchenStorage.cs" />
+        <option value="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/FoodUtility.cs" />
         <option value="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/Player/PlayerStorageHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/_Scripts/CookingSystem/Kitchen.cs" />
       </list>
     </option>
   </component>
@@ -162,6 +179,7 @@
       <workItem from="1634696410464" duration="36000" />
       <workItem from="1634696567088" duration="27116000" />
       <workItem from="1635221038107" duration="32462000" />
+      <workItem from="1635782847969" duration="4338000" />
     </task>
     <servers />
   </component>
@@ -202,9 +220,9 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="616" y="250" key="run.anything.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1635225115140" />
-    <state x="623" y="235" width="672" height="678" key="search.everywhere.popup" timestamp="1635251567786">
+    <state x="623" y="235" width="672" height="678" key="search.everywhere.popup" timestamp="1635785362392">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="623" y="235" width="672" height="678" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1635251567786" />
+    <state x="623" y="235" width="672" height="678" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1635785362392" />
   </component>
 </project>

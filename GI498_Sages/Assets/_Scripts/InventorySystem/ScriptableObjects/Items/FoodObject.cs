@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using _Scripts.Inventory_System;
 using UnityEngine;
+using FoodUtility = _Scripts.InventorySystem.FoodUtility;
 
 [CreateAssetMenu(fileName = "New Food Object", menuName = "Inventory System/Items/Food")]
 public class FoodObject : ItemObject

@@ -16,6 +16,7 @@ namespace _Scripts.InventorySystem.Player
         [Header("Data")]
         public Storage storage;
         public ItemObject currentHoldItemObject;
+        public FoodObject currentHoldFoodObject;
         
         [Header("Model")]
         public Transform holdingPosition; // Position of Model On Player Hand
@@ -71,12 +72,25 @@ namespace _Scripts.InventorySystem.Player
                 }
             }
 
+            // Model Things
             if (currentHoldItemObject != null && currentHoldItemModel.transform.childCount < 1)
             {
                 SetModel();
             }
             
             if(currentHoldItemObject == null || storage.GetStorageObject().GetSlotCount() < 1 || currentHoldItemModel.transform.childCount > 1)
+            {
+                ClearModel();
+            }
+            
+            // Model Things but food!.
+            
+            if (currentHoldFoodObject != null && currentHoldItemModel.transform.childCount < 1)
+            {
+                SetFoodModel();
+            }
+            
+            if(currentHoldFoodObject == null || storage.GetStorageObject().GetSlotCount() < 1 || currentHoldItemModel.transform.childCount > 1)
             {
                 ClearModel();
             }
@@ -233,6 +247,13 @@ namespace _Scripts.InventorySystem.Player
             storage.GetStorageObject().AddItem(item);
             SetHoldingItem();
         }
+        
+        public void JustPutInFood(FoodObject item)
+        {
+            //Debug.Log($"Direct Put {item} in {storage.GetStorageObject().storageType.ToString()}");
+            storage.GetStorageObject().AddItem(item);
+            SetHoldingFood(item);
+        }
 
         public void JustTakeOut(ItemObject item)
         {
@@ -263,11 +284,55 @@ namespace _Scripts.InventorySystem.Player
             //currentHoldItemObject = item;
             
         }
+        
+        public void SetHoldingFood(FoodObject item)
+        {
+            if (IsHoldingItem() == false) // IsHoldingItem return FALSE
+            {
+                if (currentHoldItemObject == null)
+                {
+                    if (storage.GetStorageObject().IsSlotIndexHasItem(0))
+                    {
+                        ClearModel();
+                        currentHoldItemObject = null;
+                        currentHoldFoodObject = item;
+                    }
+                }
+                else
+                {
+                    Debug.Log("Can not hold more than 1 item");
+                }
+                
+                return;
+            }
+
+            //Show Food Model
+            //currentHoldItemObject = item;
+            
+        }
 
         private void SetModel()
         {
             var newProp = Instantiate(currentHoldItemObject.ingamePrefab, holdingPosition);
             newProp.transform.SetParent(currentHoldItemModel.transform);
+            
+            //newProp.transform.localPosition = Vector3.zero;
+            //newProp.transform.rotation = Quaternion.identity;
+        }
+        
+        private void SetFoodModel()
+        {
+            if (currentHoldFoodObject.isCooked)
+            {
+                var newProp = Instantiate(currentHoldFoodObject.cookedPrefab, holdingPosition);
+                newProp.transform.SetParent(currentHoldItemModel.transform);
+            }
+            else
+            {
+                var newProp = Instantiate(currentHoldFoodObject.ingamePrefab, holdingPosition);
+                newProp.transform.SetParent(currentHoldItemModel.transform);
+            }
+            
             
             //newProp.transform.localPosition = Vector3.zero;
             //newProp.transform.rotation = Quaternion.identity;
@@ -279,6 +344,7 @@ namespace _Scripts.InventorySystem.Player
             {
                 ClearModel();
                 currentHoldItemObject = null;
+                currentHoldFoodObject = null;
             }
             else
             {
