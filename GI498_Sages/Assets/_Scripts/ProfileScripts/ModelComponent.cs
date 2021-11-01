@@ -29,32 +29,13 @@ namespace ModelScript
         {
             return componentSets;
         }
-        //public void GetModel(out ComponentSet[] _componentSets)
-        //{
-        //    _componentSets = componentSets;
-        //}
 
         public ComponentSet[] LoadData(CustomData customData)
         {
             if(customData.modelVersion != modelVersion)
             {
                 //change by id
-                foreach(CustomData.Part data in customData.datas)
-                {
-                    if(data.type == CustomData.IndexType.ActiveIndex)
-                    {
-                        DirectSetActive(data.setName, data.index);
-                    }
-                    else if(data.type == CustomData.IndexType.MatIndex)
-                    {
-                        DirectSetMat(data.setName, data.index);
-                    }
-                }
-            }
-            else
-            {
-                //change by index
-                foreach(CustomData.Part data in customData.datas)
+                foreach (CustomData.Part data in customData.datas)
                 {
                     if (data.type == CustomData.IndexType.ActiveIndex)
                     {
@@ -63,6 +44,21 @@ namespace ModelScript
                     else if (data.type == CustomData.IndexType.MatIndex)
                     {
                         DirectSetMat(data.setName, data.id);
+                    }
+                }
+            }
+            else
+            {
+                //change by index
+                foreach (CustomData.Part data in customData.datas)
+                {
+                    if (data.type == CustomData.IndexType.ActiveIndex)
+                    {
+                        DirectSetActive(data.setName, data.index);
+                    }
+                    else if (data.type == CustomData.IndexType.MatIndex)
+                    {
+                        DirectSetMat(data.setName, data.index);
                     }
                 }
             }
@@ -91,8 +87,10 @@ namespace ModelScript
                 return;
             }
 
-            objs[components.activeIndex].SetActive(false);
-            objs[index].SetActive(true);
+            if (!objs[components.activeIndex].name.Contains("Empty"))
+                objs[components.activeIndex].component.SetActive(false);
+            if (!objs[index].name.Contains("Empty"))
+                objs[index].component.SetActive(true);
 
             components.activeIndex = index;
         }
@@ -115,10 +113,12 @@ namespace ModelScript
             
             for(int i = 0; i < objs.Length; i++)
             {
-                if (components.objIds[i] == partId)
+                if (objs[i].id == partId)
                 {
-                    objs[components.activeIndex].SetActive(false);
-                    objs[i].SetActive(true);
+                    if (!objs[components.activeIndex].name.Contains("Empty"))
+                        objs[components.activeIndex].component.SetActive(false);
+                    if (!objs[i].name.Contains("Empty"))
+                        objs[i].component.SetActive(true);
                     components.activeIndex = i;
                     break;
                 }
@@ -144,7 +144,7 @@ namespace ModelScript
                 return;
             }
 
-            SetMatMultiObj(components.objs, components.mats[index]);
+            SetMatMultiObj(components.objs, components.mats[index].mat);
             components.matIndex = index;
         }
 
@@ -166,40 +166,23 @@ namespace ModelScript
 
             for (int i = 0; i < mats.Length; i++)
             {
-                if (components.matIds[i] == matId)
+                if (mats[i].id == matId)
                 {
-                    SetMatMultiObj(components.objs, mats[i]);
+                    SetMatMultiObj(components.objs, mats[i].mat);
                     components.matIndex = i;
                     break;
                 }
             }
         }
 
-        private void SetMatMultiObj(GameObject[] objs, Material mat)
+        private void SetMatMultiObj(ComponentSet.Component[] objs, Material mat)
         {
-            foreach (GameObject obj in objs)
+            foreach (ComponentSet.Component obj in objs)
             {
                 if (!obj.name.Contains("Empty"))
-                    obj.GetComponent<Renderer>().material = mat;
+                    obj.component.GetComponent<Renderer>().material = mat;
             }
         }
-
-
-
-        //private void Start()
-        //{
-        //    DontDestroyOnLoad(gameObject);
-        //}
-
-        //public void GetModel(out GameObject[] bodysArray, out GameObject[] hairsArray, out GameObject[] eyesArray, out GameObject[] outfitsArray, out GameObject[] hatsArray, out GameObject[] mouthsArray)
-        //{
-        //    bodysArray = bodys;
-        //    hairsArray = hairs;
-        //    eyesArray = eyes;
-        //    outfitsArray = outfits;
-        //    hatsArray = hats;
-        //    mouthsArray = mouths;
-        //}
 
     }
 }

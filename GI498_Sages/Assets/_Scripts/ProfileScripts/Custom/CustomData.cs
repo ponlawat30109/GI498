@@ -14,21 +14,6 @@ public class CustomData
         datas = new List<Part>();
     }
 
-    //public int bodySkin = 0;
-    //public int hair = 0;
-    //public int hairColor = 0;
-    //public int face = 0;
-    //public int outfit = 0;
-    //public int hat = 0;
-    //public int mouth = 0;
-
-    //public Material bodySkin;
-    //public GameObject hair;
-    //public Material hairColor;
-    //public GameObject face;
-    //public GameObject outfit;
-    //public GameObject hat;
-
     public class Part
     {
         public string setName;
