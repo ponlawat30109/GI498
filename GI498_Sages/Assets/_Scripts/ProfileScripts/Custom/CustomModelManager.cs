@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using ModelScript;
 
 public class CustomModelManager : MonoBehaviour
 {
@@ -10,299 +11,156 @@ public class CustomModelManager : MonoBehaviour
     private CustomData customData;
     [SerializeField] private GameObject playerPref;
 
-    [SerializeField] private Material[] mats;
 
     [Header("Body Skin Color")]
     [SerializeField] private Button bodySkinMatSelectLeft;
     [SerializeField] private Button bodySkinMatSelectRight;
-    private GameObject[] bodys;
-    private int bodySkinMatIndex = 0;
 
     [Header("Hair")]
     [SerializeField] private Button hairSelectLeft;
     [SerializeField] private Button hairSelectRight;
-    private GameObject[] hairs;
-    private int hairIndex = 0;
 
     [Header("Hair Color")]
     [SerializeField] private Button hairColorSelectLeft;
     [SerializeField] private Button hairColorSelectRight;
-    private int hairMatIndex = 0;
 
     [Header("Face")]
     [SerializeField] private Button faceSelectLeft;
     [SerializeField] private Button faceSelectRight;
-    private GameObject[] faces;
-    private int faceIndex = 0;
 
     [Header("Outfit")]
     [SerializeField] private Button outfitSelectLeft;
     [SerializeField] private Button outfitSelectRight;
-    private GameObject[] outfits;
-    private int outfitIndex = 0;
 
     [Header("Hat")]
     [SerializeField] private Button hatSelectLeft;
     [SerializeField] private Button hatSelectRight;
-    private GameObject[] hats;
-    private int hatIndex = 0;
 
+    [Header("Mouth")]
+    [SerializeField] private Button mouthSelectLeft;
+    [SerializeField] private Button mouthSelectRight;
+
+    private ComponentSet[] componentSets;
 
     private void Start()
     {
 
         ConfirmExitCustom.onClick.AddListener(() => LoadCustomData());
 
-        bodySkinMatSelectLeft.onClick.AddListener(() => SetBodySkinMat(-1));
-        bodySkinMatSelectRight.onClick.AddListener(() => SetBodySkinMat(1));
+        bodySkinMatSelectLeft.onClick.AddListener(() => SetComponentMat("Bodys", -1));
+        bodySkinMatSelectRight.onClick.AddListener(() => SetComponentMat("Bodys", 1));
 
-        hairSelectLeft.onClick.AddListener(() => SetHairActive(-1));
-        hairSelectRight.onClick.AddListener(() => SetHairActive(1));
+        hairSelectLeft.onClick.AddListener(() => SetComponentActive("Hairs", -1));
+        hairSelectRight.onClick.AddListener(() => SetComponentActive("Hairs", 1));
 
-        hairColorSelectLeft.onClick.AddListener(() => SetHairMat(-1));
-        hairColorSelectRight.onClick.AddListener(() => SetHairMat(1));
+        hairColorSelectLeft.onClick.AddListener(() => SetComponentMat("Hairs", -1));
+        hairColorSelectRight.onClick.AddListener(() => SetComponentMat("Hairs", 1));
 
-        faceSelectLeft.onClick.AddListener(() => SetFaceActive(-1));
-        faceSelectRight.onClick.AddListener(() => SetFaceActive(1));
+        faceSelectLeft.onClick.AddListener(() => SetComponentActive("Faces", -1));
+        faceSelectRight.onClick.AddListener(() => SetComponentActive("Faces", 1));
 
-        outfitSelectLeft.onClick.AddListener(() => SetOutfitActive(-1));
-        outfitSelectRight.onClick.AddListener(() => SetOutfitActive(1));
+        outfitSelectLeft.onClick.AddListener(() => SetComponentActive("Outfits", -1));
+        outfitSelectRight.onClick.AddListener(() => SetComponentActive("Outfits", 1));
 
-        hatSelectLeft.onClick.AddListener(() => SetHatActive(-1));
-        hatSelectRight.onClick.AddListener(() => SetHatActive(1));
+        hatSelectLeft.onClick.AddListener(() => SetComponentActive("Hats", -1));
+        hatSelectRight.onClick.AddListener(() => SetComponentActive("Hats", 1));
+
+        mouthSelectLeft.onClick.AddListener(() => SetComponentActive("Mouth", -1));
+        mouthSelectRight.onClick.AddListener(() => SetComponentActive("Mouth", 1));
 
     }
 
-    private void SetMatMultiObj(GameObject[] objArray, Material mat)
+    private void SetComponentActive(string setName, int selector)
     {
-        foreach(GameObject obj in objArray)
+        ComponentSet components = Array.Find(componentSets, ComponentSet => ComponentSet.setName == setName);
+        if (components == null)
         {
-            if (!obj.name.Contains("Empty"))
-                obj.GetComponent<Renderer>().material = mat;
+            Debug.Log("components null: setName_ " + setName);
+            return;
         }
+
+        if(components.canChangeObj == false)
+        {
+            Debug.Log("can't change: setName_ " + setName);
+            return;
+        }
+
+        var objs = components.objs;
+        int index = components.activeIndex += selector;
+
+        if (objs[components.activeIndex].component != null)
+            objs[components.activeIndex].component.SetActive(false);
+
+        if (index < 0) index = objs.Length - 1;
+        else if (index >= objs.Length) index = 0;
+
+        if (objs[index].component != null)
+            objs[index].component.SetActive(true);
+
+        components.activeIndex = index;
     }
 
-    #region Set Mat or Set Active
-    private void SetBodySkinMat(int selector)
+    public void SetComponentMat(string setName, int selector)
     {
-        if (bodys == null || mats == null)
+        ComponentSet components = Array.Find(componentSets, ComponentSet => ComponentSet.setName == setName);
+        if (components == null)
         {
-            Debug.Log("SetBodySkinMat Error: no body or no mat");
+            Debug.Log("components null: setName_ " + setName);
+            return;
+        }
+        if (components.canChangeMat == false || components.mats == null)
+        {
+            Debug.Log("can't change: setName_ " + setName);
             return;
         }
 
-        bodySkinMatIndex += selector;
+        var mats = components.mats;
+        var index = components.matIndex + selector;
 
-        if (bodySkinMatIndex < 0) bodySkinMatIndex = mats.Length - 1;
-        else if (bodySkinMatIndex >= mats.Length) bodySkinMatIndex = 0;
+        if (index < 0) index = mats.Length - 1;
+        else if (index >= mats.Length) index = 0;
 
-        SetMatMultiObj(bodys, mats[bodySkinMatIndex]);
+        SetMatMultiObj(components.objs, mats[index].mat);
+
+        components.matIndex = index;
     }
-    private void DirectSetBodySkinMat(int selector)
+
+    public void SetMatMultiObj(ComponentSet.Component[] objs, Material mat)
     {
-        if (bodys == null || mats == null)
+        foreach (ComponentSet.Component obj in objs)
         {
-            if (bodys == null) Debug.Log("bodys == null");
-            if (mats == null) Debug.Log("mats == null");
-            Debug.Log("DirectSetBodySkinMat Error: no body or no mat");
-            return;
+            if (obj.component != null)
+                obj.component.GetComponent<Renderer>().material = mat;
         }
-        else if(selector < 0 || selector >= mats.Length)
-        {
-            Debug.Log("DirectSetBodySkinMat Error: invalid mat index");
-            return;
-        }
-        bodySkinMatIndex = selector;
-        SetMatMultiObj(bodys, mats[bodySkinMatIndex]);
     }
-
-    private void SetHairActive(int selector)
-    {
-        if (hairs == null)
-        {
-            Debug.Log("SetHairActive Error: no hair");
-            return;
-        }
-        hairs[hairIndex].SetActive(false);
-        hairIndex += selector;
-
-        if (hairIndex < 0) hairIndex = hairs.Length - 1;
-        else if (hairIndex >= hairs.Length) hairIndex = 0;
-
-        hairs[hairIndex].SetActive(true);
-    }
-
-    private void DirectSetHairActive(int selector)
-    {
-        if (hairs == null)
-        {
-            Debug.Log("DirectSetHairActive Error: no hair");
-            return;
-        }
-        else if (selector < 0 || selector >= hairs.Length)
-        {
-            Debug.Log("DirectSetHairActive Error: invalid mat index");
-            return;
-        }
-
-        hairs[hairIndex].SetActive(false);
-        hairIndex = selector;
-        hairs[hairIndex].SetActive(true);
-    }
-
-    private void SetHairMat(int selector)
-    {
-        if (hairs == null || mats == null)
-        {
-            Debug.Log("SetHairMat Error: no hair or no mat");
-            return;
-        }
-
-        hairMatIndex += selector;
-
-        if (hairMatIndex < 0) hairMatIndex = mats.Length - 1;
-        else if (hairMatIndex >= mats.Length) hairMatIndex = 0;
-
-        SetMatMultiObj(hairs, mats[hairMatIndex]);
-    }
-
-    private void DirectSetHairMat(int selector)
-    {
-        if (hairs == null || mats == null)
-        {
-            Debug.Log("DirectSetHairMat Error: no hair or no mat");
-            return;
-        }
-        else if (selector < 0 || selector >= mats.Length)
-        {
-            Debug.Log("DirectSetHairMat Error: invalid mat index");
-            return;
-        }
-        hairMatIndex = selector;
-        SetMatMultiObj(hairs, mats[hairMatIndex]);
-    }
-
-    private void SetFaceActive(int selector)
-    {
-        if (faces == null)
-        {
-            Debug.Log("SetFaceActive Error: no faces");
-            return;
-        }
-        faces[faceIndex].SetActive(false);
-        faceIndex += selector;
-
-        if (faceIndex < 0) faceIndex = faces.Length - 1;
-        else if (faceIndex >= faces.Length) faceIndex = 0;
-
-        faces[faceIndex].SetActive(true);
-    }
-
-    private void DirectSetFaceActive(int selector)
-    {
-        if (faces == null)
-        {
-            Debug.Log("DirectSetFaceActive Error: no faces");
-            return;
-        }
-        else if (selector < 0 || selector >= faces.Length)
-        {
-            Debug.Log("DirectSetHairActive Error: invalid mat index");
-            return;
-        }
-
-        faces[faceIndex].SetActive(false);
-        faceIndex = selector;
-        faces[faceIndex].SetActive(true);
-    }
-
-    private void SetOutfitActive(int selector)
-    {
-        if (outfits == null)
-        {
-            Debug.Log("SetOutfitActive Error: no outfits");
-            return;
-        }
-        outfits[outfitIndex].SetActive(false);
-        outfitIndex += selector;
-
-        if (outfitIndex < 0) outfitIndex = outfits.Length - 1;
-        else if (outfitIndex >= outfits.Length) outfitIndex = 0;
-
-        outfits[outfitIndex].SetActive(true);
-    }
-
-    private void DirectSetOutfitActive(int selector)
-    {
-        if (outfits == null)
-        {
-            Debug.Log("DirectSetOutfitActive Error: no outfits");
-            return;
-        }
-        else if (selector < 0 || selector >= outfits.Length)
-        {
-            Debug.Log("DirectSetHairActive Error: invalid mat index");
-            return;
-        }
-
-        outfits[outfitIndex].SetActive(false);
-        outfitIndex = selector;
-        outfits[outfitIndex].SetActive(true);
-    }
-
-    private void SetHatActive(int selector)
-    {
-        if (hats == null)
-        {
-            Debug.Log("SetHatActive Error: no hats");
-            return;
-        }
-        hats[hatIndex].SetActive(false);
-        hatIndex += selector;
-
-        if (hatIndex < 0) hatIndex = hats.Length - 1;
-        else if (hatIndex >= hats.Length) hatIndex = 0;
-
-        hats[hatIndex].SetActive(true);
-
-        Debug.Log("Hatindex : " + hatIndex);
-    }
-
-    private void DirectSetHatActive(int selector)
-    {
-        if (hats == null)
-        {
-            Debug.Log("DirectSetHatActive Error: no hats");
-            return;
-        }
-        else if (selector < 0 || selector >= hats.Length)
-        {
-            Debug.Log($"DirectSetHairActive Error: invalid hat index: {selector}");
-            return;
-        }
-
-        hats[hatIndex].SetActive(false);
-        hatIndex = selector;
-        hats[hatIndex].SetActive(true);
-    }
-
-    #endregion
 
     #region SaveLoad
 
     public CustomData SaveCustomData()
     {
-        if(customData == null)
+        customData = new CustomData();
+        var datas = customData.datas;
+        foreach (ComponentSet set in componentSets)
         {
-            customData = new CustomData();
+            if (set.canChangeObj == true)
+            {
+                var data = new CustomData.Part();
+                data.setName = set.setName;
+                data.type = CustomData.IndexType.ActiveIndex;
+                data.index = set.activeIndex;
+                data.id = set.objs[data.index].id;
+                datas.Add(data);
+            }
+            if (set.canChangeMat == true)
+            {
+                var data = new CustomData.Part();
+                data.setName = set.setName;
+                data.type = CustomData.IndexType.MatIndex;
+                data.index = set.activeIndex;
+                data.id = set.objs[data.index].id;
+                datas.Add(data);
+            }
         }
-
-        customData.bodySkin = bodySkinMatIndex;
-        customData.hair = hairIndex;
-        customData.hairColor = hairMatIndex;
-        customData.face = faceIndex;
-        customData.outfit = outfitIndex;
-        customData.hat = hatIndex;
 
         if(_Scripts.SceneAnimator.Instance != null)
             _Scripts.SceneAnimator.Instance.customData = customData;
@@ -319,30 +177,20 @@ public class CustomModelManager : MonoBehaviour
         else
         {
             customData = new CustomData();
-            customData.bodySkin = 0;
-            customData.hair = 0;
-            customData.hairColor = 0;
-            customData.face = 0;
-            customData.outfit = 0;
-            customData.hat = 0;
         }
 
         if(ModelComponent.Instance == null)
         {
             Instantiate(playerPref);
         }
-        ModelComponent.Instance.GetModel(out bodys, out hairs, out faces, out outfits, out hats);
-        LoadCustomData();
+
+        componentSets = ModelComponent.Instance.LoadData(customData);
+        //ModelComponent.Instance.GetModel(out componentSets);
     }
 
     private void LoadCustomData()
     {
-        DirectSetBodySkinMat(customData.bodySkin);
-        DirectSetHairActive(customData.hair);
-        DirectSetHairMat(customData.hairColor);
-        DirectSetFaceActive(customData.face);
-        DirectSetOutfitActive(customData.outfit);
-        DirectSetHatActive(customData.hat);
+        ModelComponent.Instance.LoadData(customData);
     }
 
     #endregion
