@@ -21,7 +21,7 @@ public class PlayerAnimController : MonoBehaviour
 
     private void Update()
     {
-        if(targetSpeed != speed)
+        if (targetSpeed != speed)
         {
             if (onAccel == true)
             {
@@ -64,6 +64,9 @@ public class PlayerAnimController : MonoBehaviour
             case Activity.Run:
                 targetSpeed = 1f;
                 break;
+            // default:
+            //     targetSpeed = 0f;
+            //     break;
         }
         onAccel = targetSpeed > speed;
     }

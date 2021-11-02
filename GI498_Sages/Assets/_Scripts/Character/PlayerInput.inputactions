@@ -20,6 +20,14 @@
                     "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Click",
+                    "type": "PassThrough",
+                    "id": "ea177c04-0363-4880-8493-bd8eca332ebe",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -53,6 +61,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Pan",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "96b11256-8e38-4c01-aeb7-a200f00feefb",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Press,MultiTap",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Click",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
