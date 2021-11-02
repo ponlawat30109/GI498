@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+// using UnityEngine.InputSystem;
+// using UnityEngine.EventSystems;
 // using Cinemachine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour/*, IPointerDownHandler*/
 {
     private NavMeshAgent _agent;
     // private CinemachineVirtualCamera _vcam;
@@ -37,4 +39,12 @@ public class PlayerController : MonoBehaviour
     {
         _agent.SetDestination(point);
     }
+
+    // void OnPointerClick(PointerEventData eventData)
+    // {
+    //     if (eventData.clickCount == 2)
+    //     {
+    //         Debug.Log("double click");
+    //     }
+    // }
 }
