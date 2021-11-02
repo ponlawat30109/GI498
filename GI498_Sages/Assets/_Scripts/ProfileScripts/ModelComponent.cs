@@ -65,64 +65,81 @@ namespace ModelScript
             return componentSets;
         }
 
+        public void RandomSkin()
+        {
+            var rand = new System.Random();
+            int index;
+            foreach(ComponentSet set in componentSets)
+            {
+                if(set.canChangeObj == true)
+                {
+                    index = rand.Next(set.objs.Length - 1);
+                    SwitchActive(set, index);
+                }
+                if(set.canChangeMat == true)
+                {
+                    index = rand.Next(set.mats.Length - 1);
+                    SetMatMultiObj(set.objs, set.mats[index].mat);
+                }
+            }
+        }
+
         private void DirectSetActive(string setName, int index)
         {
-            ComponentSet components = Array.Find(componentSets, ComponentSet => ComponentSet.setName == setName);
-            if (components == null)
+            ComponentSet set = Array.Find(componentSets, ComponentSet => ComponentSet.setName == setName);
+            if (set == null)
             {
                 Debug.Log("components null: setName_ " + setName);
                 return;
             }
-            if (components.canChangeObj == false)
+            if (set.canChangeObj == false)
             {
                 Debug.Log("can't change: setName_ " + setName);
                 return;
             }
 
-            var objs = components.objs;
-
-            if (index < 0 || index >= objs.Length)
+            if (index < 0 || index >= set.objs.Length)
             {
                 Debug.Log("invalid index: setName_ " + setName);
                 return;
             }
-
-            if (!objs[components.activeIndex].name.Contains("Empty"))
-                objs[components.activeIndex].component.SetActive(false);
-            if (!objs[index].name.Contains("Empty"))
-                objs[index].component.SetActive(true);
-
-            components.activeIndex = index;
+            SwitchActive(set, index);
         }
 
         private void DirectSetActive(string setName, string partId)
         {
-            ComponentSet components = Array.Find(componentSets, ComponentSet => ComponentSet.setName == setName);
-            if (components == null)
+            ComponentSet set = Array.Find(componentSets, ComponentSet => ComponentSet.setName == setName);
+            if (set == null)
             {
                 Debug.Log("components null: setName_ " + setName);
                 return;
             }
-            if (components.canChangeObj == false)
+            if (set.canChangeObj == false)
             {
                 Debug.Log("can't change: setName_ " + setName);
                 return;
             }
 
-            var objs = components.objs;
+            var objs = set.objs;
             
             for(int i = 0; i < objs.Length; i++)
             {
                 if (objs[i].id == partId)
                 {
-                    if (!objs[components.activeIndex].name.Contains("Empty"))
-                        objs[components.activeIndex].component.SetActive(false);
-                    if (!objs[i].name.Contains("Empty"))
-                        objs[i].component.SetActive(true);
-                    components.activeIndex = i;
+                    SwitchActive(set, i);
                     break;
                 }
             }
+        }
+
+        private void SwitchActive(ComponentSet set, int toActiveIndex)
+        {
+            var objs = set.objs;
+            if (objs[set.activeIndex].component != null)
+                objs[set.activeIndex].component.SetActive(false);
+            if (objs[toActiveIndex].component != null)
+                objs[toActiveIndex].component.SetActive(true);
+            set.activeIndex = toActiveIndex;
         }
 
         private void DirectSetMat(string setName, int index)
@@ -179,7 +196,7 @@ namespace ModelScript
         {
             foreach (ComponentSet.Component obj in objs)
             {
-                if (!obj.name.Contains("Empty"))
+                if (obj.component != null)
                     obj.component.GetComponent<Renderer>().material = mat;
             }
         }

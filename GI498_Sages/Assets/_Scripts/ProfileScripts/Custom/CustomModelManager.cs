@@ -88,13 +88,13 @@ public class CustomModelManager : MonoBehaviour
         var objs = components.objs;
         int index = components.activeIndex += selector;
 
-        if (!objs[components.activeIndex].name.Contains("Empty"))
+        if (objs[components.activeIndex].component != null)
             objs[components.activeIndex].component.SetActive(false);
 
         if (index < 0) index = objs.Length - 1;
         else if (index >= objs.Length) index = 0;
 
-        if (!objs[index].name.Contains("Empty"))
+        if (objs[index].component != null)
             objs[index].component.SetActive(true);
 
         components.activeIndex = index;
@@ -129,7 +129,7 @@ public class CustomModelManager : MonoBehaviour
     {
         foreach (ComponentSet.Component obj in objs)
         {
-            if (!obj.name.Contains("Empty"))
+            if (obj.component != null)
                 obj.component.GetComponent<Renderer>().material = mat;
         }
     }
