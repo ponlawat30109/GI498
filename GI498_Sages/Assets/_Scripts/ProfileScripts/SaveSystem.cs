@@ -6,7 +6,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public static class SaveSystem
 {
-    public static void SavepPlayerProfile (PlayerProfile playerProfile, CustomModelManager customModelManager)
+    public static PlayerData SavepPlayerProfile (PlayerProfile playerProfile, CustomModelManager customModelManager)
     {
         BinaryFormatter formatter = new BinaryFormatter();
         //string path = "C:/System/"
@@ -17,6 +17,8 @@ public static class SaveSystem
 
         formatter.Serialize(stream, data);
         stream.Close();
+
+        return data;
     }
 
     public static PlayerData LoadPlayerProfile()

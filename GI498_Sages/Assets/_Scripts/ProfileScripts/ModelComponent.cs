@@ -14,16 +14,6 @@ namespace ModelScript
         {
             get => modelVersion;
         }
-        public static ModelComponent Instance;
-        
-        private void Awake()
-        {
-            if (Instance != null)
-            {
-                Destroy(Instance.gameObject);
-            }
-            Instance = this;
-        }
 
         public ComponentSet[] GetModel()
         {
@@ -32,33 +22,36 @@ namespace ModelScript
 
         public ComponentSet[] LoadData(CustomData customData)
         {
-            if(customData.modelVersion != modelVersion)
+            if (customData.datas != null && customData.datas.Count != 0)
             {
-                //change by id
-                foreach (CustomData.Part data in customData.datas)
+                if (customData.modelVersion != modelVersion)
                 {
-                    if (data.type == CustomData.IndexType.ActiveIndex)
+                    //change by id
+                    foreach (CustomData.Part data in customData.datas)
                     {
-                        DirectSetActive(data.setName, data.id);
-                    }
-                    else if (data.type == CustomData.IndexType.MatIndex)
-                    {
-                        DirectSetMat(data.setName, data.id);
+                        if (data.type == CustomData.IndexType.ActiveIndex)
+                        {
+                            DirectSetActive(data.setName, data.id);
+                        }
+                        else if (data.type == CustomData.IndexType.MatIndex)
+                        {
+                            DirectSetMat(data.setName, data.id);
+                        }
                     }
                 }
-            }
-            else
-            {
-                //change by index
-                foreach (CustomData.Part data in customData.datas)
+                else
                 {
-                    if (data.type == CustomData.IndexType.ActiveIndex)
+                    //change by index
+                    foreach (CustomData.Part data in customData.datas)
                     {
-                        DirectSetActive(data.setName, data.index);
-                    }
-                    else if (data.type == CustomData.IndexType.MatIndex)
-                    {
-                        DirectSetMat(data.setName, data.index);
+                        if (data.type == CustomData.IndexType.ActiveIndex)
+                        {
+                            DirectSetActive(data.setName, data.index);
+                        }
+                        else if (data.type == CustomData.IndexType.MatIndex)
+                        {
+                            DirectSetMat(data.setName, data.index);
+                        }
                     }
                 }
             }
@@ -81,6 +74,17 @@ namespace ModelScript
                     index = rand.Next(set.mats.Length - 1);
                     SetMatMultiObj(set.objs, set.mats[index].mat);
                 }
+            }
+        }
+
+        public void ResetSkin()
+        {
+            foreach(ComponentSet set in componentSets)
+            {
+                if(set.canChangeObj == true)
+                    SwitchActive(set, 0);
+                if(set.canChangeMat == true)
+                    SetMatMultiObj(set.objs, set.mats[0].mat);
             }
         }
 

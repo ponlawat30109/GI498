@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class ProfileSceneController : MonoBehaviour
 {
@@ -35,10 +31,7 @@ public class ProfileSceneController : MonoBehaviour
     void Start()
     {
         //ชุดนี้ลบออกตอนงานเสร็จด้วย 55555
-        Debug.Log("Flow ในการทำงาน(คลิกเพื่ออ่านต่อ)\n1.Pull Master branch\n2.สร้าง Scene ใน Unity ใหม่\n3.Commit Scene ที่สร้างไปที่ branch ใหม่/n4.หาก Test ผ่าน Merge ไปที่ Master branch");
         Debug.LogWarning("Fon : Don't forget to change UI (3 Button, Information, BG)");
-        Debug.LogWarning("Fon : Don't forget to add detail (chef rank)");
-        Debug.LogWarning("Fon : Don't forget to coding [change scene to Main Menu Scene] ให้เหมือนนนท์");
         Debug.LogWarning("Fon : Don't forget to coding [change scene to Game Play Scene] ให้เหมือนนนท์");
 
         Debug.Assert(mainPanelAnimator != null, "Profile UI (Canvas): mainUICanvas is null");
@@ -67,7 +60,7 @@ public class ProfileSceneController : MonoBehaviour
         //Custom Button
         saveCustomButton.onClick.AddListener(SavedFeedback);
         quitCustomButton.onClick.AddListener(() => alertUnsavePanel.SetActive(true));
-        alertYesButton.onClick.AddListener(ChangeSceneToProfileScene);
+        alertYesButton.onClick.AddListener(VisualToProfile);
         alertNoButton.onClick.AddListener(() => alertUnsavePanel.SetActive(false));
 
         //Information Button
@@ -75,7 +68,7 @@ public class ProfileSceneController : MonoBehaviour
         informationCloseButton.onClick.AddListener(() => informationPanel.SetActive(false));
         //ChangeScene Button
         openKitchenOButton.onClick.AddListener(ChangeSceneToToGamePlayScene);
-        customCharacterButton.onClick.AddListener(ChangeSceneToCustomCharacterScene);
+        customCharacterButton.onClick.AddListener(VisualToCustomCharacter);
         backButton.onClick.AddListener(ChangeSceneToToMainMenuScene);
 
         informationPanel.SetActive(false);
@@ -91,24 +84,17 @@ public class ProfileSceneController : MonoBehaviour
     private void ChangeSceneToToGamePlayScene()
     {
         Debug.Log("ChangeSceneToToGamePlayScene");
-        /*วิธี Load/Unload Test เฉพาะ Scene
-        1. พิมพ์ชื่อ scn_name ในช่อง Inspector ของ Scene Handler ใน Starter Scene (scn_Starter)
-        2. กด Load/Unload Specific Scene*/
-
-        //temp code (ลบ using UnityEngine.SceneManagement; ด้วย)
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
-    private void ChangeSceneToCustomCharacterScene()
+    private void VisualToCustomCharacter()
     {
         cameraModelViewer.SetTrigger("Custom");
         mainPanelAnimator.SetTrigger("Custom");
         cameraModelViewerGroup.onProfile = false;
     }
 
-    private void ChangeSceneToProfileScene()
+    private void VisualToProfile()
     {
-        Debug.Log("ChangeSceneToProfileScene");
         alertUnsavePanel.SetActive(false);
         cameraModelViewer.SetTrigger("Profile");
         mainPanelAnimator.SetTrigger("Profile");
