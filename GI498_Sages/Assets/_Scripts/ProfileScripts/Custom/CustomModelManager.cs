@@ -11,11 +11,6 @@ public class CustomModelManager : MonoBehaviour
     private CustomData customData;
     [SerializeField] private GameObject playerPref;
 
-
-    [Header("Body Skin Color")]
-    [SerializeField] private Button bodySkinMatSelectLeft;
-    [SerializeField] private Button bodySkinMatSelectRight;
-
     [Header("Hair")]
     [SerializeField] private Button hairSelectLeft;
     [SerializeField] private Button hairSelectRight;
@@ -24,9 +19,13 @@ public class CustomModelManager : MonoBehaviour
     [SerializeField] private Button hairColorSelectLeft;
     [SerializeField] private Button hairColorSelectRight;
 
-    [Header("Face")]
-    [SerializeField] private Button faceSelectLeft;
-    [SerializeField] private Button faceSelectRight;
+    [Header("Eye")]
+    [SerializeField] private Button eyeSelectLeft;
+    [SerializeField] private Button eyeSelectRight;
+
+    [Header("Mouth")]
+    [SerializeField] private Button mouthSelectLeft;
+    [SerializeField] private Button mouthSelectRight;
 
     [Header("Outfit")]
     [SerializeField] private Button outfitSelectLeft;
@@ -36,19 +35,13 @@ public class CustomModelManager : MonoBehaviour
     [SerializeField] private Button hatSelectLeft;
     [SerializeField] private Button hatSelectRight;
 
-    [Header("Mouth")]
-    [SerializeField] private Button mouthSelectLeft;
-    [SerializeField] private Button mouthSelectRight;
-
     private ComponentSet[] componentSets;
+    private GameObject playerObj;
 
     private void Start()
     {
 
-        ConfirmExitCustom.onClick.AddListener(() => LoadCustomData());
-
-        bodySkinMatSelectLeft.onClick.AddListener(() => SetComponentMat("Bodys", -1));
-        bodySkinMatSelectRight.onClick.AddListener(() => SetComponentMat("Bodys", 1));
+        ConfirmExitCustom.onClick.AddListener(() => AutoSetCustomData());
 
         hairSelectLeft.onClick.AddListener(() => SetComponentActive("Hairs", -1));
         hairSelectRight.onClick.AddListener(() => SetComponentActive("Hairs", 1));
@@ -56,40 +49,37 @@ public class CustomModelManager : MonoBehaviour
         hairColorSelectLeft.onClick.AddListener(() => SetComponentMat("Hairs", -1));
         hairColorSelectRight.onClick.AddListener(() => SetComponentMat("Hairs", 1));
 
-        faceSelectLeft.onClick.AddListener(() => SetComponentActive("Faces", -1));
-        faceSelectRight.onClick.AddListener(() => SetComponentActive("Faces", 1));
+        eyeSelectLeft.onClick.AddListener(() => SetComponentActive("Eyes", -1));
+        eyeSelectRight.onClick.AddListener(() => SetComponentActive("Eyes", 1));
 
-        outfitSelectLeft.onClick.AddListener(() => SetComponentActive("Outfits", -1));
-        outfitSelectRight.onClick.AddListener(() => SetComponentActive("Outfits", 1));
+        mouthSelectLeft.onClick.AddListener(() => SetComponentActive("Mouths", -1));
+        mouthSelectRight.onClick.AddListener(() => SetComponentActive("Mouths", 1));
+
+        outfitSelectLeft.onClick.AddListener(() => SetComponentMat("Outfits", -1));
+        outfitSelectRight.onClick.AddListener(() => SetComponentMat("Outfits", 1));
 
         hatSelectLeft.onClick.AddListener(() => SetComponentActive("Hats", -1));
         hatSelectRight.onClick.AddListener(() => SetComponentActive("Hats", 1));
-
-        mouthSelectLeft.onClick.AddListener(() => SetComponentActive("Mouth", -1));
-        mouthSelectRight.onClick.AddListener(() => SetComponentActive("Mouth", 1));
-
     }
 
+    #region CustomFunction
     private void SetComponentActive(string setName, int selector)
     {
-        ComponentSet components = Array.Find(componentSets, ComponentSet => ComponentSet.setName == setName);
-        if (components == null)
+        ComponentSet set = Array.Find(componentSets, ComponentSet => ComponentSet.setName == setName);
+        if (set == null)
         {
-            Debug.Log("components null: setName_ " + setName);
             return;
         }
 
-        if(components.canChangeObj == false)
+        if(set.canChangeObj == false)
         {
-            Debug.Log("can't change: setName_ " + setName);
             return;
         }
 
-        var objs = components.objs;
-        int index = components.activeIndex += selector;
-
-        if (objs[components.activeIndex].component != null)
-            objs[components.activeIndex].component.SetActive(false);
+        var objs = set.objs;
+        int index = set.activeIndex + selector;
+        if (objs[set.activeIndex].component != null)
+            objs[set.activeIndex].component.SetActive(false);
 
         if (index < 0) index = objs.Length - 1;
         else if (index >= objs.Length) index = 0;
@@ -97,7 +87,7 @@ public class CustomModelManager : MonoBehaviour
         if (objs[index].component != null)
             objs[index].component.SetActive(true);
 
-        components.activeIndex = index;
+        set.activeIndex = index;
     }
 
     public void SetComponentMat(string setName, int selector)
@@ -116,7 +106,6 @@ public class CustomModelManager : MonoBehaviour
 
         var mats = components.mats;
         var index = components.matIndex + selector;
-
         if (index < 0) index = mats.Length - 1;
         else if (index >= mats.Length) index = 0;
 
@@ -133,6 +122,8 @@ public class CustomModelManager : MonoBehaviour
                 obj.component.GetComponent<Renderer>().material = mat;
         }
     }
+
+    #endregion
 
     #region SaveLoad
 
@@ -156,8 +147,9 @@ public class CustomModelManager : MonoBehaviour
                 var data = new CustomData.Part();
                 data.setName = set.setName;
                 data.type = CustomData.IndexType.MatIndex;
-                data.index = set.activeIndex;
-                data.id = set.objs[data.index].id;
+                data.index = set.matIndex;
+                data.id = set.mats[data.index].id;
+                Debug.Log("data.index " + data.index);
                 datas.Add(data);
             }
         }
@@ -179,18 +171,31 @@ public class CustomModelManager : MonoBehaviour
             customData = new CustomData();
         }
 
-        if(ModelComponent.Instance == null)
+        //if(ModelComponent.Instance == null)
+        //{
+        //    Instantiate(playerPref);
+        //}
+
+        //componentSets = ModelComponent.Instance.LoadData(customData);
+        //ModelComponent.Instance.GetModel(out componentSets);
+
+        if (componentSets == null)
         {
-            Instantiate(playerPref);
+            playerObj = Instantiate(playerPref);
         }
 
-        componentSets = ModelComponent.Instance.LoadData(customData);
-        //ModelComponent.Instance.GetModel(out componentSets);
+        AutoSetCustomData();
+
     }
 
-    private void LoadCustomData()
+    private void AutoSetCustomData()
     {
-        ModelComponent.Instance.LoadData(customData);
+        componentSets = playerObj.GetComponent<ModelComponent>().LoadData(customData);
+    }
+
+    private void OnDestroy()
+    {
+        Destroy(playerObj.gameObject);
     }
 
     #endregion

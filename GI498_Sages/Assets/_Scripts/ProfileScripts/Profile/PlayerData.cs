@@ -7,7 +7,7 @@ public class PlayerData
 {
     public string playerName;
     public int exp;
-    //public string rank;
+    public int comingExp;
     public CustomData customData;
 
     public PlayerData(PlayerProfile playerProfile, CustomModelManager customModelManager)
@@ -22,6 +22,5 @@ public class PlayerData
     {
         playerName = "Player Name";
         exp = 0;
-        //rank = RankManager.GetDefaultRank();
     }
 }

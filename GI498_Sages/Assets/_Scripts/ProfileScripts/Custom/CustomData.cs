@@ -14,6 +14,7 @@ public class CustomData
         datas = new List<Part>();
     }
 
+    [System.Serializable]
     public class Part
     {
         public string setName;

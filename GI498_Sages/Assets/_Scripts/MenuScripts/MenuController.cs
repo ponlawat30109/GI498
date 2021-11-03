@@ -22,11 +22,15 @@ public class MenuController : MonoBehaviour
     private const string MusicVolKey = "MusicVol";
     private const string SoundVolKey = "SoundVol";
 
+    //private void Awake()
+    //{
+    //    Debug.Log
+    //}
+
     // Start is called before the first frame update
     void Start()
     {
         //ชุดนี้ลบออกตอนงานเสร็จด้วย 55555
-        Debug.Log("Flow ในการทำงาน\n1.Pull Master branch\n2.สร้าง Scene ใน Unity ใหม่\n3.Commit Scene ที่สร้างไปที่ branch ใหม่/n4.หาก Test ผ่าน Merge ไปที่ Master branch");
         Debug.LogWarning("Fon : Don't forget to change UI (3 Button, Information, BG)");
         Debug.LogWarning("Fon : Don't forget to change UI (Panel Option, Panel Information)");
         Debug.Log("--------------");
