@@ -37,6 +37,8 @@ public class CustomModelManager : MonoBehaviour
 
     private ComponentSet[] componentSets;
     private GameObject playerObj;
+    
+    public static bool isProfileSkinChange = false;
 
     private void Start()
     {
@@ -45,21 +47,33 @@ public class CustomModelManager : MonoBehaviour
 
         hairSelectLeft.onClick.AddListener(() => SetComponentActive("Hairs", -1));
         hairSelectRight.onClick.AddListener(() => SetComponentActive("Hairs", 1));
+        hairSelectLeft.onClick.AddListener(() => isProfileSkinChange = true);
+        hairSelectRight.onClick.AddListener(() => isProfileSkinChange = true);
 
         hairColorSelectLeft.onClick.AddListener(() => SetComponentMat("Hairs", -1));
         hairColorSelectRight.onClick.AddListener(() => SetComponentMat("Hairs", 1));
+        hairColorSelectLeft.onClick.AddListener(() => isProfileSkinChange = true);
+        hairColorSelectRight.onClick.AddListener(() => isProfileSkinChange = true);
 
         eyeSelectLeft.onClick.AddListener(() => SetComponentActive("Eyes", -1));
         eyeSelectRight.onClick.AddListener(() => SetComponentActive("Eyes", 1));
+        eyeSelectLeft.onClick.AddListener(() => isProfileSkinChange = true);
+        eyeSelectRight.onClick.AddListener(() => isProfileSkinChange = true);
 
         mouthSelectLeft.onClick.AddListener(() => SetComponentActive("Mouths", -1));
         mouthSelectRight.onClick.AddListener(() => SetComponentActive("Mouths", 1));
+        mouthSelectLeft.onClick.AddListener(() => isProfileSkinChange = true);
+        mouthSelectRight.onClick.AddListener(() => isProfileSkinChange = true);
 
         outfitSelectLeft.onClick.AddListener(() => SetComponentMat("Outfits", -1));
         outfitSelectRight.onClick.AddListener(() => SetComponentMat("Outfits", 1));
+        outfitSelectLeft.onClick.AddListener(() => isProfileSkinChange = true);
+        outfitSelectRight.onClick.AddListener(() => isProfileSkinChange = true);
 
         hatSelectLeft.onClick.AddListener(() => SetComponentActive("Hats", -1));
         hatSelectRight.onClick.AddListener(() => SetComponentActive("Hats", 1));
+        hatSelectLeft.onClick.AddListener(() => isProfileSkinChange = true);
+        hatSelectRight.onClick.AddListener(() => isProfileSkinChange = true);
     }
 
     #region CustomFunction
@@ -71,7 +85,7 @@ public class CustomModelManager : MonoBehaviour
             return;
         }
 
-        if(set.canChangeObj == false)
+        if (set.canChangeObj == false)
         {
             return;
         }
@@ -154,7 +168,7 @@ public class CustomModelManager : MonoBehaviour
             }
         }
 
-        if(_Scripts.SceneAnimator.Instance != null)
+        if (_Scripts.SceneAnimator.Instance != null)
             _Scripts.SceneAnimator.Instance.customData = customData;
 
         return customData;

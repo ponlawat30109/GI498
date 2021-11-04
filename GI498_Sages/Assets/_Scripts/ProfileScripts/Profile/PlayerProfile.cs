@@ -16,6 +16,8 @@ public class PlayerProfile : MonoBehaviour
     private int gainExp = -1;
     private const string GainExpKey = "GainExp";
 
+    // private bool isProfileSave = false;
+
     [SerializeField] private TMP_InputField playerNameInput;
     [SerializeField] private Button saveProfileButton;
     [SerializeField] private CustomModelManager customModelManager;
@@ -55,6 +57,8 @@ public class PlayerProfile : MonoBehaviour
         playerName = playerNameInput.text;
         var playerData = SaveSystem.SavepPlayerProfile(this, customModelManager);
         DataCarrier.SetPlayerData(playerData);
+
+        // isProfileSave = true;
     }
 
     public void LoadProfile()
