@@ -28,6 +28,9 @@ public class ProfileSceneController : MonoBehaviour
     [SerializeField] private Button customCharacterButton;
     [SerializeField] private Button backButton;
 
+    [Header("Is Profile Save")]
+    [SerializeField] private bool isProfileSave = false;
+
     void Start()
     {
         //ชุดนี้ลบออกตอนงานเสร็จด้วย 55555
@@ -59,7 +62,9 @@ public class ProfileSceneController : MonoBehaviour
 
         //Custom Button
         saveCustomButton.onClick.AddListener(SavedFeedback);
-        quitCustomButton.onClick.AddListener(() => alertUnsavePanel.SetActive(true));
+        saveCustomButton.onClick.AddListener(() => isProfileSave = true);
+        // quitCustomButton.onClick.AddListener(() => alertUnsavePanel.SetActive(true));
+        quitCustomButton.onClick.AddListener(() => CheckSkinIsSave());
         alertYesButton.onClick.AddListener(VisualToProfile);
         alertNoButton.onClick.AddListener(() => alertUnsavePanel.SetActive(false));
 
@@ -74,6 +79,31 @@ public class ProfileSceneController : MonoBehaviour
         informationPanel.SetActive(false);
         savedFeedbackPanel.SetActive(false);
         alertUnsavePanel.SetActive(false);
+    }
+
+    void Update()
+    {
+        var isProfileSkinChange = CustomModelManager.isProfileSkinChange;
+        if (isProfileSkinChange)
+        {
+            isProfileSave = false;
+        }
+
+        // saveCustomButton.onClick.AddListener(() => isProfileSave = true);
+    }
+
+    void CheckSkinIsSave()
+    {
+        if (isProfileSave)
+        {
+            VisualToProfile();
+            // CustomModelManager.isProfileSkinChange = false;
+        }
+        else
+        {
+            alertUnsavePanel.SetActive(true);
+            // VisualToProfile();
+        }
     }
 
     private void ChangeSceneToToMainMenuScene()
@@ -104,5 +134,8 @@ public class ProfileSceneController : MonoBehaviour
     private void SavedFeedback()
     {
         addPanelAnimator.SetTrigger("Saved");
+        CustomModelManager.isProfileSkinChange = false;
+        Debug.Log(CustomModelManager.isProfileSkinChange);
+        // isProfileSave = true;
     }
 }
