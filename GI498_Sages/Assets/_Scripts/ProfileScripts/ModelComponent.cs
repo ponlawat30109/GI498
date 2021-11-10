@@ -9,7 +9,7 @@ namespace ModelScript
     {
         [SerializeField] private ComponentSet[] componentSets;
 
-        private static string modelVersion = "211101A1";
+        private static string modelVersion = "20211109A1";
         public static string ModelVersion
         {
             get => modelVersion;
@@ -66,12 +66,12 @@ namespace ModelScript
             {
                 if(set.canChangeObj == true)
                 {
-                    index = rand.Next(set.objs.Length - 1);
+                    index = rand.Next(set.objs.Length);
                     SwitchActive(set, index);
                 }
                 if(set.canChangeMat == true)
                 {
-                    index = rand.Next(set.mats.Length - 1);
+                    index = rand.Next(set.mats.Length);
                     SetMatMultiObj(set.objs, set.mats[index].mat);
                 }
             }

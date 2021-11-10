@@ -118,8 +118,8 @@ public class MenuController : MonoBehaviour
 
     public void LoadOptionPrefs()
     {
-        sliderMusic.value = PlayerPrefs.GetFloat(MusicVolKey, 50f);
-        sliderSound.value = PlayerPrefs.GetFloat(SoundVolKey, 50f);
+        sliderMusic.value = PlayerPrefs.GetFloat(MusicVolKey, 0.50f);
+        sliderSound.value = PlayerPrefs.GetFloat(SoundVolKey, 0.50f);
 
         AudioManager.Instance.ChangeAudioVolumn(sliderMusic.value);
         AudioManager.Instance.ChangeSfxVolumn(sliderSound.value);
