@@ -78,7 +78,10 @@ namespace _Scripts.InventorySystem.Player
                 SetModel();
             }
             
+            /*
             if(currentHoldItemObject == null || storage.GetStorageObject().GetSlotCount() < 1 || currentHoldItemModel.transform.childCount > 1)
+            */
+            if(currentHoldItemObject == null && !storage.GetStorageObject().IsSlotIndexHasItem(0))
             {
                 ClearModel();
             }
@@ -90,7 +93,7 @@ namespace _Scripts.InventorySystem.Player
                 SetFoodModel();
             }
             
-            if(currentHoldFoodObject == null || storage.GetStorageObject().GetSlotCount() < 1 || currentHoldItemModel.transform.childCount > 1)
+            if(currentHoldFoodObject == null && !storage.GetStorageObject().IsSlotIndexHasItem(0))
             {
                 ClearModel();
             }
@@ -314,8 +317,9 @@ namespace _Scripts.InventorySystem.Player
         private void SetModel()
         {
             var newProp = Instantiate(currentHoldItemObject.ingamePrefab, holdingPosition);
+            Debug.Log($"Set from Item {currentHoldItemObject.itemName}");
             newProp.transform.SetParent(currentHoldItemModel.transform);
-            
+            Debug.Log($"Current Holding Model is Model {newProp.name}");
             //newProp.transform.localPosition = Vector3.zero;
             //newProp.transform.rotation = Quaternion.identity;
         }
@@ -574,6 +578,12 @@ namespace _Scripts.InventorySystem.Player
                 _collideStorageObjects.RemoveAt(index);
                 ClearNull();
             }
+        }
+
+        private void OnApplicationQuit()
+        {
+            storage.GetStorageObject().GetStorageSlot().Clear();
+            Debug.Log("Clear Player Storage.");
         }
     }
 }
