@@ -31,7 +31,7 @@ public class ModelPreview : MonoBehaviour
         }
         else //profile = false, custom = true
         {
-            transform.rotation = Quaternion.Lerp(transform.rotation, defaulRotation, Time.deltaTime * rotationSpeed);
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.AngleAxis(30,new Vector3(0,1,0)), Time.deltaTime * rotationSpeed);
         }    
         
     }
