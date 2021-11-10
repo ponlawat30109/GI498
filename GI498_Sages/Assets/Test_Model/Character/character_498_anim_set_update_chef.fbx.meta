@@ -30,7 +30,22 @@ ModelImporter:
   - first:
       74: -2275721542722804213
     second: walk_with_obj
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _initialShadingGroup1
+    second: {instanceID: 0}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert1
+    second: {instanceID: 0}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert6
+    second: {instanceID: 0}
   materials:
     materialImportMode: 2
     materialName: 0
