@@ -13,15 +13,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6cdc00fae1ac56a4a9b04244889d2504, type: 3}
       propertyPath: m_LocalScale.x
-      value: 10
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6cdc00fae1ac56a4a9b04244889d2504, type: 3}
       propertyPath: m_LocalScale.y
-      value: 10
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6cdc00fae1ac56a4a9b04244889d2504, type: 3}
       propertyPath: m_LocalScale.z
-      value: 10
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6cdc00fae1ac56a4a9b04244889d2504, type: 3}
       propertyPath: m_LocalPosition.x
@@ -68,12 +68,24 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 875397ad72dc32e468bff4911ed65fe7, type: 2}
     - target: {fileID: 684522797010152550, guid: 6cdc00fae1ac56a4a9b04244889d2504, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 684522797010152550, guid: 6cdc00fae1ac56a4a9b04244889d2504, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 684522797010152550, guid: 6cdc00fae1ac56a4a9b04244889d2504, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 684522797010152550, guid: 6cdc00fae1ac56a4a9b04244889d2504, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.00279
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6cdc00fae1ac56a4a9b04244889d2504, type: 3}
       propertyPath: m_Name
-      value: Egg_Half
+      value: Egg_Half Variant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6cdc00fae1ac56a4a9b04244889d2504, type: 3}
