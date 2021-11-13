@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4215537059574936399
+--- !u!1 &3792515968405095471
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,35 +8,35 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6148638254749351780}
+  - component: {fileID: 2236267068165691950}
   m_Layer: 0
-  m_Name: WhiteSoySauce
+  m_Name: OysterSauce
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6148638254749351780
+--- !u!4 &2236267068165691950
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4215537059574936399}
+  m_GameObject: {fileID: 3792515968405095471}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 9197123776497776310}
+  - {fileID: 5167493800492328796}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &8658177043291148637
+--- !u!1001 &4628602309157159095
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 6148638254749351780}
+    m_TransformParent: {fileID: 2236267068165691950}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 45e3d12e0138795468217a5f242c2998, type: 3}
       propertyPath: m_RootOrder
@@ -68,19 +68,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 45e3d12e0138795468217a5f242c2998, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.58481014
+      value: 0.6394391
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 45e3d12e0138795468217a5f242c2998, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 45e3d12e0138795468217a5f242c2998, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.8111703
+      value: -0.7688418
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 45e3d12e0138795468217a5f242c2998, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 45e3d12e0138795468217a5f242c2998, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -88,7 +88,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 45e3d12e0138795468217a5f242c2998, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -108.421
+      value: -100.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 45e3d12e0138795468217a5f242c2998, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -97,15 +97,15 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 45e3d12e0138795468217a5f242c2998, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 8d33c01555216b24ba41cb8493a2fd10, type: 2}
+      objectReference: {fileID: 2100000, guid: a7a889f3d3b8108479dd35c18736de06, type: 2}
     - target: {fileID: 919132149155446097, guid: 45e3d12e0138795468217a5f242c2998, type: 3}
       propertyPath: m_Name
-      value: WhiteSoySauce_Model
+      value: bottle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45e3d12e0138795468217a5f242c2998, type: 3}
---- !u!4 &9197123776497776310 stripped
+--- !u!4 &5167493800492328796 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 45e3d12e0138795468217a5f242c2998, type: 3}
-  m_PrefabInstance: {fileID: 8658177043291148637}
+  m_PrefabInstance: {fileID: 4628602309157159095}
   m_PrefabAsset: {fileID: 0}
