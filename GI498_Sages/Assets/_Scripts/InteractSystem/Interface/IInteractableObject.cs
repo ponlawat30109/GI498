@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace _Scripts.Interact_System.Interface
+namespace _Scripts.InteractSystem.Interface
 {
     public interface IInteractableObject
     {

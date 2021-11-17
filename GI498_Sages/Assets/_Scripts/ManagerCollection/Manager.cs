@@ -1,12 +1,11 @@
 ﻿using UnityEngine;
 
-namespace _Scripts
+namespace _Scripts.ManagerCollection
 {
     public class Manager : MonoBehaviour
     {
         [Header("Manager")]
-        [SerializeField] public ContainerManager containerManager;
-
+        [SerializeField] public StorageManager storageManager;
         [SerializeField] public PlayerManager playerManager;
         
         public static Manager Instance{ set; get;} // Instance
@@ -22,7 +21,6 @@ namespace _Scripts
             {
                 Destroy(gameObject);
             }
-            
             // DontDestroyOnLoad(this);
         }
     }

@@ -1,22 +1,25 @@
-﻿public class FoodUtility
+﻿namespace _Scripts.InventorySystem
 {
-    public static float MilligramsToGrams(float milligrams)
+    public class FoodUtility
     {
-        return milligrams / 1000;
-    }
-
-    public static float GramsToMilligrams(float grams)
-    {
-        return grams * 1000;
-    }
-
-    public static bool IsLowSodium(float sodiumMilligrams)
-    {
-        if (sodiumMilligrams < 140)
+        public static float MilligramsToGrams(float milligrams)
         {
-            return true;
+            return milligrams / 1000;
         }
 
-        return false;
+        public static float GramsToMilligrams(float grams)
+        {
+            return grams * 1000;
+        }
+
+        public static bool IsLowSodium(float sodiumMilligrams)
+        {
+            if (sodiumMilligrams < 140)
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }

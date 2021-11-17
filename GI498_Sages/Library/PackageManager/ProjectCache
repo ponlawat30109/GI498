@@ -5,16 +5,26 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
+<<<<<<< HEAD
       ticks: 637716027089188972
     m_Hash: 1345200194
+=======
+      ticks: 637702902192113205
+    m_Hash: 3927386888
+>>>>>>> InventoryDebug
   m_LockFileStatus:
     m_FilePath: D:/GI498/GI498/GI498_Sages/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
+<<<<<<< HEAD
       ticks: 637716027089198944
     m_Hash: 1984135617
+=======
+      ticks: 637702902196965454
+    m_Hash: 2712468205
+>>>>>>> InventoryDebug
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_PackageAssets:
@@ -93,8 +103,11 @@ m_PackageAssets:
         - 2.8.0-pre.1
         - 2.8.0
         - 2.8.1
+<<<<<<< HEAD
         - 2.8.2
         - 2.9.0-pre.1
+=======
+>>>>>>> InventoryDebug
         compatible:
         - 2.5.0
         - 2.6.0-preview.2
@@ -125,9 +138,13 @@ m_PackageAssets:
         - 2.8.0-pre.1
         - 2.8.0
         - 2.8.1
+<<<<<<< HEAD
         - 2.8.2
         - 2.9.0-pre.1
         verified: 2.6.11
+=======
+        verified: 2.6.10
+>>>>>>> InventoryDebug
       dependencies: []
       resolvedDependencies: []
       keywords:
@@ -173,12 +190,21 @@ m_PackageAssets:
         url: git+https://github.com/Unity-Technologies/com.unity.cinemachine.git
         revision: 21f619698ca31d69054e96556e03097e48e43c5d
         path: 
+<<<<<<< HEAD
     - packageId: com.unity.collab-proxy@1.11.2
       testable: 0
       isDirectDependency: 1
       version: 1.11.2
       source: 1
       resolvedPath: D:\GI498\GI498\GI498_Sages\Library\PackageCache\com.unity.collab-proxy@1.11.2
+=======
+    - packageId: com.unity.collab-proxy@1.7.1
+      testable: 0
+      isDirectDependency: 1
+      version: 1.7.1
+      source: 1
+      resolvedPath: N:\@BU\64-1\GI498\GI498_Project\GI498\GI498_Sages\Library\PackageCache\com.unity.collab-proxy@1.7.1
+>>>>>>> InventoryDebug
       assetPath: Packages/com.unity.collab-proxy
       name: com.unity.collab-proxy
       displayName: Version Control
@@ -223,8 +249,11 @@ m_PackageAssets:
         - 1.11.2
         - 1.12.5
         - 1.13.5
+<<<<<<< HEAD
         - 1.14.1
         - 1.15.1
+=======
+>>>>>>> InventoryDebug
         - 2.0.0-preview.6
         - 2.0.0-preview.8
         - 2.0.0-preview.15
@@ -236,11 +265,21 @@ m_PackageAssets:
         - 2.1.0-preview.5
         - 2.1.0-preview.6
         compatible:
+<<<<<<< HEAD
         - 1.11.2
         - 1.12.5
         - 1.13.5
         - 1.14.1
         - 1.15.1
+=======
+        - 1.7.1
+        - 1.8.0
+        - 1.9.0
+        - 1.10.2
+        - 1.11.2
+        - 1.12.5
+        - 1.13.5
+>>>>>>> InventoryDebug
         - 2.0.0-preview.6
         - 2.0.0-preview.8
         - 2.0.0-preview.15
@@ -251,9 +290,19 @@ m_PackageAssets:
         - 2.1.0-preview.3
         - 2.1.0-preview.5
         - 2.1.0-preview.6
+<<<<<<< HEAD
         verified: 1.11.2
       dependencies: []
       resolvedDependencies: []
+=======
+        verified: 1.7.1
+      dependencies:
+      - name: com.unity.nuget.newtonsoft-json
+        version: 2.0.0
+      resolvedDependencies:
+      - name: com.unity.nuget.newtonsoft-json
+        version: 2.0.0
+>>>>>>> InventoryDebug
       keywords:
       - backup
       - cloud
@@ -280,13 +329,21 @@ m_PackageAssets:
       entitlements:
         isAllowed: 1
       isAssetStorePackage: 0
+<<<<<<< HEAD
       datePublishedTicks: 637679178630000000
+=======
+      datePublishedTicks: 637616921650000000
+>>>>>>> InventoryDebug
       documentationUrl: 
       hasRepository: 1
       repository:
         type: git
         url: https://github.cds.internal.unity3d.com/unity/com.unity.cloud.collaborate.git
+<<<<<<< HEAD
         revision: 3bc7fe2ab9acbe4538785fec6100ac17fe9e8da5
+=======
+        revision: 30ef59f552633de9ff0401db4e73ac89982d4ac0
+>>>>>>> InventoryDebug
         path: 
     - packageId: com.unity.ide.rider@2.0.7
       testable: 0
@@ -3449,6 +3506,82 @@ m_PackageAssets:
         type: git
         url: https://github.com/Unity-Technologies/Graphics.git
         revision: d645e6b498e293626bcb30ec32b652b9f584e9b5
+        path: 
+    - packageId: com.unity.nuget.newtonsoft-json@2.0.0
+      testable: 0
+      isDirectDependency: 0
+      version: 2.0.0
+      source: 1
+      resolvedPath: N:\@BU\64-1\GI498\GI498_Project\GI498\GI498_Sages\Library\PackageCache\com.unity.nuget.newtonsoft-json@2.0.0
+      assetPath: Packages/com.unity.nuget.newtonsoft-json
+      name: com.unity.nuget.newtonsoft-json
+      displayName: Newtonsoft Json
+      author:
+        name: 
+        email: 
+        url: 
+      category: 
+      type: 
+      description: 'Newtonsoft Json for use in Unity projects and Unity packages.
+        Currently synced to version 12.0.2.
+
+
+        This package is used for advanced
+        json serialization and deserialization. Most Unity users will be better suited
+        using the existing json tools built into Unity.
+
+        To avoid assembly
+        clashes, please use this package if you intend to use Newtonsoft Json.'
+      status: 4
+      errors: []
+      versions:
+        all:
+        - 1.0.0-preview.2
+        - 1.0.0-preview.3
+        - 1.0.0-preview.4
+        - 1.0.1-preview.1
+        - 1.1.2
+        - 2.0.0-preview
+        - 2.0.0-preview.1
+        - 2.0.0-preview.2
+        - 2.0.0
+        - 2.0.1-preview.1
+        - 2.0.2
+        compatible:
+        - 1.0.0-preview.2
+        - 1.0.0-preview.3
+        - 1.0.0-preview.4
+        - 1.0.1-preview.1
+        - 1.1.2
+        - 2.0.0-preview
+        - 2.0.0-preview.1
+        - 2.0.0-preview.2
+        - 2.0.0
+        - 2.0.1-preview.1
+        - 2.0.2
+        verified: 2.0.2
+      dependencies: []
+      resolvedDependencies: []
+      keywords: []
+      registry:
+        id: main
+        name: 
+        url: https://packages.unity.com
+        scopes: []
+        isDefault: 1
+        capabilities: 7
+      hasRegistry: 1
+      hideInEditor: 1
+      entitlements:
+        isAllowed: 1
+      isAssetStorePackage: 0
+      datePublishedTicks: 637237898320000000
+      documentationUrl: 
+      hasRepository: 1
+      repository:
+        type: git
+        url: https://github.cds.internal.unity3d.com/unity/com.unity.nuget.newtonsoft-json.git
+        revision: d2fd6ed876261bbd82f59199ad711e7667bf633a
         path: 
     - packageId: com.unity.searcher@4.3.2
       testable: 0
