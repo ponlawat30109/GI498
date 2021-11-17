@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace _Scripts.InventorySystem
 {
-    public class Item : MonoBehaviour, ICollectableObject
+    public class Item : MonoBehaviour,ICollectableObject
     {
         [SerializeField] private ItemObject item;
         [SerializeField] private Canvas interactableCanvas;
@@ -15,13 +15,8 @@ namespace _Scripts.InventorySystem
         {
             return item;
         }
-<<<<<<< HEAD
-
-        public void CollectTo(ContainerObject whereToPutIn)
-=======
         
         public void CollectTo(StorageObject whereToPutIn)
->>>>>>> InventoryDebug
         {
             whereToPutIn.AddItem(item);
         }
@@ -30,14 +25,6 @@ namespace _Scripts.InventorySystem
         {
             interactableCanvas.gameObject.SetActive(true);
         }
-
-        // private void OnTriggerStay(Collider other)
-        // {
-        // if (other.gameObject.tag == "Player")
-        // {
-        // interactableCanvas.gameObject.SetActive(true);
-        // }
-        // }
 
         private void OnTriggerExit(Collider other)
         {
