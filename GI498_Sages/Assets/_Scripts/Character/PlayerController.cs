@@ -1,50 +1,54 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.AI;
-// using UnityEngine.InputSystem;
-// using UnityEngine.EventSystems;
-// using Cinemachine;
+using UnityEngine.InputSystem;
+//using UnityEngine.EventSystems;
 
-public class PlayerController : MonoBehaviour/*, IPointerDownHandler*/
+public class PlayerController : MonoBehaviour
+//public class PlayerController : MonoBehaviour, IPointerDownHandler
 {
     private NavMeshAgent _agent;
-    // private CinemachineVirtualCamera _vcam;
-    // private CinemachineFollowZoom _followZoom;
+    PlayerInput _playerInput;
+    Vector2 mousePosition;
+
+    private void OnEnable()
+    {
+        _playerInput.Enable();
+    }
+
+    private void OnDisable()
+    {
+        _playerInput.Disable();
+    }
 
     void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
-        // _vcam = GetComponent<CinemachineVirtualCamera>();
-        // _followZoom = GetComponent<CinemachineFollowZoom>();
+        _playerInput = new PlayerInput();
+    }
+
+    private void Start()
+    {
+        _playerInput.Mouse.MouseClick.performed += ctx => MouseAction();
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        //if (Input.GetMouseButtonDown(0))
         {
-            Ray _ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            //Ray _ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray _ray = Camera.main.ScreenPointToRay(mousePosition);
             RaycastHit _raycastHitInfo;
 
             if (Physics.Raycast(_ray, out _raycastHitInfo))
-            {
-                MoveToPoint(_raycastHitInfo.point);
-            }
+                _agent.SetDestination(_raycastHitInfo.point);
         }
-
-        // _followZoom.
     }
 
-    void MoveToPoint(Vector3 point)
+    void MouseAction()
     {
-        _agent.SetDestination(point);
+        //mousePosition = _playerInput.Mouse.MousePosition.ReadValue<Vector2>();
+        //mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+        mousePosition = Mouse.current.position.ReadValue();
     }
-
-    // void OnPointerClick(PointerEventData eventData)
-    // {
-    //     if (eventData.clickCount == 2)
-    //     {
-    //         Debug.Log("double click");
-    //     }
-    // }
 }

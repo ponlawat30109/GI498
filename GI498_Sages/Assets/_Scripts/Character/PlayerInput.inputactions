@@ -22,10 +22,18 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Click",
-                    "type": "PassThrough",
+                    "name": "MouseClick",
+                    "type": "Button",
                     "id": "ea177c04-0363-4880-8493-bd8eca332ebe",
                     "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "MousePosition",
+                    "type": "Value",
+                    "id": "740b6a3e-aadc-42ca-b95c-1e89fde5a678",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
                 }
@@ -71,7 +79,18 @@
                     "interactions": "Press,MultiTap",
                     "processors": "",
                     "groups": "",
-                    "action": "Click",
+                    "action": "MouseClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fbecc9f0-6972-4224-b2aa-8856f1fd0f5e",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MousePosition",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

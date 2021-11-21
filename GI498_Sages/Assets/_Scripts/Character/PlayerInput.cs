@@ -35,10 +35,18 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Click"",
-                    ""type"": ""PassThrough"",
+                    ""name"": ""MouseClick"",
+                    ""type"": ""Button"",
                     ""id"": ""ea177c04-0363-4880-8493-bd8eca332ebe"",
                     ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""MousePosition"",
+                    ""type"": ""Value"",
+                    ""id"": ""740b6a3e-aadc-42ca-b95c-1e89fde5a678"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
                 }
@@ -84,7 +92,18 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""interactions"": ""Press,MultiTap"",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Click"",
+                    ""action"": ""MouseClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fbecc9f0-6972-4224-b2aa-8856f1fd0f5e"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MousePosition"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -97,7 +116,8 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         m_Mouse = asset.FindActionMap("Mouse", throwIfNotFound: true);
         m_Mouse_Pan = m_Mouse.FindAction("Pan", throwIfNotFound: true);
         m_Mouse_Zoom = m_Mouse.FindAction("Zoom", throwIfNotFound: true);
-        m_Mouse_Click = m_Mouse.FindAction("Click", throwIfNotFound: true);
+        m_Mouse_MouseClick = m_Mouse.FindAction("MouseClick", throwIfNotFound: true);
+        m_Mouse_MousePosition = m_Mouse.FindAction("MousePosition", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -149,14 +169,16 @@ public class @PlayerInput : IInputActionCollection, IDisposable
     private IMouseActions m_MouseActionsCallbackInterface;
     private readonly InputAction m_Mouse_Pan;
     private readonly InputAction m_Mouse_Zoom;
-    private readonly InputAction m_Mouse_Click;
+    private readonly InputAction m_Mouse_MouseClick;
+    private readonly InputAction m_Mouse_MousePosition;
     public struct MouseActions
     {
         private @PlayerInput m_Wrapper;
         public MouseActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Pan => m_Wrapper.m_Mouse_Pan;
         public InputAction @Zoom => m_Wrapper.m_Mouse_Zoom;
-        public InputAction @Click => m_Wrapper.m_Mouse_Click;
+        public InputAction @MouseClick => m_Wrapper.m_Mouse_MouseClick;
+        public InputAction @MousePosition => m_Wrapper.m_Mouse_MousePosition;
         public InputActionMap Get() { return m_Wrapper.m_Mouse; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -172,9 +194,12 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @Zoom.started -= m_Wrapper.m_MouseActionsCallbackInterface.OnZoom;
                 @Zoom.performed -= m_Wrapper.m_MouseActionsCallbackInterface.OnZoom;
                 @Zoom.canceled -= m_Wrapper.m_MouseActionsCallbackInterface.OnZoom;
-                @Click.started -= m_Wrapper.m_MouseActionsCallbackInterface.OnClick;
-                @Click.performed -= m_Wrapper.m_MouseActionsCallbackInterface.OnClick;
-                @Click.canceled -= m_Wrapper.m_MouseActionsCallbackInterface.OnClick;
+                @MouseClick.started -= m_Wrapper.m_MouseActionsCallbackInterface.OnMouseClick;
+                @MouseClick.performed -= m_Wrapper.m_MouseActionsCallbackInterface.OnMouseClick;
+                @MouseClick.canceled -= m_Wrapper.m_MouseActionsCallbackInterface.OnMouseClick;
+                @MousePosition.started -= m_Wrapper.m_MouseActionsCallbackInterface.OnMousePosition;
+                @MousePosition.performed -= m_Wrapper.m_MouseActionsCallbackInterface.OnMousePosition;
+                @MousePosition.canceled -= m_Wrapper.m_MouseActionsCallbackInterface.OnMousePosition;
             }
             m_Wrapper.m_MouseActionsCallbackInterface = instance;
             if (instance != null)
@@ -185,9 +210,12 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @Zoom.started += instance.OnZoom;
                 @Zoom.performed += instance.OnZoom;
                 @Zoom.canceled += instance.OnZoom;
-                @Click.started += instance.OnClick;
-                @Click.performed += instance.OnClick;
-                @Click.canceled += instance.OnClick;
+                @MouseClick.started += instance.OnMouseClick;
+                @MouseClick.performed += instance.OnMouseClick;
+                @MouseClick.canceled += instance.OnMouseClick;
+                @MousePosition.started += instance.OnMousePosition;
+                @MousePosition.performed += instance.OnMousePosition;
+                @MousePosition.canceled += instance.OnMousePosition;
             }
         }
     }
@@ -196,6 +224,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
     {
         void OnPan(InputAction.CallbackContext context);
         void OnZoom(InputAction.CallbackContext context);
-        void OnClick(InputAction.CallbackContext context);
+        void OnMouseClick(InputAction.CallbackContext context);
+        void OnMousePosition(InputAction.CallbackContext context);
     }
 }
