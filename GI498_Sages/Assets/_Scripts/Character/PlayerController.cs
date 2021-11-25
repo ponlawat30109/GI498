@@ -37,11 +37,11 @@ public class PlayerController : MonoBehaviour
         //if (Input.GetMouseButtonDown(0))
         {
             //Ray _ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            Ray _ray = Camera.main.ScreenPointToRay(mousePosition);
-            RaycastHit _raycastHitInfo;
+            //Ray _ray = Camera.main.ScreenPointToRay(mousePosition);
+            //RaycastHit _raycastHitInfo;
 
-            if (Physics.Raycast(_ray, out _raycastHitInfo))
-                _agent.SetDestination(_raycastHitInfo.point);
+            //if (Physics.Raycast(_ray, out _raycastHitInfo))
+            //    _agent.SetDestination(_raycastHitInfo.point);
         }
     }
 
@@ -50,5 +50,11 @@ public class PlayerController : MonoBehaviour
         //mousePosition = _playerInput.Mouse.MousePosition.ReadValue<Vector2>();
         //mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
         mousePosition = Mouse.current.position.ReadValue();
+
+        Ray _ray = Camera.main.ScreenPointToRay(mousePosition);
+        RaycastHit _raycastHitInfo;
+
+        if (Physics.Raycast(_ray, out _raycastHitInfo))
+            _agent.SetDestination(_raycastHitInfo.point);
     }
 }
