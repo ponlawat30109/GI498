@@ -163,7 +163,6 @@ public class CustomModelManager : MonoBehaviour
                 data.type = CustomData.IndexType.MatIndex;
                 data.index = set.matIndex;
                 data.id = set.mats[data.index].id;
-                Debug.Log("data.index " + data.index);
                 datas.Add(data);
             }
         }

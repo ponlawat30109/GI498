@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerAnimController : MonoBehaviour
 {
-    public float speed = 0;
+    public float speed;
     public float targetSpeed;
 
     private Animator animator;
@@ -16,38 +16,40 @@ public class PlayerAnimController : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         speedHash = Animator.StringToHash("Speed");
+        speed = 0;
         targetSpeed = 0;
+        animator.SetFloat(speedHash, speed);
     }
 
     private void Update()
     {
-        if (targetSpeed != speed)
-        {
-            if (onAccel == true)
-            {
-                if (targetSpeed > speed)
-                {
-                    targetSpeed = speed;
-                }
-                else
-                {
-                    speed += accel;
-                }
-            }
+        //if (targetSpeed != speed)
+        //{
+        //    if (onAccel == true)
+        //    {
+        //        if (targetSpeed > speed)
+        //        {
+        //            targetSpeed = speed;
+        //        }
+        //        else
+        //        {
+        //            speed += accel;
+        //        }
+        //    }
 
-            else //onAccel == false
-            {
-                if (targetSpeed < speed)
-                {
-                    targetSpeed = speed;
-                }
-                else
-                {
-                    speed -= accel;
-                }
-            }
-            animator.SetFloat(speedHash, speed);
-        }
+        //    else //onAccel == false
+        //    {
+        //        if (targetSpeed < speed)
+        //        {
+        //            targetSpeed = speed;
+        //        }
+        //        else
+        //        {
+        //            speed -= accel;
+        //        }
+        //    }
+        //    animator.SetFloat(speedHash, speed);
+        //}
     }
 
     public void SetTargetSpeed(Activity activity)
@@ -69,6 +71,8 @@ public class PlayerAnimController : MonoBehaviour
             //     break;
         }
         onAccel = targetSpeed > speed;
+        speed = targetSpeed;
+        animator.SetFloat(speedHash, speed);
     }
 
     public void PickUp()
