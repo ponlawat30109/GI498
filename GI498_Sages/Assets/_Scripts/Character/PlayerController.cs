@@ -32,23 +32,33 @@ public class PlayerController : MonoBehaviour
         _playerInput.Mouse.MouseClick.performed += ctx => MouseAction();
     }
 
-    void Update()
-    {
-        //if (Input.GetMouseButtonDown(0))
-        {
-            //Ray _ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            Ray _ray = Camera.main.ScreenPointToRay(mousePosition);
-            RaycastHit _raycastHitInfo;
+    // void Update()
+    // {
+    //     if (Input.GetMouseButtonDown(0))
+    //     {
+    //         Ray _ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+    //         Ray _ray = Camera.main.ScreenPointToRay(mousePosition);
+    //         RaycastHit _raycastHitInfo;
 
-            if (Physics.Raycast(_ray, out _raycastHitInfo))
-                _agent.SetDestination(_raycastHitInfo.point);
-        }
-    }
+    //         if (Physics.Raycast(_ray, out _raycastHitInfo))
+    //            _agent.SetDestination(_raycastHitInfo.point);
+    //     }
+    // }
 
     void MouseAction()
     {
         //mousePosition = _playerInput.Mouse.MousePosition.ReadValue<Vector2>();
         //mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
         mousePosition = Mouse.current.position.ReadValue();
+
+        Ray _ray = Camera.main.ScreenPointToRay(mousePosition);
+        RaycastHit _raycastHitInfo;
+
+        if (Physics.Raycast(_ray, out _raycastHitInfo))
+            if (_raycastHitInfo.transform.CompareTag("Floor"))
+            {
+                //Debug.Log(_raycastHitInfo.transform.tag);
+                _agent.SetDestination(_raycastHitInfo.point);
+            }
     }
 }
