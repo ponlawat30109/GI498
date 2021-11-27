@@ -56,7 +56,7 @@ namespace _Scripts
             }
         }
 
-        public void LoadSpecificScene()
+        public AsyncOperation LoadSpecificScene()
         {
             if (sceneName != null || sceneName != "" || !sceneName.Contains(" "))
             {
@@ -65,12 +65,20 @@ namespace _Scripts
             
                 if (scene.sceneAsset != null)
                 {
-                    SceneManager.LoadSceneAsync(scene.sceneAsset.name, LoadSceneMode.Additive);
+                    var sceneAsync = SceneManager.LoadSceneAsync(scene.sceneAsset.name, LoadSceneMode.Additive);
                     scene.isLoaded = true;
+                    return sceneAsync;
                 }
             }
+            return null;
         }
-    
+
+        public AsyncOperation LoadSpecificScene(string _sceneName)
+        {
+            sceneName = _sceneName;
+            return LoadSpecificScene();
+        }
+
         public void UnloadSpecificScene()
         {
             if (sceneName != null || sceneName != "" || !sceneName.Contains(" "))
@@ -84,6 +92,12 @@ namespace _Scripts
                     scene.isLoaded = false;
                 }
             }
+        }
+
+        public void UnloadSpecificScene(string _sceneName)
+        {
+            sceneName = _sceneName;
+            UnloadSpecificScene();
         }
 
         private int GetScenePackageIndexByName(string toGetSceneName)

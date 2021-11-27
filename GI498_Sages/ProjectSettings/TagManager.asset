@@ -5,8 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - InteractableObject
-  - StorageObject
-  - MiniStorageObject
+  - Ingredients
+  - CollectableItem
+  - Floor
+  - Table
   layers:
   - Default
   - TransparentFX
@@ -14,7 +16,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Player
   - 
   - 
   - 
