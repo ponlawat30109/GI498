@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 47bc45bea1c48ca4ab6929e4528be12b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: eb069f7ea91d89840976d27d8e49fb4d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -161,6 +161,7 @@ GameObject:
   - component: {fileID: 547739601419487975}
   - component: {fileID: 6980363346072029974}
   - component: {fileID: 5586901735307809693}
+  - component: {fileID: 5901191502408067857}
   - component: {fileID: 5783833362471519491}
   m_Layer: 5
   m_Name: Item Slot
@@ -218,7 +219,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 97be5031c81eefe458575aa745d3658f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -228,6 +229,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5901191502408067857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8607904882602486925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShowMaskGraphic: 1
 --- !u!114 &5783833362471519491
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,15 +251,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 8607904882602486925}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d63a5a8b2a158949aa4776b0b7909e2, type: 3}
+  m_Script: {fileID: 11500000, guid: 8ab6efc4d0de4ee8a053f74d6a25b257, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  infoPrefab: {fileID: 6528064155616525228, guid: 8b6cbf0b551b0a941a601468c88a4f5b, type: 3}
   item: {fileID: 0}
   itemImage: {fileID: 1047250709614290463}
-  itemFrameImage: {fileID: 0}
-  selectUiSlot: {fileID: 0}
-  deselectUiSlot: {fileID: 0}
-  parentContainerUI: {fileID: 0}
-  containerInfo: {fileID: 0}
+  itemFrameImage: {fileID: 9046926415464353304}
+  selectUiSprite: {fileID: 21300000, guid: dca81338630b63b4b92c506a19837c15, type: 3}
+  deselectUiSprite: {fileID: 21300000, guid: 47bc45bea1c48ca4ab6929e4528be12b, type: 3}
+  parentStorageUI: {fileID: 0}
+  infoPrefab: {fileID: 6528064155616525228, guid: 8b6cbf0b551b0a941a601468c88a4f5b, type: 3}
+  storageInfoTransform: {fileID: 0}
   informationUI: {fileID: 0}
