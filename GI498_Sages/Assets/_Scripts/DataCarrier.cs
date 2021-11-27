@@ -52,6 +52,7 @@ public class DataCarrier : MonoBehaviour
         var foodListRange = foodList.Count;
         var foodNumber = Random.Range(0, foodListRange);
         order = foodList[foodNumber];
+        //_Scripts.Manager.Instance.playerManager.PSHandler.JustPutInFood(npcRequest);
         return order;
     }
 
