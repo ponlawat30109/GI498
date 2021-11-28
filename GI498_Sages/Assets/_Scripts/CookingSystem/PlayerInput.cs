@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/_Scripts/Character/PlayerInput.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/_Scripts/CookingSystem/PlayerInput.inputactions'
 
 using System;
 using System.Collections;
