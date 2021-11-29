@@ -13,23 +13,23 @@ namespace NPCScript
             get => instance;
         }
 
-        private static NPCController orderingNpc;
+        private NPCController orderingNpc;
 
-        private static FoodObject order;
-        public static FoodObject Order
+        private FoodObject order;
+        public FoodObject Order
         {
             get => order;
         }
 
         [SerializeField] private TVChangeImage tv;
 
-        public static bool haveOrder;
+        public bool haveOrder;
 
         [SerializeField] private RankSystem playerRankHolder;
-        private static List<FoodObject> foodList;
+        private List<FoodObject> foodList;
 
-        private static int numberOfNpcInMap;
-        private static int totalNumberOfOrder;
+        private int numberOfNpcInMap;
+        private int totalNumberOfOrder;
 
         private void Awake()
         {
@@ -47,7 +47,7 @@ namespace NPCScript
             foodList = playerRankHolder.FoodList;
         }
 
-        public static void RandomFood(NPCController npc)
+        public void RandomFood(NPCController npc)
         {
             if (foodList.Count > 0)
             {
@@ -56,27 +56,23 @@ namespace NPCScript
                 var foodNumber = Random.Range(0, foodListRange);
                 order = foodList[foodNumber];
                 haveOrder = true;
-                _Scripts.ManagerCollection.Manager.Instance.playerManager.PSHandler().JustPutInFood(order);
-                Debug.Log("order " + order.itemName);
+                if(_Scripts.ManagerCollection.Manager.Instance != null)
+                    _Scripts.ManagerCollection.Manager.Instance.playerManager.PSHandler().JustPutInFood(order);
+                tv.TVChangeSprite(order.itemIcon);
             }
         }
 
-        public static void CompleteOrder(int xp)
+        public void CompleteOrder(int xp)
         {
             if (order != null && orderingNpc != null)
             {
                 order = null;
                 haveOrder = false;
-                DataCarrier.AddExp(xp);
+                if(onTest == false)
+                    DataCarrier.AddExp(xp);
                 orderingNpc.GetOrder();
                 orderingNpc = null;
-            }
-            else
-            {
-                if(order != null)
-                    Debug.Log("(NPC Manager) Complete Order: order Bug Null");
-                else
-                    Debug.Log("(NPC Manager) Complete Order: orderingNpc Bug Null");
+                tv.SetDefaultImg();
             }
         }
 

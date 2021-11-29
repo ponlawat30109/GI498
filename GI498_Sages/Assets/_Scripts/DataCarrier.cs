@@ -19,6 +19,11 @@ public class DataCarrier : MonoBehaviour
         }
     }
 
+    public static CustomData customData
+    {
+        get => playerProfileData.customData;
+    }
+
     private void Awake()
     {
         if (Instance == null)

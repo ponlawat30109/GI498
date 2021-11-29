@@ -49,7 +49,7 @@ namespace NPCScript
                                 {
                                     npcState = NPCState.Order;
                                     animCtrl.SetTargetSpeed(PlayerAnimController.Activity.Stand);
-                                    NPCManager.RandomFood(this);
+                                    NPCManager.Instance.RandomFood(this);
                                 }
                                 else if(targetPoint.isRandomSkinPoint)
                                 {
