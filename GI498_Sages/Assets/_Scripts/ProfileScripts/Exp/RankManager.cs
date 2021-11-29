@@ -204,9 +204,4 @@ public class RankManager : MonoBehaviour
         rankBoxList.Add(rankBox);
     }
 
-    private void OnApplicationQuit()
-    {
-        playerRankHolder.ClearList();
-    }
-
 }

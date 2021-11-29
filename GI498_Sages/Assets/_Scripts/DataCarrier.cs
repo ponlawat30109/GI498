@@ -9,7 +9,19 @@ public class DataCarrier : MonoBehaviour
     private static PlayerData playerProfileData;
     public static PlayerData PlayerProfileData
     {
-        get => playerProfileData;
+        get
+        {
+            if(playerProfileData == null)
+            {
+                playerProfileData = SaveSystem.LoadPlayerProfile();
+            }
+            return playerProfileData;
+        }
+    }
+
+    public static CustomData customData
+    {
+        get => playerProfileData.customData;
     }
 
     private void Awake()
@@ -20,6 +32,7 @@ public class DataCarrier : MonoBehaviour
             Destroy(this);
     }
 
+
     public static void SetPlayerData(PlayerData playerData)
     {
         playerProfileData = playerData;
@@ -28,5 +41,21 @@ public class DataCarrier : MonoBehaviour
     public static void SetComingExp(int xP)
     {
         playerProfileData.comingExp = xP;
+    }
+
+    public static void AddExp(int xP)
+    {
+        if (playerProfileData == null)
+            Debug.Log("playerProfileData  null");
+        else
+            playerProfileData.comingExp += xP;
+    }
+
+    private void OnApplicationQuit()
+    {
+        if(playerProfileData != null)
+        {
+            SaveSystem.SavePlayerProfile(playerProfileData);
+        }
     }
 }

@@ -113,7 +113,11 @@ public class ProfileSceneController : MonoBehaviour
 
     private void ChangeSceneToToGamePlayScene()
     {
-        Debug.Log("ChangeSceneToToGamePlayScene");
+        AudioManager.Instance.StopAudio();
+        //Debug.Log("ChangeSceneToToGamePlayScene");
+        var loadScenes = new string[] { "KitchenAssembly", "scn_ItemExample" };
+        var unloadScenes = new string[] { "scn_Profile" };
+        _Scripts.SceneAnimator.Instance.ChangeScene(unloadScenes, loadScenes);
     }
 
     private void VisualToCustomCharacter()

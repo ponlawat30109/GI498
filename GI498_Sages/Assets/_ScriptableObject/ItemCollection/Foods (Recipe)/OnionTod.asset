@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cd1f895fd8ab2a46bf96578d9516cef, type: 3}
+  m_Name: OnionTod
+  m_EditorClassIdentifier: 
+  itemName: OnionTod
+  itemIcon: {fileID: 0}
+  type: 2
+  ingamePrefab: {fileID: 5486850418394000142, guid: b3f045adfe0716b40be0bd5ad2391726, type: 3}
+  description: 
+  cookedPrefab: {fileID: 4812442483057933167, guid: f80f19f407ed476458333831ba5bdd7c, type: 3}
+  ingredients:
+  - {fileID: 11400000, guid: a1b2263d34376354ca0becc4dd9e927a, type: 2}
+  - {fileID: 11400000, guid: 1e2c4347a7b27d34f8ffca18cc8502fe, type: 2}
+  isLowSodium: 0
+  isCooked: 0
