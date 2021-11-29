@@ -33,6 +33,7 @@ public class KitchenUIAdditionalButton : MonoBehaviour
         if (psHandler.IsHoldingItem() && parent.GetStorageObject().HasFreeSpace())
         {
             parent.GetStorageObject().PutIn(item);
+            parent.CheckWhenIngredientAdd(item);
         }
         
         //Debug.Log($"[Button] Put {item.itemName} from {b.storageType} to {a}.");

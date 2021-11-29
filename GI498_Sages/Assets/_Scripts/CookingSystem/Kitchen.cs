@@ -35,14 +35,16 @@ namespace _Scripts.CookingSystem
 
         private void Start()
         {
+            isCanCook = false;
+            isCooking = false;
             _isTrashFull = false;
             _currentIngredientRemoveCount = 0;
         }
 
         private void Update()
         {
-            // If ingredient that in Storage > 0 mean have some item.
-            if (ingredientStorage.GetSlotCount() > 0)
+            
+            if (ingredientStorage.GetSlotCount() > 0) // If ingredient that in Storage > 0 mean have some ingredient.
             {
                 // Check is can cook
                 if (IsCanCook() && ingredientStorage.GetRecipe().isCooked == false)
@@ -76,11 +78,14 @@ namespace _Scripts.CookingSystem
             }
             
             // Auto Cooking Process
-            if (isCanCook && ingredientStorage.GetRecipe().isCooked == false)
+            if (ingredientStorage.GetRecipe() != null)
             {
-                Cooking();
+                if (isCanCook && ingredientStorage.GetRecipe().isCooked == false)
+                {
+                    Cooking();
+                }
             }
-
+            
             // Check Trash
             if (_currentIngredientRemoveCount >= maxIngredientRemoveable && _isTrashFull == false)
             {
@@ -94,7 +99,11 @@ namespace _Scripts.CookingSystem
         
         public void Interacted()
         {
-            if (ingredientStorage.GetRecipe() != null) // If stove have Recipe
+            /*if (ingredientStorage.GetRecipe() == null) // If stove have Recipe
+            {
+                InteractStoveElseCase();
+            }
+            else // If stove don not have Recipe
             {
                 if (ingredientStorage.GetRecipe().isCooked == false)  // Recipe un cooked
                 {
@@ -104,35 +113,81 @@ namespace _Scripts.CookingSystem
                 {
                     InteractStoveElseCase();
                 }
-            }
-            else // If stove don not have Recipe
-            {
-                InteractStoveElseCase();
-            }
-        }
-        
-        public void InteractStoveElseCase()
-        {
+            }*/
             var psHandler = Manager.Instance.playerManager.PSHandler();
 
-            if (ingredientStorage.GetRecipe() == null)
+            //Debug.Log("Interacted with Kitchen stove.");
+            
+            if (psHandler.IsHoldingItem() && ingredientStorage.GetRecipe() == null) // If holding and stove is null
             {
-                if (psHandler.IsHoldingItem())
+                if (psHandler.currentHoldFoodObject != null && psHandler.currentHoldItemObject == null) // If hold FoodObject
                 {
-                    var item = psHandler.currentHoldFoodObject;
-                    PlaceRecipeToStove(item); // + place "item" to stove
-                    psHandler.JustTakeOut(item); // - Take Item Out of player hand
+                    if (ingredientStorage.GetRecipe() == null) // If holding food and stove is null
+                    {
+                        // Add Place Recipe
+                        Debug.Log("Add recipe to stove");
+                        var item = psHandler.currentHoldFoodObject;
+                        PlaceRecipeToStove(item); // + place "item" to stove
+                        psHandler.JustTakeOut(item); // - Take Item Out of player hand
+                    }
+                    else // If holding food but stove is recipe inside
+                    {
+                        // Do nothing becuase hand is holding FoodObject.
+                    }
                 }
-                else if(psHandler.IsHoldingItem() == false && ingredientStorage.GetRecipe() == null)
+                // If holding and stove is null and that holding is not food object
+                else if (psHandler.currentHoldFoodObject == null && psHandler.currentHoldItemObject != null) // Not FoodObject
                 {
-                    Debug.Log("No Item On Hand and No Recipe at Stove");
+                    // Do nothing because that is not add Recipe yet.
                 }
             }
-            else
+            else if(psHandler.IsHoldingItem() && ingredientStorage.GetRecipe() != null) // If holding and stove is not null
             {
-                // !!! Player hand need free space before do below method
-                TakeRecipeFromStove();
+                if (psHandler.currentHoldFoodObject != null && psHandler.currentHoldItemObject == null) // If hold FoodObject
+                {
+                    // Do nothing... recipe inside already inside but.
+                }
+                else if (psHandler.currentHoldFoodObject == null && psHandler.currentHoldItemObject != null) // Not FoodObject
+                {
+                    // If holding and stove is not null and that holding is ingredient but
+                    if (ingredientStorage.GetRecipe().isCooked) // If food already cooked
+                    {
+                        // Do nothing can not take because holding ingredient.
+                    }
+                    else // If food not cook yet
+                    {
+                        // OpenUI to add ingredient
+                        InteractOpenUI();
+                    }
+                }
             }
+            else if (psHandler.IsHoldingItem() == false && ingredientStorage.GetRecipe() != null) // If not holding and stove is not null
+            {
+                if (isCooking == false) // Check case that player take recipe out while cooking....
+                {
+                    if (ingredientStorage.GetRecipe().isCooked) // If hand able to hold and food is cook
+                    {
+                        // Take cooked food
+                        ingredientStorage.TakeOutCookedFood();
+                        _currentCorrectIngredient = 0;
+                    }
+                    else
+                    {
+                        // Take out recipe
+                        //ingredientStorage.TakeOutRecipe(); // Same as above but ez to read code...
+                    }
+                }
+            }
+            else if(psHandler.IsHoldingItem() == false && ingredientStorage.GetRecipe() == null) //  If not holding and stove also null
+            {
+                // Do nothing just in case...
+                Debug.Log("No Item On Hand and No Recipe at Stove");
+            }
+        }
+
+        public void InteractOpenUI()
+        {
+            kitchenUI.gameObject.SetActive(true);
         }
 
         // Cooking things..
@@ -140,15 +195,18 @@ namespace _Scripts.CookingSystem
         {
             isCooking = true;
             
-            if (currentStoveTime < ingredientStorage.GetRecipe().cookingTime)
+            if (currentStoveTime <= ingredientStorage.GetRecipe().cookingTime)
+            {
+                currentStoveTime += Time.deltaTime;
+            }
+            else
             {
                 if (currentStoveTime >= ingredientStorage.GetRecipe().cookingTime)
                 {
-                    isCooking = false;
                     TakeFinishCookedItem();
+                    isCooking = false;
+                    isCanCook = true;
                 }
-
-                currentStoveTime += Time.deltaTime;
             }
         }
         
@@ -167,22 +225,21 @@ namespace _Scripts.CookingSystem
 
         private bool IsCanCook()
         {
-            var result = false;
-
-            foreach (var slot in ingredientStorage.GetStorageSlot())
-            {
-                if (IsOneOfIngredient(slot.item))
-                {
-                    _currentCorrectIngredient += 1;
-                }
-            }
-
-            if (_currentCorrectIngredient == ingredientStorage.GetRecipe().ingredients.Count)
-            {
-                result = true;
-            }
+            bool result = _currentCorrectIngredient == ingredientStorage.GetRecipe().ingredients.Count;
 
             return result;
+        }
+
+        public void CheckWhenIngredientAdd(ItemObject itemToCheck)
+        {
+            if (IsOneOfIngredient((IngredientObject)itemToCheck))
+            {
+                _currentCorrectIngredient += 1;
+            }
+            else
+            {
+                _currentCorrectIngredient -= 1;
+            }
         }
 
         public bool IsOneOfIngredient(IngredientObject ingredient)
@@ -200,7 +257,7 @@ namespace _Scripts.CookingSystem
         {
             if (isCooking == false) // Check case that player take recipe out while cooking....
             {
-                if (ingredientStorage.GetRecipe() == null) // If recipe slot is null
+                if (ingredientStorage.GetRecipe() == null) // If recipe slot is null (double check)
                 {
                     // Set it
                     ingredientStorage.SetRecipe(itemObject);
@@ -214,25 +271,6 @@ namespace _Scripts.CookingSystem
             }
         }
 
-        private void TakeRecipeFromStove()
-        {
-            if (isCooking == false) // Check case that player take recipe out while cooking....
-            {
-                if (ingredientStorage.GetRecipe() != null)
-                {
-                    if (ingredientStorage.GetRecipe().isCooked) // If it cooked return cooked item
-                    {
-                        ingredientStorage.TakeOutCookedFood();
-    
-                    }
-                    else // Return recipe
-                    {
-                        ingredientStorage.TakeOutRecipe(); // Same as above but ez to read code...
-                    }
-                }
-            }
-        }
-        
         // Storage UI Things...
 
         public bool IsUIOpen()
@@ -313,6 +351,13 @@ namespace _Scripts.CookingSystem
             {
                 kitchenUI.gameObject.SetActive(false);
             }
+        }
+
+        public void OnApplicationQuit()
+        {
+            ingredientStorage.SetRecipe(null);
+            _currentCorrectIngredient = 0;
+            ingredientStorage.GetStorageSlot().Clear();
         }
     }
 }

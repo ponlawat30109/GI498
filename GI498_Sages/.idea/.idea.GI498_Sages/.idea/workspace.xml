@@ -24,34 +24,22 @@
   <component name="ChangeListManager">
     <list default="true" id="f193b64d-21bc-4e30-8ec0-71eeb3480d8a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GI498_Sages/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GI498_Sages/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Prefabs/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Prefabs/Player.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Prefabs/Storage/Fridge.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Prefabs/Storage/Fridge.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Prefabs/Storage/Kitchen.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Prefabs/Storage/Kitchen.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Prefabs/UI/Slot/Ingredient Slot.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Prefabs/UI/Slot/Ingredient Slot.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Prefabs/UI/Storage UI (Canvas)/Kitchen Storage UI.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Prefabs/UI/Storage UI (Canvas)/Kitchen Storage UI.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Scenes/scn_ItemExample.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scenes/scn_ItemExample.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_ScriptableObject/ItemCollection/Foods (Recipe)/EggSandWich.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_ScriptableObject/ItemCollection/Foods (Recipe)/EggSandWich.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_ScriptableObject/ItemCollection/Trash.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_ScriptableObject/ItemCollection/Trash.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_ScriptableObject/StorageCollection/Fridge Storage.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_ScriptableObject/StorageCollection/Fridge Storage.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_ScriptableObject/StorageCollection/New Kitchen Storage.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_ScriptableObject/StorageCollection/New Kitchen Storage.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_ScriptableObject/ItemCollection/Foods (Recipe)/Egg Sandwich.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_ScriptableObject/ItemCollection/Foods (Recipe)/Egg Sandwich.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_ScriptableObject/ItemCollection/Foods (Recipe)/Fried Egg.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_ScriptableObject/ItemCollection/Foods (Recipe)/Fried Egg.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Scripts/CookingSystem/Kitchen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/CookingSystem/Kitchen.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/CookingSystem/KitchenStorage.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/CookingSystem/KitchenStorage.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/CookingSystem/UI/IngredientSlotUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/CookingSystem/UI/IngredientSlotUI.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Scripts/CookingSystem/UI/KitchenUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/CookingSystem/UI/KitchenUI.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/CookingSystem/UI/StoveStatusUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/CookingSystem/UI/StoveStatusUI.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/MiniStorage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/MiniStorage.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/CookingSystem/UI/KitchenUIAdditionalButton.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/CookingSystem/UI/KitchenUIAdditionalButton.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/Player/PlayerStorageHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/Player/PlayerStorageHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/ScriptableObjects/Storage/StorageObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/ScriptableObjects/Storage/StorageObject.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/UI/StorageWithUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/UI/StorageUIAdditionalButton.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/UI/StorageWithUI.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/UI/StorageUIAdditionalButton.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/ManagerCollection/StorageManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/ManagerCollection/StorageManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/ScriptableObjects/Items/FoodObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/ScriptableObjects/Items/FoodObject.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Library/ArtifactDB" beforeDir="false" afterPath="$PROJECT_DIR$/Library/ArtifactDB" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Library/InspectorExpandedItems.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Library/InspectorExpandedItems.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Library/SceneVisibilityState.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Library/SceneVisibilityState.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Library/ShaderCache/EditorEncounteredVariants" beforeDir="false" afterPath="$PROJECT_DIR$/Library/ShaderCache/EditorEncounteredVariants" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Library/SourceAssetDB" beforeDir="false" afterPath="$PROJECT_DIR$/Library/SourceAssetDB" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Library/StateCache/SceneView/c4/c4c79f2801988007f4a2bcac3051ec6b.json" beforeDir="false" afterPath="$PROJECT_DIR$/Library/StateCache/SceneView/c4/c4c79f2801988007f4a2bcac3051ec6b.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,16 +58,17 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/_Scripts/ManagerCollection/StorageManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Scripts/InventorySystem/ScriptableObjects/Storage/StorageObject.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/_Scripts/InventorySystem/Storage.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Scripts/InventorySystem/UI/StorageUI.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/_Scripts/InventorySystem/Item.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Scripts/ManagerCollection/Manager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Scripts/InteractSystem/Interface/ICollectableObject.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Scripts/InventorySystem/UI/StorageInformationUI.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Scripts/ManagerCollection/PlayerManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Scripts/InteractSystem/Interface/IInteractableObject.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/_Scripts/ManagerCollection/StorageManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/_Scripts/InventorySystem/Storage.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/_Scripts/InventorySystem/Item.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/IngredientInfoComponent.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -202,7 +191,7 @@
       <workItem from="1635221038107" duration="32462000" />
       <workItem from="1635782847969" duration="4338000" />
       <workItem from="1636558369017" duration="1314000" />
-      <workItem from="1638169144228" duration="28204000" />
+      <workItem from="1638169144228" duration="38782000" />
     </task>
     <servers />
   </component>

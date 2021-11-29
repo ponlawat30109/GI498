@@ -18,6 +18,8 @@ public class FoodObject : ItemObject
     private void Awake()
     {
         type = ItemType.Food;
+        isLowSodium = false;
+        isCooked = false;
     }
 
     public void CheckNutrition()

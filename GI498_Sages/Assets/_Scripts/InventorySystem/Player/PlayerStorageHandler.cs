@@ -120,6 +120,13 @@ namespace _Scripts.InventorySystem.Player
                 JustPutInFood(item);
                 Debug.Log($"[F1] Give {item.name} Recipe to player.");
             }
+            
+            if (Input.GetKeyDown(KeyCode.F2))
+            {
+                var item = Manager.Instance.storageManager.TakeRecipeByIndex(1);
+                JustPutInFood(item);
+                Debug.Log($"[F2] Give {item.name} Recipe to player.");
+            }
         }
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////

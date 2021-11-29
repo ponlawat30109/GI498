@@ -87,16 +87,16 @@ namespace _Scripts.CookingSystem.UI
         {
             if (parentStorageUI.GetParent().IsSlotUISelectable)
             {
-                var newInfo = Instantiate(infoPrefab, Vector3.zero, Quaternion.identity);
-                informationUI = newInfo.gameObject.GetComponent<StorageInformationUI>();
-                informationUI.InitializeInformation(item.itemName, item.description, item.itemIcon);
-                informationUI.transform.SetParent(storageInfoTransform.transform);
+                //var newInfo = Instantiate(infoPrefab, Vector3.zero, Quaternion.identity);
+                //informationUI = newInfo.gameObject.GetComponent<StorageInformationUI>();
+                //informationUI.InitializeInformation(item.itemName, item.description, item.itemIcon);
+                //informationUI.transform.SetParent(storageInfoTransform.transform);
             }
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            informationUI.Clear();
+            //informationUI.Clear();
         }
     }
 }
