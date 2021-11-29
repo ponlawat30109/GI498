@@ -561,6 +561,8 @@ namespace _Scripts.InventorySystem.Player
                     SetToInteractItem();
                 }
             }
+            
+            
         }
 
         private void OnTriggerExit(Collider other)

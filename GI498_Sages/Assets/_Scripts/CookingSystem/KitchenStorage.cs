@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using _Scripts.InventorySystem;
 using _Scripts.InventorySystem.ScriptableObjects.Storage;
 using _Scripts.ManagerCollection;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 
 namespace _Scripts.CookingSystem
 {
@@ -12,15 +14,26 @@ namespace _Scripts.CookingSystem
     {
         public StorageObject.StorageTypeEnum storageType;
         [SerializeField] private List<StorageIngredientSlot> storageSlots = new List<StorageIngredientSlot>();
-    
+        [SerializeField] private FoodObject recipeItemSlot; //Recipe
+        [SerializeField] private ItemObject trashItemObject;
+
         private int maxSlot;
         private bool isStorageStackable;
-
-
+        
         public void InitializeStorageObject(int _maxSlot,bool isStackable)
         {
             maxSlot = _maxSlot;
             isStorageStackable = isStackable;
+        }
+
+        public void SetRecipe(FoodObject foodObject)
+        {
+            recipeItemSlot = foodObject;
+        }
+
+        public FoodObject GetRecipe()
+        {
+            return recipeItemSlot;
         }
     
         public bool AddItem(IngredientObject itemToAdd)
@@ -216,20 +229,61 @@ namespace _Scripts.CookingSystem
             // TODO: Must Check this "HasFreeSpace" and Player "Really have Item"
             // Note : Player Hand is
             var psHandler = Manager.Instance.playerManager.PSHandler();
-            // Note : Example
-            var itemOnPlayerHand = psHandler.currentHoldItemObject;
+            var itemOnPlayerHand = (IngredientObject) psHandler.currentHoldItemObject;
             
             // Example Check and Do things...
             if (psHandler.storage.GetStorageObject().HasFreeSpace())
             {
                 // Things...
             }
+
+            if (HasFreeSpace() && itemOnPlayerHand != null)
+            {
+                AddItem(itemOnPlayerHand);
+                psHandler.storage.GetStorageObject().RemoveItem(itemOnPlayerHand);
+            }
+            else
+            {
+                if (HasFreeSpace() == false)
+                {
+                    Debug.Log("[KitchenStorage.cs] Storage dont have free space.");
+                }
+
+                if (itemOnPlayerHand == null)
+                {
+                    Debug.Log("[KitchenStorage.cs] Item on player hand is null.");
+                }
+            }
         }
 
         public void TakeOut()
         {
-            // TODO: Create Trash Bag Item or something to Player Hand and Clear storageSlots
-            // TODO: Must Check That Player Hand is Empty or available to Create Trash Item.
+            var psHandler = Manager.Instance.playerManager.PSHandler();
+
+
+            if (psHandler.storage.GetStorageObject().HasFreeSpace())
+            {
+                if (recipeItemSlot.isCooked) // If it cooked return cooked item
+                {
+                    var item = GetItemFromSlotIndex(0);
+                    if (item.type == ItemType.Food)
+                    {
+                        psHandler.JustPutInFood(recipeItemSlot);
+                        storageSlots.Clear();
+                    }
+                }
+                else // Return recipe
+                {
+                    psHandler.JustPutIn(recipeItemSlot);
+                    ClearStove();
+                }
+            }
+        }
+
+        public void ClearStove()
+        {
+            SetRecipe(null);
+            storageSlots.Clear();
         }
     }
     

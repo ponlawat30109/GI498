@@ -10,6 +10,8 @@ public class FoodObject : ItemObject
 {
     public GameObject cookedPrefab;
     public List<IngredientObject> ingredients;
+    public float cookingTime;
+    public int foodQuality;
     public bool isLowSodium;
     public bool isCooked;
     
@@ -32,5 +34,15 @@ public class FoodObject : ItemObject
         }
 
         isLowSodium = FoodUtility.IsLowSodium(sodiumSummary);
+    }
+
+    public void SetFoodQuality(int value)
+    {
+        foodQuality = value;
+    }
+
+    public void FoodQualityDrop()
+    {
+        foodQuality -= 1;
     }
 }
