@@ -9,19 +9,15 @@ public class DataCarrier : MonoBehaviour
     private static PlayerData playerProfileData;
     public static PlayerData PlayerProfileData
     {
-        get => playerProfileData;
+        get
+        {
+            if(playerProfileData == null)
+            {
+                playerProfileData = SaveSystem.LoadPlayerProfile();
+            }
+            return playerProfileData;
+        }
     }
-
-    private static FoodObject order;
-    public static FoodObject Order
-    {
-        get => order;
-    }
-
-    public static bool haveOrder;
-
-    [SerializeField] private RankSystem playerRankHolder;
-    private static List<FoodObject> foodList;
 
     private void Awake()
     {
@@ -31,11 +27,6 @@ public class DataCarrier : MonoBehaviour
             Destroy(this);
     }
 
-    private void Start()
-    {
-        haveOrder = false;
-        foodList = DataCarrier.Instance.playerRankHolder.FoodList;
-    }
 
     public static void SetPlayerData(PlayerData playerData)
     {
@@ -47,24 +38,19 @@ public class DataCarrier : MonoBehaviour
         playerProfileData.comingExp = xP;
     }
 
-    public static FoodObject RandomFood()
+    public static void AddExp(int xP)
     {
-        var foodListRange = foodList.Count;
-        var foodNumber = Random.Range(0, foodListRange);
-        order = foodList[foodNumber];
-        //_Scripts.Manager.Instance.playerManager.PSHandler.JustPutInFood(npcRequest);
-        return order;
-    }
-
-    public static void CompleteOrder(int xp)
-    {
-        order = null;
-        haveOrder = false;
-        playerProfileData.comingExp += xp;
+        if (playerProfileData == null)
+            Debug.Log("playerProfileData  null");
+        else
+            playerProfileData.comingExp += xP;
     }
 
     private void OnApplicationQuit()
     {
-        playerRankHolder.ClearList();
+        if(playerProfileData != null)
+        {
+            SaveSystem.SavePlayerProfile(playerProfileData);
+        }
     }
 }

@@ -15,6 +15,9 @@ namespace NPCScript
         [HideInInspector] public NPCController npcOwner;
         private List<GameObject> onPoint = new List<GameObject>();
 
+        public bool isChechInPoint = false;
+        
+
         private void Start()
         {
             isAvailable = true;
@@ -26,6 +29,11 @@ namespace NPCScript
 
                 if (isRandomSkinPoint)
                     npcCtrl.modelCom.RandomSkin();
+            }
+
+            if(isChechInPoint)
+            {
+
             }
         }
 

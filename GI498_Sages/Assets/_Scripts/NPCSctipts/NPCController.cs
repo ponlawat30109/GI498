@@ -15,6 +15,7 @@ namespace NPCScript
         [SerializeField] private NPCState npcState;
 
         public bool isPause = false;
+        public bool OnOrder;
 
         private enum NPCState
         {
@@ -26,6 +27,7 @@ namespace NPCScript
         private void Start()
         {
             npcState = NPCState.Walk;
+            OnOrder = false;
         }
 
         private void Update()
@@ -47,6 +49,12 @@ namespace NPCScript
                                 {
                                     npcState = NPCState.Order;
                                     animCtrl.SetTargetSpeed(PlayerAnimController.Activity.Stand);
+                                    NPCManager.RandomFood(this);
+                                }
+                                else if(targetPoint.isRandomSkinPoint)
+                                {
+                                    modelCom.RandomSkin();
+                                    NextPoint();
                                 }
                                 else
                                 {
@@ -58,8 +66,6 @@ namespace NPCScript
                     }
                 case NPCState.Order:
                     {
-                        //if Order == null
-                        //Order();
                         FaceTarget(targetPoint.transform.rotation);
                         var faceAngle = Mathf.Abs(Quaternion.Angle(targetPoint.transform.rotation, transform.rotation));
                         if (faceAngle < 3f)
@@ -70,6 +76,8 @@ namespace NPCScript
                     }
                 case NPCState.WaitOrder:
                     {
+                        //if get order
+                        //see >> GetOrder()
 
                         break;
                     }
@@ -142,17 +150,17 @@ namespace NPCScript
             {
                 targetPoint = point;
                 targetPoint.npcOwner = this;
-                nextTargetPoint = targetPoint.nextPoint;
+                //nextTargetPoint = targetPoint.nextPoint;
             }
-            else
-            {
-                nextTargetPoint = point;
-            }
+            //else
+            //{
+            //    nextTargetPoint = point;
+            //}
         }
 
         public void GetOrder()
         {
-            if(npcState == NPCState.Order)
+            if(npcState == NPCState.Order || npcState == NPCState.WaitOrder)
             {
                 NextPoint();
                 npcState = NPCState.Walk;

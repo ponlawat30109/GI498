@@ -5,20 +5,10 @@ using UnityEngine.UI;
 
 public class TVChangeImage : MonoBehaviour
 {
-    public static Image tvImage;
+    public Image tvImage;
 
-    public static void TVChangeSprite(Sprite sprite)
+    public void TVChangeSprite(Sprite sprite)
     {
         tvImage.sprite = sprite;
-    }
-
-    private void Start()
-    {
-        if(tvImage != null)
-        {
-            Destroy(this);
-            return;
-        }
-        tvImage = GetComponent<Image>();
     }
 }
