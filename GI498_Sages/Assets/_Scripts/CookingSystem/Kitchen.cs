@@ -22,7 +22,7 @@ namespace _Scripts.CookingSystem
         [SerializeField] private bool isStackable;
         [SerializeField] private bool isSlotUISelectable;
 
-        [Header("Cooking Process")] 
+        [Header("Cooking Processing")] 
         [SerializeField] private float currentStoveTime;
         [SerializeField] private bool isCanCook;
         [SerializeField] private bool isCooking;
@@ -41,7 +41,6 @@ namespace _Scripts.CookingSystem
 
         private void Update()
         {
-            
             // If ingredient that in Storage > 0 mean have some item.
             if (ingredientStorage.GetSlotCount() > 0)
             {
@@ -57,17 +56,17 @@ namespace _Scripts.CookingSystem
                     if (ingredientStorage.GetRecipe().isCooked)
                     {
                         // Show Finish Cooked UI
-                        stoveStatusUI.SetStatusImageByStatusEnum(StoveStatusUI.StatusEnum.Finish);
+                        stoveStatusUI.SetCurrentStatus(StoveStatusUI.StatusEnum.Finish);
                     }
                     else if (ingredientStorage.GetSlotCount() < ingredientStorage.GetRecipe().ingredients.Count && ingredientStorage.GetRecipe().isCooked == false) // If current Ingredient < need ingredient
                     {
                         // Show Waiting UI
-                        stoveStatusUI.SetStatusImageByStatusEnum(StoveStatusUI.StatusEnum.Wait);
+                        stoveStatusUI.SetCurrentStatus(StoveStatusUI.StatusEnum.Wait);
                     }
                     else if (_isTrashFull)
                     {
                         // Show Trash UI
-                        stoveStatusUI.SetStatusImageByStatusEnum(StoveStatusUI.StatusEnum.Trash);
+                        stoveStatusUI.SetCurrentStatus(StoveStatusUI.StatusEnum.Trash);
                     }
                     else
                     {
@@ -89,8 +88,51 @@ namespace _Scripts.CookingSystem
                 Debug.Log($"Kitchen trash is full...");
                 _isTrashFull = true;
             }
-            
-            
+        }
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////////
+        
+        public void Interacted()
+        {
+            if (ingredientStorage.GetRecipe() != null) // If stove have Recipe
+            {
+                if (ingredientStorage.GetRecipe().isCooked == false)  // Recipe un cooked
+                {
+                    kitchenUI.gameObject.SetActive(true);
+                }
+                else // Recipe is cooked
+                {
+                    InteractStoveElseCase();
+                }
+            }
+            else // If stove don not have Recipe
+            {
+                InteractStoveElseCase();
+            }
+        }
+        
+        public void InteractStoveElseCase()
+        {
+            var psHandler = Manager.Instance.playerManager.PSHandler();
+
+            if (ingredientStorage.GetRecipe() == null)
+            {
+                if (psHandler.IsHoldingItem())
+                {
+                    var item = psHandler.currentHoldFoodObject;
+                    PlaceRecipeToStove(item); // + place "item" to stove
+                    psHandler.JustTakeOut(item); // - Take Item Out of player hand
+                }
+                else if(psHandler.IsHoldingItem() == false && ingredientStorage.GetRecipe() == null)
+                {
+                    Debug.Log("No Item On Hand and No Recipe at Stove");
+                }
+            }
+            else
+            {
+                // !!! Player hand need free space before do below method
+                TakeRecipeFromStove();
+            }
         }
 
         // Cooking things..
@@ -104,26 +146,22 @@ namespace _Scripts.CookingSystem
                 {
                     isCooking = false;
                     TakeFinishCookedItem();
-                    
                 }
 
                 currentStoveTime += Time.deltaTime;
-                
             }
         }
         
-        private void TakeFinishCookedItem()
+        private void TakeFinishCookedItem() // Using this method by Auto cooking process
         {
             var recipeItem = ingredientStorage.GetRecipe();
             
             recipeItem.isCooked = true;
             recipeItem.CheckNutrition();
-            
-            
-            // TODO : Put This Recipe to Player Hand [Done] 
-            // TODO : Implement PlayerStorageHandler for Later [Done] 
-            var psHandler = Manager.Instance.playerManager.PSHandler();
-            psHandler.JustPutInFood(recipeItem);
+
+            // Comment Code Below locate to KitchenStorage Take out case Recipe is Cooked
+            //var psHandler = Manager.Instance.playerManager.PSHandler();
+            //psHandler.JustPutInFood(recipeItem);
 
         }
 
@@ -167,18 +205,79 @@ namespace _Scripts.CookingSystem
                     // Set it
                     ingredientStorage.SetRecipe(itemObject);
                     ingredientStorage.InitializeStorageObject(ingredientStorage.GetRecipe().ingredients.Count,true);
-                }
-                else
-                {
-                    // Take it
-                    ingredientStorage.TakeOut();
+                    kitchenUI.InitRecipe(ingredientStorage.GetRecipe());
                 }
             }
-            
+            else
+            {
+                Debug.Log("Food is cooking can not do anything to stove.");
+            }
         }
 
+        private void TakeRecipeFromStove()
+        {
+            if (isCooking == false) // Check case that player take recipe out while cooking....
+            {
+                if (ingredientStorage.GetRecipe() != null)
+                {
+                    if (ingredientStorage.GetRecipe().isCooked) // If it cooked return cooked item
+                    {
+                        ingredientStorage.TakeOutCookedFood();
+    
+                    }
+                    else // Return recipe
+                    {
+                        ingredientStorage.TakeOutRecipe(); // Same as above but ez to read code...
+                    }
+                }
+            }
+        }
+        
         // Storage UI Things...
 
+        public bool IsUIOpen()
+        {
+            return kitchenUI.gameObject.activeSelf;
+        }
+        
+        public void GrabTrash()
+        {
+            var psHandler = Manager.Instance.playerManager.PSHandler();
+            
+            if (_isTrashFull && psHandler.IsHoldingItem() == false)
+            {
+                psHandler.JustPutIn(ingredientStorage.GetTrashItem());
+                _currentIngredientRemoveCount = 0;
+                _isTrashFull = false;
+            }
+        }
+        
+        public void RemoveAtSelectSlot()
+        {
+            var itemToRemove = (IngredientObject) currentSelectSlot.GetItem();
+            // Remove Item
+            ingredientStorage.RemoveItem(itemToRemove);
+            // Trash Count
+            AddTrashCount();
+            // Remove Slot
+            kitchenUI.UpdateUI();
+        }
+
+        public bool IsTrashFull()
+        {
+            return _isTrashFull;
+        }
+        
+        public void AddTrashCount()
+        {
+            _currentIngredientRemoveCount += 1;
+        }
+        
+        public void CloseUI()
+        {
+            kitchenUI.gameObject.SetActive(false);
+        }
+        
         public KitchenStorage GetStorageObject()
         {
             return ingredientStorage;

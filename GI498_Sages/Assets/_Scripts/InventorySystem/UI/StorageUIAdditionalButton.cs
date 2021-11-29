@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace _Scripts.InventorySystem.UI
 {
-    public class StorageWithUI : MonoBehaviour
+    public class StorageUIAdditionalButton : MonoBehaviour
     {
         [SerializeField] private Storage parent;
         [SerializeField] private Button putInButton;

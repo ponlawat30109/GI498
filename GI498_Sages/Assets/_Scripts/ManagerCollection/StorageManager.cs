@@ -21,12 +21,29 @@ namespace _Scripts.ManagerCollection
 
         public List<MiniStorage> miniStorageCollections;
 
+        public List<RecipeSlot> recipeCollections;
+
         
         ////////////////////////////////////////////////////////////////////////////////////////////
 
         private void Start()
         {
-            
+            var fridgeSlots = GetStorageByType(StorageObject.StorageTypeEnum.Storage).GetStorageObject().GetStorageSlot();
+            for (int i = 0; i < fridgeSlots.Count; i++)
+            {
+                if (fridgeSlots[i] != null)
+                {
+                    fridgeSlots[i].quantity = 999;
+                }
+            }
+
+            for (int i = 0; i < recipeCollections.Count; i++)
+            {
+                if (recipeCollections[i] != null)
+                {
+                    recipeCollections[i].quantity = 999;
+                }
+            }
         }
 
         /////////////////////////////////////////////////////////////////////////////////////////////
@@ -45,10 +62,44 @@ namespace _Scripts.ManagerCollection
 
             return obj;
         }
+
+        public FoodObject TakeRecipeByIndex(int index)
+        {
+            recipeCollections[index].quantity -= 1;
+            return recipeCollections[index].item;
+        }
         
         private void OnApplicationQuit()
         {
             
+        }
+    }
+    
+    [Serializable]
+    public class RecipeSlot
+    {
+        public FoodObject item;
+        public int quantity;
+
+        public RecipeSlot(FoodObject _item, int _quantity)
+        {
+            item = _item;
+            quantity = _quantity;
+        }
+
+        public void AddAmount(int value)
+        {
+            quantity += value;
+        }
+
+        public void SubAmount(int value)
+        {
+            if (quantity - value <= 0)
+            {
+                quantity = 0; // Or Remove slot
+                return;
+            }
+            quantity -= value;
         }
     }
 }

@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using _Scripts.InventorySystem.UI;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace _Scripts.CookingSystem.UI
 {
@@ -11,6 +13,14 @@ namespace _Scripts.CookingSystem.UI
         [SerializeField] private Transform storageSlot;
         [SerializeField] private Transform storageSlotInformation;
 
+        [Header("Recipe Component")] 
+        [SerializeField] private FoodObject recipeItem;
+        [SerializeField] private Image recipeImage;
+        [SerializeField] private Sprite defaultIcon;
+        [SerializeField] private TMP_Text recipeNameText;
+        [SerializeField] private TMP_Text recipeDescText;
+        [SerializeField] private TMP_Text recipeStatusText;
+        
         public List<IngredientSlotUI> slotList = new List<IngredientSlotUI>();
 
         private float currentTime = 0;
@@ -20,7 +30,7 @@ namespace _Scripts.CookingSystem.UI
 
         void Start()
         {
-            CreateUI();
+            CreateIngredientSlotUI();
         }
         
         void Update()
@@ -37,10 +47,56 @@ namespace _Scripts.CookingSystem.UI
             }
         }
 
-        void UpdateUI()
+        public void InitRecipe(FoodObject item)
+        {
+            recipeItem = item;
+        }
+        
+        public void UpdateUI()
         {
             // Update
-            CreateUI(); // Re-create -- Implement later...
+            if (recipeItem != null)
+            {
+                UpdateRecipeUI();
+            }
+            else
+            {
+                SetDefualtRecipeUI();
+            }
+            
+            CreateIngredientSlotUI(); // Re-create -- Implement later...
+        }
+
+        public void UpdateRecipeUI()
+        {
+            recipeImage.sprite = recipeItem.itemIcon;
+            recipeNameText.text = recipeItem.itemName;
+            recipeDescText.text = recipeItem.description;
+            
+            if (recipeItem.isCooked)
+            {
+                recipeStatusText.text = "(Cooked)";
+            }
+            else
+            {
+                recipeStatusText.text = "(Need to process)";
+            }
+        }
+
+        public void SetDefualtRecipeUI()
+        {
+            recipeImage.sprite = defaultIcon;
+            recipeNameText.text = "???";
+            recipeDescText.text = "Please Add Recipe First";
+            
+            if (recipeItem.isCooked)
+            {
+                recipeStatusText.text = "(???)";
+            }
+            else
+            {
+                recipeStatusText.text = "(???)";
+            }
         }
     
         public Kitchen GetParent()
@@ -48,12 +104,18 @@ namespace _Scripts.CookingSystem.UI
             return parent;
         }
 
+        public void RemoveSlotByItem(IngredientObject targetItem)
+        {
+            var index = 1;
+            slotList.RemoveAt(index);
+        }
+
         public Transform GetStorageSlotTransform()
         {
             return storageSlot;
         }
 
-        public void CreateUI()
+        public void CreateIngredientSlotUI()
         {
             var slot = parent.GetStorageObject().GetStorageSlot();
         
@@ -63,7 +125,11 @@ namespace _Scripts.CookingSystem.UI
                 {
                     var newSlot = Instantiate(slotPrefab, Vector3.zero, Quaternion.identity);
                     var componentSlot = newSlot.gameObject.GetComponent<IngredientSlotUI>();
-                    componentSlot.InitializeItem(slot[i].item,this,storageSlotInformation,parent.IsOneOfIngredient(slot[i].item));
+                    componentSlot.InitializeItem(slot[i].item, 
+                        this, // storage
+                        storageSlotInformation, //
+                        parent.IsOneOfIngredient(slot[i].item)
+                        );
                     slotList.Add(componentSlot);
                 }
                 else

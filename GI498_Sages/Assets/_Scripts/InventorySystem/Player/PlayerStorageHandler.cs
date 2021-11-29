@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using _Scripts.CookingSystem;
 using _Scripts.InventorySystem.Interface;
 using _Scripts.InventorySystem.ScriptableObjects.Storage;
 using _Scripts.ManagerCollection;
@@ -10,11 +11,12 @@ namespace _Scripts.InventorySystem.Player
     public class PlayerStorageHandler : MonoBehaviour
     {
         [Header("Input Key")]
+        [SerializeField] private KeyCode openKitchenKey;
         [SerializeField] private KeyCode openStorageKey;
         [SerializeField] private KeyCode collectItemKey;
         
         [Header("Data")]
-        public Storage storage;
+        public Storage storage; // Player Storage
         public ItemObject currentHoldItemObject;
         public FoodObject currentHoldFoodObject;
         
@@ -28,6 +30,11 @@ namespace _Scripts.InventorySystem.Player
         [SerializeField] private Storage _nearestStorageObject;
         [SerializeField] private List<Storage> _collideStorageObjects = new List<Storage>();
         
+        [Header("Storage Object")]
+        public Kitchen toInteractKitchenObject;
+        [SerializeField] private Kitchen _nearestKitchenObject;
+        [SerializeField] private List<Kitchen> _collideKitchenObjects = new List<Kitchen>();
+        
         [Header("Item Object")]
         public MiniStorage toInteractItemObject;
         [SerializeField] private MiniStorage _nearestItemObject;
@@ -35,15 +42,19 @@ namespace _Scripts.InventorySystem.Player
 
         private bool _canInteractToCollectItem;
         private bool _canInteractToOpenStorage;
+        private bool _canInteractToOpenKitchen;
 
         private bool _justPressCollectItem;
         private float _currentCollectItemTimeCount = 0;
         private float _collectItemInterval = 1;
-        
-        
+
         private bool _justPressOpenStorage;
         private float _currentOpenStorageTimeCount = 0;
         private readonly float _openStorageInterval = 1.0f;
+        
+        private bool _justPressOpenKitchen;
+        private float _currentOpenKitchenTimeCount = 0;
+        private readonly float _openKitchenInterval = 1.0f;
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////
         
@@ -58,6 +69,7 @@ namespace _Scripts.InventorySystem.Player
         private void Update()
         {
             OpenStorageKey();
+            OpenKitchenKey();
             ItemCollectKey();
             ClearNull();
 
@@ -99,6 +111,15 @@ namespace _Scripts.InventorySystem.Player
             }
 
             childCount = currentHoldItemModel.transform.childCount;
+            
+            
+            // Test Session
+            if (Input.GetKeyDown(KeyCode.F1))
+            {
+                var item = Manager.Instance.storageManager.TakeRecipeByIndex(0);
+                JustPutInFood(item);
+                Debug.Log($"[F1] Give {item.name} Recipe to player.");
+            }
         }
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -120,7 +141,7 @@ namespace _Scripts.InventorySystem.Player
                     }
                     
                     _justPressOpenStorage = true;
-                    //Debug.Log($"Press {openStorageKey.ToString()} Key.");
+                    // Debug.Log($"Press {openStorageKey.ToString()} Key.");
                 }
             }
             else
@@ -159,6 +180,62 @@ namespace _Scripts.InventorySystem.Player
             else
             {
                 _canInteractToOpenStorage = true;
+            }
+        }
+
+        private void OpenKitchenKey()
+        {
+            if (_canInteractToOpenKitchen)
+            {
+                SetToInteractKitchen();
+
+                if (Input.GetKeyDown(openKitchenKey))
+                {
+                    if (toInteractKitchenObject != null)
+                    {
+                        if (toInteractKitchenObject.IsUIOpen() == false)
+                        {
+                            toInteractKitchenObject.Interacted();
+                        }
+                    }
+
+                    _justPressOpenKitchen = true;
+                    // Debug.Log($"Press {openKitchenKey.ToString()} Key.");
+                }
+            }
+            else
+            {
+                if (Input.GetKeyDown(openKitchenKey))
+                {
+                    if (toInteractKitchenObject != null)
+                    {
+                        if (toInteractKitchenObject.IsUIOpen())
+                        {
+                            toInteractKitchenObject.CloseUI();
+                        }
+                    }
+
+                    Debug.Log($"Can not Press {openKitchenKey.ToString()} Key for now.");
+                }
+            }
+
+            if (_justPressOpenKitchen == true)
+            {
+                if (_currentOpenKitchenTimeCount < _openKitchenInterval)
+                {
+                    _canInteractToOpenKitchen = false;
+                    _currentOpenKitchenTimeCount += Time.deltaTime;
+                }
+                else if(_currentOpenKitchenTimeCount > _openKitchenInterval)
+                {
+                    _currentOpenKitchenTimeCount = 0;
+                    _justPressOpenKitchen = false;
+                    Debug.Log($"Set Just Press {openKitchenKey.ToString()} Key to False");
+                }
+            }
+            else
+            {
+                _canInteractToOpenKitchen = true;
             }
         }
         
@@ -260,10 +337,11 @@ namespace _Scripts.InventorySystem.Player
 
         public void JustTakeOut(ItemObject item)
         {
+            Debug.Log($"5 {item.itemName}");
             storage.GetStorageObject().RemoveItem(item);
             ClearHoldingItem();
         }
-        
+
         public void SetHoldingItem()
         {
             if (IsHoldingItem() == false) // IsHoldingItem return FALSE
@@ -365,7 +443,6 @@ namespace _Scripts.InventorySystem.Player
                 Destroy(currentHoldItemModel.transform.GetChild(i).gameObject);
             }
         }
-        
 
         /// <summary>
         /// Meaning of return value...
@@ -375,7 +452,14 @@ namespace _Scripts.InventorySystem.Player
         /// <returns></returns>
         public bool IsHoldingItem()
         {
-            bool isHolding = currentHoldItemObject != null;
+            bool isHolding = currentHoldItemObject != null || currentHoldFoodObject != null;
+            /* full condition
+             if (currentHoldItemObject != null || currentHoldFoodObject != null)
+            {
+                isHolding = true;
+            }
+             */
+            
             // If holdingItem == null mean "No Item" on Player Hand
             // Else holdingItem != null mean There are "Some Item" on Player Hand
             return isHolding;
@@ -385,14 +469,18 @@ namespace _Scripts.InventorySystem.Player
 
         private void SetToInteractStorage()
         {
-            if (_nearestStorageObject == null)
+            if (_collideStorageObjects.Count > 0)
             {
                 _nearestStorageObject = FindNearestStorage(_collideStorageObjects);
+                toInteractStorageObject = _nearestStorageObject;
             }
-
-            toInteractStorageObject = _nearestStorageObject;
+            else
+            {
+                _nearestStorageObject = null;
+                toInteractStorageObject = null;
+            }
         }
-        
+
         private Storage FindNearestStorage(List<Storage> storageList)
         {
             Storage objMin = null;
@@ -417,15 +505,58 @@ namespace _Scripts.InventorySystem.Player
 
             return objMin;
         }
+        
+        private void SetToInteractKitchen()
+        {
+            if (_collideKitchenObjects.Count > 0)
+            {
+                _nearestKitchenObject = FindNearestKitchen(_collideKitchenObjects);
+                toInteractKitchenObject = _nearestKitchenObject;
+            }
+            else
+            {
+                _nearestKitchenObject = null;
+                toInteractKitchenObject = null;
+            }
+        }
+        
+        private Kitchen FindNearestKitchen(List<Kitchen> storageList)
+        {
+            Kitchen objMin = null;
+            float minDist = Mathf.Infinity;
+            Vector3 currentPos = transform.position;
+            
+            foreach (var t in storageList)
+            {
+                if (t == null)
+                {
+                    continue;
+                }
+                
+                float dist = Vector3.Distance(t.transform.position, currentPos);
+                
+                if (dist < minDist)
+                {
+                    objMin = t;
+                    minDist = dist;
+                }
+            }
+
+            return objMin;
+        }
 
         private void SetToInteractItem()
         {
-            if (_nearestItemObject == null)
+            if (_collideItemObjects.Count > 0)
             {
                 _nearestItemObject = FindNearestItem(_collideItemObjects);
+                toInteractItemObject = _nearestItemObject;
             }
-
-            toInteractItemObject = _nearestItemObject;
+            else
+            {
+                _nearestItemObject = null;
+                toInteractItemObject = null;
+            }
         }
         
         private MiniStorage FindNearestItem(List<MiniStorage> itemList)
@@ -508,6 +639,32 @@ namespace _Scripts.InventorySystem.Player
                     }
                 }
             }
+            
+            if (toInteractKitchenObject != null)
+            {
+                if (_collideKitchenObjects.Count > 0)
+                {
+                    var isFound = false;
+                    
+                    for (int i = 0; i < _collideKitchenObjects.Count; i++)
+                    {
+                        if (toInteractKitchenObject == _collideKitchenObjects[i])
+                        {
+                            isFound = true;
+                        }
+                    }
+
+                    if (isFound == false)
+                    {
+                        _nearestKitchenObject = null;
+                        toInteractKitchenObject = null;
+                    }
+                    else
+                    {
+                        SetToInteractKitchen();
+                    }
+                }
+            }
         }
         
         ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -525,6 +682,18 @@ namespace _Scripts.InventorySystem.Player
             return false;
         }
         
+        private bool IsInteractKitchenObjectsInList(Kitchen target)
+        {
+            foreach (var obj in _collideStorageObjects)
+            {
+                if (target == obj)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
         private bool IsInteractItemObjectsInList(MiniStorage target)
         {
             foreach (var obj in _collideItemObjects)
@@ -558,11 +727,20 @@ namespace _Scripts.InventorySystem.Player
                 if (IsInteractStorageObjectsInList(interactForAddToList) == false)
                 {
                     _collideStorageObjects.Add(interactForAddToList);
-                    SetToInteractItem();
+                    SetToInteractStorage();
                 }
             }
             
-            
+            if (other.CompareTag("KitchenObject"))
+            {
+                var interactForAddToList = other.GetComponent<Kitchen>();
+                
+                if (IsInteractKitchenObjectsInList(interactForAddToList) == false)
+                {
+                    _collideKitchenObjects.Add(interactForAddToList);
+                    SetToInteractKitchen();
+                }
+            }
         }
 
         private void OnTriggerExit(Collider other)
@@ -572,6 +750,7 @@ namespace _Scripts.InventorySystem.Player
                 var index = _collideItemObjects.FindIndex(x => x.Equals(other.gameObject.GetComponent<MiniStorage>()));
                 _collideItemObjects.RemoveAt(index);
                 ClearNull();
+                SetToInteractItem();
             }
 
             if (other.CompareTag("StorageObject"))
@@ -579,6 +758,15 @@ namespace _Scripts.InventorySystem.Player
                 var index = _collideStorageObjects.FindIndex(x => x.Equals(other.gameObject.GetComponent<Storage>()));
                 _collideStorageObjects.RemoveAt(index);
                 ClearNull();
+                SetToInteractKitchen();
+            }
+            
+            if (other.CompareTag("KitchenObject"))
+            {
+                var index = _collideKitchenObjects.FindIndex(x => x.Equals(other.gameObject.GetComponent<Kitchen>()));
+                _collideKitchenObjects.RemoveAt(index);
+                ClearNull();
+                SetToInteractKitchen();
             }
         }
 

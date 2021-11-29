@@ -24,11 +24,18 @@ namespace _Scripts.CookingSystem.UI
         }
         
         [SerializeField] private Image statusImage;
+        [SerializeField] private StatusEnum currentStatus;
         [SerializeField] private List<Status> statusList = new List<Status>();
 
-        public void SetStatusImageByStatusEnum(StatusEnum statusEnum)
+        public void SetCurrentStatus(StatusEnum statusEnum)
         {
-            switch (statusEnum)
+            currentStatus = statusEnum;
+            SetStatusImageByStatusEnum();
+        }
+        
+        public void SetStatusImageByStatusEnum()
+        {
+            switch (currentStatus)
             {
                 case StatusEnum.Finish:
                 {

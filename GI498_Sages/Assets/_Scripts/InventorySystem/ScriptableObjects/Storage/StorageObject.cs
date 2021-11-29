@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using _Scriptable_Object.Items.Scripts;
 using _Scripts.InventorySystem.Interface;
 using _Scripts.ManagerCollection;
 using UnityEngine;
@@ -13,8 +14,8 @@ namespace _Scripts.InventorySystem.ScriptableObjects.Storage
         [Serializable] public enum StorageTypeEnum
         {
             Player,
-            Fridge,
-            CookingPot,
+            Storage,
+            Stove,
             Other
         }
         
@@ -84,6 +85,8 @@ namespace _Scripts.InventorySystem.ScriptableObjects.Storage
 
         public bool RemoveItem(ItemObject itemToRemove)
         {
+            Debug.Log($"Remove {itemToRemove.itemName} from player");
+            
             var successful = false;
         
             if (HasItem(itemToRemove))

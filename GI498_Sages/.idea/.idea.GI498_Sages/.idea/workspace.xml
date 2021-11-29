@@ -23,37 +23,35 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f193b64d-21bc-4e30-8ec0-71eeb3480d8a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/_Scripts/CookingSystem/UI.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Scripts/CookingSystem/UI/IngredientSlotUI.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Scripts/CookingSystem/UI/IngredientSlotUI.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Scripts/CookingSystem/UI/StoveStatusUI.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Scripts/CookingSystem/UI/StoveStatusUI.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GI498_Sages/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GI498_Sages/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Prefabs/UI/Interactable Canvas.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Prefabs/UI/Interactable Canvas.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Prefabs/UI/Item Slot.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Prefabs/UI/Item Slot.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Prefabs/UI/Storage UI.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Prefabs/UI/Storage UI/Fridge Storage Test UI.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Prefabs/UI/Storage UI/Fridge Storage Test UI.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Prefabs/UI/Storage UI/Player Inventory UI.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Prefabs/UI/Storage UI/Player Inventory UI.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Prefabs/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Prefabs/Player.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Prefabs/Storage/Fridge.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Prefabs/Storage/Fridge.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Prefabs/Storage/Kitchen.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Prefabs/Storage/Kitchen.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Prefabs/UI/Slot/Ingredient Slot.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Prefabs/UI/Slot/Ingredient Slot.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Prefabs/UI/Storage UI (Canvas)/Kitchen Storage UI.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Prefabs/UI/Storage UI (Canvas)/Kitchen Storage UI.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Scenes/scn_ItemExample.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scenes/scn_ItemExample.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_ScriptableObject/ItemCollection/Foods (Recipe)/EggSandWich.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_ScriptableObject/ItemCollection/Foods (Recipe)/EggSandWich.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_ScriptableObject/ItemCollection/Trash.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_ScriptableObject/ItemCollection/Trash.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_ScriptableObject/StorageCollection/Fridge Storage.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_ScriptableObject/StorageCollection/Fridge Storage.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_ScriptableObject/StorageCollection/New Kitchen Storage.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_ScriptableObject/StorageCollection/New Kitchen Storage.asset.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Scripts/CookingSystem/Kitchen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/CookingSystem/Kitchen.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/CookingSystem/KitchenStorage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/CookingSystem/KitchenStorage.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/Interact System.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/CookingSystem/KitchenStorage.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/CookingSystem/KitchenStorage.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/CookingSystem/UI/KitchenUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/CookingSystem/UI/KitchenUI.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/CookingSystem/UI/StoveStatusUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/CookingSystem/UI/StoveStatusUI.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/MiniStorage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/MiniStorage.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/Player/PlayerStorageHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/Player/PlayerStorageHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/ScriptableObjects/Items/FoodObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/ScriptableObjects/Items/FoodObject.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/ScriptableObjects/Items/ItemObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/ScriptableObjects/Items/ItemObject.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/UI/ItemSlotUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/UI/ItemSlotUI.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/ArtifactDB" beforeDir="false" afterPath="$PROJECT_DIR$/Library/ArtifactDB" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/ScriptableObjects/Storage/StorageObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/ScriptableObjects/Storage/StorageObject.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/UI/StorageWithUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/UI/StorageUIAdditionalButton.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/UI/StorageWithUI.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/InventorySystem/UI/StorageUIAdditionalButton.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/ManagerCollection/StorageManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/ManagerCollection/StorageManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Library/InspectorExpandedItems.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Library/InspectorExpandedItems.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Library/SceneVisibilityState.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Library/SceneVisibilityState.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Library/ShaderCache/EditorEncounteredVariants" beforeDir="false" afterPath="$PROJECT_DIR$/Library/ShaderCache/EditorEncounteredVariants" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/SourceAssetDB" beforeDir="false" afterPath="$PROJECT_DIR$/Library/SourceAssetDB" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Library/StateCache/SceneView/c4/c4c79f2801988007f4a2bcac3051ec6b.json" beforeDir="false" afterPath="$PROJECT_DIR$/Library/StateCache/SceneView/c4/c4c79f2801988007f4a2bcac3051ec6b.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe0.log" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe0.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe1.log" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe1.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe2.log" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe2.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -204,7 +202,7 @@
       <workItem from="1635221038107" duration="32462000" />
       <workItem from="1635782847969" duration="4338000" />
       <workItem from="1636558369017" duration="1314000" />
-      <workItem from="1638169144228" duration="9481000" />
+      <workItem from="1638169144228" duration="28204000" />
     </task>
     <servers />
   </component>

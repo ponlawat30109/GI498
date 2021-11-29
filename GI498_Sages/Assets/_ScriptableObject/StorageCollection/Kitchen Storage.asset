@@ -10,7 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cc3a07e6db234013b8658d18e258cdfb, type: 3}
-  m_Name: New Kitchen Storage
+  m_Name: Kitchen Storage
   m_EditorClassIdentifier: 
   storageType: 2
   storageSlots: []
+  recipeItemSlot: {fileID: 0}
+  trashItemObject: {fileID: 11400000, guid: 98b5e64cd7bd87b47bc75a8d79fe4f8e, type: 2}
