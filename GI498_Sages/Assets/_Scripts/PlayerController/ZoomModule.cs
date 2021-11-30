@@ -17,7 +17,7 @@ public class ZoomModule : MonoBehaviour
         _vcam = GetComponent<CinemachineVirtualCamera>();
         // _vcam.m_Lens.FieldOfView = maxFOV;
 
-        _vcam.m_Lens.FieldOfView = 60;
+        _vcam.m_Lens.FieldOfView = 70;
     }
 
     void Update()
