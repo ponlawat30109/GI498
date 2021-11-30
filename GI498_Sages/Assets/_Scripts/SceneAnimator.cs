@@ -15,10 +15,13 @@ namespace _Scripts
         [HideInInspector]
         public CustomData customData;
         public static SceneAnimator Instance;
-        public bool onLoading;
+        public static bool onLoading;
 
         Animator loadingAnimation;
         List<AsyncOperation> sceneAsync = new List<AsyncOperation>();
+        List<string> strSceneToLoad = new List<string>();
+        List<string> strSceneToUnLoad = new List<string>();
+
 
         private void Awake()
         {
@@ -41,7 +44,6 @@ namespace _Scripts
 
         public AsyncOperation LoadScene(string sceneName)
         {
-            //Play Load Start Scene Animation
             currentScene = sceneName;
             return sceneHandler.LoadSpecificScene(currentScene);
         }
@@ -53,13 +55,11 @@ namespace _Scripts
 
         public void UnLoadScene()
         {
-            //UnloadAnimation
             sceneHandler.UnloadSpecificScene(currentScene);
         }
 
         public void UnLoadScene(string sceneName)
         {
-            //UnloadAnimation
             sceneHandler.UnloadSpecificScene(sceneName);
         }
 
@@ -70,16 +70,41 @@ namespace _Scripts
 
         public void ChangeScene(string unloadScene,string loadScene)
         {
-            //LoadingAnimation
-            loadingAnimation.SetTrigger("Loading");
-            StopAllCoroutines();
-            StartCoroutine(countDownUnload(unloadScene, loadScene));
-            //Play Load Start Scene Animation
+            strSceneToLoad.Add(loadScene);
+            strSceneToUnLoad.Add(unloadScene);
+            
+            if (onLoading == false)
+            {
+                AnimateOnLoad();
+            }
+            else
+                ManageLoadUnLoad();
+
         }
 
         public void ChangeScene(SceneEnum unloadScene, SceneEnum loadScene)
         {
             ChangeScene(unloadScene.ToString(), loadScene.ToString());
+        }
+
+        public void ChangeScene(string[] unloadScenes, string[] loadScenes)
+        {
+            foreach (string scene in loadScenes)
+            {
+                strSceneToLoad.Add(scene);
+            }
+            foreach (string scene in unloadScenes)
+            {
+                strSceneToUnLoad.Add(scene);
+            }
+
+            if (onLoading == false)
+            {
+                AnimateOnLoad();
+            }
+            else
+                ManageLoadUnLoad();
+
         }
 
         public void ChangeScene(string loadScene)
@@ -92,18 +117,9 @@ namespace _Scripts
             ChangeScene(currentScene, loadScene.ToString());
         }
 
-        private IEnumerator countDownUnload(string unloadScene, string loadScene)
+        private IEnumerator countDownUnload()
         {
-            canvas.sortingOrder = 10;
-            while (onLoading == false)
-            {
-                yield return null;
-            }
-
-            //onLoading == true
-            sceneAsync.Add(LoadScene(loadScene));
-            UnLoadScene(unloadScene);
-
+            ManageLoadUnLoad();
             while (sceneAsync.Count > 0)
             {
                 for(int i = 0; i < sceneAsync.Count; i++)
@@ -114,14 +130,44 @@ namespace _Scripts
                         continue;
                     }
                 }
+                Debug.Log("load scene count: " + sceneAsync.Count);
                 yield return null;
             }
             loadingAnimation.SetTrigger("Finish");
+        }
 
-            while (onLoading == true)
+        private void ManageLoadUnLoad()
+        {
+            for (int i = 0; i < strSceneToUnLoad.Count; i++)
             {
-                yield return null;
+                UnLoadScene(strSceneToUnLoad[i]);
             }
+            strSceneToUnLoad.Clear();
+
+            for (int i = 0; i < strSceneToLoad.Count; i++)
+            {
+                sceneAsync.Add(LoadScene(strSceneToLoad[i]));
+            }
+            strSceneToLoad.Clear();
+        }
+
+        public void StartCountDown()
+        {
+            StopAllCoroutines();
+            StartCoroutine(countDownUnload());
+        }
+
+        public void AnimateOnLoad()
+        {
+            onLoading = true;
+            canvas.sortingOrder = 10;
+            loadingAnimation.SetTrigger("Loading");
+        }
+
+        public void AnimateOffLoad()
+        {
+            //this method run from animation.settrigger("Finish")
+            onLoading = false;
             canvas.sortingOrder = -10;
         }
     }

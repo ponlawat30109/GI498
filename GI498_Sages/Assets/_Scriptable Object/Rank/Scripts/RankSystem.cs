@@ -73,5 +73,6 @@ public class RankSystem : ScriptableObject
     {
         foodList.Clear();
         ingredientList.Clear();
+        PlayerPrefs.SetInt("OnSetRankHolder", 0);
     }
 }

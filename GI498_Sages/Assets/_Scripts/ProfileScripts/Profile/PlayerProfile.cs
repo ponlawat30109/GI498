@@ -43,19 +43,25 @@ public class PlayerProfile : MonoBehaviour
     private void GetPlayerPrefExp()
     {
         gainExp = PlayerPrefs.GetInt(GainExpKey, 0);
+        Debug.Log("PlayerPrefs: xp = " + gainExp);
+        PlayerPrefs.SetInt(GainExpKey, 0);
+
+        gainExp += DataCarrier.PlayerProfileData.comingExp;
+        Debug.Log("PlayerProfileData: gainExp = " + gainExp);
+        DataCarrier.PlayerProfileData.comingExp = 0;
+
         if (gainExp > 0)
         {
-            Debug.Log("gainExp = " + gainExp);
-            PlayerPrefs.SetInt(GainExpKey, -1);
             RankManager.Instance.UpdateExp(exp, gainExp);
             exp += gainExp;
+            gainExp = 0;
         }
     }
 
     public void SaveProfile()
     {
         playerName = playerNameInput.text;
-        var playerData = SaveSystem.SavepPlayerProfile(this, customModelManager);
+        var playerData = SaveSystem.SavePlayerProfile(this, customModelManager);
         DataCarrier.SetPlayerData(playerData);
 
         // isProfileSave = true;
@@ -63,7 +69,7 @@ public class PlayerProfile : MonoBehaviour
 
     public void LoadProfile()
     {
-        var data = SaveSystem.LoadPlayerProfile();
+        var data = DataCarrier.PlayerProfileData;
         LoadProfile(data);
     }
 
@@ -91,6 +97,7 @@ public class PlayerProfile : MonoBehaviour
         exp = 0;
         customModelManager.LoadCustomData(data.customData);
         RankManager.Instance.InitialRankListPanel(exp);
+        DataCarrier.SetPlayerData(data);
     }
 
     private void OnApplicationQuit()
