@@ -78,6 +78,4 @@ namespace _Scripts.InventorySystem.UI
             informationUI.Clear();
         }
     }
-    
-    
 }
