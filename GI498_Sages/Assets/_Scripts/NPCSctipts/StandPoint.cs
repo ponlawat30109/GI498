@@ -9,14 +9,11 @@ namespace NPCScript
         [SerializeField] private GameObject customerPref;
         public bool isAvailable = true;
         public bool isSpawnPoint = false; //default
-        public bool isRandomSkinPoint = false; //default
+        public bool isReleasePoint = false; //default //Use for release NPC to Queue Order
         public bool isOrderPoint = false;
         public StandPoint nextPoint;
         [HideInInspector] public NPCController npcOwner;
         private List<GameObject> onPoint = new List<GameObject>();
-
-        public bool isChechInPoint = false;
-        
 
         private void Start()
         {
@@ -25,43 +22,36 @@ namespace NPCScript
             {
                 var npc = Instantiate(customerPref, transform.position, transform.rotation);
                 var npcCtrl = npc.GetComponent<NPCController>();
-                npcCtrl.GetInitTarget(nextPoint);
-
-                if (isRandomSkinPoint)
-                    npcCtrl.modelCom.RandomSkin();
-            }
-
-            if(isChechInPoint)
-            {
-
+                npcCtrl.GetInitTarget(this);
             }
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            onPoint.Add(other.gameObject);
-
             var npcCtrl = other.GetComponent<NPCController>();
-            //var npc = other.GetComponent<ModelScript.ModelComponent>();
-            if(npcCtrl != null)
+            if(npcCtrl == null)
             {
                 if (npcCtrl != npcOwner)
-                    isAvailable = false;
-                else
                 {
-                    npcCtrl.GetInitTarget(nextPoint);
-                    if (isRandomSkinPoint)
-                        npcCtrl.modelCom.RandomSkin();
+                    onPoint.Add(other.gameObject);
+                    isAvailable = false;
                 }
             }
         }
 
         private void OnTriggerExit(Collider other)
         {
-            onPoint.Remove(other.gameObject);
-            if (onPoint.Count == 0)
+            var npcCtrl = other.GetComponent<NPCController>();
+            if (npcCtrl == null)
             {
-                isAvailable = true;
+                if (npcCtrl != npcOwner)
+                {
+                    onPoint.Remove(other.gameObject);
+                    if (onPoint.Count == 0)
+                    {
+                        isAvailable = true;
+                    }
+                }
             }
         }
     }

@@ -7,12 +7,13 @@ namespace NPCScript
     public class NPCController : MonoBehaviour
     {
         [SerializeField] private PlayerAnimController animCtrl;
-        public ModelScript.ModelComponent modelCom;
+        [SerializeField] private ModelScript.ModelComponent modelCom;
         [SerializeField] private float speed;
         [SerializeField] private float angularSpeed;
         private StandPoint targetPoint;
-        private StandPoint nextTargetPoint;
         [SerializeField] private NPCState npcState;
+
+        private static int numberOfNpcInQueue = 0;
 
         public bool isPause = false;
         public bool OnOrder;
@@ -21,12 +22,12 @@ namespace NPCScript
         {
             Walk,
             Order,
-            WaitOrder
+            WaitOrder,
+            Idle //for not show in queue
         }
 
         private void Start()
         {
-            npcState = NPCState.Walk;
             OnOrder = false;
         }
 
@@ -51,16 +52,22 @@ namespace NPCScript
                                     animCtrl.SetTargetSpeed(PlayerAnimController.Activity.Stand);
                                     NPCManager.Instance.RandomFood(this);
                                 }
-                                else if(targetPoint.isRandomSkinPoint)
+                                else if(targetPoint.isReleasePoint)
                                 {
+                                    npcState = NPCState.Idle;
+                                    animCtrl.SetTargetSpeed(PlayerAnimController.Activity.Stand);
+                                    NPCManager.Instance.SetWaitingNpc(this);
                                     modelCom.RandomSkin();
-                                    NextPoint();
                                 }
                                 else
                                 {
                                     NextPoint();
                                 }
                             }
+                        }
+                        else
+                        {
+                            Debug.Log("TargetPoint: " + targetPoint.name);
                         }
                         break;
                     }
@@ -81,43 +88,23 @@ namespace NPCScript
 
                         break;
                     }
+                case NPCState.Idle:
+                    {
+                        break;
+                    }
                 default:
                     {
                         npcState = NPCState.Walk;
                         break;
                     }
             }
-
-            //if (!isPause && targetPoint != null)
-            //{   //go to next point
-            //    if (targetPoint.isAvailable) //true
-            //    {
-            //        if (transform.position != targetPoint.transform.position)
-            //        {
-            //            animCtrl.SetTargetSpeed(PlayerAnimController.Activity.Walk);
-            //            Walk(targetPoint.transform.position);
-            //        }
-            //        else if(transform.rotation != targetPoint.transform.rotation)
-            //        {
-            //            animCtrl.SetTargetSpeed(PlayerAnimController.Activity.Stand);
-            //            FaceTarget(targetPoint.transform.rotation);
-            //        }
-            //        else
-            //        {
-            //            targetPoint.npcOwner = null;
-            //            targetPoint = nextTargetPoint;
-            //        }
-            //    }
-            //    else
-            //    {
-            //        animCtrl.SetTargetSpeed(PlayerAnimController.Activity.Stand);
-            //    }
-            //}
         }
 
         private void Walk(Vector3 targetPosition)
         {
-            FaceTarget(targetPosition);
+            var faceAngle = Mathf.Abs(Quaternion.Angle(targetPoint.transform.rotation, transform.rotation));
+            if(faceAngle != 0)
+                FaceTarget(targetPosition);
             //transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * speed);
             var distance = Vector3.Distance(transform.position, targetPosition);
             if (distance < speed * Time.deltaTime)
@@ -150,18 +137,22 @@ namespace NPCScript
             {
                 targetPoint = point;
                 targetPoint.npcOwner = this;
-                //nextTargetPoint = targetPoint.nextPoint;
+                npcState = NPCState.Walk;
             }
-            //else
-            //{
-            //    nextTargetPoint = point;
-            //}
+        }
+
+        public void ReleaseToQueue()
+        {
+            numberOfNpcInQueue++;
+            NextPoint();
+            npcState = NPCState.Walk;
         }
 
         public void GetOrder()
         {
             if(npcState == NPCState.Order || npcState == NPCState.WaitOrder)
             {
+                numberOfNpcInQueue--;
                 NextPoint();
                 npcState = NPCState.Walk;
             }
