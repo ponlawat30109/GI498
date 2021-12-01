@@ -7,26 +7,27 @@ namespace NPCScript
     public class NPCController : MonoBehaviour
     {
         [SerializeField] private PlayerAnimController animCtrl;
-        public ModelScript.ModelComponent modelCom;
+        [SerializeField] private ModelScript.ModelComponent modelCom;
         [SerializeField] private float speed;
         [SerializeField] private float angularSpeed;
         private StandPoint targetPoint;
-        private StandPoint nextTargetPoint;
         [SerializeField] private NPCState npcState;
+        [SerializeField] private Transform frontHitPoint;
+        [SerializeField] private float hitPointRadius = 0.4f;
 
         public bool isPause = false;
         public bool OnOrder;
 
         private enum NPCState
         {
-            Walk,
+            Move,
             Order,
-            WaitOrder
+            WaitOrder,
+            Idle //for not show in queue
         }
 
         private void Start()
         {
-            npcState = NPCState.Walk;
             OnOrder = false;
         }
 
@@ -37,10 +38,19 @@ namespace NPCScript
 
             switch(npcState)
             {
-                case NPCState.Walk:
+                case NPCState.Move:
                     {
-                        if (targetPoint.isAvailable)
+                        if (targetPoint != null)
                         {
+                            Collider[] hits = Physics.OverlapSphere(frontHitPoint.position, hitPointRadius);
+                            foreach(Collider hit in hits)
+                            {
+                                if (hit.tag == "NPC")
+                                {
+                                    animCtrl.SetTargetSpeed(PlayerAnimController.Activity.Stand);
+                                    return;
+                                }
+                            }
                             animCtrl.SetTargetSpeed(PlayerAnimController.Activity.Walk);
                             Walk(targetPoint.transform.position);
                             if (transform.position == targetPoint.transform.position)
@@ -51,10 +61,12 @@ namespace NPCScript
                                     animCtrl.SetTargetSpeed(PlayerAnimController.Activity.Stand);
                                     NPCManager.Instance.RandomFood(this);
                                 }
-                                else if(targetPoint.isRandomSkinPoint)
+                                else if (targetPoint.isReleasePoint)
                                 {
+                                    npcState = NPCState.Idle;
+                                    animCtrl.SetTargetSpeed(PlayerAnimController.Activity.Stand);
+                                    NPCManager.Instance.SetWaitingNpc(this);
                                     modelCom.RandomSkin();
-                                    NextPoint();
                                 }
                                 else
                                 {
@@ -81,43 +93,23 @@ namespace NPCScript
 
                         break;
                     }
+                case NPCState.Idle:
+                    {
+                        break;
+                    }
                 default:
                     {
-                        npcState = NPCState.Walk;
+                        npcState = NPCState.Move;
                         break;
                     }
             }
-
-            //if (!isPause && targetPoint != null)
-            //{   //go to next point
-            //    if (targetPoint.isAvailable) //true
-            //    {
-            //        if (transform.position != targetPoint.transform.position)
-            //        {
-            //            animCtrl.SetTargetSpeed(PlayerAnimController.Activity.Walk);
-            //            Walk(targetPoint.transform.position);
-            //        }
-            //        else if(transform.rotation != targetPoint.transform.rotation)
-            //        {
-            //            animCtrl.SetTargetSpeed(PlayerAnimController.Activity.Stand);
-            //            FaceTarget(targetPoint.transform.rotation);
-            //        }
-            //        else
-            //        {
-            //            targetPoint.npcOwner = null;
-            //            targetPoint = nextTargetPoint;
-            //        }
-            //    }
-            //    else
-            //    {
-            //        animCtrl.SetTargetSpeed(PlayerAnimController.Activity.Stand);
-            //    }
-            //}
         }
 
         private void Walk(Vector3 targetPosition)
         {
-            FaceTarget(targetPosition);
+            var faceAngle = Mathf.Abs(Quaternion.Angle(targetPoint.transform.rotation, transform.rotation));
+            if(faceAngle != 0)
+                FaceTarget(targetPosition);
             //transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * speed);
             var distance = Vector3.Distance(transform.position, targetPosition);
             if (distance < speed * Time.deltaTime)
@@ -149,27 +141,28 @@ namespace NPCScript
             if (targetPoint == null)
             {
                 targetPoint = point;
-                targetPoint.npcOwner = this;
-                //nextTargetPoint = targetPoint.nextPoint;
+                npcState = NPCState.Move;
             }
-            //else
-            //{
-            //    nextTargetPoint = point;
-            //}
+        }
+
+        public void ReleaseToQueue()
+        {
+            NextPoint();
+            npcState = NPCState.Move;
         }
 
         public void GetOrder()
         {
-            if(npcState == NPCState.Order || npcState == NPCState.WaitOrder)
+            Debug.Log("NPC Get Order");
+            if (npcState == NPCState.Order || npcState == NPCState.WaitOrder)
             {
                 NextPoint();
-                npcState = NPCState.Walk;
+                npcState = NPCState.Move;
             }
         }
 
         private void NextPoint()
         {
-            targetPoint.npcOwner = null;
             targetPoint = targetPoint.nextPoint;
         }
     }
