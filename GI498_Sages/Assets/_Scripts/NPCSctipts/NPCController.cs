@@ -12,15 +12,15 @@ namespace NPCScript
         [SerializeField] private float angularSpeed;
         private StandPoint targetPoint;
         [SerializeField] private NPCState npcState;
-
-        private static int numberOfNpcInQueue = 0;
+        [SerializeField] private Transform frontHitPoint;
+        [SerializeField] private float hitPointRadius = 0.4f;
 
         public bool isPause = false;
         public bool OnOrder;
 
         private enum NPCState
         {
-            Walk,
+            Move,
             Order,
             WaitOrder,
             Idle //for not show in queue
@@ -38,10 +38,19 @@ namespace NPCScript
 
             switch(npcState)
             {
-                case NPCState.Walk:
+                case NPCState.Move:
                     {
-                        if (targetPoint.isAvailable)
+                        if (targetPoint != null)
                         {
+                            Collider[] hits = Physics.OverlapSphere(frontHitPoint.position, hitPointRadius);
+                            foreach(Collider hit in hits)
+                            {
+                                if (hit.tag == "NPC")
+                                {
+                                    animCtrl.SetTargetSpeed(PlayerAnimController.Activity.Stand);
+                                    return;
+                                }
+                            }
                             animCtrl.SetTargetSpeed(PlayerAnimController.Activity.Walk);
                             Walk(targetPoint.transform.position);
                             if (transform.position == targetPoint.transform.position)
@@ -52,7 +61,7 @@ namespace NPCScript
                                     animCtrl.SetTargetSpeed(PlayerAnimController.Activity.Stand);
                                     NPCManager.Instance.RandomFood(this);
                                 }
-                                else if(targetPoint.isReleasePoint)
+                                else if (targetPoint.isReleasePoint)
                                 {
                                     npcState = NPCState.Idle;
                                     animCtrl.SetTargetSpeed(PlayerAnimController.Activity.Stand);
@@ -64,10 +73,6 @@ namespace NPCScript
                                     NextPoint();
                                 }
                             }
-                        }
-                        else
-                        {
-                            Debug.Log("TargetPoint: " + targetPoint.name);
                         }
                         break;
                     }
@@ -94,7 +99,7 @@ namespace NPCScript
                     }
                 default:
                     {
-                        npcState = NPCState.Walk;
+                        npcState = NPCState.Move;
                         break;
                     }
             }
@@ -136,31 +141,28 @@ namespace NPCScript
             if (targetPoint == null)
             {
                 targetPoint = point;
-                targetPoint.npcOwner = this;
-                npcState = NPCState.Walk;
+                npcState = NPCState.Move;
             }
         }
 
         public void ReleaseToQueue()
         {
-            numberOfNpcInQueue++;
             NextPoint();
-            npcState = NPCState.Walk;
+            npcState = NPCState.Move;
         }
 
         public void GetOrder()
         {
-            if(npcState == NPCState.Order || npcState == NPCState.WaitOrder)
+            Debug.Log("NPC Get Order");
+            if (npcState == NPCState.Order || npcState == NPCState.WaitOrder)
             {
-                numberOfNpcInQueue--;
                 NextPoint();
-                npcState = NPCState.Walk;
+                npcState = NPCState.Move;
             }
         }
 
         private void NextPoint()
         {
-            targetPoint.npcOwner = null;
             targetPoint = targetPoint.nextPoint;
         }
     }

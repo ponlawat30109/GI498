@@ -4,6 +4,14 @@ using UnityEngine;
 
 namespace NPCScript
 {
+    /// <summary>
+    /// Important Function:
+    /// -- [!!]Complete Order >> To tell NPC(in Ordering) to go home
+    /// -- [!!]SetRemainingOrder / AddRemainingOrder >> If not set NPC not come
+    /// -- SetReleaseTime / SetReleaseNoTime >> set how to automatic release NPC
+    /// -- ReleaseNpc >> release NPC immediately
+    /// (* [!!] = need to use)
+    /// </summary>
     public class NPCManager : MonoBehaviour
     {
         [SerializeField] public bool onTest;
@@ -30,7 +38,8 @@ namespace NPCScript
             get => order;
         }
         private List<FoodObject> foodList;
-        public int numberOfNpcInMap { get; private set; }
+
+        public int numberOfNpcInQueue { get; private set; }
         public int orderRemaining {get; private set;}
         #endregion
 
@@ -43,6 +52,7 @@ namespace NPCScript
 
             instance = this;
             orderRemaining = 0;
+            numberOfNpcInQueue = 0;
             isFreeRelease = false;
         }
 
@@ -50,6 +60,7 @@ namespace NPCScript
         {
             onTest = false;
             foodList = playerRankHolder.FoodList;
+            Debug.Assert(tv != null, "NPCManager: tv is null");
         }
 
         public void CompleteOrder(int xp)
@@ -61,8 +72,22 @@ namespace NPCScript
                     DataCarrier.AddExp(xp);
                 orderingNpc.GetOrder();
                 orderingNpc = null;
-                tv.SetDefaultImg();
+                if(tv != null)
+                    tv.SetDefaultImg();
+                orderRemaining--;
+                numberOfNpcInQueue--;
             }
+
+            else if(onTest && orderingNpc != null)
+            {
+                orderingNpc.GetOrder();
+                orderingNpc = null;
+                orderRemaining--;
+                numberOfNpcInQueue--;
+            }
+
+            Debug.Log("orderRemaining " + orderRemaining);
+            Debug.Log("numberOfNpcInQueue " + numberOfNpcInQueue);
         }
 
         public void SetRemainingOrder(int _orderRemaining)
@@ -81,6 +106,8 @@ namespace NPCScript
         {
             releaseLoopTime = _releaseLoopTime;
             if (releaseNow == true) ReleaseNpc();
+            StopAllCoroutines();
+            StartCoroutine(StartReleaseCountDown());
         }
 
         ///<summary>
@@ -99,33 +126,39 @@ namespace NPCScript
         public void SetWaitingNpc(NPCController npc)
         {
             waitForReleaseNpc = npc;
+            if (isFreeRelease == true)
+                ReleaseNpc();
         }
 
         public void ReleaseNpc()
         {
-            if (orderRemaining > 0 && waitForReleaseNpc != null)
+            if (orderRemaining > numberOfNpcInQueue && waitForReleaseNpc != null)
             {
+                numberOfNpcInQueue++;
                 waitForReleaseNpc.ReleaseToQueue();
                 waitForReleaseNpc = null;
             }
+
         }
 
         private IEnumerator StartReleaseCountDown()
         {
             WaitForSeconds nextRelease = new WaitForSeconds(releaseLoopTime);
+            WaitForSeconds oneSecond = new WaitForSeconds(1f);
             yield return nextRelease;
-            while (orderRemaining > 0)
+            while (orderRemaining > numberOfNpcInQueue)
             {
-                if(waitForReleaseNpc != null)
+                if (waitForReleaseNpc != null)
                 {
                     ReleaseNpc();
                     yield return nextRelease;
                 }
                 else
                 {
-                    yield return null;
+                    yield return oneSecond;
                 }
             }
+            Debug.Log("orderRemaining " + orderRemaining);
         }
 
         public void RandomFood(NPCController npc)
@@ -138,7 +171,13 @@ namespace NPCScript
                 order = foodList[foodNumber];
                 if(_Scripts.ManagerCollection.Manager.Instance != null)
                     _Scripts.ManagerCollection.Manager.Instance.playerManager.PSHandler().JustPutInFood(order);
-                tv.TVChangeSprite(order.itemIcon);
+                if(tv != null)
+                    tv.TVChangeSprite(order.itemIcon);
+            }
+
+            if(onTest)
+            {
+                orderingNpc = npc;
             }
         }
 
