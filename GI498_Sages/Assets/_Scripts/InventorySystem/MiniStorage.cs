@@ -1,4 +1,5 @@
 ﻿using System;
+using _Scriptable_Object.Items.Scripts;
 using _Scripts.InteractSystem.Interface;
 using _Scripts.InventorySystem.Player;
 using _Scripts.InventorySystem.ScriptableObjects.Storage;
@@ -11,6 +12,8 @@ namespace _Scripts.InventorySystem
     {
         [Header("Data")]
         public ItemObject currentHoldItemObject;
+        public FoodObject currentHoldFoodObject;
+        public ToolObject currentHoldToolObject;
 
         [Header("Model")]
         public Transform holdingPosition; // Position of Model On Player Hand
@@ -61,12 +64,41 @@ namespace _Scripts.InventorySystem
                 if (IsCurrentItemNotNull() == false) // Have free space
                 {
                     // Put Item to Mini Storage
-                    PlaceItem(psHandler, psHandler.currentHoldItemObject);
+                    if (psHandler.currentHoldItemModel != null || psHandler.currentHoldFoodObject != null)
+                    {
+                        switch (psHandler.storage.GetStorageObject().GetItemFromSlotIndex(0).type)
+                        {
+                            case ItemType.Ingredient:
+                            {
+                                Debug.Log($"3 {psHandler.currentHoldItemObject.itemName}");
+                                PlaceItem(psHandler, psHandler.currentHoldItemObject);
+                                break;
+                            }
+
+                            case ItemType.Food:
+                            {
+                                Debug.Log($"3 {psHandler.currentHoldFoodObject.itemName}");
+                                PlaceItem(psHandler, psHandler.currentHoldFoodObject);
+                                break;
+                            }
+                            
+                            case ItemType.Tool:
+                            {
+                                Debug.Log($"3 {psHandler.currentHoldItemObject.itemName}");
+                                PlaceItem(psHandler, psHandler.currentHoldItemObject);
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Debug.Log("No Item On Hand Error");
+                    }
                 }
             }
             else if(psHandler.IsHoldingItem() == false) // 'Do not' have Item on Player Hand
             {
-                if (currentHoldItemObject != null) // 'Do not' have Free Space (have item) *fixed
+                if (currentHoldItemObject != null || currentHoldFoodObject != null || currentHoldToolObject != null) // 'Do not' have Free Space (have item) *fixed
                 {
                     // Take Item from Mini Storage
                     GrabItem(psHandler);
@@ -92,22 +124,45 @@ namespace _Scripts.InventorySystem
             }*/
         }
 
-        public void PlaceItem(PlayerStorageHandler ps,ItemObject item)
+        public void PlaceItem(PlayerStorageHandler ps, ItemObject item)
         {
-            if (currentHoldItemObject != null)
+            if (currentHoldItemObject != null || currentHoldFoodObject != null || currentHoldToolObject != null)
             {
                 return;
             }
 
-            currentHoldItemObject = item; // +
+            if (item.type == ItemType.Ingredient)
+            {
+                currentHoldItemObject = item;
+            }
+            else if(item.type == ItemType.Food)
+            {
+                currentHoldFoodObject = (FoodObject) item;
+            }
+            else if(item.type == ItemType.Tool)
+            {
+                currentHoldToolObject = (ToolObject) item;
+            }
+            
             ps.JustTakeOut(item); // -
-
         }
 
         public void GrabItem(PlayerStorageHandler ps)
         {
-            ps.JustPutIn(currentHoldItemObject); // +
-            currentHoldItemObject = null; // -
+            if (currentHoldItemObject != null)
+            {
+                ps.JustPutIn(currentHoldItemObject); // +
+            }
+            else if (currentHoldFoodObject != null)
+            {
+                ps.JustPutInFood(currentHoldFoodObject); // +
+            }
+            else if (currentHoldToolObject != null)
+            {
+                ps.JustPutIn(currentHoldToolObject); // +
+            }
+
+            ClearHolding(); // -
             ClearModel();
         }
         
@@ -124,13 +179,40 @@ namespace _Scripts.InventorySystem
         /// <returns></returns>
         public bool IsCurrentItemNotNull()
         {
-            return currentHoldItemObject != null;
+            return currentHoldItemObject != null || currentHoldFoodObject  != null  || currentHoldToolObject != null ;
         }
 
         private void SetModel()
         {
-            var newProp = Instantiate(currentHoldItemObject.ingamePrefab, holdingPosition);
-            newProp.transform.SetParent(currentHoldItemModel.transform);
+            
+            if (currentHoldItemObject != null)
+            {
+                var newProp = Instantiate(currentHoldItemObject.ingamePrefab, holdingPosition);
+                newProp.transform.SetParent(currentHoldItemModel.transform);
+            }
+            else if (currentHoldFoodObject != null)
+            {
+                if (currentHoldFoodObject.isCooked == false)
+                {
+                    var newProp = Instantiate(currentHoldFoodObject.ingamePrefab, holdingPosition);
+                    newProp.transform.SetParent(currentHoldItemModel.transform);
+                }
+                else
+                {
+                    var newProp = Instantiate(currentHoldFoodObject.cookedPrefab, holdingPosition);
+                    newProp.transform.SetParent(currentHoldItemModel.transform);
+                }
+            }
+            else if (currentHoldToolObject != null)
+            {
+                var newProp = Instantiate(currentHoldToolObject.ingamePrefab, holdingPosition);
+                newProp.transform.SetParent(currentHoldItemModel.transform);
+            }
+            else
+            {
+                Debug.Log("Unknow what type holding now.");
+            }
+            
             //newProp.transform.localPosition = Vector3.zero;
             //newProp.transform.rotation = Quaternion.identity;
         }
@@ -138,6 +220,8 @@ namespace _Scripts.InventorySystem
         private void ClearHolding()
         {
             currentHoldItemObject = null;
+            currentHoldFoodObject = null;
+            currentHoldToolObject = null;
         }
 
         private void ClearModel()

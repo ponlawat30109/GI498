@@ -9,7 +9,7 @@ public enum ItemType
     Default
 }
 
-public abstract class ItemObject : ScriptableObject
+public class ItemObject : ScriptableObject
 {
     public string itemName;
     public Sprite itemIcon;
