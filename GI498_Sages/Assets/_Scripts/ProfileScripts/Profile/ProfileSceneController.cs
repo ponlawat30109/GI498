@@ -115,7 +115,8 @@ public class ProfileSceneController : MonoBehaviour
     {
         AudioManager.Instance.StopAudio();
         //Debug.Log("ChangeSceneToToGamePlayScene");
-        var loadScenes = new string[] { "KitchenAssembly", "scn_ItemExample" };
+        //var loadScenes = new string[] { "KitchenAssembly", "scn_ItemExample" };
+        var loadScenes = new string[] { "KitchenAssembly"};
         var unloadScenes = new string[] { "scn_Profile" };
         _Scripts.SceneAnimator.Instance.ChangeScene(unloadScenes, loadScenes);
     }
