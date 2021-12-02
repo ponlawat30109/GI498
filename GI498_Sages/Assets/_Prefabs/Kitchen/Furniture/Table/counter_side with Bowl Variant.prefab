@@ -1,20 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &3195211319816382675
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 165009473366498777}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e34d3e268fbe405db0f129186c9652ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentHoldItemObject: {fileID: 0}
-  holdingPosition: {fileID: 5344551490581802476}
-  currentHoldItemModel: {fileID: 0}
 --- !u!1001 &725291511300620892
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -85,15 +70,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7271642342439905299, guid: 1430cdc1f2ac67f41b24dd2e03909010, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 7271642342439905299, guid: 1430cdc1f2ac67f41b24dd2e03909010, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 7271642342439905299, guid: 1430cdc1f2ac67f41b24dd2e03909010, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 7271642342439905299, guid: 1430cdc1f2ac67f41b24dd2e03909010, type: 3}
       propertyPath: m_LocalPosition.x
@@ -105,7 +90,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7271642342439905299, guid: 1430cdc1f2ac67f41b24dd2e03909010, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.07933335
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7271642342439905299, guid: 1430cdc1f2ac67f41b24dd2e03909010, type: 3}
       propertyPath: m_LocalRotation.w
@@ -156,3 +141,20 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2864380613532418716, guid: 1430cdc1f2ac67f41b24dd2e03909010, type: 3}
   m_PrefabInstance: {fileID: 7920701165219884912}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3195211319816382675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 165009473366498777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e34d3e268fbe405db0f129186c9652ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHoldItemObject: {fileID: 0}
+  currentHoldFoodObject: {fileID: 0}
+  currentHoldToolObject: {fileID: 0}
+  holdingPosition: {fileID: 5344551490581802476}
+  currentHoldItemModel: {fileID: 0}
