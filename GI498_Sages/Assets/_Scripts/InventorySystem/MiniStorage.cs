@@ -187,26 +187,34 @@ namespace _Scripts.InventorySystem
             
             if (currentHoldItemObject != null)
             {
+                // Set Model
                 var newProp = Instantiate(currentHoldItemObject.ingamePrefab, holdingPosition);
                 newProp.transform.SetParent(currentHoldItemModel.transform);
+                newProp.transform.localScale = new Vector3(1f, 1f, 1f);
             }
             else if (currentHoldFoodObject != null)
             {
                 if (currentHoldFoodObject.isCooked == false)
                 {
+                    // Set Model
                     var newProp = Instantiate(currentHoldFoodObject.ingamePrefab, holdingPosition);
                     newProp.transform.SetParent(currentHoldItemModel.transform);
+                    newProp.transform.localScale = new Vector3(1f, 1f, 1f);
                 }
                 else
                 {
+                    // Set Model
                     var newProp = Instantiate(currentHoldFoodObject.cookedPrefab, holdingPosition);
                     newProp.transform.SetParent(currentHoldItemModel.transform);
+                    newProp.transform.localScale = new Vector3(1f, 1f, 1f);
                 }
             }
             else if (currentHoldToolObject != null)
             {
+                // Set Model
                 var newProp = Instantiate(currentHoldToolObject.ingamePrefab, holdingPosition);
                 newProp.transform.SetParent(currentHoldItemModel.transform);
+                newProp.transform.localScale = new Vector3(1f, 1f, 1f);
             }
             else
             {

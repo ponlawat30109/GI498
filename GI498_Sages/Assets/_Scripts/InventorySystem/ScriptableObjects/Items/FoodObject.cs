@@ -47,4 +47,10 @@ public class FoodObject : ItemObject
     {
         foodQuality -= 1;
     }
+
+    public void ResetFoodObject()
+    {
+        // Implement Food
+        isCooked = false;
+    }
 }

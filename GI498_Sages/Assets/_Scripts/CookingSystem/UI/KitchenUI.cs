@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using _Scripts.InventorySystem.UI;
 using TMPro;
@@ -30,15 +31,15 @@ namespace _Scripts.CookingSystem.UI
         
         [SerializeField] private float currentTime = 0;
         private float refreshInterval = .2f;
-        private bool _isSomeChange;
-        private FoodObject _tempItem;
+        //private bool _isSomeChange;
+        //private FoodObject _tempItem;
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////
 
         void Start()
         {
-            _tempItem = null;
-            _isSomeChange = false;
+            //_tempItem = null;
+            //_isSomeChange = false;
             CreateIngredientSlotUI();
         }
         
@@ -63,36 +64,38 @@ namespace _Scripts.CookingSystem.UI
                 }
             }
 
-            if (_tempItem != recipeItem)
+            /*if (_tempItem != recipeItem)
             {
                 _isSomeChange = true;
                 _tempItem = recipeItem;
-            }
+            }*/
         }
 
         public void InitRecipe(FoodObject item)
         {
             recipeItem = item;
-            _isSomeChange = true;
+           // _isSomeChange = true;
             UpdateUI();
         }
         
         public void UpdateUI()
         {
-            if (_isSomeChange)
+            /*if (_isSomeChange)
             {
-                // Update
-                if (recipeItem != null)
-                {
-                    UpdateRecipeUI();
-                }
-                else
-                {
-                    SetDefualtRecipeUI();
-                }
+                
+            }*/
             
-                CreateIngredientSlotUI(); // Re-create
+            // Update
+            if (recipeItem != null)
+            {
+                UpdateRecipeUI();
             }
+            else
+            {
+                SetDefualtRecipeUI();
+            }
+            
+            CreateIngredientSlotUI(); // Re-create
         }
 
         public void UpdateRecipeUI()
@@ -140,9 +143,9 @@ namespace _Scripts.CookingSystem.UI
             
             foreach (var ingredient in recipeItem.ingredients)
             {
-                var newComponentInfo = Instantiate(ingredientInfoComponentPrefab,recipeIngredientInfoContainer);
+                var newComponentInfo = Instantiate(ingredientInfoComponentPrefab, recipeIngredientInfoContainer);
                 var newCastComponent = newComponentInfo.GetComponent<IngredientInfoComponent>();
-                newCastComponent.InitComponent(ingredient.itemIcon,ingredient.itemName);
+                newCastComponent.InitComponent(ingredient.itemIcon, ingredient.itemName);
                 ingredientInfoList.Add(newCastComponent);
             }
         }
@@ -235,6 +238,21 @@ namespace _Scripts.CookingSystem.UI
             }
 
             return result;
+        }
+
+        private void OnApplicationQuit()
+        {
+            if (ingredientInfoList.Count > 0)
+            {
+                RemoveIngredientInfoList();
+            }
+
+            if (slotList.Count > 0)
+            {
+                slotList.Clear();
+            }
+            
+            recipeItem = null;
         }
     }
 }

@@ -71,7 +71,13 @@ namespace _Scripts.ManagerCollection
         
         private void OnApplicationQuit()
         {
-            
+            foreach (var recipe in recipeCollections)
+            {
+                if (recipe.item.isCooked)
+                {
+                    recipe.item.ResetFoodObject();
+                }
+            }
         }
     }
     
