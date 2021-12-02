@@ -9,7 +9,7 @@ namespace ModelScript
     {
         [SerializeField] private ComponentSet[] componentSets;
 
-        private static string modelVersion = "20211109A1";
+        private static string modelVersion = "20211202A1";
         public static string ModelVersion
         {
             get => modelVersion;
