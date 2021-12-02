@@ -15,6 +15,14 @@ namespace ModelScript
             get => modelVersion;
         }
 
+        private void Start()
+        {
+            var skinData = DataCarrier.customData;
+            if (skinData != null)
+                LoadData(skinData);
+
+        }
+
         public ComponentSet[] GetModel()
         {
             return componentSets;

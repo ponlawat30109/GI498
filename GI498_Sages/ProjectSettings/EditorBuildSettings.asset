@@ -5,16 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/_Scenes/scn_Starter.unity
     guid: d88147a14748b2c4ea127cda500661d2
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Scenes/scn_Menu.unity
     guid: c2597efce5f002c4294e5ca3c7dc5723
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Scenes/scn_Main.unity
     guid: d1c3109bdb54ad54c8a2b2838528e640
   - enabled: 1
@@ -29,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scenes/scn_ItemExample.unity
     guid: 0b80992853aaa0245955895e303a91b9
+  - enabled: 1
+    path: Assets/_Scenes/KitchenAssembly.unity
+    guid: d1d084372022f614fba818314aafe82c
   m_configObjects: {}
