@@ -195,6 +195,7 @@ public class CustomModelManager : MonoBehaviour
         if (componentSets == null)
         {
             playerObj = Instantiate(playerPref);
+            playerObj.GetComponent<PlayerAnimController>().SetTargetSpeed(PlayerAnimController.Activity.Run);
         }
 
         AutoSetCustomData();
