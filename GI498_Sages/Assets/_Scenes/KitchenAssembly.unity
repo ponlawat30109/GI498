@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18335918, g: 0.22897197, b: 0.3061431, a: 1}
+  m_IndirectSpecularColor: {r: 0.1833587, g: 0.22897157, b: 0.306142, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1850,7 +1850,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &698898524
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5229,8 +5229,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2048990884}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 1, z: 1.25}
-  m_LocalScale: {x: 3.5452328, y: 0.7606751, z: 2.5}
+  m_LocalPosition: {x: -0, y: 0.75, z: 1.25}
+  m_LocalScale: {x: 3.5452328, y: 1.5, z: 2.5}
   m_Children: []
   m_Father: {fileID: 1648872884}
   m_RootOrder: 0
@@ -8527,6 +8527,14 @@ PrefabInstance:
       propertyPath: tv
       value: 
       objectReference: {fileID: 1971807282}
+    - target: {fileID: 4928698367542062608, guid: 55fd68bb11c5709478d3a4be151a9ee0, type: 3}
+      propertyPath: orderSound
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4928698367542062608, guid: 55fd68bb11c5709478d3a4be151a9ee0, type: 3}
+      propertyPath: completeOrderSound
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4928698367542062609, guid: 55fd68bb11c5709478d3a4be151a9ee0, type: 3}
       propertyPath: m_RootOrder
       value: 9

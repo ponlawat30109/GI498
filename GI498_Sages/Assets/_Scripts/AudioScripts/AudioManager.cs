@@ -35,11 +35,15 @@ public class AudioManager : MonoBehaviour
         BGMMenu02,
 
         ClickButton01,
-
+        NPC_Buzzer,
+        NPC_CompleteOrder
     }
 
 
     public static AudioManager Instance;
+    
+    [SerializeField] private bool onTest = false;
+    [SerializeField] private Track testTrack;
 
     [Header("Player Setting")]
     public float musicVolumnOption = 0.5f; //percentage [0,1]
@@ -56,6 +60,24 @@ public class AudioManager : MonoBehaviour
     //private AudioSource currentBGMSource;
     private Sound currentMusic; //for background music
 
+    private void OnGUI()
+    {
+        if(onTest == true)
+        {
+            if(GUILayout.Button("PlaySfx"))
+            {
+                 PlaySfx(testTrack);
+            }
+            if(GUILayout.Button("PlayMusic"))
+            {
+                PlayMusic(testTrack);
+            }
+            if(GUILayout.Button("StopMusic"))
+            {
+                StopAudio();
+            }
+        }
+    }
 
     private void Awake()
     {
