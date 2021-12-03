@@ -7,6 +7,11 @@ public class MenuButtonClick : MonoBehaviour
 
     void Start()
     {
+        if(AudioManager.Instance == null)
+        {
+            Debug.Log("AudioManager.Instance == null");
+            return;
+        }
         GetComponent<Button>().onClick.AddListener(()=>AudioManager.Instance.PlaySfx(sfxSound));
     }
 }

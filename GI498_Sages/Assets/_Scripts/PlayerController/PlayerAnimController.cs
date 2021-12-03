@@ -7,14 +7,13 @@ public class PlayerAnimController : MonoBehaviour
     public float speed;
 
     private Animator animator;
-    private int speedHash;
+    private string SPEED = "Speed";
 
     private void Start()
     {
         animator = GetComponent<Animator>();
-        speedHash = Animator.StringToHash("Speed");
         speed = 0;
-        animator.SetFloat(speedHash, speed);
+        animator.SetFloat(SPEED, speed);
     }
 
 
@@ -36,7 +35,16 @@ public class PlayerAnimController : MonoBehaviour
             //     targetSpeed = 0f;
             //     break;
         }
-        animator.SetFloat(speedHash, speed);
+        try
+        {
+            animator = GetComponent<Animator>();
+            animator.SetFloat(SPEED, speed);
+        }
+        catch
+        {
+            Debug.Log("Error Speed: " + speed);
+            Debug.Log("Animator null: " + (animator == null));
+        }
     }
 
     public void PickUp()

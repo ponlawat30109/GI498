@@ -130,7 +130,6 @@ namespace _Scripts
                         continue;
                     }
                 }
-                Debug.Log("load scene count: " + sceneAsync.Count);
                 yield return null;
             }
             loadingAnimation.SetTrigger("Finish");
