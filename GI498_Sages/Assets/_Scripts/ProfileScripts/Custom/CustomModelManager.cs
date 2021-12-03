@@ -198,6 +198,7 @@ public class CustomModelManager : MonoBehaviour
         }
 
         AutoSetCustomData();
+        playerObj.GetComponent<PlayerAnimController>().SetTargetSpeed(PlayerAnimController.Activity.Run);
 
     }
 
