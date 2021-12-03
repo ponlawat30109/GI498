@@ -43,11 +43,9 @@ public class PlayerProfile : MonoBehaviour
     private void GetPlayerPrefExp()
     {
         gainExp = PlayerPrefs.GetInt(GainExpKey, 0);
-        Debug.Log("PlayerPrefs: xp = " + gainExp);
         PlayerPrefs.SetInt(GainExpKey, 0);
 
         gainExp += DataCarrier.PlayerProfileData.comingExp;
-        Debug.Log("PlayerProfileData: gainExp = " + gainExp);
         DataCarrier.PlayerProfileData.comingExp = 0;
 
         if (gainExp > 0)

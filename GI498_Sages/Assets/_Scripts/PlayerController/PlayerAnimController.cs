@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerAnimController : MonoBehaviour
 {
-    public float speed;
+    public float speed = 0;
 
     private Animator animator;
     private string SPEED = "Speed";
@@ -12,8 +12,8 @@ public class PlayerAnimController : MonoBehaviour
     private void Start()
     {
         animator = GetComponent<Animator>();
-        speed = 0;
         animator.SetFloat(SPEED, speed);
+        Debug.Log("Start PlayerAnim");
     }
 
 
@@ -35,15 +35,14 @@ public class PlayerAnimController : MonoBehaviour
             //     targetSpeed = 0f;
             //     break;
         }
+
         try
         {
-            animator = GetComponent<Animator>();
             animator.SetFloat(SPEED, speed);
         }
-        catch
+        catch (System.Exception e)
         {
-            Debug.Log("Error Speed: " + speed);
-            Debug.Log("Animator null: " + (animator == null));
+            Debug.Log(e.Data);
         }
     }
 
