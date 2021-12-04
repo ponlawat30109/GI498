@@ -97,8 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 21c2f103d7a8c2948badff698308f69f, type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 20907a030a0c2c1409041576b5a4abd0, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -2555,6 +2555,7 @@ GameObject:
   m_Component:
   - component: {fileID: 845491589}
   - component: {fileID: 845491588}
+  - component: {fileID: 845491590}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -2584,8 +2585,8 @@ Light:
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
-    m_Bias: 0.05
-    m_NormalBias: 0.4
+    m_Bias: 1
+    m_NormalBias: 1
     m_NearPlane: 0.2
     m_CullingMatrixOverride:
       e00: 1
@@ -2638,6 +2639,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 35.759, y: 22.824, z: 37.617}
+--- !u!114 &845491590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 845491587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UsePipelineSettings: 1
 --- !u!1 &890825389
 GameObject:
   m_ObjectHideFlags: 0
@@ -3221,6 +3235,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 269523779, guid: 64d90475badb43c46a706e18bf631d30, type: 3}
       propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 269523779, guid: 64d90475badb43c46a706e18bf631d30, type: 3}
+      propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 299609194487553614, guid: 64d90475badb43c46a706e18bf631d30, type: 3}
