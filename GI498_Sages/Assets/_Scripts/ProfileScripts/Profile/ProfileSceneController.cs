@@ -28,8 +28,6 @@ public class ProfileSceneController : MonoBehaviour
 
     void Start()
     {
-        //ชุดนี้ลบออกตอนงานเสร็จด้วย 55555
-        Debug.LogWarning("Fon : Don't forget to change UI (3 Button, Information, BG)");
 
         try
         {

@@ -11,6 +11,7 @@ public class AudioManager : MonoBehaviour
         public Track name;
         public TrackType type;
         public AudioClip clip;
+        public String Detail;
 
         [Range(0f, 1f)]
         public float volumn;
@@ -33,6 +34,7 @@ public class AudioManager : MonoBehaviour
     {
         BGMMenu01,
         BGMMenu02,
+        BGMMenu03,
 
         ClickButton01,
         NPC_Buzzer,

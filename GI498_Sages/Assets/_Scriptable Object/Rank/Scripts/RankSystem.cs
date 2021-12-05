@@ -25,6 +25,11 @@ public class RankSystem : ScriptableObject
     {
         get
         {
+            if (foodList.Count == 0)
+            {
+                Debug.Log(name + ": FoodList is null");
+                return baseFoodList;
+            }
             return foodList;
         }
     }
