@@ -6,8 +6,10 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 //public class PlayerController : MonoBehaviour, IPointerDownHandler
 {
+    public static PlayerController instance;
+
     // private NavMeshAgent _agent;
-    PlayerInput _playerInput;
+    [HideInInspector] public PlayerInput _playerInput;
     // Vector2 mousePosition;
 
     [SerializeField] CharacterController controller;
@@ -16,6 +18,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float playerSpeed = 2.0f;
     [SerializeField] float gravity = -9.81f;
     // [SerializeField] private float jumpHeight = 0f;
+
+    // [HideInInspector] public static bool kitchenOpenKey;
+    // [HideInInspector] public static bool pickItemKey;
+    // [HideInInspector] public static bool storageOpenKey;
 
     private void OnEnable()
     {
@@ -30,6 +36,9 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         // _agent = GetComponent<NavMeshAgent>();
+
+        // if(instance != null)
+            instance = this;
 
         _playerInput = new PlayerInput();
 
@@ -57,6 +66,26 @@ public class PlayerController : MonoBehaviour
         {
             gameObject.transform.forward = move;
         }
+
+        // // kitchenOpenKey = kitchenOpenKey? _playerInput.Movement.OpenKitchen.triggered : false;
+        // if (_playerInput.Movement.OpenKitchen.triggered)
+        // {
+        //     kitchenOpenKey = true;
+        // }
+
+        // // pickItemKey = pickItemKey ? _playerInput.Movement.PickItem.triggered : false;
+        // if (_playerInput.Movement.PickItem.triggered)
+        // {
+        //     pickItemKey = true;
+        // }
+
+        // // storageOpenKey = storageOpenKey? _playerInput.Movement.OpenStorage.triggered : false;
+        // if (_playerInput.Movement.OpenStorage.triggered)
+        // {
+        //     storageOpenKey = true;
+        // }
+
+        // Debug.Log($"{kitchenOpenKey} {pickItemKey} {storageOpenKey}");
 
         // if (Input.GetButtonDown("Jump") && ground)
         // {
