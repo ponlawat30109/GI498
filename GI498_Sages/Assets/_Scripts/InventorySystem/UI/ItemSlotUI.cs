@@ -62,20 +62,20 @@ namespace _Scripts.InventorySystem.UI
                 }
             }
         }
-    
+
         public void OnPointerEnter(PointerEventData eventData)
         {
-            if (parentStorageUI.GetParent().IsSlotUISelectable)
-            {
-                var newInfo = Instantiate(infoPrefab, Vector3.zero, Quaternion.identity, storageInfoTransform.transform);
-                informationUI = newInfo.gameObject.GetComponent<StorageInformationUI>();
-                informationUI.InitializeInformation(item.itemName, item.description, item.itemIcon);
-            }
+            //if (parentStorageUI.GetParent().IsSlotUISelectable)
+            //{
+            //    var newInfo = Instantiate(infoPrefab, Vector3.zero, Quaternion.identity, storageInfoTransform.transform);
+            //    informationUI = newInfo.gameObject.GetComponent<StorageInformationUI>();
+            //    informationUI.InitializeInformation(item.itemName, item.description, item.itemIcon);
+            //}
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            informationUI.Clear();
+            //informationUI.Clear();
         }
     }
 }
