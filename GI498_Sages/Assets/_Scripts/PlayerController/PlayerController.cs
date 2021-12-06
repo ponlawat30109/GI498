@@ -9,15 +9,19 @@ public class PlayerController : MonoBehaviour
     public static PlayerController instance;
 
     // private NavMeshAgent _agent;
-    [HideInInspector] public PlayerInput _playerInput;
+    [SerializeField] public PlayerInput _playerInput;
     // Vector2 mousePosition;
 
-    [SerializeField] CharacterController controller;
+    [SerializeField] private CharacterController controller;
     private Vector3 playerVelocity;
     private bool ground;
-    [SerializeField] float playerSpeed = 2.0f;
-    [SerializeField] float gravity = -9.81f;
+    [SerializeField] private float playerSpeed = 2.0f;
+    [SerializeField] private float gravity = -9.81f;
     // [SerializeField] private float jumpHeight = 0f;
+
+    private Vector2 currentMovementInput;
+    private Vector2 smoothInputVelocity;
+    private float smoothInputSpeed = 0.2f;
 
     // [HideInInspector] public static bool kitchenOpenKey;
     // [HideInInspector] public static bool pickItemKey;
@@ -38,7 +42,7 @@ public class PlayerController : MonoBehaviour
         // _agent = GetComponent<NavMeshAgent>();
 
         // if(instance != null)
-            instance = this;
+        instance = this;
 
         _playerInput = new PlayerInput();
 
@@ -59,7 +63,8 @@ public class PlayerController : MonoBehaviour
         }
 
         Vector2 movementInput = _playerInput.Movement.OnScreenMove.ReadValue<Vector2>();
-        Vector3 move = new Vector3(movementInput.x, 0, movementInput.y);
+        currentMovementInput = Vector2.SmoothDamp(currentMovementInput, movementInput, ref smoothInputVelocity, smoothInputSpeed);
+        Vector3 move = new Vector3(currentMovementInput.x, 0, currentMovementInput.y);
         controller.Move(move * Time.deltaTime * playerSpeed);
 
         if (move != Vector3.zero)
