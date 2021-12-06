@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-[AddComponentMenu("Button/ButtonAnim")]
+[AddComponentMenu("_VisualMod/ButtonAnim")]
 public class ButtonAnim : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
 {
     private Transform tf;
