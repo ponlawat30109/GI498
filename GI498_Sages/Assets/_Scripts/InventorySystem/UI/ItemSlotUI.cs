@@ -25,7 +25,7 @@ namespace _Scripts.InventorySystem.UI
             parentStorageUI = parentStorage;
             storageInfoTransform = transformStorageInfo;
 
-            transform.SetParent(parentStorageUI.GetStorageSlotTransform());
+            //transform.SetParent(parentStorageUI.GetStorageSlotTransform());
         }
 
         public ItemObject GetItem()
@@ -58,6 +58,7 @@ namespace _Scripts.InventorySystem.UI
                 else
                 {
                     parentStorageUI.GetParent().SetSelectSlot(this);
+                    parentStorageUI.ChangeObjInfo(item.itemName, item.description, item.itemIcon);
                 }
             }
         }
@@ -66,10 +67,9 @@ namespace _Scripts.InventorySystem.UI
         {
             if (parentStorageUI.GetParent().IsSlotUISelectable)
             {
-                var newInfo = Instantiate(infoPrefab, Vector3.zero, Quaternion.identity);
+                var newInfo = Instantiate(infoPrefab, Vector3.zero, Quaternion.identity, storageInfoTransform.transform);
                 informationUI = newInfo.gameObject.GetComponent<StorageInformationUI>();
                 informationUI.InitializeInformation(item.itemName, item.description, item.itemIcon);
-                informationUI.transform.SetParent(storageInfoTransform.transform);
             }
         }
 

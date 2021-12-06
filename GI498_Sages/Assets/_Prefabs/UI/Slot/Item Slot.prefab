@@ -163,6 +163,7 @@ GameObject:
   - component: {fileID: 5586901735307809693}
   - component: {fileID: 5901191502408067857}
   - component: {fileID: 5783833362471519491}
+  - component: {fileID: 3673617836639345720}
   m_Layer: 5
   m_Name: Item Slot
   m_TagString: Untagged
@@ -189,7 +190,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 256, y: 256}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6980363346072029974
 CanvasRenderer:
@@ -263,3 +264,17 @@ MonoBehaviour:
   infoPrefab: {fileID: 6528064155616525228, guid: 8b6cbf0b551b0a941a601468c88a4f5b, type: 3}
   storageInfoTransform: {fileID: 0}
   informationUI: {fileID: 0}
+--- !u!114 &3673617836639345720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8607904882602486925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c37cac2e87ac5e4ca0eb08406c9eeb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sfxSound: 2
+  zoomButtonScale: 1.2
