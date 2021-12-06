@@ -17,6 +17,8 @@ namespace NPCScript
         [SerializeField] public bool onTest;
         [SerializeField] private TVChangeImage tv;
         [SerializeField] private RankSystem playerRankHolder;
+        [SerializeField] private AudioManager.Track orderSound;
+        [SerializeField] private AudioManager.Track completeOrderSound;
 
         #region NPCLoop
         private float releaseLoopTime = 0;
@@ -65,6 +67,9 @@ namespace NPCScript
 
         public void CompleteOrder(int xp)
         {
+            if(AudioManager.Instance != null)
+                AudioManager.Instance.PlaySfx(completeOrderSound);
+
             if (order != null && orderingNpc != null)
             {
                 order = null;
@@ -86,8 +91,11 @@ namespace NPCScript
                 numberOfNpcInQueue--;
             }
 
-            Debug.Log("orderRemaining " + orderRemaining);
-            Debug.Log("numberOfNpcInQueue " + numberOfNpcInQueue);
+            if (onTest)
+            {
+                Debug.Log("orderRemaining " + orderRemaining);
+                Debug.Log("numberOfNpcInQueue " + numberOfNpcInQueue);
+            }
         }
 
         public void SetRemainingOrder(int _orderRemaining)
@@ -163,6 +171,9 @@ namespace NPCScript
 
         public void RandomFood(NPCController npc)
         {
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.PlaySfx(orderSound);
+
             if (foodList.Count > 0)
             {
                 orderingNpc = npc;

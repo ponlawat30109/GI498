@@ -16,6 +16,7 @@ namespace _Scripts.InventorySystem.ScriptableObjects.Storage
             Player,
             Storage,
             Stove,
+            StorageNoUI,
             Other
         }
         

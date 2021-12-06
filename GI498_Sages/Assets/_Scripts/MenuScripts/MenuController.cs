@@ -57,12 +57,21 @@ public class MenuController : MonoBehaviour
         panelOption.SetActive(false);
         panelInformation.SetActive(false);
 
-        LoadOptionPrefs();
-        //set soundVolumn in soundManager
-        AudioManager.Instance.PlayMusic(AudioManager.Track.BGMMenu01);
+        if(AudioManager.Instance != null)
+        {
+            LoadOptionPrefs();
+            //set soundVolumn in soundManager
+            AudioManager.Instance.PlayMusic(AudioManager.Track.BGMMenu01);
 
-        sliderMusic.onValueChanged.AddListener((volumn) => SetOption("music", volumn));
-        //sliderSound.onValueChanged.AddListener((volumn) => SetOption("sound", volumn));
+            sliderMusic.onValueChanged.AddListener((volumn) => SetOption("music", volumn));
+            //sliderSound.onValueChanged.AddListener((volumn) => SetOption("sound", volumn));
+        }
+        else
+        {
+            Debug.Log("AudioManager.Instance == null");
+            return;
+        }
+
     }
 
     private void CloseInformationPanel()
@@ -97,12 +106,41 @@ public class MenuController : MonoBehaviour
         {
             case "music":
                 {
-                    AudioManager.Instance.ChangeAudioVolumn(volumn);
+                    try
+                    {
+                        AudioManager.Instance.ChangeAudioVolumn(volumn);
+                    }
+                    catch (UnityException e)
+                    {
+                        if(AudioManager.Instance == null)
+                        {
+                            Debug.Log("AudioManager.Instance = null");
+                        }
+                        else
+                        {
+                            Debug.Log(e.Data);
+                        }
+                    }
                     break;
                 }
             case "sound":
                 {
-                    AudioManager.Instance.ChangeSfxVolumn(volumn);
+                    try
+                    {
+                        AudioManager.Instance.ChangeSfxVolumn(volumn);
+                    }
+                    catch (UnityException e)
+                    {
+                        if (AudioManager.Instance == null)
+                        {
+                            Debug.Log("AudioManager.Instance = null");
+                        }
+                        else
+                        {
+                            Debug.Log(e.Data);
+                        }
+                    }
+                    
                     break;
                 }
         }

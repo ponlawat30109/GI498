@@ -40,6 +40,13 @@ public class CustomModelManager : MonoBehaviour
     
     public static bool isProfileSkinChange = false;
 
+    private void Awake()
+    {
+        if (componentSets == null)
+        {
+            playerObj = Instantiate(playerPref);
+        }
+    }
     private void Start()
     {
 
@@ -74,6 +81,8 @@ public class CustomModelManager : MonoBehaviour
         hatSelectRight.onClick.AddListener(() => SetComponentActive("Hats", 1));
         hatSelectLeft.onClick.AddListener(() => isProfileSkinChange = true);
         hatSelectRight.onClick.AddListener(() => isProfileSkinChange = true);
+
+        playerObj.GetComponent<PlayerAnimController>().speed = 1;
     }
 
     #region CustomFunction
@@ -192,10 +201,7 @@ public class CustomModelManager : MonoBehaviour
         //componentSets = ModelComponent.Instance.LoadData(customData);
         //ModelComponent.Instance.GetModel(out componentSets);
 
-        if (componentSets == null)
-        {
-            playerObj = Instantiate(playerPref);
-        }
+        
 
         AutoSetCustomData();
 

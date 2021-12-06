@@ -20,7 +20,8 @@ namespace ModelScript
             var skinData = DataCarrier.customData;
             if (skinData != null)
                 LoadData(skinData);
-
+            //else
+            //    return;
         }
 
         public ComponentSet[] GetModel()

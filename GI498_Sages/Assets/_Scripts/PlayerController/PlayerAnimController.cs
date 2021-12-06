@@ -4,17 +4,16 @@ using UnityEngine;
 
 public class PlayerAnimController : MonoBehaviour
 {
-    public float speed;
+    public float speed = 0;
 
     private Animator animator;
-    private int speedHash;
+    private string SPEED = "Speed";
 
     private void Start()
     {
         animator = GetComponent<Animator>();
-        speedHash = Animator.StringToHash("Speed");
-        speed = 0;
-        animator.SetFloat(speedHash, speed);
+        animator.SetFloat(SPEED, speed);
+        Debug.Log("Start PlayerAnim");
     }
 
 
@@ -36,7 +35,15 @@ public class PlayerAnimController : MonoBehaviour
             //     targetSpeed = 0f;
             //     break;
         }
-        animator.SetFloat(speedHash, speed);
+
+        try
+        {
+            animator.SetFloat(SPEED, speed);
+        }
+        catch (System.Exception e)
+        {
+            Debug.Log(e.Data);
+        }
     }
 
     public void PickUp()

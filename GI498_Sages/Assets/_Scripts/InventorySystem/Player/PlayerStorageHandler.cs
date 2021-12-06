@@ -137,7 +137,7 @@ namespace _Scripts.InventorySystem.Player
             {
                 SetToInteractStorage();
                 
-                if (Input.GetKeyDown(openStorageKey))
+                if (PlayerController.instance._playerInput.Movement.OpenStorage.triggered)
                 {
                     if (toInteractStorageObject != null)
                     {
@@ -153,7 +153,7 @@ namespace _Scripts.InventorySystem.Player
             }
             else
             {
-                if (Input.GetKeyDown(openStorageKey))
+                if (PlayerController.instance._playerInput.Movement.OpenStorage.triggered)
                 {
                     if (toInteractStorageObject != null)
                     {
@@ -196,7 +196,7 @@ namespace _Scripts.InventorySystem.Player
             {
                 SetToInteractKitchen();
 
-                if (Input.GetKeyDown(openKitchenKey))
+                if (PlayerController.instance._playerInput.Movement.OpenKitchen.triggered)
                 {
                     if (toInteractKitchenObject != null)
                     {
@@ -212,7 +212,7 @@ namespace _Scripts.InventorySystem.Player
             }
             else
             {
-                if (Input.GetKeyDown(openKitchenKey))
+                if (PlayerController.instance._playerInput.Movement.OpenKitchen.triggered)
                 {
                     if (toInteractKitchenObject != null)
                     {
@@ -252,7 +252,7 @@ namespace _Scripts.InventorySystem.Player
             {
                 SetToInteractItem();
                 
-                if (Input.GetKeyDown(collectItemKey))
+                if (PlayerController.instance._playerInput.Movement.PickItem.triggered)
                 {
                     toInteractItemObject.Interacted();
                     Debug.Log($"Press {collectItemKey.ToString()} Key.");
