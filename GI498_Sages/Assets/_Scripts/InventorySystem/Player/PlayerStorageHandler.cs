@@ -263,7 +263,7 @@ namespace _Scripts.InventorySystem.Player
             }
             else
             {
-                if (Input.GetKeyDown(collectItemKey))
+                if (PlayerController.instance._playerInput.Movement.PickItem.triggered)
                 {
                     Debug.Log($"Can not Press {collectItemKey.ToString()} Key for now.");
                     /*Debug.Log($"Open again time:{_currentCollectItemTimeCount.ToString()}");

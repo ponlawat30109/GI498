@@ -13,7 +13,6 @@ public class PlayerAnimController : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         animator.SetFloat(SPEED, speed);
-        Debug.Log("Start PlayerAnim");
     }
 
 

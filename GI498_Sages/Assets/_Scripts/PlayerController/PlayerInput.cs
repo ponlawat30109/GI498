@@ -144,6 +144,22 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Run"",
+                    ""type"": ""Button"",
+                    ""id"": ""09fa818d-2d2a-4e83-a70e-1a9d3f3eb544"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Exit"",
+                    ""type"": ""Button"",
+                    ""id"": ""fbd53450-fd3d-4205-81a1-181baa4da8ca"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -278,6 +294,50 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""action"": ""OpenStorage"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""260941b2-65c2-4063-9cca-e930e724a254"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Run"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f8fb5f5b-4cb8-430b-bd04-ba86832f8829"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Run"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c0ded1b5-26ab-4f56-a610-d3b698ff5950"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Exit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7807aafc-7cd5-40fd-bd25-de59e59aa869"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Exit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -302,6 +362,8 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         m_Movement_OpenKitchen = m_Movement.FindAction("OpenKitchen", throwIfNotFound: true);
         m_Movement_PickItem = m_Movement.FindAction("PickItem", throwIfNotFound: true);
         m_Movement_OpenStorage = m_Movement.FindAction("OpenStorage", throwIfNotFound: true);
+        m_Movement_Run = m_Movement.FindAction("Run", throwIfNotFound: true);
+        m_Movement_Exit = m_Movement.FindAction("Exit", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -412,6 +474,8 @@ public class @PlayerInput : IInputActionCollection, IDisposable
     private readonly InputAction m_Movement_OpenKitchen;
     private readonly InputAction m_Movement_PickItem;
     private readonly InputAction m_Movement_OpenStorage;
+    private readonly InputAction m_Movement_Run;
+    private readonly InputAction m_Movement_Exit;
     public struct MovementActions
     {
         private @PlayerInput m_Wrapper;
@@ -420,6 +484,8 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         public InputAction @OpenKitchen => m_Wrapper.m_Movement_OpenKitchen;
         public InputAction @PickItem => m_Wrapper.m_Movement_PickItem;
         public InputAction @OpenStorage => m_Wrapper.m_Movement_OpenStorage;
+        public InputAction @Run => m_Wrapper.m_Movement_Run;
+        public InputAction @Exit => m_Wrapper.m_Movement_Exit;
         public InputActionMap Get() { return m_Wrapper.m_Movement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -441,6 +507,12 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @OpenStorage.started -= m_Wrapper.m_MovementActionsCallbackInterface.OnOpenStorage;
                 @OpenStorage.performed -= m_Wrapper.m_MovementActionsCallbackInterface.OnOpenStorage;
                 @OpenStorage.canceled -= m_Wrapper.m_MovementActionsCallbackInterface.OnOpenStorage;
+                @Run.started -= m_Wrapper.m_MovementActionsCallbackInterface.OnRun;
+                @Run.performed -= m_Wrapper.m_MovementActionsCallbackInterface.OnRun;
+                @Run.canceled -= m_Wrapper.m_MovementActionsCallbackInterface.OnRun;
+                @Exit.started -= m_Wrapper.m_MovementActionsCallbackInterface.OnExit;
+                @Exit.performed -= m_Wrapper.m_MovementActionsCallbackInterface.OnExit;
+                @Exit.canceled -= m_Wrapper.m_MovementActionsCallbackInterface.OnExit;
             }
             m_Wrapper.m_MovementActionsCallbackInterface = instance;
             if (instance != null)
@@ -457,6 +529,12 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @OpenStorage.started += instance.OnOpenStorage;
                 @OpenStorage.performed += instance.OnOpenStorage;
                 @OpenStorage.canceled += instance.OnOpenStorage;
+                @Run.started += instance.OnRun;
+                @Run.performed += instance.OnRun;
+                @Run.canceled += instance.OnRun;
+                @Exit.started += instance.OnExit;
+                @Exit.performed += instance.OnExit;
+                @Exit.canceled += instance.OnExit;
             }
         }
     }
@@ -483,5 +561,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         void OnOpenKitchen(InputAction.CallbackContext context);
         void OnPickItem(InputAction.CallbackContext context);
         void OnOpenStorage(InputAction.CallbackContext context);
+        void OnRun(InputAction.CallbackContext context);
+        void OnExit(InputAction.CallbackContext context);
     }
 }
