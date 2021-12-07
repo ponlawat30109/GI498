@@ -28,6 +28,8 @@ public class PlayerController : MonoBehaviour
     // [HideInInspector] public static bool pickItemKey;
     // [HideInInspector] public static bool storageOpenKey;
 
+    public bool UIPanelActive = false;
+
     private void OnEnable()
     {
         _playerInput.Enable();
@@ -62,7 +64,7 @@ public class PlayerController : MonoBehaviour
     {
         Movement();
 
-        if (_playerInput.Movement.Exit.triggered)
+        if (_playerInput.Movement.Exit.triggered && UIPanelActive == false)
         {
             OnExitAction();
         }

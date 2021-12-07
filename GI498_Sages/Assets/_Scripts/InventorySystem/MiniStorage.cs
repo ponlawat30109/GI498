@@ -225,14 +225,14 @@ namespace _Scripts.InventorySystem
             //newProp.transform.rotation = Quaternion.identity;
         }
 
-        private void ClearHolding()
+        public void ClearHolding()
         {
             currentHoldItemObject = null;
             currentHoldFoodObject = null;
             currentHoldToolObject = null;
         }
 
-        private void ClearModel()
+        public void ClearModel()
         {
             int childs = currentHoldItemModel.transform.childCount;
             
