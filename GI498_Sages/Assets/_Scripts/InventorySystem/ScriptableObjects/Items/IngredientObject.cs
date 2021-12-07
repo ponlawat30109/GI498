@@ -43,6 +43,7 @@ public struct Nutrition
 public class IngredientObject : ItemObject
 {
     public Nutrition nutrition;
+    public float carbohydrate;
 
     private void Awake()
     {
