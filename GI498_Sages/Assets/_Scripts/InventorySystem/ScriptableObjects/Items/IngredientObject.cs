@@ -8,6 +8,7 @@ public struct Nutrition
 {
     [Header("Name                             Miligrams")]
     public float cholesterol;
+    public float carbohydrate;
     public float sugars;
     public float fiber;
     public float proteins;
@@ -43,7 +44,6 @@ public struct Nutrition
 public class IngredientObject : ItemObject
 {
     public Nutrition nutrition;
-    public float carbohydrate;
 
     private void Awake()
     {
