@@ -36,7 +36,8 @@ public class ButtonAnim : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public virtual void OnPointerUp(PointerEventData eventData)
     {
         tf.localScale = defaultScale * zoomButtonScale;
-        AudioManager.Instance.PlaySfx(sfxSound);
+        if(AudioManager.Instance != null)
+            AudioManager.Instance.PlaySfx(sfxSound);
     }
 
 }
