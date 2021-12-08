@@ -102,18 +102,15 @@ namespace ModelScript
             ComponentSet set = Array.Find(componentSets, ComponentSet => ComponentSet.setName == setName);
             if (set == null)
             {
-                Debug.Log("components null: setName_ " + setName);
                 return;
             }
             if (set.canChangeObj == false)
             {
-                Debug.Log("can't change: setName_ " + setName);
                 return;
             }
 
             if (index < 0 || index >= set.objs.Length)
             {
-                Debug.Log("invalid index: setName_ " + setName);
                 return;
             }
             SwitchActive(set, index);
