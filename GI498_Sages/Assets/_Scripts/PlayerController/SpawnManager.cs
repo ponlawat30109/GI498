@@ -25,7 +25,7 @@ namespace _Scripts.ManagerCollection
         {
             GameObject player = (GameObject)Instantiate(playerPrefabs, spawnpoint.transform.position, Quaternion.identity);
 
-            Debug.Log(_vcam.m_Lens.FieldOfView);
+            Debug.Log($"Camera FoV : {_vcam.m_Lens.FieldOfView}");
 
             Transform followTarget = player.transform;
             _vcam.Follow = followTarget;

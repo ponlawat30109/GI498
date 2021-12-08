@@ -340,6 +340,44 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""UI"",
+            ""id"": ""c2dbd0ec-aa01-412a-a9ca-e761eeda52e5"",
+            ""actions"": [
+                {
+                    ""name"": ""ClosePanel"",
+                    ""type"": ""Button"",
+                    ""id"": ""23e21cf9-bb6d-4267-9ad5-dd1ab6921090"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""45c70632-64c7-4547-9a7c-883c815b34eb"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ClosePanel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ca08edd0-5f81-4717-b482-56876eacfefe"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ClosePanel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -364,6 +402,9 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         m_Movement_OpenStorage = m_Movement.FindAction("OpenStorage", throwIfNotFound: true);
         m_Movement_Run = m_Movement.FindAction("Run", throwIfNotFound: true);
         m_Movement_Exit = m_Movement.FindAction("Exit", throwIfNotFound: true);
+        // UI
+        m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
+        m_UI_ClosePanel = m_UI.FindAction("ClosePanel", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -539,6 +580,39 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         }
     }
     public MovementActions @Movement => new MovementActions(this);
+
+    // UI
+    private readonly InputActionMap m_UI;
+    private IUIActions m_UIActionsCallbackInterface;
+    private readonly InputAction m_UI_ClosePanel;
+    public struct UIActions
+    {
+        private @PlayerInput m_Wrapper;
+        public UIActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @ClosePanel => m_Wrapper.m_UI_ClosePanel;
+        public InputActionMap Get() { return m_Wrapper.m_UI; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(UIActions set) { return set.Get(); }
+        public void SetCallbacks(IUIActions instance)
+        {
+            if (m_Wrapper.m_UIActionsCallbackInterface != null)
+            {
+                @ClosePanel.started -= m_Wrapper.m_UIActionsCallbackInterface.OnClosePanel;
+                @ClosePanel.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnClosePanel;
+                @ClosePanel.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnClosePanel;
+            }
+            m_Wrapper.m_UIActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @ClosePanel.started += instance.OnClosePanel;
+                @ClosePanel.performed += instance.OnClosePanel;
+                @ClosePanel.canceled += instance.OnClosePanel;
+            }
+        }
+    }
+    public UIActions @UI => new UIActions(this);
     private int m_KeyboardSchemeIndex = -1;
     public InputControlScheme KeyboardScheme
     {
@@ -563,5 +637,9 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         void OnOpenStorage(InputAction.CallbackContext context);
         void OnRun(InputAction.CallbackContext context);
         void OnExit(InputAction.CallbackContext context);
+    }
+    public interface IUIActions
+    {
+        void OnClosePanel(InputAction.CallbackContext context);
     }
 }
