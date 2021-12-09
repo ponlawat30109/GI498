@@ -9,9 +9,9 @@ namespace _Scripts
         [SerializeField] private SceneHandler sceneHandler;
         [SerializeField] private bool loadStartManu = true;
         [SerializeField] private Canvas canvas;
-        
+
         public string currentScene;
-        
+
         [HideInInspector]
         public CustomData customData;
         public static SceneAnimator Instance;
@@ -68,11 +68,11 @@ namespace _Scripts
             UnLoadScene(sceneName.ToString());
         }
 
-        public void ChangeScene(string unloadScene,string loadScene)
+        public void ChangeScene(string unloadScene, string loadScene)
         {
             strSceneToLoad.Add(loadScene);
             strSceneToUnLoad.Add(unloadScene);
-            
+
             if (onLoading == false)
             {
                 AnimateOnLoad();
@@ -122,7 +122,7 @@ namespace _Scripts
             ManageLoadUnLoad();
             while (sceneAsync.Count > 0)
             {
-                for(int i = 0; i < sceneAsync.Count; i++)
+                for (int i = 0; i < sceneAsync.Count; i++)
                 {
                     if (sceneAsync[i].progress >= 1)
                     {
@@ -133,6 +133,7 @@ namespace _Scripts
                 yield return null;
             }
             loadingAnimation.SetTrigger("Finish");
+            sceneHandler.SetActiveScene(currentScene);
         }
 
         private void ManageLoadUnLoad()
@@ -148,6 +149,7 @@ namespace _Scripts
                 sceneAsync.Add(LoadScene(strSceneToLoad[i]));
             }
             strSceneToLoad.Clear();
+
         }
 
         public void StartCountDown()
