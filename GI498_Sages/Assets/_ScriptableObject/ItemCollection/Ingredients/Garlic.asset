@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: Garlic
   m_EditorClassIdentifier: 
   itemName: Garlic
-  itemIcon: {fileID: 0}
+  itemIcon: {fileID: 21300000, guid: 9603636b8f0621b4fb784d471e3f2739, type: 3}
   type: 0
   ingamePrefab: {fileID: 4170103576506319626, guid: 1e98968f3609d2d438a5c2a1418d3166, type: 3}
   description: Just Garlic
   nutrition:
     cholesterol: 0
+    carbohydrate: 30000
     sugars: 0
     fiber: 100
     proteins: 200

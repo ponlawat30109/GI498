@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: Chicken
   m_EditorClassIdentifier: 
   itemName: Chicken
-  itemIcon: {fileID: 0}
+  itemIcon: {fileID: 21300000, guid: 033ebedec1c62284a95fe7b7956d3bf5, type: 3}
   type: 0
   ingamePrefab: {fileID: 1582249257973760100, guid: c50e0a764f8dad04abb7097313bddc29, type: 3}
   description: 
   nutrition:
     cholesterol: 88
+    carbohydrate: 0
     sugars: 0
     fiber: 0
     proteins: 27000

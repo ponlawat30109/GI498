@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: Bread
   m_EditorClassIdentifier: 
   itemName: Bread
-  itemIcon: {fileID: 0}
+  itemIcon: {fileID: 21300000, guid: 2d6758219a95c554693968194431598d, type: 3}
   type: 0
   ingamePrefab: {fileID: 2509524808630148918, guid: f4ccfd4ae56162741b497152256d30e6, type: 3}
   description: Just Bread
   nutrition:
     cholesterol: 0
+    carbohydrate: 49000
     sugars: 5000
     fiber: 2700
     proteins: 9000

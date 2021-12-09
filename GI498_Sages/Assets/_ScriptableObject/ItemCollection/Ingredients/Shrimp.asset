@@ -10,28 +10,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 36851529be1a1fc46a7e4f67b15459cd, type: 3}
-  m_Name: Fish
+  m_Name: Shrimp
   m_EditorClassIdentifier: 
-  itemName: Fish
-  itemIcon: {fileID: 0}
+  itemName: Shrimp
+  itemIcon: {fileID: 21300000, guid: bc78ff98c28c5f848a8874e2ddb289ed, type: 3}
   type: 0
-  ingamePrefab: {fileID: 418006506695351423, guid: 0643b0fe41ba066439e11f29b18a2126, type: 3}
-  description: Just Fish
+  ingamePrefab: {fileID: 2413507621726628697, guid: d87a5074cc8a85c46abfbe24a0371185, type: 3}
+  description: Just Shrimp
   nutrition:
-    cholesterol: 34
+    cholesterol: 189
+    carbohydrate: 200
     sugars: 0
-    fiber: 500
-    proteins: 15000
-    fat: 12000
-    saturatedfat: 2800
-    water: 34000
-    potassium: 320
-    sodium: 532
-    calcium: 18
-    phosphorus: 943
-    magnesium: 24
+    fiber: 0
+    proteins: 24000
+    fat: 300
+    saturatedfat: 100
+    water: 80300
+    potassium: 259
+    sodium: 111
+    calcium: 70
+    phosphorus: 140
+    magnesium: 39
     zinc: 0
-    iron: 2.1
+    iron: 0.5
     manganese: 0
     copper: 0
     selenium: 0
@@ -39,10 +40,10 @@ MonoBehaviour:
     vitaminB2: 0
     vitaminB3: 0
     vitaminB5: 0
-    vitaminB6: 0.1
+    vitaminB6: 0
     vitaminB7: 0
     vitaminB9: 0
-    vitaminB12: 0.0011
+    vitaminB12: 0
     vitaminC: 0
     vitaminA: 0
     vitaminD: 0

@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: Oyster Sauce
   m_EditorClassIdentifier: 
   itemName: Oyster Sauce
-  itemIcon: {fileID: 0}
+  itemIcon: {fileID: 21300000, guid: a194c45ea87d46f4498870bef9e71fa6, type: 3}
   type: 0
   ingamePrefab: {fileID: 5780757474286053144, guid: 84d50646289c42549bd116f54fb560ae, type: 3}
   description: Just Oyster Sauce
   nutrition:
     cholesterol: 0
+    carbohydrate: 11000
     sugars: 0
     fiber: 300
     proteins: 1400
