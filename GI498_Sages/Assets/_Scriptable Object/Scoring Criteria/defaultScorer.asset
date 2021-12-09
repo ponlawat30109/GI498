@@ -1,0 +1,150 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba8a380025147694e8a5f76b887f980d, type: 3}
+  m_Name: defaultScorer
+  m_EditorClassIdentifier: 
+  star5: -10
+  star4: -5
+  star3: 0
+  star2: 5
+  star1: 10
+  defaultStandard: {fileID: 11400000, guid: 9b3d05e28e711f34489c19b4c2efadde, type: 2}
+  energyScore:
+    totalEnergyLimit:
+      limterType: 0
+      median: 2000
+      lowerLimit: -1
+      upperLimit: -1
+      unitName: 
+      calType: 0
+      weight: 0
+      defectEatTooLittle: []
+      defectOvereating: []
+      commentForGoodDish: []
+    totalEnergy: 0
+    carbLimit:
+      limterType: 0
+      median: 0
+      lowerLimit: 0
+      upperLimit: 0
+      unitName: 
+      calType: 0
+      weight: 0
+      defectEatTooLittle: []
+      defectOvereating: []
+      commentForGoodDish: []
+    carbohydrateProportion: 0
+    proteinLimit:
+      limterType: 0
+      median: 0
+      lowerLimit: 0
+      upperLimit: 0
+      unitName: 
+      calType: 0
+      weight: 0
+      defectEatTooLittle: []
+      defectOvereating: []
+      commentForGoodDish: []
+    proteinProportion: 0
+    fatLimit:
+      limterType: 0
+      median: 0
+      lowerLimit: 0
+      upperLimit: 0
+      unitName: 
+      calType: 0
+      weight: 0
+      defectEatTooLittle: []
+      defectOvereating: []
+      commentForGoodDish: []
+    fatProportion: 0
+    cholesterolLimit:
+      limterType: 0
+      median: -1
+      lowerLimit: -1
+      upperLimit: -1
+      unitName: 
+      calType: 0
+      weight: 0
+      defectEatTooLittle: []
+      defectOvereating: []
+      commentForGoodDish: []
+    saturatedFatLimit:
+      limterType: 0
+      median: -1
+      lowerLimit: -1
+      upperLimit: -1
+      unitName: 
+      calType: 0
+      weight: 0
+      defectEatTooLittle: []
+      defectOvereating: []
+      commentForGoodDish: []
+    sugarLimit:
+      limterType: 0
+      median: 0
+      lowerLimit: 0
+      upperLimit: 0
+      unitName: 
+      calType: 0
+      weight: 0
+      defectEatTooLittle: []
+      defectOvereating: []
+      commentForGoodDish: []
+    sugarProportion: 0
+    fiberLimit:
+      limterType: 0
+      median: 0
+      lowerLimit: 0
+      upperLimit: 0
+      unitName: 
+      calType: 0
+      weight: 0
+      defectEatTooLittle: []
+      defectOvereating: []
+      commentForGoodDish: []
+    fiber: 0
+    sodiumLimit:
+      limterType: 0
+      median: -1
+      lowerLimit: -1
+      upperLimit: -1
+      unitName: 
+      calType: 0
+      weight: 0
+      defectEatTooLittle: []
+      defectOvereating: []
+      commentForGoodDish: []
+    vitaminALimit:
+      limterType: 0
+      median: 0
+      lowerLimit: 0
+      upperLimit: 0
+      unitName: 
+      calType: 0
+      weight: 0
+      defectEatTooLittle: []
+      defectOvereating: []
+      commentForGoodDish: []
+    vitaminA: 0
+    vitaminDLimit:
+      limterType: 0
+      median: 0
+      lowerLimit: 0
+      upperLimit: 0
+      unitName: 
+      calType: 0
+      weight: 0
+      defectEatTooLittle: []
+      defectOvereating: []
+      commentForGoodDish: []
+    vitaminD: 0

@@ -60,9 +60,20 @@ namespace NPCScript
 
         private void Start()
         {
+            //this section is just for test
+            if (onTest == true)
+            {
+                Debug.Log("NPCManager: Start Test");
+                SetRemainingOrder(5);
+                SetReleaseNoTime(true);
+            }
+            //End Test
+
             onTest = false;
             foodList = playerRankHolder.FoodList;
             Debug.Assert(tv != null, "NPCManager: tv is null");
+
+            
         }
 
         public void CompleteOrder(int xp)
@@ -180,8 +191,11 @@ namespace NPCScript
                 var foodListRange = foodList.Count;
                 var foodNumber = Random.Range(0, foodListRange);
                 order = foodList[foodNumber];
-                if(_Scripts.ManagerCollection.Manager.Instance != null)
+                if (_Scripts.ManagerCollection.Manager.Instance != null)
+                {
                     _Scripts.ManagerCollection.Manager.Instance.playerManager.PSHandler().JustPutInFood(order);
+                    Debug.Log("NPC Rnd Food: " + order.itemName);
+                }
                 if(tv != null)
                     tv.TVChangeSprite(order.itemIcon);
             }

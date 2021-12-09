@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     private bool ground;
     [SerializeField] private float playerSpeed = 2.0f;
     [SerializeField] private float gravity = -9.81f;
+    float currentPlayerspeed;
     // [SerializeField] private float jumpHeight = 0f;
 
     private Vector2 currentMovementInput;
@@ -26,6 +27,8 @@ public class PlayerController : MonoBehaviour
     // [HideInInspector] public static bool kitchenOpenKey;
     // [HideInInspector] public static bool pickItemKey;
     // [HideInInspector] public static bool storageOpenKey;
+
+    public bool UIPanelActive = false;
 
     private void OnEnable()
     {
@@ -45,74 +48,27 @@ public class PlayerController : MonoBehaviour
         instance = this;
 
         _playerInput = new PlayerInput();
-
         controller = GetComponent<CharacterController>();
+
+        currentPlayerspeed = playerSpeed;
     }
 
     private void Start()
     {
         // _playerInput.Mouse.MouseClick.performed += ctx => MouseAction();
+        _playerInput.Movement.Run.started += ctx => currentPlayerspeed = playerSpeed * 2;
+        _playerInput.Movement.Run.canceled += ctx => currentPlayerspeed = playerSpeed;
     }
 
     void Update()
     {
-        ground = controller.isGrounded;
-        if (ground && playerVelocity.y < 0)
+        Movement();
+
+        if (_playerInput.Movement.Exit.triggered && UIPanelActive == false)
         {
-            playerVelocity.y = 0f;
+            OnExitAction();
         }
-
-        Vector2 movementInput = _playerInput.Movement.OnScreenMove.ReadValue<Vector2>();
-        currentMovementInput = Vector2.SmoothDamp(currentMovementInput, movementInput, ref smoothInputVelocity, smoothInputSpeed);
-        Vector3 move = new Vector3(currentMovementInput.x, 0, currentMovementInput.y);
-        controller.Move(move * Time.deltaTime * playerSpeed);
-
-        if (move != Vector3.zero)
-        {
-            gameObject.transform.forward = move;
-        }
-
-        // // kitchenOpenKey = kitchenOpenKey? _playerInput.Movement.OpenKitchen.triggered : false;
-        // if (_playerInput.Movement.OpenKitchen.triggered)
-        // {
-        //     kitchenOpenKey = true;
-        // }
-
-        // // pickItemKey = pickItemKey ? _playerInput.Movement.PickItem.triggered : false;
-        // if (_playerInput.Movement.PickItem.triggered)
-        // {
-        //     pickItemKey = true;
-        // }
-
-        // // storageOpenKey = storageOpenKey? _playerInput.Movement.OpenStorage.triggered : false;
-        // if (_playerInput.Movement.OpenStorage.triggered)
-        // {
-        //     storageOpenKey = true;
-        // }
-
-        // Debug.Log($"{kitchenOpenKey} {pickItemKey} {storageOpenKey}");
-
-        // if (Input.GetButtonDown("Jump") && ground)
-        // {
-        //     playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravity);
-        // }
-
-        playerVelocity.y += gravity * Time.deltaTime;
-        controller.Move(playerVelocity * Time.deltaTime);
     }
-
-    // void Update()
-    // {
-    //     if (Input.GetMouseButtonDown(0))
-    //     {
-    //         Ray _ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-    //         Ray _ray = Camera.main.ScreenPointToRay(mousePosition);
-    //         RaycastHit _raycastHitInfo;
-
-    //         if (Physics.Raycast(_ray, out _raycastHitInfo))
-    //            _agent.SetDestination(_raycastHitInfo.point);
-    //     }
-    // }
 
     // void MouseAction()
     // {
@@ -130,4 +86,50 @@ public class PlayerController : MonoBehaviour
     //             _agent.SetDestination(_raycastHitInfo.point);
     //         }
     // }
+
+    void Movement()
+    {
+        ground = controller.isGrounded;
+        if (ground && playerVelocity.y < 0)
+        {
+            playerVelocity.y = 0f;
+        }
+
+        Vector2 movementInput = _playerInput.Movement.OnScreenMove.ReadValue<Vector2>();
+        currentMovementInput = Vector2.SmoothDamp(currentMovementInput, movementInput, ref smoothInputVelocity, smoothInputSpeed);
+        Vector3 move = new Vector3(currentMovementInput.x, 0, currentMovementInput.y);
+
+
+        // {
+        //     currentPlayerspeed *= 2;
+        // }
+        // else
+        // {
+        //     currentPlayerspeed = playerSpeed;
+        // }
+
+        controller.Move(move * Time.deltaTime * currentPlayerspeed);
+
+        if (move != Vector3.zero)
+        {
+            gameObject.transform.forward = move;
+        }
+
+        // if (Input.GetButtonDown("Jump") && ground)
+        // {
+        //     playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravity);
+        // }
+
+        playerVelocity.y += gravity * Time.deltaTime;
+        controller.Move(playerVelocity * Time.deltaTime);
+    }
+
+    void OnExitAction()
+    {
+        Debug.Log("Exit Kitchen");
+        var loadScenes = new string[] { "scn_Profile" };
+        var unloadScenes = new string[] { "KitchenAssembly" };
+        // _Scripts.SceneAnimator.Instance.UnLoadScene();
+        _Scripts.SceneAnimator.Instance.ChangeScene(unloadScenes, loadScenes);
+    }
 }
