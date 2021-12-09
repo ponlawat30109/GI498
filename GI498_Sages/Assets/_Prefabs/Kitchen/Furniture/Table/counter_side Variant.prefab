@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 544309851493946999}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2864380613532418716}
   m_RootOrder: 0
@@ -91,8 +91,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.04, y: 0.04, z: 0.04}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.1951663, y: 0.67616487, z: 1.1951663}
+  m_Center: {x: 0, y: 0.34049922, z: 0.0051006973}
 --- !u!1 &716905759308926380
 GameObject:
   m_ObjectHideFlags: 0
@@ -117,7 +117,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 716905759308926380}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.022680001, z: 0}
+  m_LocalPosition: {x: 0, y: 0.6804, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2427461187911102798}
@@ -137,15 +137,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 728964a806c15c04792b3101ae790228, type: 3}
       propertyPath: m_LocalScale.x
-      value: 30
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 728964a806c15c04792b3101ae790228, type: 3}
       propertyPath: m_LocalScale.y
-      value: 30
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 728964a806c15c04792b3101ae790228, type: 3}
       propertyPath: m_LocalScale.z
-      value: 30
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 728964a806c15c04792b3101ae790228, type: 3}
       propertyPath: m_LocalPosition.x
@@ -196,6 +196,10 @@ PrefabInstance:
       value: counter_side Variant
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 728964a806c15c04792b3101ae790228, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 728964a806c15c04792b3101ae790228, type: 3}
       propertyPath: m_TagString
       value: Table
       objectReference: {fileID: 0}
@@ -219,7 +223,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 728964a806c15c04792b3101ae790228, type: 3}
   m_PrefabInstance: {fileID: 7160909579258990584}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &197787686
+--- !u!65 &2713194477704535175
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -230,5 +234,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.039838877, y: 0.02253883, z: 0.039838877}
-  m_Center: {x: 9.313225e-10, y: 0.011349974, z: 0.0001700241}
+  m_Size: {x: 1.1951663, y: 0.67616487, z: 1.1951663}
+  m_Center: {x: 0, y: 0.34049922, z: 0.0051006973}
