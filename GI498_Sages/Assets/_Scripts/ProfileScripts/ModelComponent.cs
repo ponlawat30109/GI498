@@ -8,6 +8,7 @@ namespace ModelScript
     public class ModelComponent : MonoBehaviour
     {
         [SerializeField] private ComponentSet[] componentSets;
+        [SerializeField] private bool isPlayer;
 
         private static string modelVersion = "20211202A1";
         public static string ModelVersion
@@ -17,11 +18,12 @@ namespace ModelScript
 
         private void Start()
         {
-            var skinData = DataCarrier.customData;
-            if (skinData != null)
-                LoadData(skinData);
-            //else
-            //    return;
+            if (isPlayer == true)
+            {
+                var skinData = DataCarrier.customData;
+                if (skinData != null)
+                    LoadData(skinData);
+            }
         }
 
         public ComponentSet[] GetModel()
@@ -157,17 +159,14 @@ namespace ModelScript
             ComponentSet components = Array.Find(componentSets, ComponentSet => ComponentSet.setName == setName);
             if (components == null)
             {
-                Debug.Log("components null: setName_ " + setName);
                 return;
             }
             if (components.canChangeMat == false || components.mats == null)
             {
-                Debug.Log("can't change: setName_ " + setName);
                 return;
             }
             if (index < 0 || index >= components.mats.Length)
             {
-                Debug.Log("invalid index: setName_ " + setName);
                 return;
             }
 
