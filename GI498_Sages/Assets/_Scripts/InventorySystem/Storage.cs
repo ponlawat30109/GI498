@@ -8,9 +8,9 @@ namespace _Scripts.InventorySystem
 {
     public class Storage : MonoBehaviour,IInteractableObject
     {
-        [SerializeField] private StorageObject storageObject;
-        [SerializeField] private StorageUI storageUI;
-        [SerializeField] private ItemSlotUI currentSelectSlot;
+        [SerializeField] private StorageObject storageObject; //ScriptableObject
+        [SerializeField] private StorageUI storageUI; //UI_Set in Game for each storage
+        [SerializeField] private ItemSlotUI currentSelectSlot; //Auto set when player select slot
 
         [SerializeField] private int maxSlot;
         [SerializeField] private bool isStackable;

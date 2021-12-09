@@ -130,6 +130,7 @@ namespace NPCScript
         }
 
         ///<summary>
+        /// if _isFreeRelease is true this manager will auto ReleaseNPC with no Countdown
         /// if _isFreeRelease is false you have to use [ReleaseNPC()] by yourself
         /// </summary>
         public void SetReleaseNoTime(bool _isFreeRelease)
