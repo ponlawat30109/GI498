@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace NPCScript
@@ -12,8 +13,9 @@ namespace NPCScript
         public bool isOrderPoint = false;
         public StandPoint nextPoint;
 
-        private void Start()
+        private async void Start()
         {
+            await Task.Delay(System.TimeSpan.FromSeconds(0.1));
             if (isSpawnPoint) //true
             {
                 var npc = Instantiate(customerPref, transform.position, transform.rotation);
@@ -21,5 +23,6 @@ namespace NPCScript
                 npcCtrl.GetInitTarget(this);
             }
         }
+
     }
 }

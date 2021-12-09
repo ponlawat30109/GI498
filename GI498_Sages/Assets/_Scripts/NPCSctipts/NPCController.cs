@@ -33,17 +33,17 @@ namespace NPCScript
 
         private void Update()
         {
-            if(targetPoint == null)
+            if (targetPoint == null)
                 Debug.Log("targetPoint false");
 
-            switch(npcState)
+            switch (npcState)
             {
                 case NPCState.Move:
                     {
                         if (targetPoint != null)
                         {
                             Collider[] hits = Physics.OverlapSphere(frontHitPoint.position, hitPointRadius);
-                            foreach(Collider hit in hits)
+                            foreach (Collider hit in hits)
                             {
                                 if (hit.tag == "NPC")
                                 {
@@ -108,7 +108,7 @@ namespace NPCScript
         private void Walk(Vector3 targetPosition)
         {
             var faceAngle = Mathf.Abs(Quaternion.Angle(targetPoint.transform.rotation, transform.rotation));
-            if(faceAngle != 0)
+            if (faceAngle != 0)
                 FaceTarget(targetPosition);
             //transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * speed);
             var distance = Vector3.Distance(transform.position, targetPosition);
@@ -126,9 +126,9 @@ namespace NPCScript
         {
             var direction = (targetPosition - transform.position).normalized;
             Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-            
+
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * angularSpeed);
-            
+
         }
 
         private void FaceTarget(Quaternion targetRotation)
@@ -165,5 +165,7 @@ namespace NPCScript
         {
             targetPoint = targetPoint.nextPoint;
         }
+
+        
     }
 }
