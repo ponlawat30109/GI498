@@ -127,6 +127,11 @@ namespace _Scripts.InventorySystem.Player
                 JustPutInFood(item);
                 Debug.Log($"[F2] Give {item.name} Recipe to player.");
             }
+
+            if (Input.GetKeyDown(KeyCode.KeypadPlus))
+            {
+                Manager.Instance.notifyManager.CreateNotify("Notify Here!","NotifyDebuging...");
+            }
         }
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////
