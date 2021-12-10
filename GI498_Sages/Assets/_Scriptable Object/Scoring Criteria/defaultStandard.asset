@@ -146,12 +146,12 @@ MonoBehaviour:
       defectOvereating: []
       commentForGoodDish: []
     saturatedFatLimit:
-      limterType: 0
+      limterType: 3
       median: -1
-      lowerLimit: -1
+      lowerLimit: 0.1
       upperLimit: -1
       unitName: 
-      calType: 0
+      calType: 2
       weight: 0
       defectEatTooLittle: []
       defectOvereating: []
