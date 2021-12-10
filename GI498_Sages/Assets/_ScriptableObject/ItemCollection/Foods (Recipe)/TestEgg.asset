@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb8cc96c8ddd34b48b53864f7acb4664, type: 3}
+  m_Name: TestEgg
+  m_EditorClassIdentifier: 
+  itemName: TestEgg
+  itemIcon: {fileID: 0}
+  type: 2
+  ingamePrefab: {fileID: 1933213746720370918, guid: 62c6cafce84dc9b4c96cdbefa4839766, type: 3}
+  description: 
+  cookedPrefab: {fileID: 1736267606748628461, guid: eefc861b168fc834c9b7cbe20139d71f, type: 3}
+  ingredients:
+  - {fileID: 11400000, guid: 3016351532d3d8e41afdeb9eb3554655, type: 2}
+  cookingTime: 5
+  foodQuality: 0
+  isLowSodium: 0
+  isCooked: 0
