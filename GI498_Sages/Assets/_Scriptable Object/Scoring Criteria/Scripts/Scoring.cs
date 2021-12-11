@@ -6,23 +6,25 @@ using UnityEngine;
 public class Scoring : ScriptableObject
 {
     [Header("% score Level")]
-    public float star5 = -10;
-    public float star4 = -5;
-    public float star3 = 0;
-    public float star2 = 5;
-    public float star1 = 10;
+    public float star5 = 100f/100f;
+    public float star4 = 75f/100f;
+    public float star3 = 50f/100f;
+    public float star2 = 25f/100f;
+    public float star1 = 0f;
 
     [SerializeField] private LevelStandard defaultStandard;
 
     public EnergyScore energyScore;
 
-    public void ScoreCalculate(List<IngredientObject> ingredients, LevelStandard starndard)
+    public ResultScore ScoreCalculate(List<IngredientObject> ingredients, LevelStandard starndard)
     {
+
         var dishNutr = new Nutrition();
         SetZeroNutr(dishNutr);
         SumNitr(dishNutr, ingredients);
+        return ValueCalculate(dishNutr, starndard);
 
-        List<DishScoreHolder> dishScoreHolders = new List<DishScoreHolder>();
+        
 
         //CalculateEachEnergy(carb, protein, etc) => save in DishScoreHolder
         //TotalEnergy = all ENergy => save in DishScoreHolder
@@ -63,7 +65,7 @@ public class Scoring : ScriptableObject
         nutr.vitaminE = 0;
         nutr.vitaminK = 0;
     }
-
+    
     public void SumNitr(Nutrition dishNutr, List<IngredientObject> ingredients)
     {
         foreach (var ingredient in ingredients)
@@ -101,25 +103,230 @@ public class Scoring : ScriptableObject
         }
     }
 
-    public float CalculateTotalEnergy()
+    public ResultScore ValueCalculate(Nutrition dishNutr, LevelStandard standard)
     {
-        float energy = 0;
-        return energy;
+        ResultScore resultScore = new ResultScore();
+        List<DishScoreHolder> dishEnergyScore = new List<DishScoreHolder>();
+        var changeUnit = 0.001f; // 1 milligram = 0.001 gram
+
+        // 1 kCal = 4.18 kJ
+        // 1 kJ = 0.24 kCal
+
+        var carbohydrateEnergy = (dishNutr.carbohydrate + dishNutr.sugars + dishNutr.fiber) * 4 * changeUnit;   // carb 1 g = 4 kCal = 17 kJ
+        var proteinEnergy = dishNutr.proteins * 4 * changeUnit;        // prot 1 g =  4 kCal = 17 kJ
+        var fatEnergy = (dishNutr.cholesterol + dishNutr.fat) * 9 * changeUnit;   // fat 1 g = 9 kCal = 38 kJ // fat is already include saturatedfat fat
+        var alcoholEnergy = 0f;        // alc 1 g = 7 kCal = 29 kJ
+        alcoholEnergy *= 5.6f * changeUnit;         // alc 1 mL = 5.6 kCal = 23 kJ        
+
+        var totalEnergy = carbohydrateEnergy + proteinEnergy + fatEnergy + alcoholEnergy;
+
+        DishScoreHolder totalEnergyScore = new DishScoreHolder();
+        totalEnergyScore.limiter = standard.energrScore.fatLimit;
+        totalEnergyScore.name = "TotalEnergy";
+        totalEnergyScore.value = totalEnergy;
+        dishEnergyScore.Add(totalEnergyScore);
+
+        //energyScore.carbohydrateProportion = carbohydrateCal / totalEnergy;
+        //energyScore.fatProportion = fatCal / totalEnergy;
+        //energyScore.proteinProportion = proteinCal / totalEnergy;
+
+        DishScoreHolder carbEnergyScore = new DishScoreHolder();
+        carbEnergyScore.limiter = standard.energrScore.carbLimit;
+        carbEnergyScore.name = "Carbohydrate";
+        carbEnergyScore.value = carbohydrateEnergy;
+        dishEnergyScore.Add(carbEnergyScore);
+
+        DishScoreHolder protEnergyScore = new DishScoreHolder();
+        protEnergyScore.limiter = standard.energrScore.proteinLimit;
+        protEnergyScore.name = "Protein";
+        protEnergyScore.value = proteinEnergy;
+        dishEnergyScore.Add(protEnergyScore);
+
+        DishScoreHolder fatEnergyScore = new DishScoreHolder();
+        fatEnergyScore.limiter = standard.energrScore.fatLimit;
+        fatEnergyScore.name = "Fat";
+        fatEnergyScore.value = fatEnergy;
+        dishEnergyScore.Add(fatEnergyScore);
+
+        DishScoreHolder satFatScore = new DishScoreHolder();
+        satFatScore.limiter = standard.energrScore.fiberLimit;
+        satFatScore.name = "Fiber";
+        satFatScore.value = dishNutr.fiber;
+        dishEnergyScore.Add(satFatScore);
+
+        //DishScoreHolder CholScore = new DishScoreHolder();
+        //CholScore.limiter = null;
+        //CholScore.name = "Cholesterol";
+        //CholScore.value = 
+        //dishEnergyScore.Add(CholScore);
+
+        //DishScoreHolder alcEnergyScore = new DishScoreHolder();
+        //alcEnergyScore.limiter = null;
+        //alcEnergyScore.name = "Alcohol";
+        //alcEnergyScore.value = alcoholEnergy;
+        //dishEnergyScore.Add(alcEnergyScore);
+
+        DishScoreHolder sugarScore = new DishScoreHolder();
+        sugarScore.limiter = standard.energrScore.sugarLimit;
+        sugarScore.name = "Sugar";
+        sugarScore.value = dishNutr.sugars;
+        dishEnergyScore.Add(sugarScore);
+
+        DishScoreHolder fiberScore = new DishScoreHolder();
+        fiberScore.limiter = standard.energrScore.fiberLimit;
+        fiberScore.name = "Fiber";
+        fiberScore.value = dishNutr.fiber;
+        dishEnergyScore.Add(fiberScore);
+
+        CalculateScore(totalEnergyScore);
+        for(int i = 1; i < dishEnergyScore.Count; i++)
+        {
+            switch(dishEnergyScore[i].limiter.calType)
+            {
+                case CalculateType.BaseTotalEnergy:
+                    CalculateScore(dishEnergyScore[i]);
+                    break;
+                case CalculateType.PercentEnergy:
+                    CalculateScore(dishEnergyScore[i],totalEnergy);
+                    break;
+                case CalculateType.Mass_Gram:
+                    CalculateScore(dishEnergyScore[i]);
+                    break;
+            }
+        }
+        return resultScore;
     }
 
-    public void CalculateScore(float nutr, Limiter limit, List<DishScoreHolder> dishScoreHolders)
+    public void CalculateScore(DishScoreHolder scoreHolder)
     {
-        DishScoreHolder dishScore = new DishScoreHolder();
-        //dishScore.nutrition = 
-        switch (limit.calType)
+        Limiter limiter = scoreHolder.limiter;
+        switch (scoreHolder.limiter.limterType)
         {
-            case CalculateType.BaseTotalEnergy:
+            case LimiterType.InLimiterBest :
+                {
+                    if(limiter.lowerLimit != -1 && limiter.upperLimit != -1)
+                    {
+                        var maxScoreLowerLimit = limiter.lowerLimit + (limiter.upperLimit - limiter.lowerLimit) * ((1 - limiter.alpha) / 2);
+                        var maxScoreUpperLimit = limiter.upperLimit - (limiter.upperLimit - limiter.lowerLimit) * ((1 - limiter.alpha) / 2);
+                        if (scoreHolder.value >= maxScoreLowerLimit && scoreHolder.value <= maxScoreUpperLimit)
+                        {
+                            scoreHolder.star = 5;
+                            var median = (maxScoreLowerLimit + maxScoreUpperLimit) / 2;
+                            if (scoreHolder.value < median)
+                            {
+                                var lower = maxScoreLowerLimit;
+                                scoreHolder.actualScore = star5 + (scoreHolder.value - lower) / (median - lower) * (100f - star5);
+                            }
+                            else
+                            {
+                                var upper = maxScoreUpperLimit;
+                                scoreHolder.actualScore = star5 + (upper - scoreHolder.value) / (upper - median) * (100f - star5);
+                            }
+                        }
+                        else if(scoreHolder.value >= limiter.lowerLimit && scoreHolder.value <= limiter.upperLimit)
+                        {
+                            scoreHolder.star = 4;
+                            if (scoreHolder.value < maxScoreLowerLimit)
+                            {
+                                var lower = limiter.lowerLimit;
+                                var upper = maxScoreLowerLimit;
+                                scoreHolder.actualScore = star4 + (scoreHolder.value - lower) / (upper - lower) * (star5 - star4);
+                            }
+                            else //scoreHolder.value > maxScoreUpperLimit
+                            {
+                                var lower = limiter.upperLimit;
+                                var upper = maxScoreUpperLimit;
+                                scoreHolder.actualScore = star5 + (upper - scoreHolder.value) / (upper - lower) * (star5 - star4);
+                            }
+                        }
+                        else
+                        {
+                            var betaValue = limiter.lowerLimit * limiter.beta;
+                            var zeroStarLowerLimit = limiter.lowerLimit - betaValue;
+                            var zeroStarUpperLimit = limiter.upperLimit + betaValue;
+                            if (scoreHolder.value < zeroStarLowerLimit || scoreHolder.value > zeroStarUpperLimit)
+                            {
+                                scoreHolder.star = 0;
+                                scoreHolder.actualScore = 0;
+                            }
+                            else
+                            {
+                                if (scoreHolder.value < limiter.lowerLimit)
+                                {
+                                    var lower = zeroStarLowerLimit;
+                                    var upper = limiter.lowerLimit;
+                                    scoreHolder.actualScore = (scoreHolder.value - lower) / (upper - lower) * (star4 - star1);
+                                }
+                                else if (scoreHolder.value > limiter.upperLimit)
+                                {
+                                    var lower = limiter.upperLimit;
+                                    var upper = zeroStarUpperLimit;
+                                    scoreHolder.actualScore = (upper - scoreHolder.value) / (upper - lower) * (star4 - star1);
+                                }
+
+                                if (scoreHolder.actualScore == 0)
+                                {
+                                    scoreHolder.star = 0;
+                                    Debug.Log("actualScore == 0");
+                                }
+                                else if (scoreHolder.actualScore >= star3) scoreHolder.star = 3;
+                                else if (scoreHolder.actualScore >= star2) scoreHolder.star = 2;
+                                else if (scoreHolder.actualScore >= star1) scoreHolder.star = 1;
+                            }
+                        }
+                    }
+                    else if(limiter.median != -1)
+                    {
+
+                    }
+                    else if(limiter.median == -1 && (limiter.lowerLimit != -1 && limiter.upperLimit != -1))
+                    {
+
+                    }
+                    break;
+                }
+            case LimiterType.MoreIsBetter:
+                {
+                    break;
+                }
+            case LimiterType.LessIsBetter:
                 {
                     break;
                 }
             default:
                 break;
         }
+
+        if (scoreHolder.actualScore > 100)
+            scoreHolder.actualScore = 100;
+        else if (scoreHolder.actualScore < 0)
+            scoreHolder.actualScore = 0;
+    }
+
+    public void CalculateScore(DishScoreHolder scoreHolder, float totalEnergy)
+    {
+        switch (scoreHolder.limiter.limterType)
+        {
+            case LimiterType.InLimiterBest:
+                {
+                    break;
+                }
+            case LimiterType.MoreIsBetter:
+                {
+                    break;
+                }
+            case LimiterType.LessIsBetter:
+                {
+                    break;
+                }
+            default:
+                break;
+        }
+    }
+
+    public void CalculateScore(float nutr, Limiter limit, List<DishScoreHolder> dishScoreHolders)
+    {
+        
 
         //return null;
 
@@ -189,73 +396,74 @@ public class Scoring : ScriptableObject
         CalculateEachStar(ref score);
     }
 
-    public float EnergyCal(Nutrition dishNutr)
-    {
-        energyScore = new EnergyScore();
-        var changeUnit = 0.001f; // 1 milligram = 0.001 gram
+    //public float EnergyCal(Nutrition dishNutr)
+    //{
+    //    energyScore = new EnergyScore();
+    //    var changeUnit = 0.001f; // 1 milligram = 0.001 gram
 
-        // 1 kCal = 4.18 kJ
-        // 1 kJ = 0.24 kCal
+    //    // 1 kCal = 4.18 kJ
+    //    // 1 kJ = 0.24 kCal
 
-        var carbohydrateCal = dishNutr.carbohydrate + dishNutr.sugars + dishNutr.fiber;   // carb 1 g = 4 kCal = 17 kJ
-        carbohydrateCal *= 4 * changeUnit;
+    //    var carbohydrateCal = dishNutr.carbohydrate + dishNutr.sugars + dishNutr.fiber;   // carb 1 g = 4 kCal = 17 kJ
+    //    carbohydrateCal *= 4 * changeUnit;
 
-        var proteinCal = dishNutr.proteins;        // prot 1 g =  4 kCal = 17 kJ
-        proteinCal *= 4 * changeUnit;
+    //    var proteinCal = dishNutr.proteins;        // prot 1 g =  4 kCal = 17 kJ
+    //    proteinCal *= 4 * changeUnit;
 
-        var fatCal = dishNutr.cholesterol + dishNutr.fat;            // fat 1 g = 9 kCal = 38 kJ
-        fatCal *= 9 * changeUnit;
+    //    var fatCal = dishNutr.cholesterol + dishNutr.fat;            // fat 1 g = 9 kCal = 38 kJ
+    //    fatCal *= 9 * changeUnit;
 
-        var alcoholCal = 0f;        // alc 1 g = 7 kCal = 29 kJ
-        alcoholCal *= 5.6f * changeUnit;         // alc 1 mL = 5.6 kCal = 23 kJ
+    //    var alcoholCal = 0f;        // alc 1 g = 7 kCal = 29 kJ
+    //    alcoholCal *= 5.6f * changeUnit;         // alc 1 mL = 5.6 kCal = 23 kJ
 
-        var totalEnergy = carbohydrateCal + proteinCal + fatCal + alcoholCal;
-        energyScore.totalEnergy = totalEnergy;
-        energyScore.carbohydrateProportion = carbohydrateCal / totalEnergy;
-        energyScore.fatProportion = fatCal / totalEnergy;
-        energyScore.proteinProportion = proteinCal / totalEnergy;
-        //energyScore.sugarProportion = dishNutr.sugars * changeUnit * 4 / totalEnergy;
-        //for sugar : good is <= 5% for TotalEnergy or 6 teaSpoon or 24g/day
-        //but it only about sugar that we add in dish during cooking. so it's almost nothing with sugar in other ingredient
+    //    var totalEnergy = carbohydrateCal + proteinCal + fatCal + alcoholCal;
+    //    energyScore.totalEnergy = totalEnergy;
+    //    energyScore.carbohydrateProportion = carbohydrateCal / totalEnergy;
+    //    energyScore.fatProportion = fatCal / totalEnergy;
+    //    energyScore.proteinProportion = proteinCal / totalEnergy;
+    //    //energyScore.sugarProportion = dishNutr.sugars * changeUnit * 4 / totalEnergy;
+    //    //for sugar : good is <= 5% for TotalEnergy or 6 teaSpoon or 24g/day
+    //    //but it only about sugar that we add in dish during cooking. so it's almost nothing with sugar in other ingredient
 
-        return energyScore.totalEnergy;
-    }
+    //    return energyScore.totalEnergy;
+    //}
 }
 
 [System.Serializable]
 public class EnergyScore
 {
-    public Limiter totalEnergyLimit;
-    public float totalEnergy; //calories good = 2000 kcal/day => 670 kcal/day
-    public Limiter carbLimit;
-    public float carbohydrateProportion; //good = 45-65% for TotalEnergy
-    public Limiter proteinLimit;
-    public float proteinProportion; //good = 10-35% for TotalEnergy
-    public Limiter fatLimit;
-    public float fatProportion; //good = 20-35% for TotalEnergy
+    public Limiter totalEnergyLimit; //calories good = 2000 kcal/day => 670 kcal/day
+    public Limiter carbLimit; //good = 45-65% for TotalEnergy
+    public Limiter proteinLimit; //good = 10-35% for TotalEnergy
+    public Limiter fatLimit; //good = 20-35% for TotalEnergy
     public Limiter cholesterolLimit;
     public Limiter saturatedFatLimit;
     public Limiter sugarLimit;
-    public float sugarProportion;
     //good <= 5% for TotalEnergy or 6 teaSpoon or 24g/day
     //but it only about sugar that we add in dish during cooking. so it's almost nothing with sugar in other ingredient
     public Limiter fiberLimit;
-    public float fiber;
     //good => 14g/1000kcal
     //good = 25g - 28g for adult
     //good = age*1 + 5 for child(< 6 years old)
     public Limiter sodiumLimit;
     public Limiter vitaminALimit;
-    public float vitaminA;
     public Limiter vitaminDLimit;
-    public float vitaminD;
 }
 
-[System.Serializable]
+public class ResultScore
+{
+    public List<DishScoreHolder> allScore;
+    public List<DishScoreHolder> fourthPriority;
+    public float finalScore;
+    public int finalStar;
+}
+
 public class DishScoreHolder
 {
-    public string nutrition;
+    public string name;
+    public float value;
     public float actualScore;
+    public int star;
     public string detail;
     public Limiter limiter;
     //public Gameobject dish;
@@ -264,12 +472,15 @@ public class DishScoreHolder
 [System.Serializable]
 public class Limiter
 {   // -1 = default = null information
+    public bool isTop4Priority = false;
     public LimiterType limterType;
     public float median = -1;
     public float lowerLimit = -1;
     public float upperLimit = -1;
     public string unitName;
     public CalculateType calType;
+    public float alpha = 0.4f;
+    public float beta = 0.5f;
     public float weight;
     public List<string> defectEatTooLittle;
     public List<string> defectOvereating;
