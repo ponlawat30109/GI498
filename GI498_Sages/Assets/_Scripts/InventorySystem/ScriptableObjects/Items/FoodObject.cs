@@ -51,6 +51,15 @@ public class FoodObject : ItemObject
     
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /// <summary>
+    /// Get Ingredient of Food
+    /// </summary>
+    /// <returns></returns>
+    public List<IngredientStruct> GetIngredient()
+    {
+        return ingredients;
+    }
+    
     public float GetTotalCholesterolSummary()
     {
         var summary = 0f;
