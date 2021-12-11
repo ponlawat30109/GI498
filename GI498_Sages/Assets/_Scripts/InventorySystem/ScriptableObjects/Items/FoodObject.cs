@@ -48,19 +48,6 @@ public class FoodObject : ItemObject
         foodQuality -= 1;
     }
 
-    private void Init(List<IngredientObject> foodIngredients, float cookTime)
-    {
-        ingredients = foodIngredients;
-        cookingTime = cookTime;
-    }
-    
-    public static FoodObject CreateInstance(List<IngredientObject> foodIngredients, float cookTime)
-    {
-        var data = ScriptableObject.CreateInstance<FoodObject>();
-        data.Init(foodIngredients,cookTime);
-        return data;
-    }
-
     public void ResetFoodObject()
     {
         // Implement Food
