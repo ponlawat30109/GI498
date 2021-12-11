@@ -99,13 +99,25 @@ namespace _Scripts.CookingSystem
         
         public void Interacted()
         {
-            
+            /*if (ingredientStorage.GetRecipe() == null) // If stove have Recipe
+            {
+                InteractStoveElseCase();
+            }
+            else // If stove don not have Recipe
+            {
+                if (ingredientStorage.GetRecipe().isCooked == false)  // Recipe un cooked
+                {
+                    kitchenUI.gameObject.SetActive(true);
+                }
+                else // Recipe is cooked
+                {
+                    InteractStoveElseCase();
+                }
+            }*/
             var psHandler = Manager.Instance.playerManager.PSHandler();
 
             //Debug.Log("Interacted with Kitchen stove.");
             
-            // Old one...
-            /*
             if (psHandler.IsHoldingItem() && ingredientStorage.GetRecipe() == null) // If holding and stove is null
             {
                 if (psHandler.currentHoldFoodObject != null && psHandler.currentHoldItemObject == null) // If hold FoodObject
@@ -163,8 +175,6 @@ namespace _Scripts.CookingSystem
                     {
                         // Take out recipe
                         //ingredientStorage.TakeOutRecipe(); // Same as above but ez to read code...
-                        
-                        InteractOpenUI();
                     }
                 }
             }
@@ -172,94 +182,6 @@ namespace _Scripts.CookingSystem
             {
                 // Do nothing just in case...
                 Debug.Log("No Item On Hand and No Recipe at Stove");
-            }
-            */
-            
-            /////////////////////////////////////////////////////////////////////////////////////////////////
-
-            // 1 ) If Recipe Inside
-            /*
-                - เปิดหน้าต่างไม่ว่ายังไงก็ตาม
-                - ถ้ามือไม่ว่างหรือถือของจะเปิด KitchenUI
-            */
-            if (ingredientStorage.GetRecipe() != null)
-            {
-                // If Holding
-                if (psHandler.IsHoldingItem())
-                {
-                    // If Holding is Food Object (Recipe)
-                    if (psHandler.currentHoldFoodObject != null && psHandler.currentHoldItemObject == null)
-                    {
-                        // Do nothings...
-                        // or
-                        InteractOpenUI();
-                    }
-                    // If Holding is Ingredient
-                    else if(psHandler.currentHoldFoodObject == null && psHandler.currentHoldItemObject != null)
-                    {
-                        InteractOpenUI();
-                    }
-                    
-                }
-                // If Not Holding
-                else
-                {
-                    // If not cooking
-                    if (isCooking == false)
-                    {
-                        // If food is Cooked
-                        if (ingredientStorage.GetRecipe().isCooked)
-                        {
-                            // Give Cooked Food
-                            ingredientStorage.TakeOutCookedFood();
-                            _currentCorrectIngredient = 0;
-                        }
-                        else
-                        {
-                            // So If stove is have Recipe and Player Not Holding and Not in cooking
-                            // Open KitchenUI
-                            InteractOpenUI();
-                        }
-                    }
-                    else
-                    {
-                        //Notification "Food is cooking inside !!"
-                        Manager.Instance.notifyManager.CreateNotify("Hot Pot!", "Your food is cooking.");
-                    }
-                    
-                }
-            }
-            
-            // 2 ) If Recipe is not inside
-            /*
-                - ถ้ามือว่างหรือถืออย่างอื่นที่ไม่ใช่ Recipe ไม่ทำอะไร
-                - ถ้ามี Recipe ใส่ Recipe
-            */
-            else
-            {
-                // If Holding somethings...
-                if (psHandler.IsHoldingItem())
-                {
-                    //If holding Food Object (Recipe)
-                    if (psHandler.currentHoldFoodObject != null && psHandler.currentHoldItemObject == null)
-                    {
-                        // Add Recipe to stove
-                        //Debug.Log("Add recipe to stove");
-                        var item = psHandler.currentHoldFoodObject;
-                        PlaceRecipeToStove(item); // + place "item" to stove
-                        psHandler.JustTakeOut(item); // - Take Item Out of player hand
-                    }
-                    // If holding Ingredient Object
-                    else if (psHandler.currentHoldFoodObject == null && psHandler.currentHoldItemObject != null)
-                    {
-                        // Do nothing...
-                    }
-                }
-                else
-                {
-                    // Not holding and because stove is empty not recipe inside.
-                    // So do nothing...
-                }
             }
         }
 
@@ -348,8 +270,7 @@ namespace _Scripts.CookingSystem
             }
             else
             {
-                Manager.Instance.notifyManager.CreateNotify("Awww Hot!Hot!","Food is cooking.");
-                //Debug.Log("Food is cooking can not do anything to stove.");
+                Debug.Log("Food is cooking can not do anything to stove.");
             }
         }
 
