@@ -28,22 +28,35 @@ public class KitchenUIAdditionalButton : MonoBehaviour
         var psHandler = Manager.Instance.playerManager.PSHandler();
         //var a = parent;
         //var b = psHandler.storage.GetStorageObject();
-        var item = (IngredientObject) psHandler.currentHoldItemObject;
-
+        
         if (psHandler.IsHoldingItem() && parent.GetStorageObject().HasFreeSpace())
         {
             // If Holding Ingredient
-            if (psHandler.currentHoldFoodObject == null && psHandler.currentHoldItemObject != null)
+            if (psHandler.currentHoldItemObject.type == ItemType.Ingredient)
             {
-                parent.GetStorageObject().PutIn(item);
-                parent.CheckWhenIngredientAdd(item);
+                if (psHandler.currentHoldFoodObject == null && psHandler.currentHoldItemObject != null)
+                {
+                    var item = (IngredientObject) psHandler.currentHoldItemObject;
+                    parent.GetStorageObject().PutIn(item);
+                    parent.CheckWhenIngredientAdd(item);
                 
-                //
-                //parent.GetStorageObject().GetSlotByItem(item);
+                    //
+                    //parent.GetStorageObject().GetSlotByItem(item);
+                }
             }
             else
             {
-                Manager.Instance.notifyManager.CreateNotify("Ewww!", "It's not ingredient!");
+                if (psHandler.currentHoldFoodObject == null && psHandler.currentHoldItemObject != null)
+                {
+                    if (psHandler.currentHoldItemObject.type == ItemType.Tool)
+                    {
+                        Manager.Instance.notifyManager.CreateNotify("Ewww!", "It's not ingredient!");
+                    }
+                    else
+                    {
+                        Manager.Instance.notifyManager.CreateNotify("Ahhh!", "It's not ingredient!");
+                    }
+                }
             }
         }
     }

@@ -187,10 +187,10 @@ namespace _Scripts.CookingSystem.UI
         {
             var storageSlots = parent.GetStorageObject().GetStorageSlot();
 
-            /*if (slotList.Count > 0)
+            if (slotList.Count > 0)
             {
                 ClearSlotList();
-            }*/
+            }
             
             if (storageSlots.Count > 0) // If have ingredient add.
             {
