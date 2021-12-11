@@ -11,5 +11,4 @@ public class LevelStandard : ScriptableObject
     public float weight = 50; //default 
     public Nutrition limitNutrition;
     public EnergyScore energrScore = new EnergyScore();
-    [HideInInspector] public List<DishScoreHolder> scoreHolders;
 }
