@@ -9,17 +9,23 @@ public class UIPanelHandler : MonoBehaviour
     public static UIPanelHandler instance;
     private GameObject uiPanel;
 
-    public bool UIPanelActive = true;
+    public bool UIPanelActive = false;
     // public bool isFirstPlay = false;
 
     private void Awake()
     {
         instance = this;
+        UIPanelActive = false;
     }
 
     // void Start()
     // {
-
+    //     PlayerController.instance._playerInput.UI.ClosePanel.started += ctx =>
+    //             {
+    //                 UIPanelActive = false;
+    //                 PlayerController.instance.UIPanelActive = UIPanelActive;
+    //                 Debug.Log("Close UI");
+    //             };
     // }
 
     void Update()
@@ -40,10 +46,11 @@ public class UIPanelHandler : MonoBehaviour
         {
             UIPanelActive = false;
             PlayerController.instance.UIPanelActive = UIPanelActive;
-            Debug.Log("Close UI");
-            CloseUIPanel();
+            // Debug.Log("Close UI");
         }
 
+        // await Task.Delay(System.TimeSpan.FromSeconds(0.1));
+        CloseUIPanel();
     }
 
     void CheckUIisActive()
@@ -51,6 +58,7 @@ public class UIPanelHandler : MonoBehaviour
         if (this.gameObject.activeInHierarchy)
         {
             UIPanelActive = true;
+            PlayerController.instance.UIPanelActive = UIPanelActive;
         }
     }
 
@@ -66,7 +74,8 @@ public class UIPanelHandler : MonoBehaviour
 
     void CloseUIPanel()
     {
-        // await Task.Delay(System.TimeSpan.FromSeconds(1));
-        this.gameObject.SetActive(false);
+        if (UIPanelActive == false)
+            // await Task.Delay(System.TimeSpan.FromSeconds(1));
+            gameObject.SetActive(false);
     }
 }
