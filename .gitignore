@@ -2,13 +2,13 @@
 #
 # Get latest from https://github.com/github/gitignore/blob/master/Unity.gitignore
 #
-/GI498_Sages/[Ll]ibrary/
-/GI498_Sages/[Tt]emp/
-/GI498_Sages/[Oo]bj/
-/GI498_Sages/[Bb]uild/
-/GI498_Sages/[Bb]uilds/
-/GI498_Sages/[Ll]ogs/
-/GI498_Sages/[Uu]ser[Ss]ettings/
+GI498_Sages/[Ll]ibrary/
+GI498_Sages/[Tt]emp/
+GI498_Sages/[Oo]bj/
+GI498_Sages/[Bb]uild/
+GI498_Sages/[Bb]uilds/
+GI498_Sages/[Ll]ogs/
+GI498_Sages/[Uu]ser[Ss]ettings/
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
@@ -69,4 +69,4 @@ GI498_Sages/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*/*.bin*
 # Temporary auto-generated Android Assets
 GI498_Sages/[Aa]ssets/[Ss]treamingAssets/aa.meta
 GI498_Sages/[Aa]ssets/[Ss]treamingAssets/aa/*
-GI498_Sages/Logs/shadercompiler-UnityShaderCompiler.exe3.log
+GI498_Sages/Logs/*.log
