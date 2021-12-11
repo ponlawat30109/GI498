@@ -37,6 +37,9 @@ public class KitchenUIAdditionalButton : MonoBehaviour
             {
                 parent.GetStorageObject().PutIn(item);
                 parent.CheckWhenIngredientAdd(item);
+                
+                //
+                //parent.GetStorageObject().GetSlotByItem(item);
             }
             else
             {
@@ -54,15 +57,25 @@ public class KitchenUIAdditionalButton : MonoBehaviour
         
         if (psHandler.storage.GetStorageObject().HasFreeSpace() && psHandler.IsHoldingItem() == false) // Player Have Free Space
         {
-            if (parent.IsTrashFull() == false) // Trash Is Not Full
+            /*if (parent.IsTrashFull() == false) // Trash Is Not Full
             {
                 // Remove Item from this Storage
-                parent.RemoveAtSelectSlot();
+                // parent.RemoveAtSelectSlot();
             }
             else
             {
                 parent.GrabTrash();
+            }*/
+
+            if (parent.GetStorageObject().GetSlotCount() > 0)
+            {
+                parent.GrabTrash();
             }
+            else
+            {
+                Manager.Instance.notifyManager.CreateNotify("Ops..", "Nothing to throw...");
+            }
+
         }
         else
         {

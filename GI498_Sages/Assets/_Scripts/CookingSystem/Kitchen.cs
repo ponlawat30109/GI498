@@ -26,19 +26,19 @@ namespace _Scripts.CookingSystem
         [SerializeField] private float currentStoveTime;
         [SerializeField] private bool isCanCook;
         [SerializeField] private bool isCooking;
-        private int _currentCorrectIngredient;
+        [SerializeField] private int currentCorrectIngredient;
         
-        [Header("Kitchen Trash")]
-        private bool _isTrashFull;
-        private int _currentIngredientRemoveCount = 0;
-        private int maxIngredientRemoveable = 4;
+        //[Header("Kitchen Trash")]
+        private bool _isWrongIngredientFound;
+        //private int _currentIngredientRemoveCount = 0;
+        //private int maxIngredientRemoveable = 4;
 
         private void Start()
         {
             isCanCook = false;
             isCooking = false;
-            _isTrashFull = false;
-            _currentIngredientRemoveCount = 0;
+            //_isTrashFull = false;
+            //_currentIngredientRemoveCount = 0;
         }
 
         private void Update()
@@ -65,7 +65,7 @@ namespace _Scripts.CookingSystem
                         // Show Waiting UI
                         stoveStatusUI.SetCurrentStatus(StoveStatusUI.StatusEnum.Wait);
                     }
-                    else if (_isTrashFull)
+                    else if (_isWrongIngredientFound)
                     {
                         // Show Trash UI
                         stoveStatusUI.SetCurrentStatus(StoveStatusUI.StatusEnum.Trash);
@@ -76,6 +76,10 @@ namespace _Scripts.CookingSystem
                     }
                 }
             }
+            else
+            {
+                isCanCook = false;
+            }
             
             // Auto Cooking Process
             if (ingredientStorage.GetRecipe() != null)
@@ -85,14 +89,14 @@ namespace _Scripts.CookingSystem
                     Cooking();
                 }
             }
-            
+
             // Check Trash
-            if (_currentIngredientRemoveCount >= maxIngredientRemoveable && _isTrashFull == false)
+            /*if (_currentIngredientRemoveCount >= maxIngredientRemoveable && _isTrashFull == false)
             {
                 // Kitchen Trash full need to throw trash...
                 Debug.Log($"Kitchen trash is full...");
                 _isTrashFull = true;
-            }
+            }*/
         }
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -212,7 +216,9 @@ namespace _Scripts.CookingSystem
                         {
                             // Give Cooked Food
                             ingredientStorage.TakeOutCookedFood();
-                            _currentCorrectIngredient = 0;
+                            currentCorrectIngredient = 0;
+                            ingredientStorage.GetStorageSlot().Clear();
+                            kitchenUI.ClearSlotList();
                         }
                         else
                         {
@@ -246,8 +252,9 @@ namespace _Scripts.CookingSystem
                         // Add Recipe to stove
                         //Debug.Log("Add recipe to stove");
                         var item = psHandler.currentHoldFoodObject;
-                        PlaceRecipeToStove(item); // + place "item" to stove
                         psHandler.JustTakeOut(item); // - Take Item Out of player hand
+                        PlaceRecipeToStove(item); // + place "item" to stove
+                        
                     }
                     // If holding Ingredient Object
                     else if (psHandler.currentHoldFoodObject == null && psHandler.currentHoldItemObject != null)
@@ -294,6 +301,8 @@ namespace _Scripts.CookingSystem
             
             recipeItem.isCooked = true;
             recipeItem.CheckNutrition();
+            isCanCook = false;
+            currentStoveTime = 0;
 
             // Comment Code Below locate to KitchenStorage Take out case Recipe is Cooked
             //var psHandler = Manager.Instance.playerManager.PSHandler();
@@ -303,31 +312,64 @@ namespace _Scripts.CookingSystem
 
         private bool IsCanCook()
         {
-            bool result = _currentCorrectIngredient == ingredientStorage.GetRecipe().ingredients.Count;
+            //bool result = _currentCorrectIngredient == ingredientStorage.GetRecipe().ingredients.Count;
+            
+            bool result = false;
+
+            var totalQuantity = 0;
+
+            foreach (var ingredient in ingredientStorage.GetRecipe().ingredients)
+            {
+                if (ingredient.ingredientObject != null)
+                {
+                    totalQuantity += ingredient.ingredientQuantity;
+                }
+            }
+            
+            if (currentCorrectIngredient >= totalQuantity || currentCorrectIngredient >= ingredientStorage.GetRecipe().ingredients.Count)
+            {
+                result = true;
+            }
 
             return result;
         }
 
         public void CheckWhenIngredientAdd(ItemObject itemToCheck)
         {
-            if (IsOneOfIngredient((IngredientObject)itemToCheck))
+            if (IsOneOfIngredient((IngredientObject) itemToCheck))
             {
-                _currentCorrectIngredient += 1;
+                for (int i = 0; i < ingredientStorage.GetSlotCount(); i++)
+                {
+                    if (ingredientStorage.GetStorageSlot()[i].item.itemName != itemToCheck.itemName)
+                    {
+                        currentCorrectIngredient += 1;
+                    }
+                }
             }
             else
             {
-                _currentCorrectIngredient -= 1;
+                currentCorrectIngredient -= 1;
             }
         }
 
         public bool IsOneOfIngredient(IngredientObject ingredient)
         {
-            if (ingredientStorage.GetRecipe().ingredients.Contains(ingredient))
+            var isFound = false;
+
+            for (int i = 0; i < ingredientStorage.GetRecipe().ingredients.Count; i++)
+            {
+                if (ingredientStorage.GetRecipe().ingredients[i].ingredientObject == ingredient)
+                {
+                    isFound = true;
+                }
+            }
+            
+            /*if (ingredientStorage.GetRecipe().ingredients.Contains(ingredient))
             {
                 return true;
-            }
+            }*/
 
-            return false;
+            return isFound;
         }
 
         // Storage things...
@@ -361,11 +403,19 @@ namespace _Scripts.CookingSystem
         {
             var psHandler = Manager.Instance.playerManager.PSHandler();
             
-            if (_isTrashFull && psHandler.IsHoldingItem() == false)
+            if (psHandler.IsHoldingItem() == false)
             {
                 psHandler.JustPutIn(ingredientStorage.GetTrashItem());
-                _currentIngredientRemoveCount = 0;
-                _isTrashFull = false;
+                ingredientStorage.GetStorageSlot().Clear();
+                kitchenUI.ClearSlotList();
+                
+                //ingredientStorage.ClearStove();
+                //_currentIngredientRemoveCount = 0;
+                //_isTrashFull = false;
+            }
+            else
+            {
+                Manager.Instance.notifyManager.CreateNotify("Holding somethings...","Your are holding something please put it down first.");
             }
         }
         
@@ -375,20 +425,20 @@ namespace _Scripts.CookingSystem
             // Remove Item
             ingredientStorage.RemoveItem(itemToRemove);
             // Trash Count
-            AddTrashCount();
+            //AddTrashCount();
             // Remove Slot
             kitchenUI.UpdateUI();
         }
 
-        public bool IsTrashFull()
+        /*public bool IsTrashFull()
         {
-            return _isTrashFull;
-        }
+            //return _isTrashFull;
+        }*/
         
-        public void AddTrashCount()
+        /*public void AddTrashCount()
         {
-            _currentIngredientRemoveCount += 1;
-        }
+            //_currentIngredientRemoveCount += 1;
+        }*/
         
         public void CloseUI()
         {
@@ -435,7 +485,7 @@ namespace _Scripts.CookingSystem
         public void OnApplicationQuit()
         {
             ingredientStorage.SetRecipe(null);
-            _currentCorrectIngredient = 0;
+            currentCorrectIngredient = 0;
             ingredientStorage.GetStorageSlot().Clear();
         }
     }

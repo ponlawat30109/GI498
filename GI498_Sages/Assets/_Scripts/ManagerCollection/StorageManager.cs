@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using _Scripts.InventorySystem;
 using _Scripts.InventorySystem.ScriptableObjects.Storage;
 using _Scripts.InventorySystem.UI;
@@ -28,12 +29,17 @@ namespace _Scripts.ManagerCollection
 
         private void Start()
         {
-            var fridgeSlots = GetStorageByType(StorageObject.StorageTypeEnum.Storage).GetStorageObject().GetStorageSlot();
-            for (int i = 0; i < fridgeSlots.Count; i++)
+            foreach (var storage in storageCollections)
             {
-                if (fridgeSlots[i] != null)
+                if (storage.type == StorageObject.StorageTypeEnum.Storage)
                 {
-                    fridgeSlots[i].quantity = 999;
+                    for (int i = 0; i < storage.storage.GetStorageObject().GetSlotCount(); i++)
+                    {
+                        if (storage.storage.GetStorageObject().GetStorageSlot()[i] != null)
+                        {
+                            storage.storage.GetStorageObject().GetStorageSlot()[i].quantity = 999;
+                        }
+                    }
                 }
             }
 
@@ -45,6 +51,37 @@ namespace _Scripts.ManagerCollection
                 }
             }
         }
+
+        /*public void SetPlayerStorage()
+        {
+            foreach (var storage in storageCollections)
+            {
+                if (storage.type == StorageObject.StorageTypeEnum.Player)
+                {
+                    if (storage.storage == null)
+                    {
+                        Manager.Instance.playerManager.PSHandler().storage = FindPlayerStorageClone();
+                    }
+                }
+            }
+        }
+
+        public Storage FindPlayerStorageClone()
+        {
+            var objs =  GameObject.FindGameObjectsWithTag("PlayerStorage");
+
+            Storage toReturn = null;
+
+            foreach (var gObj in objs)
+            {
+                if (gObj.name.Contains("Storage"))
+                {
+                    toReturn = gObj.GetComponent<Storage>();
+                }
+            }
+            
+            return toReturn;
+        }*/
 
         /////////////////////////////////////////////////////////////////////////////////////////////
 

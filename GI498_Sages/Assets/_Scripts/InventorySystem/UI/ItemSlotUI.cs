@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -12,6 +13,7 @@ namespace _Scripts.InventorySystem.UI
         [SerializeField] private Sprite selectUiSprite;
         [SerializeField] private Sprite deselectUiSprite;
         [SerializeField] private StorageUI parentStorageUI;
+        [SerializeField] private TMP_Text nameText;
         
         [SerializeField] private GameObject infoPrefab;
         [SerializeField] private Transform storageInfoTransform;
@@ -21,6 +23,7 @@ namespace _Scripts.InventorySystem.UI
         {
             item = toInitItem;
             itemImage.sprite = toInitItem.itemIcon;
+            nameText.text = toInitItem.itemName;
         
             parentStorageUI = parentStorage;
             storageInfoTransform = transformStorageInfo;

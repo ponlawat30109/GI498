@@ -19,10 +19,12 @@ MonoBehaviour:
   description: Sandwich made by toast and boiled egg.
   cookedPrefab: {fileID: 5378946344903914261, guid: 0149e14d7efe37347b2aecafa32aae9e, type: 3}
   ingredients:
-  - {fileID: 11400000, guid: 3016351532d3d8e41afdeb9eb3554655, type: 2}
-  - {fileID: 11400000, guid: c350c3817bb7c414a90b27386e68d31d, type: 2}
-  - {fileID: 11400000, guid: a1b2263d34376354ca0becc4dd9e927a, type: 2}
-  cookingTime: 10
-  foodQuality: 0
+  - ingredientObject: {fileID: 11400000, guid: 3016351532d3d8e41afdeb9eb3554655, type: 2}
+    ingredientQuantity: 1
+  - ingredientObject: {fileID: 11400000, guid: 24d3d12e62d35d746a17fb8245a75e5e, type: 2}
+    ingredientQuantity: 2
+  - ingredientObject: {fileID: 0}
+    ingredientQuantity: 0
+  cookingTime: 2
   isLowSodium: 0
   isCooked: 0

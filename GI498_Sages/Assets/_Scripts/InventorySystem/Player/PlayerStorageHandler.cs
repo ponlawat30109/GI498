@@ -60,8 +60,8 @@ namespace _Scripts.InventorySystem.Player
         
         private void Start()
         {
-            storage = Manager.Instance.storageManager.GetStorageByType(StorageObject.StorageTypeEnum.Player);
-            
+            //storage = Manager.Instance.storageManager.GetStorageByType(StorageObject.StorageTypeEnum.Player);
+
             _justPressCollectItem = false;
             _justPressOpenStorage = false;
         }
@@ -349,7 +349,7 @@ namespace _Scripts.InventorySystem.Player
 
         public void JustTakeOut(ItemObject item)
         {
-            Debug.Log($"5 {item.itemName}");
+            Debug.Log($"Take Out {item.itemName} from PSHandler");
             storage.GetStorageObject().RemoveItem(item);
             ClearHoldingItem();
         }

@@ -23,6 +23,7 @@ namespace _Scripts.CookingSystem.UI
         [SerializeField] private TMP_Text recipeNameText;
         [SerializeField] private TMP_Text recipeDescText;
         [SerializeField] private TMP_Text recipeStatusText;
+        
         [Header("Ingredient Info")]
         [SerializeField] private GameObject ingredientInfoComponentPrefab;
         [SerializeField] private Transform recipeIngredientInfoContainer;
@@ -47,44 +48,34 @@ namespace _Scripts.CookingSystem.UI
         {
             if (currentTime < refreshInterval)
             {
-                if (currentTime >= refreshInterval)
-                {
-                    UpdateUI();
-                    currentTime = 0;
-                }
-                
                 currentTime += Time.deltaTime;
             }
-            else
+            else if(currentTime >= refreshInterval)
             {
-                if (currentTime >= refreshInterval)
-                {
-                    UpdateUI();
-                    currentTime = 0;
-                }
+                UpdateUI();
+                currentTime = 0;
             }
 
-            /*if (_tempItem != recipeItem)
+            if (recipeItem == null)
             {
-                _isSomeChange = true;
-                _tempItem = recipeItem;
-            }*/
+                foreach (var slot in slotList)
+                {
+                    Destroy(slot.gameObject);
+                }
+                
+                slotList.Clear();
+            }
         }
 
         public void InitRecipe(FoodObject item)
         {
             recipeItem = item;
-           // _isSomeChange = true;
+           
             UpdateUI();
         }
         
         public void UpdateUI()
         {
-            /*if (_isSomeChange)
-            {
-                
-            }*/
-            
             // Update
             if (recipeItem != null)
             {
@@ -140,14 +131,30 @@ namespace _Scripts.CookingSystem.UI
             {
                 RemoveIngredientInfoList();
             }
+
+            for (int i = 0; i < recipeItem.ingredients.Count; i++)
+            {
+                if (recipeItem.ingredients[i].ingredientObject != null)
+                {
+                    var newGameObject = Instantiate(ingredientInfoComponentPrefab, recipeIngredientInfoContainer);
+                    var newInfo = newGameObject.GetComponent<IngredientInfoComponent>();
+                    newInfo.InitComponent(recipeItem.ingredients[i].ingredientObject.itemIcon, recipeItem.ingredients[i].ingredientObject.itemName);
+                    
+                    ingredientInfoList.Add(newInfo);
+                }
+                else
+                {
+                    Debug.Log($"[{recipeItem.itemName}] missing {recipeItem.ingredients[i]}.");
+                }
+            }
             
-            foreach (var ingredient in recipeItem.ingredients)
+            /*foreach (var ingredient in recipeItem.ingredients)
             {
                 var newComponentInfo = Instantiate(ingredientInfoComponentPrefab, recipeIngredientInfoContainer);
                 var newCastComponent = newComponentInfo.GetComponent<IngredientInfoComponent>();
                 newCastComponent.InitComponent(ingredient.itemIcon, ingredient.itemName);
                 ingredientInfoList.Add(newCastComponent);
-            }
+            }*/
         }
         
         void RemoveIngredientInfoList()
@@ -178,35 +185,13 @@ namespace _Scripts.CookingSystem.UI
 
         public void CreateIngredientSlotUI()
         {
-            /*var slot = parent.GetStorageObject().GetStorageSlot();
-
-            if (slotList.Count > 0)
-            {
-                for (int i = 0; i < slotList.Count; i++)
-                {
-                    Destroy(slotList[i].gameObject);
-                    slotList.Clear();
-                }
-            }
-            
-            for (int i = 0; i < slot.Count; i++)
-            {
-                if (slot[i].quantity > 0)
-                {
-                    var newSlot = Instantiate(slotPrefab, Vector3.zero, Quaternion.identity);
-                    var componentSlot = newSlot.gameObject.GetComponent<IngredientSlotUI>();
-                    componentSlot.InitializeItem(slot[i].item, this, storageSlotInformation,
-                        parent.IsOneOfIngredient(slot[i].item));
-                    slotList.Add(componentSlot);
-                }
-                else
-                {
-                    parent.GetStorageObject().GetStorageSlot().RemoveAt(i);
-                }
-            }*/
-
             var storageSlots = parent.GetStorageObject().GetStorageSlot();
 
+            /*if (slotList.Count > 0)
+            {
+                ClearSlotList();
+            }*/
+            
             if (storageSlots.Count > 0) // If have ingredient add.
             {
                 for (int i = 0; i < storageSlots.Count; i++)
@@ -215,8 +200,11 @@ namespace _Scripts.CookingSystem.UI
                     {
                         var newSlot = Instantiate(slotPrefab, Vector3.zero, Quaternion.identity);
                         var componentSlot = newSlot.gameObject.GetComponent<IngredientSlotUI>(); 
-                        componentSlot.InitializeItem(storageSlots[i].item, this, storageSlotInformation,
-                            parent.IsOneOfIngredient(storageSlots[i].item));
+                        componentSlot.InitializeItem(storageSlots[i].item
+                            , this
+                            , storageSlotInformation,
+                            parent.IsOneOfIngredient(storageSlots[i].item)
+                            ,storageSlots[i].quantity);
                 
                         slotList.Add(componentSlot);
                     }
@@ -224,6 +212,16 @@ namespace _Scripts.CookingSystem.UI
             }
         }
 
+        public void ClearSlotList()
+        {
+            foreach (var slot in slotList)
+            {
+                Destroy(slot.gameObject);
+            }
+                            
+            slotList.Clear();
+        }
+        
         public bool CheckSlotList(IngredientObject itemToCheck)
         {
             var result = false;
