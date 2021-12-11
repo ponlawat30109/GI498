@@ -9,49 +9,62 @@ public class UIPanelHandler : MonoBehaviour
     public static UIPanelHandler instance;
     private GameObject uiPanel;
 
+    public PlayerInput _playerInput;
+
     public bool UIPanelActive = false;
-    // public bool isFirstPlay = false;
 
     private void Awake()
     {
         instance = this;
         UIPanelActive = false;
+        _playerInput = new PlayerInput();
     }
 
-    // void Start()
-    // {
-    //     PlayerController.instance._playerInput.UI.ClosePanel.started += ctx =>
-    //             {
-    //                 UIPanelActive = false;
-    //                 PlayerController.instance.UIPanelActive = UIPanelActive;
-    //                 Debug.Log("Close UI");
-    //             };
-    // }
-
-    void Update()
+    private void OnEnable()
     {
+        _playerInput.Enable();
         CheckUIisActive();
+    }
 
-        // if (Keyboard.current.escapeKey.wasPressedThisFrame)
-        // {
-        //     UIIsUnactive();
-        // }
+    private void OnDisable()
+    {
+        _playerInput.Disable();
+    }
 
-        // if (PlayerController.instance != null)
-        // {
-        //     PlayerController.instance.UIPanelActive = UIPanelActive;
-        // }
+    void Start()
+    {
+        // CheckUIisActive();
 
-        if (PlayerController.instance._playerInput.UI.ClosePanel.triggered)
+        _playerInput.UI.ClosePanel.started += ctx =>
         {
             UIPanelActive = false;
             PlayerController.instance.UIPanelActive = UIPanelActive;
-            // Debug.Log("Close UI");
-        }
-
-        // await Task.Delay(System.TimeSpan.FromSeconds(0.1));
-        CloseUIPanel();
+            Debug.Log("Close UI");
+        };
+        _playerInput.UI.ClosePanel.canceled += ctx =>
+        {
+            CloseUIPanel();
+        };
     }
+
+    // void Update()
+    // {
+    //     // CheckUIisActive();
+
+    //     // if (PlayerController.instance._playerInput.UI.ClosePanel.triggered)
+    //     // {
+    //     //     UIPanelActive = false;
+    //     //     PlayerController.instance.UIPanelActive = UIPanelActive;
+    //     //     // Debug.Log("Close UI");
+    //     // }
+
+    //     // await Task.Delay(System.TimeSpan.FromSeconds(0.1));
+    //     // CloseUIPanel();
+
+    //     // PlayerController.instance.UIPanelActive = UIPanelActive;
+
+    //     // CheckUIisActive();
+    // }
 
     void CheckUIisActive()
     {
@@ -62,20 +75,12 @@ public class UIPanelHandler : MonoBehaviour
         }
     }
 
-    // void UIIsActive()
-    // {
-    //     UIPanelActive = true;
-    // }
-
-    // void UIIsUnactive()
-    // {
-    //     UIPanelActive = false;
-    // }
-
     void CloseUIPanel()
     {
         if (UIPanelActive == false)
-            // await Task.Delay(System.TimeSpan.FromSeconds(1));
+        {
+            UIPanelActive = false;
             gameObject.SetActive(false);
+        }
     }
 }

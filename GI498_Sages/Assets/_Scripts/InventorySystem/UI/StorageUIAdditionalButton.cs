@@ -16,7 +16,7 @@ namespace _Scripts.InventorySystem.UI
         {
             putInButton.onClick.AddListener(PutInButtonAction);
             takeOutButton.onClick.AddListener(TakeOutButtonAction);
-            closeButton.onClick.AddListener(CloseButtonAction);
+            // closeButton.onClick.AddListener(CloseButtonAction);
         }
         
         // Storage Interact Method

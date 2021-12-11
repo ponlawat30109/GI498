@@ -16,7 +16,7 @@ public class KitchenUIAdditionalButton : MonoBehaviour
     {
         putInButton.onClick.AddListener(PutInButtonAction);
         takeOutButton.onClick.AddListener(TakeOutButtonAction);
-        closeButton.onClick.AddListener(CloseButtonAction);
+        // closeButton.onClick.AddListener(CloseButtonAction);
     }
         
     // Storage Interact Method

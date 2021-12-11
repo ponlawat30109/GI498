@@ -66,7 +66,6 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        // currentPlayerspeed = UIPanelActive ? 0 : playerSpeed;
         if (!UIPanelActive)
             Movement();
 
