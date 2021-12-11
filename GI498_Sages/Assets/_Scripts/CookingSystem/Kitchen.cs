@@ -337,6 +337,9 @@ namespace _Scripts.CookingSystem
             {
                 if (ingredientStorage.GetRecipe() == null) // If recipe slot is null (double check)
                 {
+                    // Create Instance
+                    FoodObject newRecipe = FoodObject.CreateInstance("NewFoodObject") as FoodObject;
+                    
                     // Set it
                     ingredientStorage.SetRecipe(itemObject);
                     ingredientStorage.InitializeStorageObject(ingredientStorage.GetRecipe().ingredients.Count,true);
