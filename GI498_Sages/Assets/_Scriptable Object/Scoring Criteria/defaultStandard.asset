@@ -50,15 +50,12 @@ MonoBehaviour:
     vitaminK: 0
   energrScore:
     totalEnergyLimit:
-      isTop4Priority: 1
       limterType: 1
       median: 670
       lowerLimit: -1
       upperLimit: -1
       unitName: kcal
       calType: 3
-      alpha: 0.4
-      beta: 0.5
       weight: 2
       defectEatTooLittle:
       - "\u0E1E\u0E25\u0E31\u0E07\u0E07\u0E32\u0E19\u0E19\u0E49\u0E2D\u0E22\u0E08\u0E31\u0E07
@@ -76,16 +73,14 @@ MonoBehaviour:
       - "\u0E01\u0E32\u0E23\u0E1A\u0E23\u0E34\u0E42\u0E20\u0E04\u0E17\u0E35\u0E48\u0E43\u0E2B\u0E49\u0E1E\u0E25\u0E31\u0E07\u0E07\u0E32\u0E19\u0E17\u0E35\u0E48\u0E2A\u0E21\u0E14\u0E38\u0E25\u0E01\u0E31\u0E1A\u0E01\u0E32\u0E23\u0E43\u0E0A\u0E49\u0E1E\u0E25\u0E31\u0E07\u0E07\u0E32\u0E19\u0E08\u0E30\u0E0A\u0E48\u0E27\u0E22\u0E23\u0E31\u0E01\u0E29\u0E32\u0E23\u0E39\u0E1B\u0E23\u0E48\u0E32\u0E07\u0E41\u0E25\u0E30\u0E2A\u0E31\u0E14\u0E2A\u0E48\u0E27\u0E19\u0E02\u0E2D\u0E07\u0E23\u0E48\u0E32\u0E07\u0E01\u0E32\u0E22"
       - "\u0E01\u0E32\u0E23\u0E1A\u0E23\u0E34\u0E42\u0E20\u0E04\u0E17\u0E35\u0E48\u0E40\u0E1E\u0E35\u0E22\u0E07\u0E1E\u0E2D\u0E41\u0E25\u0E30\u0E1E\u0E2D\u0E40\u0E1E\u0E35\u0E22\u0E07\u0E01\u0E31\u0E1A\u0E01\u0E34\u0E08\u0E01\u0E23\u0E23\u0E21\u0E43\u0E19\u0E41\u0E15\u0E48\u0E25\u0E30\u0E27\u0E31\u0E19\u0E08\u0E30\u0E43\u0E2B\u0E49\u0E2A\u0E38\u0E02\u0E20\u0E32\u0E1E\u0E17\u0E35\u0E48\u0E14\u0E35"
       - "\u0E2A\u0E38\u0E14\u0E22\u0E2D\u0E14\u0E40\u0E25\u0E22! \u0E16\u0E49\u0E32\u0E2A\u0E32\u0E23\u0E2D\u0E32\u0E2B\u0E32\u0E23\u0E04\u0E23\u0E1A\u0E16\u0E49\u0E27\u0E19\u0E14\u0E49\u0E27\u0E22\u0E41\u0E2A\u0E14\u0E07\u0E27\u0E48\u0E32\u0E04\u0E38\u0E13\u0E15\u0E49\u0E2D\u0E07\u0E40\u0E1B\u0E47\u0E19\u0E2A\u0E38\u0E14\u0E22\u0E2D\u0E14\u0E40\u0E0A\u0E1F\u0E44\u0E14\u0E49\u0E41\u0E19\u0E48\u0E46!"
+    totalEnergy: 0
     carbLimit:
-      isTop4Priority: 0
       limterType: 1
       median: -1
       lowerLimit: 0.45
       upperLimit: 0.65
       unitName: kcal
       calType: 2
-      alpha: 0.4
-      beta: 0.5
       weight: 2
       defectEatTooLittle:
       - "\u0E41\u0E2B\u0E25\u0E48\u0E07\u0E04\u0E32\u0E23\u0E4C\u0E42\u0E1A\u0E44\u0E2E\u0E40\u0E14\u0E23\u0E15\u0E17\u0E35\u0E48\u0E14\u0E35\u0E04\u0E37\u0E2D\u0E02\u0E49\u0E32\u0E27
@@ -107,30 +102,26 @@ MonoBehaviour:
       - "\u0E41\u0E1B\u0E49\u0E07\u0E01\u0E33\u0E25\u0E31\u0E07\u0E1E\u0E2D\u0E14\u0E35\u0E40\u0E25\u0E22
         \u0E44\u0E14\u0E49\u0E1E\u0E25\u0E31\u0E07\u0E07\u0E32\u0E19\u0E44\u0E1B\u0E17\u0E33\u0E07\u0E32\u0E19\u0E15\u0E48\u0E2D\u0E41\u0E25\u0E49\u0E27!"
       - Full Powerrrr!!!
+    carbohydrateProportion: 0
     proteinLimit:
-      isTop4Priority: 0
       limterType: 1
       median: -1
       lowerLimit: 0.1
       upperLimit: 0.35
       unitName: '%energy'
       calType: 2
-      alpha: 0.4
-      beta: 0.5
       weight: 2
       defectEatTooLittle: []
       defectOvereating: []
       commentForGoodDish: []
+    proteinProportion: 0
     fatLimit:
-      isTop4Priority: 0
       limterType: 1
       median: -1
       lowerLimit: 0.2
       upperLimit: 0.35
       unitName: '%energy'
       calType: 1
-      alpha: 0.4
-      beta: 0.5
       weight: 2
       defectEatTooLittle:
       - "\u0E41\u0E2B\u0E25\u0E48\u0E07\u0E44\u0E02\u0E21\u0E31\u0E19\u0E2A\u0E48\u0E27\u0E19\u0E43\u0E2B\u0E0D\u0E48\u0E44\u0E14\u0E49\u0E08\u0E32\u0E01\u0E19\u0E49\u0E33\u0E21\u0E31\u0E19
@@ -142,44 +133,36 @@ MonoBehaviour:
         \u0E41\u0E15\u0E48\u0E44\u0E21\u0E48\u0E15\u0E49\u0E2D\u0E07\u0E2B\u0E19\u0E32\u0E41\u0E19\u0E48\u0E19\u0E02\u0E19\u0E32\u0E14\u0E19\u0E35\u0E49\u0E01\u0E47\u0E44\u0E14\u0E49\u0E19\u0E30"
       - "\u0E2D\u0E39\u0E22 \u0E01\u0E34\u0E19\u0E23\u0E49\u0E32\u0E19\u0E19\u0E35\u0E49\u0E17\u0E38\u0E01\u0E27\u0E31\u0E19\u0E15\u0E49\u0E2D\u0E07\u0E2D\u0E49\u0E27\u0E19\u0E41\u0E19\u0E48\u0E46"
       commentForGoodDish: []
+    fatProportion: 0
     cholesterolLimit:
-      isTop4Priority: 0
       limterType: 0
       median: -1
       lowerLimit: -1
       upperLimit: -1
       unitName: 
       calType: 0
-      alpha: 0.4
-      beta: 0.5
       weight: 0
       defectEatTooLittle: []
       defectOvereating: []
       commentForGoodDish: []
     saturatedFatLimit:
-      isTop4Priority: 0
-      limterType: 3
+      limterType: 0
       median: -1
-      lowerLimit: 0.1
+      lowerLimit: -1
       upperLimit: -1
       unitName: 
-      calType: 2
-      alpha: 0.4
-      beta: 0.5
+      calType: 0
       weight: 0
       defectEatTooLittle: []
       defectOvereating: []
       commentForGoodDish: []
     sugarLimit:
-      isTop4Priority: 0
       limterType: 3
       median: -1
       lowerLimit: -1
       upperLimit: 0.13
       unitName: '%energy'
       calType: 0
-      alpha: 0.4
-      beta: 0.5
       weight: 0
       defectEatTooLittle: []
       defectOvereating:
@@ -188,16 +171,14 @@ MonoBehaviour:
       - "\u0E16\u0E36\u0E07\u0E09\u0E31\u0E19\u0E08\u0E30\u0E0A\u0E2D\u0E1A\u0E01\u0E34\u0E19\u0E2B\u0E27\u0E32\u0E19
         \u0E41\u0E15\u0E48\u0E40\u0E22\u0E2D\u0E30\u0E44\u0E1B\u0E01\u0E47\u0E44\u0E21\u0E48\u0E14\u0E35\u0E19\u0E30"
       commentForGoodDish: []
+    sugarProportion: 0
     fiberLimit:
-      isTop4Priority: 0
       limterType: 2
       median: -1
       lowerLimit: 25
       upperLimit: 28
       unitName: g
       calType: 0
-      alpha: 0.4
-      beta: 0.5
       weight: 0
       defectEatTooLittle: []
       defectOvereating: []
@@ -216,44 +197,109 @@ MonoBehaviour:
         \u0E02\u0E2D\u0E1A\u0E04\u0E38\u0E13\u0E19\u0E30"
       - "\u0E1E\u0E2D\u0E14\u0E35\u0E40\u0E25\u0E22 \u0E21\u0E35\u0E04\u0E19\u0E1A\u0E2D\u0E01\u0E09\u0E31\u0E19\u0E27\u0E48\u0E32\u0E01\u0E32\u0E23\u0E25\u0E14\u0E41\u0E1B\u0E49\u0E07\u0E0A\u0E48\u0E27\u0E22\u0E04\u0E38\u0E21\u0E19\u0E49\u0E33\u0E2B\u0E19\u0E31\u0E01\u0E44\u0E14\u0E49\u0E41\u0E04\u0E48\u0E0A\u0E48\u0E27\u0E07\u0E41\u0E23\u0E01
         \u0E41\u0E15\u0E48\u0E16\u0E49\u0E32\u0E01\u0E34\u0E19\u0E2D\u0E32\u0E2B\u0E32\u0E23\u0E17\u0E35\u0E48\u0E21\u0E35\u0E43\u0E22\u0E2D\u0E32\u0E2B\u0E32\u0E23\u0E21\u0E32\u0E01\u0E46\u0E41\u0E1A\u0E1A\u0E19\u0E35\u0E49\u0E2D\u0E32\u0E08\u0E08\u0E30\u0E14\u0E35\u0E01\u0E27\u0E48\u0E32!"
+    fiber: 0
     sodiumLimit:
-      isTop4Priority: 0
       limterType: 0
       median: -1
       lowerLimit: -1
       upperLimit: 2400
       unitName: mg
       calType: 0
-      alpha: 0.4
-      beta: 0.5
       weight: 0
       defectEatTooLittle: []
       defectOvereating: []
       commentForGoodDish: []
     vitaminALimit:
-      isTop4Priority: 0
       limterType: 0
       median: -1
       lowerLimit: -1
       upperLimit: -1
       unitName: 
       calType: 0
-      alpha: 0.4
-      beta: 0.5
       weight: 0
       defectEatTooLittle: []
       defectOvereating: []
       commentForGoodDish: []
+    vitaminA: 0
     vitaminDLimit:
-      isTop4Priority: 0
       limterType: 0
       median: -1
       lowerLimit: -1
       upperLimit: -1
       unitName: 
       calType: 0
-      alpha: 0.4
-      beta: 0.5
+      weight: 0
+      defectEatTooLittle: []
+      defectOvereating: []
+      commentForGoodDish: []
+    vitaminD: 0
+  scoreHolders:
+  - nutrition: TotalEnergy
+    actualScore: 0
+    detail: 
+    limiter:
+      limterType: 0
+      median: -1
+      lowerLimit: -1
+      upperLimit: -1
+      unitName: 
+      calType: 0
+      weight: 0
+      defectEatTooLittle: []
+      defectOvereating: []
+      commentForGoodDish: []
+  - nutrition: Carbohydrate
+    actualScore: 0
+    detail: 
+    limiter:
+      limterType: 0
+      median: -1
+      lowerLimit: -1
+      upperLimit: -1
+      unitName: 
+      calType: 0
+      weight: 0
+      defectEatTooLittle: []
+      defectOvereating: []
+      commentForGoodDish: []
+  - nutrition: Proteins
+    actualScore: 0
+    detail: 
+    limiter:
+      limterType: 0
+      median: -1
+      lowerLimit: -1
+      upperLimit: -1
+      unitName: 
+      calType: 0
+      weight: 0
+      defectEatTooLittle: []
+      defectOvereating: []
+      commentForGoodDish: []
+  - nutrition: Fat
+    actualScore: 0
+    detail: 
+    limiter:
+      limterType: 0
+      median: -1
+      lowerLimit: -1
+      upperLimit: -1
+      unitName: 
+      calType: 0
+      weight: 0
+      defectEatTooLittle: []
+      defectOvereating: []
+      commentForGoodDish: []
+  - nutrition: Fat
+    actualScore: 0
+    detail: 
+    limiter:
+      limterType: 0
+      median: -1
+      lowerLimit: -1
+      upperLimit: -1
+      unitName: 
+      calType: 0
       weight: 0
       defectEatTooLittle: []
       defectOvereating: []

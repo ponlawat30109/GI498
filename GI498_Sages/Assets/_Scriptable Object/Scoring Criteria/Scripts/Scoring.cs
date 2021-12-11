@@ -6,23 +6,23 @@ using UnityEngine;
 public class Scoring : ScriptableObject
 {
     [Header("% score Level")]
-    public float star5 = 100f/100f;
-    public float star4 = 75f/100f;
-    public float star3 = 50f/100f;
-    public float star2 = 25f/100f;
-    public float star1 = 0f;
+    public float star5 = -10;
+    public float star4 = -5;
+    public float star3 = 0;
+    public float star2 = 5;
+    public float star1 = 10;
 
     [SerializeField] private LevelStandard defaultStandard;
 
     public EnergyScore energyScore;
 
-    public ResultScore ScoreCalculate(List<IngredientObject> ingredients, LevelStandard starndard)
+    public void ScoreCalculate(List<IngredientObject> ingredients, LevelStandard starndard)
     {
-
         var dishNutr = new Nutrition();
         SetZeroNutr(dishNutr);
         SumNitr(dishNutr, ingredients);
-        return ValueCalculate(dishNutr, starndard);
+
+        List<DishScoreHolder> dishScoreHolders = new List<DishScoreHolder>();
 
         //CalculateEachEnergy(carb, protein, etc) => save in DishScoreHolder
         //TotalEnergy = all ENergy => save in DishScoreHolder
@@ -63,7 +63,7 @@ public class Scoring : ScriptableObject
         nutr.vitaminE = 0;
         nutr.vitaminK = 0;
     }
-    
+
     public void SumNitr(Nutrition dishNutr, List<IngredientObject> ingredients)
     {
         foreach (var ingredient in ingredients)
@@ -101,360 +101,25 @@ public class Scoring : ScriptableObject
         }
     }
 
-    public ResultScore ValueCalculate(Nutrition dishNutr, LevelStandard standard)
+    public float CalculateTotalEnergy()
     {
-        ResultScore resultScore = new ResultScore();
-        List<DishScoreHolder> allScore = new List<DishScoreHolder>();
-        List<DishScoreHolder> fourthPriority = new List<DishScoreHolder>();
-        var changeUnit = 0.001f; // 1 milligram = 0.001 gram
-
-        // 1 kCal = 4.18 kJ
-        // 1 kJ = 0.24 kCal
-
-        //var carbohydrateEnergy = (dishNutr.carbohydrate + dishNutr.sugars + dishNutr.fiber) * 4 * changeUnit;   // carb 1 g = 4 kCal = 17 kJ
-        var carbohydrateEnergy = dishNutr.carbohydrate * 4 * changeUnit;
-        var proteinEnergy = dishNutr.proteins * 4 * changeUnit;        // prot 1 g =  4 kCal = 17 kJ
-        var fatEnergy = (dishNutr.cholesterol + dishNutr.fat) * 9 * changeUnit;   // fat 1 g = 9 kCal = 38 kJ // fat is already include saturatedfat fat
-        var alcoholEnergy = 0f;        // alc 1 g = 7 kCal = 29 kJ
-        alcoholEnergy *= 5.6f * changeUnit;         // alc 1 mL = 5.6 kCal = 23 kJ        
-
-        var totalEnergy = carbohydrateEnergy + proteinEnergy + fatEnergy + alcoholEnergy;
-
-        DishScoreHolder totalEnergyScore = new DishScoreHolder();
-        totalEnergyScore.limiter = standard.energrScore.fatLimit;
-        totalEnergyScore.name = "TotalEnergy";
-        totalEnergyScore.value = totalEnergy;
-        allScore.Add(totalEnergyScore);
-
-        //energyScore.carbohydrateProportion = carbohydrateCal / totalEnergy;
-        //energyScore.fatProportion = fatCal / totalEnergy;
-        //energyScore.proteinProportion = proteinCal / totalEnergy;
-
-        DishScoreHolder carbEnergyScore = new DishScoreHolder();
-        carbEnergyScore.limiter = standard.energrScore.carbLimit;
-        carbEnergyScore.name = "Carbohydrate";
-        carbEnergyScore.value = carbohydrateEnergy;
-        allScore.Add(carbEnergyScore);
-
-        DishScoreHolder protEnergyScore = new DishScoreHolder();
-        protEnergyScore.limiter = standard.energrScore.proteinLimit;
-        protEnergyScore.name = "Protein";
-        protEnergyScore.value = proteinEnergy;
-        allScore.Add(protEnergyScore);
-
-        DishScoreHolder fatEnergyScore = new DishScoreHolder();
-        fatEnergyScore.limiter = standard.energrScore.fatLimit;
-        fatEnergyScore.name = "Fat";
-        fatEnergyScore.value = fatEnergy;
-        allScore.Add(fatEnergyScore);
-
-        DishScoreHolder satFatScore = new DishScoreHolder();
-        satFatScore.limiter = standard.energrScore.fiberLimit;
-        satFatScore.name = "Fiber";
-        satFatScore.value = dishNutr.fiber;
-        allScore.Add(satFatScore);
-
-        //DishScoreHolder CholScore = new DishScoreHolder();
-        //CholScore.limiter = null;
-        //CholScore.name = "Cholesterol";
-        //CholScore.value = 
-        //dishEnergyScore.Add(CholScore);
-
-        //DishScoreHolder alcEnergyScore = new DishScoreHolder();
-        //alcEnergyScore.limiter = null;
-        //alcEnergyScore.name = "Alcohol";
-        //alcEnergyScore.value = alcoholEnergy;
-        //dishEnergyScore.Add(alcEnergyScore);
-
-        DishScoreHolder sugarScore = new DishScoreHolder();
-        sugarScore.limiter = standard.energrScore.sugarLimit;
-        sugarScore.name = "Sugar";
-        sugarScore.value = dishNutr.sugars;
-        allScore.Add(sugarScore);
-
-        DishScoreHolder fiberScore = new DishScoreHolder();
-        fiberScore.limiter = standard.energrScore.fiberLimit;
-        fiberScore.name = "Fiber";
-        fiberScore.value = dishNutr.fiber;
-        allScore.Add(fiberScore);
-
-        CalculateScore(totalEnergyScore);
-        for(int i = 1; i < allScore.Count; i++)
-        {
-            if(allScore[i].limiter.isTop4Priority)
-            {
-                fourthPriority.Add(allScore[i]);
-            }
-            if (allScore[i].limiter.weight > 0)
-            {
-                switch (allScore[i].limiter.calType)
-                {
-                    case CalculateType.BaseTotalEnergy:
-                        CalculateScore(allScore[i]);
-                        break;
-                    case CalculateType.PercentEnergy:
-                        CalculateScore(allScore[i], totalEnergy);
-                        break;
-                    case CalculateType.Mass_Gram:
-                        CalculateScore(allScore[i]);
-                        break;
-                }
-            }
-        }
-        return resultScore;
-    }
-
-    public void CalculateScore(DishScoreHolder scoreHolder)
-    {
-        Limiter limiter = scoreHolder.limiter;
-        switch (scoreHolder.limiter.limterType)
-        {
-            case LimiterType.InLimiterBest :
-                {
-                    if(limiter.lowerLimit != -1 && limiter.upperLimit != -1)
-                    {
-                        var fiveStarLowerLimit = limiter.lowerLimit + (limiter.upperLimit - limiter.lowerLimit) * ((1f - limiter.alpha) / 2);
-                        var fiveStarUpperLimit = limiter.upperLimit - (limiter.upperLimit - limiter.lowerLimit) * ((1f - limiter.alpha) / 2);
-                        if (scoreHolder.value >= fiveStarLowerLimit && scoreHolder.value <= fiveStarUpperLimit)
-                        {
-                            scoreHolder.star = 5;
-                            var median = (fiveStarLowerLimit + fiveStarUpperLimit) / 2;
-                            if (scoreHolder.value < median)
-                            {
-                                var lower = fiveStarLowerLimit;
-                                scoreHolder.actualScore = star5 + (scoreHolder.value - lower) / (median - lower) * (100f - star5);
-                            }
-                            else
-                            {
-                                var upper = fiveStarUpperLimit;
-                                scoreHolder.actualScore = star5 + (upper - scoreHolder.value) / (upper - median) * (100f - star5);
-                            }
-                        }
-                        else if(scoreHolder.value >= limiter.lowerLimit && scoreHolder.value <= limiter.upperLimit)
-                        {
-                            scoreHolder.star = 4;
-                            if (scoreHolder.value < fiveStarLowerLimit)
-                            {
-                                var lower = limiter.lowerLimit;
-                                var upper = fiveStarLowerLimit;
-                                scoreHolder.actualScore = star4 + (scoreHolder.value - lower) / (upper - lower) * (star5 - star4);
-                            }
-                            else //scoreHolder.value > maxScoreUpperLimit
-                            {
-                                var lower = limiter.upperLimit;
-                                var upper = fiveStarUpperLimit;
-                                scoreHolder.actualScore = star5 + (upper - scoreHolder.value) / (upper - lower) * (star5 - star4);
-                            }
-                        }
-                        else
-                        {
-                            var betaValue = limiter.lowerLimit * (1 - limiter.beta);
-                            var zeroStarLowerLimit = limiter.lowerLimit - betaValue;
-                            var zeroStarUpperLimit = limiter.upperLimit + betaValue;
-                            if (scoreHolder.value < zeroStarLowerLimit || scoreHolder.value > zeroStarUpperLimit)
-                            {
-                                scoreHolder.star = 0;
-                                scoreHolder.actualScore = 0;
-                            }
-                            else
-                            {
-                                if (scoreHolder.value < limiter.lowerLimit)
-                                {
-                                    var lower = zeroStarLowerLimit;
-                                    var upper = limiter.lowerLimit;
-                                    scoreHolder.actualScore = (scoreHolder.value - lower) / (upper - lower) * (star4 - star1);
-                                }
-                                else if (scoreHolder.value > limiter.upperLimit)
-                                {
-                                    var lower = limiter.upperLimit;
-                                    var upper = zeroStarUpperLimit;
-                                    scoreHolder.actualScore = (upper - scoreHolder.value) / (upper - lower) * (star4 - star1);
-                                }
-
-                                if (scoreHolder.actualScore >= star3) scoreHolder.star = 3;
-                                else if (scoreHolder.actualScore >= star2) scoreHolder.star = 2;
-                                else if (scoreHolder.actualScore > star1) scoreHolder.star = 1;
-                                else scoreHolder.star = 0;
-                            }
-                        }
-                    }
-                    else if(limiter.median != -1)
-                    {
-                        var alphaValue = limiter.median * ((1f - limiter.alpha) / 2);
-                        var fiveStarLowerLimit = limiter.median - alphaValue;
-                        var fiveStarUpperLimit = limiter.median - alphaValue;
-                        if (scoreHolder.value >= fiveStarLowerLimit && scoreHolder.value <= fiveStarUpperLimit)
-                        {
-                            scoreHolder.star = 5;
-                            var median = limiter.median;
-                            if (scoreHolder.value < median)
-                            {
-                                var lower = fiveStarLowerLimit;
-                                scoreHolder.actualScore = star5 + (scoreHolder.value - lower) / (median - lower) * (100f - star5);
-                            }
-                            else
-                            {
-                                var upper = fiveStarUpperLimit;
-                                scoreHolder.actualScore = star5 + (upper - scoreHolder.value) / (upper - median) * (100f - star5);
-                            }
-                        }
-                        else
-                        {
-                            var betaValue = limiter.median * (1- limiter.beta);
-                            var zeroStarLowerLimit = limiter.lowerLimit - betaValue;
-                            var zeroStarUpperLimit = limiter.upperLimit + betaValue;
-                            if (scoreHolder.value < zeroStarLowerLimit || scoreHolder.value > zeroStarUpperLimit)
-                            {
-                                scoreHolder.star = 0;
-                                scoreHolder.actualScore = 0;
-                            }
-                            else
-                            {
-                                if (scoreHolder.value < limiter.lowerLimit)
-                                {
-                                    var lower = zeroStarLowerLimit;
-                                    var upper = limiter.lowerLimit;
-                                    scoreHolder.actualScore = (scoreHolder.value - lower) / (upper - lower) * (star5 - star1);
-                                }
-                                else if (scoreHolder.value > limiter.upperLimit)
-                                {
-                                    var lower = limiter.upperLimit;
-                                    var upper = zeroStarUpperLimit;
-                                    scoreHolder.actualScore = (upper - scoreHolder.value) / (upper - lower) * (star5 - star1);
-                                }
-                                
-                                if (scoreHolder.actualScore >= star4) scoreHolder.star = 4;
-                                else if (scoreHolder.actualScore >= star3) scoreHolder.star = 3;
-                                else if (scoreHolder.actualScore >= star2) scoreHolder.star = 2;
-                                else if (scoreHolder.actualScore > star1) scoreHolder.star = 1;
-                                else scoreHolder.star = 0;
-                            }
-                        }
-                    }
-                    //else if(limiter.median == -1 && limiter.lowerLimit != -1 && limiter.upperLimit != -1)
-                    //{
-
-                    //}
-                    break;
-                }
-            case LimiterType.MoreIsBetter:
-                {
-                    if(limiter.lowerLimit != -1)
-                    {
-                        var zeroStarLowerLimit = limiter.lowerLimit * limiter.beta;
-                        var fiveStarLowerLimit = limiter.lowerLimit + ((limiter.lowerLimit - zeroStarLowerLimit) / (1-limiter.alpha) * limiter.alpha);
-                        if (scoreHolder.value >= fiveStarLowerLimit)
-                        {
-                            scoreHolder.star = 5;
-                            var lower = fiveStarLowerLimit;
-                            var upper = fiveStarLowerLimit + (fiveStarLowerLimit - limiter.lowerLimit);
-                            scoreHolder.actualScore = star5 + (scoreHolder.value - lower) / (upper - lower) * (100f - star5);
-                        }
-                        else if (scoreHolder.value >= limiter.lowerLimit)
-                        {
-                            scoreHolder.star = 4;
-                            var lower = limiter.lowerLimit;
-                            var upper = fiveStarLowerLimit;
-                            scoreHolder.actualScore = star4 + (scoreHolder.value - lower) / (upper - lower) * (star5 - star4);
-                        }
-                        else if (scoreHolder.value < zeroStarLowerLimit)
-                        {
-                            scoreHolder.star = 0;
-                            scoreHolder.actualScore = 0;
-                        }
-                        else //scoreHolder.value < limiter.lowerLimit
-                        {
-                            var lower = zeroStarLowerLimit;
-                            var upper = limiter.lowerLimit;
-                            scoreHolder.actualScore = (scoreHolder.value - lower) / (upper - lower) * (star4 - star1);
-
-                            if (scoreHolder.actualScore >= star3) scoreHolder.star = 3;
-                            else if (scoreHolder.actualScore >= star2) scoreHolder.star = 2;
-                            else if (scoreHolder.actualScore > star1) scoreHolder.star = 1;
-                            else scoreHolder.star = 0;
-                        }
-                    }
-                    break;
-                }
-            case LimiterType.LessIsBetter:
-                {
-                    if(limiter.upperLimit != -1)
-                    {
-                        var fiveStarUpperLimit = limiter.upperLimit * (1 - limiter.alpha);
-                        var zeroStarUpperLimit = limiter.upperLimit / (1 - limiter.beta) * limiter.beta;
-                        if (scoreHolder.value <= fiveStarUpperLimit)
-                        {
-                            scoreHolder.star = 5;
-                            var lower = fiveStarUpperLimit - (limiter.upperLimit - fiveStarUpperLimit);
-                            var upper = fiveStarUpperLimit;
-                            scoreHolder.actualScore = star5 + (upper - scoreHolder.value) / (upper - lower) * (100f - star5);
-                        }
-                        else if (scoreHolder.value <= limiter.upperLimit)
-                        {
-                            scoreHolder.star = 4;
-                            var lower = limiter.upperLimit;
-                            var upper = fiveStarUpperLimit;
-                            scoreHolder.actualScore = star5 + (upper - scoreHolder.value) / (upper - lower) * (star5 - star4);
-
-                        }
-                        else
-                        {
-                            if (scoreHolder.value > zeroStarUpperLimit)
-                            {
-                                scoreHolder.star = 0;
-                                scoreHolder.actualScore = 0;
-                            }
-                            else
-                            {
-                                //scoreHolder.value > limiter.upperLimit
-
-                                var lower = limiter.upperLimit;
-                                var upper = zeroStarUpperLimit;
-                                scoreHolder.actualScore = (upper - scoreHolder.value) / (upper - lower) * (star4 - star1);
-
-                                if (scoreHolder.actualScore >= star3) scoreHolder.star = 3;
-                                else if (scoreHolder.actualScore >= star2) scoreHolder.star = 2;
-                                else if (scoreHolder.actualScore > star1) scoreHolder.star = 1;
-                                else scoreHolder.star = 0;
-                            }
-                        }
-                    }
-                    break;
-                }
-            default:
-                break;
-        }
-
-        if (scoreHolder.actualScore > 100)
-            scoreHolder.actualScore = 100;
-        else if (scoreHolder.actualScore < 0)
-            scoreHolder.actualScore = 0;
-    }
-
-    public void CalculateScore(DishScoreHolder scoreHolder, float totalEnergy)
-    {
-        switch (scoreHolder.limiter.limterType)
-        {
-            case LimiterType.InLimiterBest:
-                {
-                    break;
-                }
-            case LimiterType.MoreIsBetter:
-                {
-                    break;
-                }
-            case LimiterType.LessIsBetter:
-                {
-                    break;
-                }
-            default:
-                break;
-        }
+        float energy = 0;
+        return energy;
     }
 
     public void CalculateScore(float nutr, Limiter limit, List<DishScoreHolder> dishScoreHolders)
     {
-        
+        DishScoreHolder dishScore = new DishScoreHolder();
+        //dishScore.nutrition = 
+        switch (limit.calType)
+        {
+            case CalculateType.BaseTotalEnergy:
+                {
+                    break;
+                }
+            default:
+                break;
+        }
 
         //return null;
 
@@ -503,95 +168,94 @@ public class Scoring : ScriptableObject
     //    return score;
     //}
 
-    //public void CalculateEachStar(ref float score)
-    //{
-    //    if (score <= star5) score = 5;
-    //    else if (score <= star4) score = 4;
-    //    else if (score <= star3) score = 3;
-    //    else if (score <= star2) score = 2;
-    //    else if (score <= star1) score = 1;
-    //    else score = 0;
-    //}
+    public void CalculateEachStar(ref float score)
+    {
+        if (score <= star5) score = 5;
+        else if (score <= star4) score = 4;
+        else if (score <= star3) score = 3;
+        else if (score <= star2) score = 2;
+        else if (score <= star1) score = 1;
+        else score = 0;
+    }
 
-    //public void CalculateEachPercent(ref float score, float dishNutr, float standard)
-    //{
-    //    score = (standard - dishNutr) / standard;
-    //}
+    public void CalculateEachPercent(ref float score, float dishNutr, float standard)
+    {
+        score = (standard - dishNutr) / standard;
+    }
 
-    //public void CalNutrToStar(ref float score, float dishNutr, float standard)
-    //{
-    //    CalculateEachPercent(ref score, dishNutr, standard);
-    //    CalculateEachStar(ref score);
-    //}
+    public void CalNutrToStar(ref float score, float dishNutr, float standard)
+    {
+        CalculateEachPercent(ref score, dishNutr, standard);
+        CalculateEachStar(ref score);
+    }
 
-    //public float EnergyCal(Nutrition dishNutr)
-    //{
-    //    energyScore = new EnergyScore();
-    //    var changeUnit = 0.001f; // 1 milligram = 0.001 gram
+    public float EnergyCal(Nutrition dishNutr)
+    {
+        energyScore = new EnergyScore();
+        var changeUnit = 0.001f; // 1 milligram = 0.001 gram
 
-    //    // 1 kCal = 4.18 kJ
-    //    // 1 kJ = 0.24 kCal
+        // 1 kCal = 4.18 kJ
+        // 1 kJ = 0.24 kCal
 
-    //    var carbohydrateCal = dishNutr.carbohydrate + dishNutr.sugars + dishNutr.fiber;   // carb 1 g = 4 kCal = 17 kJ
-    //    carbohydrateCal *= 4 * changeUnit;
+        var carbohydrateCal = dishNutr.carbohydrate + dishNutr.sugars + dishNutr.fiber;   // carb 1 g = 4 kCal = 17 kJ
+        carbohydrateCal *= 4 * changeUnit;
 
-    //    var proteinCal = dishNutr.proteins;        // prot 1 g =  4 kCal = 17 kJ
-    //    proteinCal *= 4 * changeUnit;
+        var proteinCal = dishNutr.proteins;        // prot 1 g =  4 kCal = 17 kJ
+        proteinCal *= 4 * changeUnit;
 
-    //    var fatCal = dishNutr.cholesterol + dishNutr.fat;            // fat 1 g = 9 kCal = 38 kJ
-    //    fatCal *= 9 * changeUnit;
+        var fatCal = dishNutr.cholesterol + dishNutr.fat;            // fat 1 g = 9 kCal = 38 kJ
+        fatCal *= 9 * changeUnit;
 
-    //    var alcoholCal = 0f;        // alc 1 g = 7 kCal = 29 kJ
-    //    alcoholCal *= 5.6f * changeUnit;         // alc 1 mL = 5.6 kCal = 23 kJ
+        var alcoholCal = 0f;        // alc 1 g = 7 kCal = 29 kJ
+        alcoholCal *= 5.6f * changeUnit;         // alc 1 mL = 5.6 kCal = 23 kJ
 
-    //    var totalEnergy = carbohydrateCal + proteinCal + fatCal + alcoholCal;
-    //    energyScore.totalEnergy = totalEnergy;
-    //    energyScore.carbohydrateProportion = carbohydrateCal / totalEnergy;
-    //    energyScore.fatProportion = fatCal / totalEnergy;
-    //    energyScore.proteinProportion = proteinCal / totalEnergy;
-    //    //energyScore.sugarProportion = dishNutr.sugars * changeUnit * 4 / totalEnergy;
-    //    //for sugar : good is <= 5% for TotalEnergy or 6 teaSpoon or 24g/day
-    //    //but it only about sugar that we add in dish during cooking. so it's almost nothing with sugar in other ingredient
+        var totalEnergy = carbohydrateCal + proteinCal + fatCal + alcoholCal;
+        energyScore.totalEnergy = totalEnergy;
+        energyScore.carbohydrateProportion = carbohydrateCal / totalEnergy;
+        energyScore.fatProportion = fatCal / totalEnergy;
+        energyScore.proteinProportion = proteinCal / totalEnergy;
+        //energyScore.sugarProportion = dishNutr.sugars * changeUnit * 4 / totalEnergy;
+        //for sugar : good is <= 5% for TotalEnergy or 6 teaSpoon or 24g/day
+        //but it only about sugar that we add in dish during cooking. so it's almost nothing with sugar in other ingredient
 
-    //    return energyScore.totalEnergy;
-    //}
+        return energyScore.totalEnergy;
+    }
 }
 
 [System.Serializable]
 public class EnergyScore
 {
-    public Limiter totalEnergyLimit; //calories good = 2000 kcal/day => 670 kcal/day
-    public Limiter carbLimit; //good = 45-65% for TotalEnergy
-    public Limiter proteinLimit; //good = 10-35% for TotalEnergy
-    public Limiter fatLimit; //good = 20-35% for TotalEnergy
+    public Limiter totalEnergyLimit;
+    public float totalEnergy; //calories good = 2000 kcal/day => 670 kcal/day
+    public Limiter carbLimit;
+    public float carbohydrateProportion; //good = 45-65% for TotalEnergy
+    public Limiter proteinLimit;
+    public float proteinProportion; //good = 10-35% for TotalEnergy
+    public Limiter fatLimit;
+    public float fatProportion; //good = 20-35% for TotalEnergy
     public Limiter cholesterolLimit;
     public Limiter saturatedFatLimit;
     public Limiter sugarLimit;
+    public float sugarProportion;
     //good <= 5% for TotalEnergy or 6 teaSpoon or 24g/day
     //but it only about sugar that we add in dish during cooking. so it's almost nothing with sugar in other ingredient
     public Limiter fiberLimit;
+    public float fiber;
     //good => 14g/1000kcal
     //good = 25g - 28g for adult
     //good = age*1 + 5 for child(< 6 years old)
     public Limiter sodiumLimit;
     public Limiter vitaminALimit;
+    public float vitaminA;
     public Limiter vitaminDLimit;
+    public float vitaminD;
 }
 
-public class ResultScore
-{
-    public List<DishScoreHolder> allScore;
-    public List<DishScoreHolder> fourthPriority;
-    public float finalScore;
-    public int finalStar;
-}
-
+[System.Serializable]
 public class DishScoreHolder
 {
-    public string name;
-    public float value;
+    public string nutrition;
     public float actualScore;
-    public int star;
     public string detail;
     public Limiter limiter;
     //public Gameobject dish;
@@ -600,15 +264,12 @@ public class DishScoreHolder
 [System.Serializable]
 public class Limiter
 {   // -1 = default = null information
-    public bool isTop4Priority = false;
     public LimiterType limterType;
     public float median = -1;
     public float lowerLimit = -1;
     public float upperLimit = -1;
     public string unitName;
     public CalculateType calType;
-    public float alpha = 0.4f;
-    public float beta = 0.2f;
     public float weight;
     public List<string> defectEatTooLittle;
     public List<string> defectOvereating;
