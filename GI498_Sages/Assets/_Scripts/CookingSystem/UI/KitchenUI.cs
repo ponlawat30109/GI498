@@ -18,6 +18,7 @@ namespace _Scripts.CookingSystem.UI
         
         [Header("Recipe Component")] 
         [SerializeField] private FoodObject recipeItem;
+        [SerializeField] private FoodObject stoveTemp;
         [SerializeField] private Image recipeImage;
         [SerializeField] private Sprite defaultIcon;
         [SerializeField] private TMP_Text recipeNameText;
@@ -67,9 +68,10 @@ namespace _Scripts.CookingSystem.UI
             }
         }
 
-        public void InitRecipe(FoodObject item)
+        public void InitRecipe(FoodObject item,FoodObject stoveTemp)
         {
             recipeItem = item;
+            this.stoveTemp = stoveTemp;
            
             UpdateUI();
         }
@@ -85,10 +87,30 @@ namespace _Scripts.CookingSystem.UI
             {
                 SetDefualtRecipeUI();
             }
-            
-            CreateIngredientSlotUI(); // Re-create
+
+            if (stoveTemp != null)
+            {
+                CreateIngredientSlotUI();
+            }
+            else
+            {
+                UpdateIngredientSlotUI();
+            }
         }
 
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// 
+        public Kitchen GetParent()
+        {
+            return parent;
+        }
+        
+        public Transform GetStorageSlotTransform()
+        {
+            return storageSlot;
+        }
+        
+        // For Recipe Informationn
         public void UpdateRecipeUI()
         {
             recipeImage.sprite = recipeItem.itemIcon;
@@ -134,11 +156,11 @@ namespace _Scripts.CookingSystem.UI
 
             for (int i = 0; i < recipeItem.ingredients.Count; i++)
             {
-                if (recipeItem.ingredients[i].ingredientObject != null)
+                if (recipeItem.ingredients[i] != null)
                 {
                     var newGameObject = Instantiate(ingredientInfoComponentPrefab, recipeIngredientInfoContainer);
                     var newInfo = newGameObject.GetComponent<IngredientInfoComponent>();
-                    newInfo.InitComponent(recipeItem.ingredients[i].ingredientObject.itemIcon, recipeItem.ingredients[i].ingredientObject.itemName);
+                    newInfo.InitComponent(recipeItem.ingredients[i].itemIcon, recipeItem.ingredients[i].itemName);
                     
                     ingredientInfoList.Add(newInfo);
                 }
@@ -151,11 +173,11 @@ namespace _Scripts.CookingSystem.UI
             // Special Ingredient
             for (int i = 0; i < recipeItem.specialIngredients.Count; i++)
             {
-                if (recipeItem.specialIngredients[i].ingredientObject != null)
+                if (recipeItem.specialIngredients[i] != null)
                 {
                     var newGameObject = Instantiate(ingredientInfoComponentPrefab, recipeIngredientInfoContainer);
                     var newInfo = newGameObject.GetComponent<IngredientInfoComponent>();
-                    newInfo.InitComponent(recipeItem.specialIngredients[i].ingredientObject.itemIcon, recipeItem.specialIngredients[i].ingredientObject.itemName);
+                    newInfo.InitComponent(recipeItem.specialIngredients[i].itemIcon, recipeItem.specialIngredients[i].itemName);
                     
                     ingredientInfoList.Add(newInfo);
                 }
@@ -184,32 +206,15 @@ namespace _Scripts.CookingSystem.UI
             ingredientInfoList.Clear();
         }
     
-        public Kitchen GetParent()
-        {
-            return parent;
-        }
-
-        public void RemoveSlotByItem(IngredientObject targetItem)
-        {
-            var index = 1;
-            slotList.RemoveAt(index);
-        }
-
-        public Transform GetStorageSlotTransform()
-        {
-            return storageSlot;
-        }
-
+        
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // For Stove Slot UI
+        
         public void CreateIngredientSlotUI()
         {
-            var storageSlots = parent.GetStorageObject().GetStorageSlot();
+            //var storageSlots = parent.GetStorageObject().GetStorageSlot();
 
-            if (slotList.Count > 0)
-            {
-                ClearSlotList();
-            }
-            
-            if (storageSlots.Count > 0) // If have ingredient add.
+            /*if (storageSlots.Count > 0) // If have ingredient add.
             {
                 for (int i = 0; i < storageSlots.Count; i++)
                 {
@@ -226,7 +231,78 @@ namespace _Scripts.CookingSystem.UI
                         slotList.Add(componentSlot);
                     }
                 }
+            }*/
+
+            if (stoveTemp.ingredients.Count > 0)
+            {
+                for (int i = 0; i < stoveTemp.ingredients.Count; i++)
+                {
+                    //If item not in slotList -> Create new one
+                    if (IsInSlotList(stoveTemp.ingredients[i]) == false) 
+                    {
+                        var newSlot = Instantiate(slotPrefab, Vector3.zero, Quaternion.identity);
+                        var componentSlot = newSlot.gameObject.GetComponent<IngredientSlotUI>(); 
+                        
+                        componentSlot.InitializeItem(
+                            stoveTemp.ingredients[i]
+                            , this
+                            , storageSlotInformation,
+                            parent.IsOneOfIngredient(stoveTemp.ingredients[i])
+                            ,stoveTemp.ingredients[i].quantity);
+                
+                        slotList.Add(componentSlot);
+                    }
+                    // Update
+                    else
+                    {
+                        UpdateIngredientSlotUI();
+                    }
+                }
             }
+        }
+
+        public void UpdateIngredientSlotUI()
+        {
+            if (slotList.Count > 0)
+            {
+                /*foreach (IngredientSlotUI slot in slotList)
+                {
+                    if (slot != null)
+                    {
+                        var item = (IngredientObject) slot.GetItem();
+                        if (item.isSpecialIngredient == false)
+                        {
+                            for (int i = 0; i < stoveTemp.ingredients.Count; i++)
+                            {
+                                if (slot.GetCurrentQuantity() != stoveTemp.ingredients[i].quantity)
+                                {
+                                    slot.SetCurrentQuantity(stoveTemp.ingredients[i].quantity);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            for (int i = 0; i < stoveTemp.specialIngredients.Count; i++)
+                            {
+                                if (slot.GetCurrentQuantity() != stoveTemp.specialIngredients[i].quantity)
+                                {
+                                    slot.SetCurrentQuantity(stoveTemp.specialIngredients[i].quantity);
+                                }
+                            }
+                        }
+                    }
+                }*/
+
+                for (int i = 0; i < slotList.Count; i++)
+                {
+                    if (slotList[i].GetItem() != null)
+                    {
+                        var item = (IngredientObject) slotList[i].GetItem();
+                        slotList[i].SetCurrentQuantity(stoveTemp.GetIngredientByName(item).quantity);
+                    }
+                }
+            }
+            
         }
 
         public void ClearSlotList()
@@ -239,13 +315,19 @@ namespace _Scripts.CookingSystem.UI
             slotList.Clear();
         }
         
-        public bool CheckSlotList(IngredientObject itemToCheck)
+        public void RemoveSlotByItem(IngredientObject targetItem)
+        {
+            var index = 1;
+            slotList.RemoveAt(index);
+        }
+
+        public bool IsInSlotList(IngredientObject itemToCheck)
         {
             var result = false;
             
             foreach (var slot in slotList)
             {
-                // If slot.item == ingredient in storage
+                // If slot.item == ingredient to check
                 if (slot.GetItem() == itemToCheck)
                 {
                     result = true;

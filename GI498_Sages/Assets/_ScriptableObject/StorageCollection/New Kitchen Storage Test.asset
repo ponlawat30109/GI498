@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1322e4b0392f62d4e86586cd883fb720, type: 3}
-  m_Name: Shelf Normal Storage
+  m_Script: {fileID: 11500000, guid: cc3a07e6db234013b8658d18e258cdfb, type: 3}
+  m_Name: New Kitchen Storage Test
   m_EditorClassIdentifier: 
-  storageType: 1
-  storageSlots:
-  - item: {fileID: 11400000, guid: c350c3817bb7c414a90b27386e68d31d, type: 2}
-    quantity: 997
+  storageType: 2
+  storageSlots: []
+  recipeItemSlot: {fileID: 0}
+  trashItemObject: {fileID: 11400000, guid: 98b5e64cd7bd87b47bc75a8d79fe4f8e, type: 2}

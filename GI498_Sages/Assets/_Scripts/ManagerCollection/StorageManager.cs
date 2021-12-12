@@ -23,6 +23,8 @@ namespace _Scripts.ManagerCollection
         public List<MiniStorage> miniStorageCollections;
 
         public List<RecipeSlot> recipeCollections;
+        public List<IngredientObject> ingredientCollections;
+        public List<IngredientObject> specialIngredientCollections;
 
         
         ////////////////////////////////////////////////////////////////////////////////////////////
@@ -105,6 +107,19 @@ namespace _Scripts.ManagerCollection
             recipeCollections[index].quantity -= 1;
             return recipeCollections[index].item;
         }
+
+        public void ClearIngredientQuantity()
+        {
+            foreach (var ingredient in ingredientCollections)
+            {
+                ingredient.quantity = 0;
+            }
+            
+            foreach (var ingredient in specialIngredientCollections)
+            {
+                ingredient.quantity = 0;
+            }
+        }
         
         private void OnApplicationQuit()
         {
@@ -115,6 +130,8 @@ namespace _Scripts.ManagerCollection
                     recipe.item.ResetFoodObject();
                 }
             }
+
+            ClearIngredientQuantity();
         }
     }
     

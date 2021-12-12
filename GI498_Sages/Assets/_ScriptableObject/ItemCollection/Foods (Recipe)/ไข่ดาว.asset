@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fb8cc96c8ddd34b48b53864f7acb4664, type: 3}
-  m_Name: Egg Sandwich
+  m_Name: "\u0E44\u0E02\u0E48\u0E14\u0E32\u0E27"
   m_EditorClassIdentifier: 
-  itemName: Egg Sandwich
-  itemIcon: {fileID: 21300000, guid: eb069f7ea91d89840976d27d8e49fb4d, type: 3}
+  itemName: "\u0E44\u0E02\u0E48\u0E14\u0E32\u0E27"
+  itemIcon: {fileID: 21300000, guid: c4f340e8bf1864b4caf374b4c368b668, type: 3}
   type: 2
-  ingamePrefab: {fileID: 9187776483252627712, guid: dd5b5e910c540b54ba1370f9b33cd918, type: 3}
-  description: Sandwich made by toast and boiled egg.
-  cookedPrefab: {fileID: 5378946344903914261, guid: 0149e14d7efe37347b2aecafa32aae9e, type: 3}
+  ingamePrefab: {fileID: 1933213746720370918, guid: 62c6cafce84dc9b4c96cdbefa4839766, type: 3}
+  description: Egg menu for test
+  cookedPrefab: {fileID: 1736267606748628461, guid: eefc861b168fc834c9b7cbe20139d71f, type: 3}
   ingredients:
   - {fileID: 11400000, guid: 3016351532d3d8e41afdeb9eb3554655, type: 2}
-  - {fileID: 11400000, guid: 24d3d12e62d35d746a17fb8245a75e5e, type: 2}
+  - {fileID: 11400000, guid: c350c3817bb7c414a90b27386e68d31d, type: 2}
   specialIngredients: []
-  cookingTime: 2
+  cookingTime: 5
   isLowSodium: 0
   isCooked: 0
