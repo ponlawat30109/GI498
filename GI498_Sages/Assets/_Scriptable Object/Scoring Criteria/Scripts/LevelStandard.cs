@@ -8,7 +8,6 @@ public class LevelStandard : ScriptableObject
     public string sickness = "none";
     public string sex;
     public string age = "adult"; //default
-    public float weight = 50; //default 
-    public Nutrition limitNutrition;
+    public float weight = 50; //default
     public EnergyScore energrScore = new EnergyScore();
 }

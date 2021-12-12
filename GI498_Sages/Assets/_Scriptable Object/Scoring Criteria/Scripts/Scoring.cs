@@ -13,15 +13,18 @@ public class Scoring : ScriptableObject
     public float star1 = 0f;
 
     [SerializeField] private LevelStandard defaultStandard;
+    private System.Random rnd = new System.Random();
 
-
-    public ResultScore ScoreCalculate(List<IngredientObject> ingredients, LevelStandard starndard)
+    public ResultScore ScoreCalculate(List<IngredientObject> ingredients, LevelStandard standard)
     {
-
+        if(standard == null)
+        {
+            standard = defaultStandard;
+        }
         var dishNutr = new Nutrition();
         SetZeroNutr(dishNutr);
         SumNitr(dishNutr, ingredients);
-        return ValueCalculate(dishNutr, starndard);
+        return ValueCalculate(dishNutr, standard);
 
         //CalculateEachEnergy(carb, protein, etc) => save in DishScoreHolder
         //TotalEnergy = all ENergy => save in DishScoreHolder
@@ -102,9 +105,12 @@ public class Scoring : ScriptableObject
 
     public ResultScore ValueCalculate(Nutrition dishNutr, LevelStandard standard)
     {
+        if (standard == null)
+        {
+            standard = defaultStandard;
+        }
         ResultScore resultScore = new ResultScore();
         List<DishScoreHolder> allScore = new List<DishScoreHolder>();
-        List<DishScoreHolder> fourthPriority = new List<DishScoreHolder>();
         var changeUnit = 0.001f; // 1 milligram = 0.001 gram
 
         // 1 kCal = 4.18 kJ
@@ -249,21 +255,17 @@ public class Scoring : ScriptableObject
             allScore.Add(fiberScore);
         }
 
-        CalculateScore(totalEnergyScore);
         foreach(var scoreHolder in allScore)
         {
             if(scoreHolder.limiter.weight > 0)
             {
-                if (scoreHolder.limiter.isTop4Priority)
-                    fourthPriority.Add(scoreHolder);
-
                 switch(scoreHolder.limiter.calType)
                 {
                     case CalculateType.BaseTotalEnergy:
                         CalculateScore(scoreHolder);
                         break;
                     case CalculateType.PercentEnergy:
-                        CalculateScore(scoreHolder, totalEnergy);
+                        CalculateScoreByEnergy(scoreHolder, totalEnergy);
                         break;
                     case CalculateType.Mass_Gram:
                         CalculateScore(scoreHolder);
@@ -272,6 +274,8 @@ public class Scoring : ScriptableObject
             }
         }
 
+        resultScore.allScore = allScore;
+        resultScore.totalEnergy = totalEnergy;
         CalculateFinalScore(resultScore);
         
         return resultScore;
@@ -283,10 +287,13 @@ public class Scoring : ScriptableObject
         float totalScore = 0;
         foreach(var scoreHolder in resultScoreHolder.allScore)
         {
-            if(scoreHolder.limiter.weight > 0)
+            if (scoreHolder.limiter != null)
             {
-                totalWeight += scoreHolder.limiter.weight;
-                totalScore += scoreHolder.limiter.weight * scoreHolder.actualScore;
+                if (scoreHolder.limiter.weight > 0)
+                {
+                    totalWeight += scoreHolder.limiter.weight;
+                    totalScore += scoreHolder.limiter.weight * scoreHolder.actualScore;
+                }
             }
         }
 
@@ -374,6 +381,18 @@ public class Scoring : ScriptableObject
                                 else scoreHolder.star = 0;
                             }
                         }
+                        if (scoreHolder.value < limiter.lowerLimit)
+                        {
+                            scoreHolder.detail = "< " + limiter.lowerLimit;
+                        }
+                        else if (scoreHolder.value > limiter.upperLimit)
+                        {
+                            scoreHolder.detail = "> " + limiter.upperLimit;
+                        }
+                        else
+                        {
+                            scoreHolder.detail = $"= {limiter.lowerLimit} ~ {limiter.upperLimit}";
+                        }
                     }
                     else if (limiter.median != -1)
                     {
@@ -427,6 +446,19 @@ public class Scoring : ScriptableObject
                                 else scoreHolder.star = 0;
                             }
                         }
+
+                        if (scoreHolder.value < limiter.median)
+                        {
+                            scoreHolder.detail = "< " + limiter.median;
+                        }
+                        else if (scoreHolder.value > limiter.median)
+                        {
+                            scoreHolder.detail = "> " + limiter.median;
+                        }
+                        else
+                        {
+                            scoreHolder.detail = $"{fiveStarLowerLimit} ~ {fiveStarUpperLimit} (median = {limiter.median})";
+                        }
                     }
                     //else if(limiter.median == -1 && limiter.lowerLimit != -1 && limiter.upperLimit != -1)
                     //{
@@ -434,7 +466,7 @@ public class Scoring : ScriptableObject
                     //}
                     break;
                 }
-            case LimiterType.MoreIsBetter:
+            case LimiterType.LessIsBetter:
                 {
                     if (limiter.lowerLimit != -1)
                     {
@@ -470,10 +502,22 @@ public class Scoring : ScriptableObject
                             else if (scoreHolder.actualScore > star1) scoreHolder.star = 1;
                             else scoreHolder.star = 0;
                         }
+                        if (scoreHolder.value < limiter.lowerLimit)
+                        {
+                            scoreHolder.detail = "< " + limiter.lowerLimit;
+                        }
+                        else if (scoreHolder.value > limiter.lowerLimit)
+                        {
+                            scoreHolder.detail = "> " + limiter.lowerLimit;
+                        }
+                        else
+                        {
+                            scoreHolder.detail = $"= {limiter.lowerLimit}";
+                        }
                     }
                     break;
                 }
-            case LimiterType.LessIsBetter:
+            case LimiterType.MoreIsBetter:
                 {
                     if (limiter.upperLimit != -1)
                     {
@@ -515,6 +559,18 @@ public class Scoring : ScriptableObject
                                 else scoreHolder.star = 0;
                             }
                         }
+                        if (scoreHolder.value < limiter.upperLimit)
+                        {
+                            scoreHolder.detail = "< " + limiter.upperLimit;
+                        }
+                        else if (scoreHolder.value > limiter.upperLimit)
+                        {
+                            scoreHolder.detail = "> " + limiter.upperLimit;
+                        }
+                        else
+                        {
+                            scoreHolder.detail = $"= {limiter.upperLimit}";
+                        }
                     }
                     break;
                 }
@@ -526,10 +582,19 @@ public class Scoring : ScriptableObject
             scoreHolder.actualScore = 100;
         else if (scoreHolder.actualScore < 0)
             scoreHolder.actualScore = 0;
+
+        Debug.Log(scoreHolder.limiter.name + "value: " + scoreHolder.value);
+        Debug.Log(scoreHolder.limiter.name + "score: " + scoreHolder.actualScore);
+        Debug.Log(scoreHolder.limiter.name + "star: " + scoreHolder.star);
     }
 
-    public void CalculateScore(DishScoreHolder scoreHolder, float totalEnergy)
+    public void CalculateScoreByEnergy(DishScoreHolder scoreHolder, float totalEnergy)
     {
+        if(totalEnergy <= 0)
+        {
+            Debug.Log("totalEnergy == 0");
+            return;
+        }
         //Calculate by PercentEnergy Concept
         Limiter limiter = scoreHolder.limiter;
         var percentEnergy = scoreHolder.value / totalEnergy;
@@ -603,6 +668,18 @@ public class Scoring : ScriptableObject
                                 else scoreHolder.star = 0;
                             }
                         }
+                        if (scoreHolder.value < limiter.lowerLimit * totalEnergy)
+                        {
+                            scoreHolder.detail = "< " + limiter.lowerLimit * totalEnergy;
+                        }
+                        else if (scoreHolder.value > limiter.upperLimit * totalEnergy)
+                        {
+                            scoreHolder.detail = "> " + limiter.upperLimit * totalEnergy;
+                        }
+                        else
+                        {
+                            scoreHolder.detail = $"= {limiter.lowerLimit * totalEnergy} ~ {limiter.upperLimit * totalEnergy}";
+                        }
                     }
                     else if (limiter.median != -1)
                     {
@@ -656,6 +733,18 @@ public class Scoring : ScriptableObject
                                 else scoreHolder.star = 0;
                             }
                         }
+                        if (scoreHolder.value < limiter.median * totalEnergy)
+                        {
+                            scoreHolder.detail = "< " + limiter.median * totalEnergy;
+                        }
+                        else if (scoreHolder.value > limiter.median * totalEnergy)
+                        {
+                            scoreHolder.detail = "> " + limiter.median * totalEnergy;
+                        }
+                        else
+                        {
+                            scoreHolder.detail = $"= {limiter.median * totalEnergy} ~ {limiter.median * totalEnergy}";
+                        }
                     }
                     //else if(limiter.median == -1 && limiter.lowerLimit != -1 && limiter.upperLimit != -1)
                     //{
@@ -663,7 +752,7 @@ public class Scoring : ScriptableObject
                     //}
                     break;
                 }
-            case LimiterType.MoreIsBetter:
+            case LimiterType.LessIsBetter:
                 {
                     if (limiter.lowerLimit != -1)
                     {
@@ -699,10 +788,22 @@ public class Scoring : ScriptableObject
                             else if (scoreHolder.actualScore > star1) scoreHolder.star = 1;
                             else scoreHolder.star = 0;
                         }
+                        if (scoreHolder.value < limiter.upperLimit * totalEnergy)
+                        {
+                            scoreHolder.detail = "< " + limiter.upperLimit * totalEnergy;
+                        }
+                        else if (scoreHolder.value > limiter.upperLimit * totalEnergy)
+                        {
+                            scoreHolder.detail = "> " + limiter.upperLimit * totalEnergy;
+                        }
+                        else
+                        {
+                            scoreHolder.detail = $"= {limiter.upperLimit * totalEnergy}";
+                        }
                     }
                     break;
                 }
-            case LimiterType.LessIsBetter:
+            case LimiterType.MoreIsBetter:
                 {
                     if (limiter.upperLimit != -1)
                     {
@@ -744,6 +845,18 @@ public class Scoring : ScriptableObject
                                 else scoreHolder.star = 0;
                             }
                         }
+                        if (scoreHolder.value < limiter.lowerLimit * totalEnergy)
+                        {
+                            scoreHolder.detail = "< " + limiter.lowerLimit * totalEnergy;
+                        }
+                        else if (scoreHolder.value > limiter.lowerLimit * totalEnergy)
+                        {
+                            scoreHolder.detail = "> " + limiter.lowerLimit * totalEnergy;
+                        }
+                        else
+                        {
+                            scoreHolder.detail = $"= {limiter.lowerLimit * totalEnergy}";
+                        }
                     }
                     break;
                 }
@@ -755,6 +868,30 @@ public class Scoring : ScriptableObject
             scoreHolder.actualScore = 100;
         else if (scoreHolder.actualScore < 0)
             scoreHolder.actualScore = 0;
+
+        //if(scoreHolder.star >= 4)
+        //    scoreHolder.detail = scoreHolder.limiter.commentForGoodDish[rnd.Next(scoreHolder.limiter.commentForGoodDish.Count)];
+        //else
+        //{
+        //    if(scoreHolder.value < limiter.lowerLimit * totalEnergy)
+        //        scoreHolder.detail = scoreHolder.limiter.defectEatTooLittle[rnd.Next(scoreHolder.limiter.defectEatTooLittle.Count)];
+        //    else
+        //        scoreHolder.detail = scoreHolder.limiter.defectOvereating[rnd.Next(scoreHolder.limiter.defectOvereating.Count)];
+        //}
+
+        //if(scoreHolder.value < limiter.lowerLimit * totalEnergy)
+        //{
+        //    scoreHolder.detail = "< " + limiter.lowerLimit * totalEnergy;
+        //}
+        //else if(scoreHolder.value > limiter.upperLimit * totalEnergy)
+        //{
+        //    scoreHolder.detail = "> " + limiter.upperLimit * totalEnergy;
+        //}
+        //else
+        //{
+        //    scoreHolder.detail = $"= {limiter.lowerLimit * totalEnergy} ~ {limiter.upperLimit * totalEnergy}";
+        //}
+
     }
 }
 
@@ -782,9 +919,9 @@ public class EnergyScore
 public class ResultScore
 {
     public List<DishScoreHolder> allScore;
-    public List<DishScoreHolder> fourthPriority;
     public float finalScore;
     public int finalStar;
+    public float totalEnergy;
 }
 
 public class DishScoreHolder
