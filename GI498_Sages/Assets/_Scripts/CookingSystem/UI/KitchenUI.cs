@@ -148,6 +148,23 @@ namespace _Scripts.CookingSystem.UI
                 }
             }
             
+            // Special Ingredient
+            for (int i = 0; i < recipeItem.specialIngredients.Count; i++)
+            {
+                if (recipeItem.specialIngredients[i].ingredientObject != null)
+                {
+                    var newGameObject = Instantiate(ingredientInfoComponentPrefab, recipeIngredientInfoContainer);
+                    var newInfo = newGameObject.GetComponent<IngredientInfoComponent>();
+                    newInfo.InitComponent(recipeItem.specialIngredients[i].ingredientObject.itemIcon, recipeItem.specialIngredients[i].ingredientObject.itemName);
+                    
+                    ingredientInfoList.Add(newInfo);
+                }
+                else
+                {
+                    Debug.Log($"[{recipeItem.itemName}] missing {recipeItem.specialIngredients[i]}.");
+                }
+            }
+            
             /*foreach (var ingredient in recipeItem.ingredients)
             {
                 var newComponentInfo = Instantiate(ingredientInfoComponentPrefab, recipeIngredientInfoContainer);

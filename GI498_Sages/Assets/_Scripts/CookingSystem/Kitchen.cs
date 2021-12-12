@@ -326,7 +326,18 @@ namespace _Scripts.CookingSystem
                 }
             }
             
-            if (currentCorrectIngredient >= totalQuantity || currentCorrectIngredient >= ingredientStorage.GetRecipe().ingredients.Count)
+            // Special Ingredient
+            foreach (var ingredient in ingredientStorage.GetRecipe().specialIngredients)
+            {
+                if (ingredient.ingredientObject != null)
+                {
+                    totalQuantity += ingredient.ingredientQuantity;
+                }
+            }
+
+            if (currentCorrectIngredient >= totalQuantity || currentCorrectIngredient >=
+                ingredientStorage.GetRecipe().ingredients.Count + // Normal
+                ingredientStorage.GetRecipe().specialIngredients.Count) // Special
             {
                 result = true;
             }
@@ -364,6 +375,15 @@ namespace _Scripts.CookingSystem
                 }
             }
             
+            // Special Ingredient
+            for (int i = 0; i < ingredientStorage.GetRecipe().specialIngredients.Count; i++)
+            {
+                if (ingredientStorage.GetRecipe().specialIngredients[i].ingredientObject == ingredient)
+                {
+                    isFound = true;
+                }
+            }
+            
             /*if (ingredientStorage.GetRecipe().ingredients.Contains(ingredient))
             {
                 return true;
@@ -381,7 +401,7 @@ namespace _Scripts.CookingSystem
                 {
                     // Set it
                     ingredientStorage.SetRecipe(itemObject);
-                    ingredientStorage.InitializeStorageObject(ingredientStorage.GetRecipe().ingredients.Count,true);
+                    ingredientStorage.InitializeStorageObject(ingredientStorage.GetRecipe().ingredients.Count+ingredientStorage.GetRecipe().specialIngredients.Count,true);
                     kitchenUI.InitRecipe(ingredientStorage.GetRecipe());
                 }
             }

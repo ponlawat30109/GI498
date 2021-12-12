@@ -10,11 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1322e4b0392f62d4e86586cd883fb720, type: 3}
-  m_Name: Fridge Storage
+  m_Name: Shelf Special Storage
   m_EditorClassIdentifier: 
   storageType: 1
-  storageSlots:
-  - item: {fileID: 11400000, guid: a1b2263d34376354ca0becc4dd9e927a, type: 2}
-    quantity: 999
-  - item: {fileID: 11400000, guid: 6c238d28b4df9e34689ab3b19ac75ec9, type: 2}
-    quantity: 999
+  storageSlots: []
