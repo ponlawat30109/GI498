@@ -228,6 +228,13 @@ namespace _Scripts.CookingSystem
             return storageSlots[index].item;
         }
 
+        public StorageIngredientSlot GetSlotByItem(IngredientObject itemToGet)
+        {
+            var index = storageSlots.FindIndex(x => Equals(itemToGet));
+            
+            return storageSlots[index];
+        }
+
         public void PutIn(IngredientObject itemOnPlayerHand)
         {
             // TODO: Put Ingredient in to this storageSlots and Take out Item from Player Hand
@@ -279,6 +286,7 @@ namespace _Scripts.CookingSystem
         {
             SetRecipe(null);
             storageSlots.Clear();
+            Debug.Log($"Stove was clear item total remain is : {storageSlots.Count}");
         }
     }
     

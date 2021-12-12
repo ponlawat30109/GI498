@@ -16,11 +16,11 @@ MonoBehaviour:
   itemIcon: {fileID: 0}
   type: 2
   ingamePrefab: {fileID: 1933213746720370918, guid: 62c6cafce84dc9b4c96cdbefa4839766, type: 3}
-  description: 
+  description: Egg menu for test
   cookedPrefab: {fileID: 1736267606748628461, guid: eefc861b168fc834c9b7cbe20139d71f, type: 3}
   ingredients:
-  - {fileID: 11400000, guid: 3016351532d3d8e41afdeb9eb3554655, type: 2}
+  - ingredientObject: {fileID: 11400000, guid: 3016351532d3d8e41afdeb9eb3554655, type: 2}
+    ingredientQuantity: 1
   cookingTime: 5
-  foodQuality: 0
   isLowSodium: 0
   isCooked: 0

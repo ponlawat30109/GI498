@@ -30,6 +30,9 @@ public class PlayerController : MonoBehaviour
 
     public bool UIPanelActive = false;
 
+    // private int idleTime = 5;
+    // private float lastIdleTime;
+
     private void OnEnable()
     {
         _playerInput.Enable();
@@ -51,6 +54,7 @@ public class PlayerController : MonoBehaviour
         controller = GetComponent<CharacterController>();
 
         currentPlayerspeed = playerSpeed;
+        // lastIdleTime = Time.time;
     }
 
     private void Start()
@@ -62,12 +66,27 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        Movement();
+        if (!UIPanelActive)
+            Movement();
 
         if (_playerInput.Movement.Exit.triggered && UIPanelActive == false)
         {
             OnExitAction();
         }
+
+        // if (Keyboard.current.anyKey.wasPressedThisFrame)
+        // {
+        //     lastIdleTime = Time.time;
+        // }
+
+        // if (IsIdle())
+        // {
+        //     Cursor.visible = false;
+        // }
+        // else
+        // {
+        //     Cursor.visible = true;
+        // }
     }
 
     // void MouseAction()
@@ -99,15 +118,6 @@ public class PlayerController : MonoBehaviour
         currentMovementInput = Vector2.SmoothDamp(currentMovementInput, movementInput, ref smoothInputVelocity, smoothInputSpeed);
         Vector3 move = new Vector3(currentMovementInput.x, 0, currentMovementInput.y);
 
-
-        // {
-        //     currentPlayerspeed *= 2;
-        // }
-        // else
-        // {
-        //     currentPlayerspeed = playerSpeed;
-        // }
-
         controller.Move(move * Time.deltaTime * currentPlayerspeed);
 
         if (move != Vector3.zero)
@@ -132,4 +142,9 @@ public class PlayerController : MonoBehaviour
         // _Scripts.SceneAnimator.Instance.UnLoadScene();
         _Scripts.SceneAnimator.Instance.ChangeScene(unloadScenes, loadScenes);
     }
+
+    // public bool IsIdle()
+    // {
+    //     return Time.time - lastIdleTime > idleTime;
+    // }
 }
