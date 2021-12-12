@@ -523,7 +523,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 157.51826, y: 9.8033905}
+  m_AnchoredPosition: {x: 157.51825, y: 9.803406}
   m_SizeDelta: {x: 256.2149, y: -58.8212}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &73978490
@@ -1843,7 +1843,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -2582,7 +2582,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 298734318}
   m_Direction: 0
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4502,7 +4502,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 157.51826, y: 9.8033905}
+  m_AnchoredPosition: {x: 157.51825, y: 9.803406}
   m_SizeDelta: {x: 256.2149, y: -58.8212}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &466078244
@@ -4987,7 +4987,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 157.51826, y: 9.8033905}
+  m_AnchoredPosition: {x: 157.51825, y: 9.803406}
   m_SizeDelta: {x: 256.2149, y: -58.8212}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &536276665
@@ -5329,134 +5329,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 573686628}
   m_CullTransparentMesh: 1
---- !u!1 &575456845
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 575456847}
-  - component: {fileID: 575456846}
-  m_Layer: 0
-  m_Name: Scorer
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &575456846
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 575456845}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f1d1c3e79413b34d8b1750573e096e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scorer: {fileID: 11400000, guid: 359ef078dca715948806f03ba6883f25, type: 2}
-  levelStandard: {fileID: 11400000, guid: 9b3d05e28e711f34489c19b4c2efadde, type: 2}
-  scoreSlotUIPrefab: {fileID: 4853632772765262944, guid: 6a92a6dd1a637df4bbd9b69aef1ec04b, type: 3}
-  scoreText: {fileID: 880174758}
-  starText: {fileID: 1843385373}
-  fourthPriority_slotList:
-  - {fileID: 1773887844}
-  - {fileID: 925199813}
-  - {fileID: 859533716}
-  - {fileID: 330432127}
-  normalContentHolder: {fileID: 466078245}
-  normalSlotList:
-  - {fileID: 655012305}
-  problemContentHolder: {fileID: 2062876158}
-  problemSlotList:
-  - {fileID: 287906858}
-  - {fileID: 538497613}
-  - {fileID: 1805692468}
-  - {fileID: 89398824}
-  - {fileID: 2088732325}
-  - {fileID: 713058441}
-  nutr:
-    cholesterol: 0
-    carbohydrate: 0
-    sugars: 0
-    fiber: 0
-    proteins: 0
-    fat: 0
-    saturatedfat: 0
-    water: 0
-    potassium: 0
-    sodium: 0
-    calcium: 0
-    phosphorus: 0
-    magnesium: 0
-    zinc: 0
-    iron: 0
-    manganese: 0
-    copper: 0
-    selenium: 0
-    vitaminB1: 0
-    vitaminB2: 0
-    vitaminB3: 0
-    vitaminB5: 0
-    vitaminB6: 0
-    vitaminB7: 0
-    vitaminB9: 0
-    vitaminB12: 0
-    vitaminC: 0
-    vitaminA: 0
-    vitaminD: 0
-    vitaminE: 0
-    vitaminK: 0
-  inputFields: []
-  cholesterol: {fileID: 1598398837}
-  carbohydrate: {fileID: 1151054418}
-  sugars: {fileID: 792334459}
-  fiber: {fileID: 336594105}
-  proteins: {fileID: 1968362910}
-  fat: {fileID: 802499654}
-  saturatedfat: {fileID: 1246469889}
-  water: {fileID: 1665040274}
-  potassium: {fileID: 345647251}
-  sodium: {fileID: 643856244}
-  calcium: {fileID: 1760774235}
-  phosphorus: {fileID: 310605885}
-  magnesium: {fileID: 902289850}
-  zinc: {fileID: 18650647}
-  iron: {fileID: 161308284}
-  manganese: {fileID: 1383266966}
-  copper: {fileID: 872895278}
-  selenium: {fileID: 1056735741}
-  vitaminB1: {fileID: 1116256319}
-  vitaminB2: {fileID: 2057513783}
-  vitaminB3: {fileID: 1976987716}
-  vitaminB5: {fileID: 1491080936}
-  vitaminB6: {fileID: 316418434}
-  vitaminB7: {fileID: 428000797}
-  vitaminB9: {fileID: 1137094626}
-  vitaminB12: {fileID: 1902394138}
-  vitaminC: {fileID: 1345501715}
-  vitaminA: {fileID: 1881622241}
-  vitaminD: {fileID: 2014940305}
-  vitaminE: {fileID: 343487123}
-  vitaminK: {fileID: 1818830616}
---- !u!4 &575456847
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 575456845}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 310.90054, y: 198.67578, z: 15.205789}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &578121467
 GameObject:
   m_ObjectHideFlags: 0
@@ -6560,8 +6432,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 575456846}
-        m_TargetAssemblyTypeName: TestScorer, Assembly-CSharp
+      - m_Target: {fileID: 578121469}
+        m_TargetAssemblyTypeName: DIshScoreManager, Assembly-CSharp
         m_MethodName: AutoSetNutr
         m_Mode: 1
         m_Arguments:
@@ -8712,7 +8584,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 157.51826, y: 9.8033905}
+  m_AnchoredPosition: {x: 157.51825, y: 9.803406}
   m_SizeDelta: {x: 256.2149, y: -58.8212}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &872895274
@@ -18767,7 +18639,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -145.52603, y: 9.803604}
+  m_AnchoredPosition: {x: -145.52603, y: 9.803589}
   m_SizeDelta: {x: 249.3867, y: -58.822}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2000413597
@@ -20082,7 +19954,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1320658494}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.14530599
+  m_Size: 0.22160283
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
