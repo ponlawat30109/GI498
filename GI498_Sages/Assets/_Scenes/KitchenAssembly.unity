@@ -9724,17 +9724,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statusImage: {fileID: 426259962}
+  currentEffect: {fileID: 0}
   currentStatus: 0
   statusList:
   - sprite: {fileID: 21300000, guid: a89ee32116243084794197a3f98ddd19, type: 3}
+    particlePrefab: {fileID: 3006515182904220407, guid: 869c4849ccd48a04fa542fdf3f4ce16b, type: 3}
     status: 0
   - sprite: {fileID: 21300000, guid: 43811fc3700dcc243abad162f7beb213, type: 3}
+    particlePrefab: {fileID: 3006515182904220407, guid: e1b75db74f830de4589b8f55564a2739, type: 3}
     status: 1
   - sprite: {fileID: 21300000, guid: e86dae1508ff61a4abbe7865bfdd4fc7, type: 3}
+    particlePrefab: {fileID: 3006515182904220407, guid: 49c31e003b71d004ba31ad0a5a007717, type: 3}
     status: 2
   - sprite: {fileID: 21300000, guid: 2bcc802b324270748be6eb05fb08cb82, type: 3}
+    particlePrefab: {fileID: 3006515182904220407, guid: c69d8e8e0c3bf884e88a2d4b437b5652, type: 3}
     status: 3
   - sprite: {fileID: 21300000, guid: f6d1506a548692c489c077f657887084, type: 3}
+    particlePrefab: {fileID: 3006515182904220407, guid: 046b3ec3e5c788c409d9cb1750586864, type: 3}
     status: 4
 --- !u!114 &2132110818
 MonoBehaviour:
@@ -11717,17 +11723,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statusImage: {fileID: 504442657440097664}
+  currentEffect: {fileID: 0}
   currentStatus: 0
   statusList:
   - sprite: {fileID: 21300000, guid: a89ee32116243084794197a3f98ddd19, type: 3}
+    particlePrefab: {fileID: 3006515182904220407, guid: 869c4849ccd48a04fa542fdf3f4ce16b, type: 3}
     status: 0
   - sprite: {fileID: 21300000, guid: 43811fc3700dcc243abad162f7beb213, type: 3}
+    particlePrefab: {fileID: 3006515182904220407, guid: e1b75db74f830de4589b8f55564a2739, type: 3}
     status: 1
   - sprite: {fileID: 21300000, guid: e86dae1508ff61a4abbe7865bfdd4fc7, type: 3}
+    particlePrefab: {fileID: 3006515182904220407, guid: 49c31e003b71d004ba31ad0a5a007717, type: 3}
     status: 2
   - sprite: {fileID: 21300000, guid: 2bcc802b324270748be6eb05fb08cb82, type: 3}
+    particlePrefab: {fileID: 3006515182904220407, guid: c69d8e8e0c3bf884e88a2d4b437b5652, type: 3}
     status: 3
   - sprite: {fileID: 21300000, guid: f6d1506a548692c489c077f657887084, type: 3}
+    particlePrefab: {fileID: 3006515182904220407, guid: 046b3ec3e5c788c409d9cb1750586864, type: 3}
     status: 4
 --- !u!114 &1628433014976722532
 MonoBehaviour:
