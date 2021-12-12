@@ -414,6 +414,7 @@ namespace _Scripts.CookingSystem
             isCanProcess = false;
             currentStoveTime = 0;
             CloseUI();
+            UIPanelHandler.instance.CloseUIPanel();
             
             // Comment Code Below locate to KitchenStorage Take out case Recipe is Cooked
             //var psHandler = Manager.Instance.playerManager.PSHandler();

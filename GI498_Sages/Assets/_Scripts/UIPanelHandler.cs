@@ -29,6 +29,7 @@ public class UIPanelHandler : MonoBehaviour
     private void OnDisable()
     {
         _playerInput.Disable();
+        CheckUIisActive();
     }
 
     void Start()
@@ -66,16 +67,21 @@ public class UIPanelHandler : MonoBehaviour
     //     // CheckUIisActive();
     // }
 
-    void CheckUIisActive()
+    public void CheckUIisActive()
     {
-        if (this.gameObject.activeInHierarchy)
+        if (this.gameObject.activeSelf || this.gameObject.activeInHierarchy)
         {
             UIPanelActive = true;
             PlayerController.instance.UIPanelActive = UIPanelActive;
         }
+        else
+        {
+            UIPanelActive = false;
+            PlayerController.instance.UIPanelActive = UIPanelActive;
+        }
     }
 
-    void CloseUIPanel()
+    public void CloseUIPanel()
     {
         if (UIPanelActive == false)
         {
