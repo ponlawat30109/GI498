@@ -10,10 +10,10 @@ namespace _Scripts.InventorySystem.Player
 {
     public class PlayerStorageHandler : MonoBehaviour
     {
-        [Header("Input Key")]
+        /*[Header("Input Key")]
         [SerializeField] private KeyCode openKitchenKey;
         [SerializeField] private KeyCode openStorageKey;
-        [SerializeField] private KeyCode collectItemKey;
+        [SerializeField] private KeyCode collectItemKey;*/
         
         [Header("Data")]
         public Storage storage; // Player Storage
@@ -168,7 +168,7 @@ namespace _Scripts.InventorySystem.Player
                         }
                     }
 
-                    Debug.Log($"Can not Press {openStorageKey.ToString()} Key for now.");
+                    //Debug.Log($"Can not Press {openStorageKey.ToString()} Key for now.");
                     /*Debug.Log($"Open again time:{currentOpenStorageTimeCount.ToString()}");
                     Debug.Log($"_justPressOpenStorage : {_justPressOpenStorage.ToString()}");
                     Debug.Log($"canInteractToOpenStorage : {canInteractToOpenStorage.ToString()}");*/
@@ -186,7 +186,7 @@ namespace _Scripts.InventorySystem.Player
                 {
                     _currentOpenStorageTimeCount = 0;
                     _justPressOpenStorage = false;
-                    Debug.Log($"Set Just Press {openStorageKey.ToString()} Key to False");
+                    //Debug.Log($"Set Just Press {openStorageKey.ToString()} Key to False");
                 }
             }
             else
@@ -227,7 +227,7 @@ namespace _Scripts.InventorySystem.Player
                         }
                     }
 
-                    Debug.Log($"Can not Press {openKitchenKey.ToString()} Key for now.");
+                    //Debug.Log($"Can not Press {openKitchenKey.ToString()} Key for now.");
                 }
             }
 
@@ -242,7 +242,7 @@ namespace _Scripts.InventorySystem.Player
                 {
                     _currentOpenKitchenTimeCount = 0;
                     _justPressOpenKitchen = false;
-                    Debug.Log($"Set Just Press {openKitchenKey.ToString()} Key to False");
+                    //Debug.Log($"Set Just Press {openKitchenKey.ToString()} Key to False");
                 }
             }
             else
@@ -260,7 +260,7 @@ namespace _Scripts.InventorySystem.Player
                 if (PlayerController.instance._playerInput.Movement.PickItem.triggered)
                 {
                     toInteractItemObject.Interacted();
-                    Debug.Log($"Press {collectItemKey.ToString()} Key.");
+                    //Debug.Log($"Press {collectItemKey.ToString()} Key.");
                     
                     _justPressCollectItem = true;
                     
@@ -270,7 +270,7 @@ namespace _Scripts.InventorySystem.Player
             {
                 if (PlayerController.instance._playerInput.Movement.PickItem.triggered)
                 {
-                    Debug.Log($"Can not Press {collectItemKey.ToString()} Key for now.");
+                    //Debug.Log($"Can not Press {collectItemKey.ToString()} Key for now.");
                     /*Debug.Log($"Open again time:{_currentCollectItemTimeCount.ToString()}");
                     Debug.Log($"_justPressOpenStorage : {_justPressCollectItem.ToString()}");
                     Debug.Log($"_canInteractToCollectItem : {_canInteractToCollectItem.ToString()}");*/
