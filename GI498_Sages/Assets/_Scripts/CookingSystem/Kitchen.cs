@@ -326,7 +326,9 @@ namespace _Scripts.CookingSystem
                             ingredientStorage.TakeOutCookedFood(); // Clear Storage
                             currentCorrectIngredient = 0;
                             ClearTempRecipe();
+                            Manager.Instance.storageManager.ClearIngredientQuantity();
                             kitchenUI.ClearSlotList();
+                            
                         }
                         else
                         {
@@ -411,8 +413,8 @@ namespace _Scripts.CookingSystem
             recipeItem.CheckNutrition();
             isCanProcess = false;
             currentStoveTime = 0;
-            Manager.Instance.storageManager.ClearIngredientQuantity();
-
+            CloseUI();
+            
             // Comment Code Below locate to KitchenStorage Take out case Recipe is Cooked
             //var psHandler = Manager.Instance.playerManager.PSHandler();
             //psHandler.JustPutInFood(recipeItem);
