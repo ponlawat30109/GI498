@@ -32,7 +32,7 @@ namespace _Scripts.CookingSystem.UI
         [SerializeField] private List<IngredientInfoComponent> ingredientInfoList = new List<IngredientInfoComponent>();
         
         [SerializeField] private float currentTime = 0;
-        private float refreshInterval = .2f;
+        private float refreshInterval = .4f;
         //private bool _isSomeChange;
         //private FoodObject _tempItem;
 
@@ -54,6 +54,7 @@ namespace _Scripts.CookingSystem.UI
             else if(currentTime >= refreshInterval)
             {
                 UpdateUI();
+                RemoveEmptySlot();
                 currentTime = 0;
             }
 
@@ -295,9 +296,10 @@ namespace _Scripts.CookingSystem.UI
 
                 for (int i = 0; i < slotList.Count; i++)
                 {
-                    if (slotList[i].GetItem() != null)
+                    var item = (IngredientObject) slotList[i].GetItem();
+                    
+                    if (slotList[i].GetItem() != null && stoveTemp.GetIngredientByName(item) != null)
                     {
-                        var item = (IngredientObject) slotList[i].GetItem();
                         slotList[i].SetCurrentQuantity(stoveTemp.GetIngredientByName(item).quantity);
                     }
                 }
@@ -315,10 +317,18 @@ namespace _Scripts.CookingSystem.UI
             slotList.Clear();
         }
         
-        public void RemoveSlotByItem(IngredientObject targetItem)
+        public void RemoveEmptySlot()
         {
-            var index = 1;
-            slotList.RemoveAt(index);
+            if (slotList.Count > 0)
+            {
+                for (int i = 0; i < slotList.Count; i++)
+                {
+                    if (slotList[i] == null)
+                    {
+                        slotList.RemoveAt(i);
+                    }
+                }
+            }
         }
 
         public bool IsInSlotList(IngredientObject itemToCheck)

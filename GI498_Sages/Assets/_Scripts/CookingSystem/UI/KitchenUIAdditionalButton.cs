@@ -75,6 +75,8 @@ public class KitchenUIAdditionalButton : MonoBehaviour
             if (parent.GetStoveTempRecipe().GetIngredient().Count > 0)
             {
                 parent.GrabTrash();
+                parent.DeSelectSlot();
+                //parent.CloseUI();
             }
             else
             {

@@ -586,7 +586,7 @@ namespace _Scripts.CookingSystem
             var itemToRemove = (IngredientObject) currentSelectSlot.GetItem();
             // Remove Item at stove
             stoveTempRecipe.SubIngredientQuantityByItemName(itemToRemove);
-
+            
             // Remove Slot
             kitchenUI.UpdateUI();
         }

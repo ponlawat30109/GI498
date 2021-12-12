@@ -125,24 +125,29 @@ public class FoodObject : ItemObject
 
     public void RemoveIngredient(IngredientObject itemToRemove)
     {
-        for (int i = 0; i < ingredients.Count; i++)
+        if (itemToRemove.isSpecialIngredient == false)
         {
-            if (ingredients[i] != null)
+            for (int i = 0; i < ingredients.Count; i++)
             {
-                if (ingredients[i].itemName == itemToRemove.itemName)
+                if (ingredients[i] != null)
                 {
-                    ingredients.RemoveAt(i);
+                    if (ingredients[i] == itemToRemove)
+                    {
+                        ingredients.RemoveAt(i);
+                    }
                 }
             }
         }
-        
-        for (int i = 0; i < specialIngredients.Count; i++)
+        else
         {
-            if (specialIngredients[i] != null)
+            for (int i = 0; i < specialIngredients.Count; i++)
             {
-                if (specialIngredients[i].itemName == itemToRemove.itemName)
+                if (specialIngredients[i] != null)
                 {
-                    specialIngredients.RemoveAt(i);
+                    if (specialIngredients[i] == itemToRemove)
+                    {
+                        specialIngredients.RemoveAt(i);
+                    }
                 }
             }
         }
@@ -162,36 +167,31 @@ public class FoodObject : ItemObject
         // Normal
         if (itemToRemove.isSpecialIngredient == false)
         {
-            foreach (var ingredient in ingredients)
+            for (int i = 0; i < ingredients.Count; i++)
             {
-                if (ingredient.itemName == itemToRemove.itemName)
+                if (ingredients[i] == itemToRemove)
                 {
-                    if (ingredient.quantity - 1 <= 0)
+                    ingredients[i].SubQuantity();
+
+                    if (ingredients[i].quantity < 1)
                     {
-                        RemoveIngredient(ingredient);
-                    }
-                    else
-                    {
-                        ingredient.SubQuantity();
+                        RemoveIngredient(ingredients[i]);
                     }
                 }
             }
-
         }
         else
         {
             // Special
-            foreach (var ingredient in specialIngredients)
+            for (int i = 0; i < specialIngredients.Count; i++)
             {
-                if (ingredient.itemName == itemToRemove.itemName)
+                if (specialIngredients[i] == itemToRemove)
                 {
-                    if (ingredient.quantity - 1 <= 0)
+                    specialIngredients[i].SubQuantity();
+
+                    if (specialIngredients[i].quantity < 1)
                     {
-                        RemoveIngredient(ingredient);
-                    }
-                    else
-                    {
-                        ingredient.SubQuantity();
+                        RemoveIngredient(specialIngredients[i]);
                     }
                 }
             }

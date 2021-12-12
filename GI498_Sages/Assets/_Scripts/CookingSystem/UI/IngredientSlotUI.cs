@@ -93,6 +93,11 @@ namespace _Scripts.CookingSystem.UI
                 SetCurrentQuantity(item.quantity);
                 UpdateQuantityText();
             }
+
+            if (_currentQuantity < 1)
+            {
+                Destroy(this.gameObject);
+            }
         }
 
         public void OnPointerClick(PointerEventData eventData)
