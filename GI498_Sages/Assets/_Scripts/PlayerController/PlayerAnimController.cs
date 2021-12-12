@@ -15,7 +15,6 @@ public class PlayerAnimController : MonoBehaviour
         animator.SetFloat(SPEED, speed);
     }
 
-
     public void SetTargetSpeed(Activity activity)
     {
         //use for change speed while not do anything
@@ -30,9 +29,9 @@ public class PlayerAnimController : MonoBehaviour
             case Activity.Run:
                 speed = 1f;
                 break;
-            // default:
-            //     targetSpeed = 0f;
-            //     break;
+                // default:
+                //     targetSpeed = 0f;
+                //     break;
         }
 
         try
@@ -66,10 +65,30 @@ public class PlayerAnimController : MonoBehaviour
         SetTargetSpeed(activity);
     }
 
+    // private void Update()
+    // {
+    //     if (PlayerController.instance.isRunning)
+    //     {
+    //         Move(Activity.Run);
+    //     }
+    //     else
+    //     {
+    //         if (PlayerController.instance.isMoving)
+    //         {
+    //             Move(Activity.Walk);
+    //         }
+    //         else
+    //         {
+    //             Move(Activity.Stand);
+    //         }
+    //     }
+    // }
+
     public enum Activity
     {
         Stand,
         Walk,
         Run
     }
+
 }
