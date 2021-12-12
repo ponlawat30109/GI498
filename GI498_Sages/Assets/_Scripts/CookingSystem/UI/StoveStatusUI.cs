@@ -20,10 +20,12 @@ namespace _Scripts.CookingSystem.UI
         public struct Status
         {
             public Sprite sprite;
+            public GameObject particlePrefab;
             public StatusEnum status;
         }
         
         [SerializeField] private Image statusImage;
+        [SerializeField] private GameObject currentEffect;
         [SerializeField] private StatusEnum currentStatus;
         [SerializeField] private List<Status> statusList = new List<Status>();
 
@@ -39,34 +41,44 @@ namespace _Scripts.CookingSystem.UI
             {
                 case StatusEnum.Finish:
                 {
-                    statusImage.sprite = GetSpriteStatus(StatusEnum.Finish);
+                    statusImage.sprite = GetStatus(StatusEnum.Finish).sprite;
+                    currentEffect = GetStatus(StatusEnum.Finish).particlePrefab;
                     break;
                 }
                 case StatusEnum.Cooking:
                 {
-                    statusImage.sprite = GetSpriteStatus(StatusEnum.Cooking);
+                    statusImage.sprite = GetStatus(StatusEnum.Cooking).sprite;
+                    currentEffect = GetStatus(StatusEnum.Cooking).particlePrefab;
                     break;
                 }
                 case StatusEnum.Wait:
                 {
-                    statusImage.sprite = GetSpriteStatus(StatusEnum.Wait);
+                    statusImage.sprite = GetStatus(StatusEnum.Wait).sprite;
+                    currentEffect = GetStatus(StatusEnum.Wait).particlePrefab;
                     break;
                 }
                 
                 case StatusEnum.Fail:
                 {
-                    statusImage.sprite = GetSpriteStatus(StatusEnum.Fail);
+                    statusImage.sprite = GetStatus(StatusEnum.Fail).sprite;
+                    currentEffect = GetStatus(StatusEnum.Fail).particlePrefab;
                     break;
                 }
                 case StatusEnum.Trash:
                 {
-                    statusImage.sprite = GetSpriteStatus(StatusEnum.Trash);
+                    statusImage.sprite = GetStatus(StatusEnum.Trash).sprite;
+                    currentEffect = GetStatus(StatusEnum.Trash).particlePrefab;
                     break;
                 }
             }
         }
 
-        private Sprite GetSpriteStatus(StatusEnum target)
+        private Status GetStatus(StatusEnum target)
+        {
+            return statusList.Find(x=> x.status == target);
+        }
+        
+        /*private Sprite GetSpriteStatus(StatusEnum target)
         {
             foreach (var status in statusList)
             {
@@ -77,6 +89,6 @@ namespace _Scripts.CookingSystem.UI
             }
 
             return null;
-        }
+        }*/
     }
 }
