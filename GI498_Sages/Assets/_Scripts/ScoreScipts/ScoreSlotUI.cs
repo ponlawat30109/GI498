@@ -8,13 +8,17 @@ public class ScoreSlotUI : MonoBehaviour
     public Text contentTitle;
     public Text value;
     public Text unit;
+    public Text detail;
     public List<GameObject> stars;
 
     public void ActiveStar(int number)
     {
-        for(int i = 0; i<number; i++)
+        for(int i = 0; i< stars.Count; i++)
         {
-            stars[i].SetActive(true);
+            if(i<number)
+                stars[i].SetActive(true);
+            else
+                stars[i].SetActive(false);
         }
     }
 }
