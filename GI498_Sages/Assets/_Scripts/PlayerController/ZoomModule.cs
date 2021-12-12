@@ -29,7 +29,7 @@ public class ZoomModule : MonoBehaviour
         var view = Mouse.current.position.ReadValue();
         var isInsideScreen = view.x < 0 || view.x > Screen.width - 1 || view.y < 0 || view.y > Screen.height - 1;
 
-        if (z != 0 && !isInsideScreen)
+        if (z != 0 && !isInsideScreen && !PlayerController.instance.UIPanelActive)
         {
             ZoomScreen(z);
         }
