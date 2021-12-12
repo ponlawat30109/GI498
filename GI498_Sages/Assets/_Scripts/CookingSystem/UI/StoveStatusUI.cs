@@ -20,14 +20,20 @@ namespace _Scripts.CookingSystem.UI
         public struct Status
         {
             public Sprite sprite;
-            public GameObject particlePrefab;
+            public StatusEnum status;
+        }
+        
+        [Serializable]
+        public struct EffectObject
+        {
+            public GameObject obj;
             public StatusEnum status;
         }
         
         [SerializeField] private Image statusImage;
-        [SerializeField] private GameObject currentEffect;
         [SerializeField] private StatusEnum currentStatus;
         [SerializeField] private List<Status> statusList = new List<Status>();
+        [SerializeField] private List<EffectObject> effectList = new List<EffectObject>();
 
         public void SetCurrentStatus(StatusEnum statusEnum)
         {
@@ -41,33 +47,43 @@ namespace _Scripts.CookingSystem.UI
             {
                 case StatusEnum.Finish:
                 {
-                    statusImage.sprite = GetStatus(StatusEnum.Finish).sprite;
-                    currentEffect = GetStatus(StatusEnum.Finish).particlePrefab;
+                    var s = GetStatus(StatusEnum.Finish);
+                    statusImage.sprite = s.sprite;
+                    SetActiveEffectByStatus(s.status);
+                    
                     break;
                 }
                 case StatusEnum.Cooking:
                 {
-                    statusImage.sprite = GetStatus(StatusEnum.Cooking).sprite;
-                    currentEffect = GetStatus(StatusEnum.Cooking).particlePrefab;
+                    var s = GetStatus(StatusEnum.Cooking);
+                    statusImage.sprite = s.sprite;
+                    SetActiveEffectByStatus(s.status);
+
                     break;
                 }
                 case StatusEnum.Wait:
                 {
-                    statusImage.sprite = GetStatus(StatusEnum.Wait).sprite;
-                    currentEffect = GetStatus(StatusEnum.Wait).particlePrefab;
+                    var s = GetStatus(StatusEnum.Wait);
+                    statusImage.sprite = s.sprite;
+                    SetActiveEffectByStatus(s.status);
+
                     break;
                 }
                 
                 case StatusEnum.Fail:
                 {
-                    statusImage.sprite = GetStatus(StatusEnum.Fail).sprite;
-                    currentEffect = GetStatus(StatusEnum.Fail).particlePrefab;
+                    var s = GetStatus(StatusEnum.Fail);
+                    statusImage.sprite = s.sprite;
+                    SetActiveEffectByStatus(s.status);
+
                     break;
                 }
                 case StatusEnum.Trash:
                 {
-                    statusImage.sprite = GetStatus(StatusEnum.Trash).sprite;
-                    currentEffect = GetStatus(StatusEnum.Trash).particlePrefab;
+                    var s = GetStatus(StatusEnum.Trash);
+                    statusImage.sprite = s.sprite;
+                    SetActiveEffectByStatus(s.status);
+
                     break;
                 }
             }
@@ -77,18 +93,20 @@ namespace _Scripts.CookingSystem.UI
         {
             return statusList.Find(x=> x.status == target);
         }
-        
-        /*private Sprite GetSpriteStatus(StatusEnum target)
+
+        private void SetActiveEffectByStatus(StatusEnum target)
         {
-            foreach (var status in statusList)
+            foreach (var fx in effectList)
             {
-                if (status.status == target)
+                if (fx.status == target)
                 {
-                    return status.sprite;
+                    fx.obj.SetActive(true);
+                }
+                else
+                {
+                    fx.obj.SetActive(false);
                 }
             }
-
-            return null;
-        }*/
+        }
     }
 }
