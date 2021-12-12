@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using _Scripts.InventorySystem;
+using _Scripts.ManagerCollection;
 using UnityEngine;
 
 public class ServeTable : MonoBehaviour
@@ -43,6 +44,8 @@ public class ServeTable : MonoBehaviour
     {
         // Give Exp to Player or Show Summary UI
         NPCScript.NPCManager.Instance.CompleteOrder(99);
+        
+        Manager.Instance.storageManager.ClearIngredientQuantity();
         
         // Clear Food
         parent.currentHoldFoodObject.isCooked = false;

@@ -8,26 +8,9 @@ using FoodUtility = _Scripts.InventorySystem.FoodUtility;
 [CreateAssetMenu(fileName = "New Food Object", menuName = "Inventory System/Items/Food")]
 public class FoodObject : ItemObject
 {
-    
-    [Serializable]
-    public struct IngredientStruct
-    {
-        public IngredientObject ingredientObject;
-        public int ingredientQuantity;
-
-        public void AddQuantity(int value)
-        {
-            ingredientQuantity += value;
-        }
-        
-        public void SetQuantity(int value)
-        {
-            ingredientQuantity = value;
-        }
-    }
-    
     public GameObject cookedPrefab;
-    public List<IngredientStruct> ingredients;
+    public List<IngredientObject> ingredients;
+    public List<IngredientObject> specialIngredients;
     public float cookingTime;
     public bool isLowSodium;
     public bool isCooked;
@@ -39,6 +22,36 @@ public class FoodObject : ItemObject
         isCooked = false;
     }
 
+    public void Init(string _itemName,Sprite _itemIcon,GameObject prefab,GameObject _cookedPrefab,List<IngredientObject> normalIngredient,List<IngredientObject> speicalIngredient,float _cookingTime)
+    {
+        base.itemName = _itemName;
+        base.itemIcon = _itemIcon;
+        ingamePrefab = prefab;
+        cookedPrefab = _cookedPrefab;
+        ingredients = normalIngredient;
+        specialIngredients = speicalIngredient;
+        cookingTime = _cookingTime;
+    }
+
+    public FoodObject CreateInstance(string _itemName,Sprite _itemIcon,GameObject prefab,GameObject _cookedPrefab,List<IngredientObject> normalIngredient,List<IngredientObject> speicalIngredient,float _cookingTime)
+    {
+        var data = ScriptableObject.CreateInstance<FoodObject>();
+        data.Init(_itemName,_itemIcon,prefab,_cookedPrefab,normalIngredient,speicalIngredient,_cookingTime);
+        data.isCooked = false;
+        
+        return data;
+    }
+    
+    public bool IsHaveSpecialIngredients()
+    {
+        if (specialIngredients.Count > 0)
+        {
+            return true;
+        }
+        
+        return false;
+    }
+    
     public void CheckNutrition()
     {
         isLowSodium = FoodUtility.IsLowSodium(GetTotalSodiumSummary());
@@ -48,6 +61,147 @@ public class FoodObject : ItemObject
         // Implement Food
         isCooked = false;
     }
+
+    // New Method for Test
+
+    public IngredientObject GetIngredientByName(IngredientObject toFindIngredeint)
+    {
+        if (toFindIngredeint.isSpecialIngredient == false)
+        {
+            foreach (var ingredient in ingredients)
+            {
+                if (ingredient == toFindIngredeint)
+                {
+                    return ingredient;
+                }
+            }
+        }
+        else
+        {
+            foreach (var ingredient in specialIngredients)
+            {
+                if (ingredient == toFindIngredeint)
+                {
+                    return ingredient;
+                }
+            }
+        }
+        
+        return null;
+    }
+    
+    public void AddIngredient(IngredientObject itemToAdd)
+    {
+        // If found item In side
+        if (GetIngredientByName(itemToAdd) != null)
+        {
+            //Debug.Log("While add ingredient is found same ingredient.");
+            // Add quantity
+            AddIngredientQuantityByItemName(itemToAdd);
+        }
+        else
+        {
+            // Create new one
+            // Find Where to create new ingredient
+            if (itemToAdd.isSpecialIngredient == false)
+            {
+                IngredientObject newItem = new IngredientObject();
+                newItem = itemToAdd;
+                newItem.quantity += 1;
+        
+                ingredients.Add(newItem);
+            }
+            else
+            {
+                IngredientObject newItem = new IngredientObject();
+                newItem = itemToAdd;
+                newItem.quantity += 1;
+        
+                specialIngredients.Add(newItem);
+            }
+        }
+        
+    }
+
+    public void RemoveIngredient(IngredientObject itemToRemove)
+    {
+        if (itemToRemove.isSpecialIngredient == false)
+        {
+            for (int i = 0; i < ingredients.Count; i++)
+            {
+                if (ingredients[i] != null)
+                {
+                    if (ingredients[i] == itemToRemove)
+                    {
+                        ingredients.RemoveAt(i);
+                    }
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < specialIngredients.Count; i++)
+            {
+                if (specialIngredients[i] != null)
+                {
+                    if (specialIngredients[i] == itemToRemove)
+                    {
+                        specialIngredients.RemoveAt(i);
+                    }
+                }
+            }
+        }
+    }
+    
+    public void AddIngredientQuantityByItemName(IngredientObject itemToAdd)
+    {
+        var item = GetIngredientByName(itemToAdd);
+        item.AddQuantity();
+        
+        Debug.Log($"Update quantity {itemToAdd} to {item.quantity}");
+        
+    }
+
+    public void SubIngredientQuantityByItemName(IngredientObject itemToRemove)
+    {
+        // Normal
+        if (itemToRemove.isSpecialIngredient == false)
+        {
+            for (int i = 0; i < ingredients.Count; i++)
+            {
+                if (ingredients[i] == itemToRemove)
+                {
+                    ingredients[i].SubQuantity();
+
+                    if (ingredients[i].quantity < 1)
+                    {
+                        RemoveIngredient(ingredients[i]);
+                    }
+                }
+            }
+        }
+        else
+        {
+            // Special
+            for (int i = 0; i < specialIngredients.Count; i++)
+            {
+                if (specialIngredients[i] == itemToRemove)
+                {
+                    specialIngredients[i].SubQuantity();
+
+                    if (specialIngredients[i].quantity < 1)
+                    {
+                        RemoveIngredient(specialIngredients[i]);
+                    }
+                }
+            }
+        }
+    }
+
+    public FoodObject TakeOutCookedFood()
+    {
+        return this;
+    }
     
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -55,9 +209,14 @@ public class FoodObject : ItemObject
     /// Get Ingredient of Food
     /// </summary>
     /// <returns></returns>
-    public List<IngredientStruct> GetIngredient()
+    public List<IngredientObject> GetIngredient()
     {
         return ingredients;
+    }
+    
+    public List<IngredientObject> GetSpecialIngredient()
+    {
+        return specialIngredients;
     }
     
     public float GetTotalCholesterolSummary()
@@ -66,13 +225,22 @@ public class FoodObject : ItemObject
         
         for (int i = 0; i < ingredients.Count; i++)
         {
-            if (ingredients[i].ingredientObject.nutrition.cholesterol > 0)
+            if (ingredients[i].nutrition.cholesterol > 0)
             {
-                summary += ingredients[i].ingredientObject.nutrition.cholesterol * ingredients[i].ingredientQuantity;
+                summary += ingredients[i].nutrition.cholesterol * ingredients[i].quantity;
+            }
+        }
+        
+        // Special Ingredient
+        for (int i = 0; i < specialIngredients.Count; i++)
+        {
+            if (specialIngredients[i].nutrition.cholesterol > 0)
+            {
+                summary += specialIngredients[i].nutrition.cholesterol * specialIngredients[i].quantity;
             }
         }
 
-        return summary / ingredients.Count;
+        return summary / (ingredients.Count + specialIngredients.Count);
     }
 
     public float GetTotalCarbohydrateSummary()
@@ -81,13 +249,22 @@ public class FoodObject : ItemObject
         
         for (int i = 0; i < ingredients.Count; i++)
         {
-            if (ingredients[i].ingredientObject.nutrition.carbohydrate > 0)
+            if (ingredients[i].nutrition.carbohydrate > 0)
             {
-                summary += ingredients[i].ingredientObject.nutrition.carbohydrate * ingredients[i].ingredientQuantity;
+                summary += ingredients[i].nutrition.carbohydrate * ingredients[i].quantity;
+            }
+        }
+        
+        // Special Ingredient
+        for (int i = 0; i < specialIngredients.Count; i++)
+        {
+            if (specialIngredients[i].nutrition.carbohydrate > 0)
+            {
+                summary += specialIngredients[i].nutrition.carbohydrate * specialIngredients[i].quantity;
             }
         }
 
-        return summary / ingredients.Count;
+        return summary / (ingredients.Count + specialIngredients.Count);
     }
     public float GetTotalSugarsSummary()
     {
@@ -95,13 +272,22 @@ public class FoodObject : ItemObject
         
         for (int i = 0; i < ingredients.Count; i++)
         {
-            if (ingredients[i].ingredientObject.nutrition.sugars > 0)
+            if (ingredients[i].nutrition.sugars > 0)
             {
-                summary += ingredients[i].ingredientObject.nutrition.sugars * ingredients[i].ingredientQuantity;
+                summary += ingredients[i].nutrition.sugars * ingredients[i].quantity;
             }
         }
 
-        return summary / ingredients.Count;
+        // Special Ingredient
+        for (int i = 0; i < specialIngredients.Count; i++)
+        {
+            if (specialIngredients[i].nutrition.sugars > 0)
+            {
+                summary += specialIngredients[i].nutrition.sugars * specialIngredients[i].quantity;
+            }
+        }
+
+        return summary / (ingredients.Count + specialIngredients.Count);
     }
     public float GetTotalFiberSummary()
     {
@@ -109,13 +295,22 @@ public class FoodObject : ItemObject
         
         for (int i = 0; i < ingredients.Count; i++)
         {
-            if (ingredients[i].ingredientObject.nutrition.fiber > 0)
+            if (ingredients[i].nutrition.fiber > 0)
             {
-                summary += ingredients[i].ingredientObject.nutrition.fiber * ingredients[i].ingredientQuantity;
+                summary += ingredients[i].nutrition.fiber * ingredients[i].quantity;
             }
         }
 
-        return summary / ingredients.Count;
+        // Special Ingredient
+        for (int i = 0; i < specialIngredients.Count; i++)
+        {
+            if (specialIngredients[i].nutrition.fiber > 0)
+            {
+                summary += specialIngredients[i].nutrition.fiber * specialIngredients[i].quantity;
+            }
+        }
+
+        return summary / (ingredients.Count + specialIngredients.Count);
     }
     public float GetTotalProteinsSummary()
     {
@@ -123,13 +318,22 @@ public class FoodObject : ItemObject
         
         for (int i = 0; i < ingredients.Count; i++)
         {
-            if (ingredients[i].ingredientObject.nutrition.proteins > 0)
+            if (ingredients[i].nutrition.proteins > 0)
             {
-                summary += ingredients[i].ingredientObject.nutrition.proteins * ingredients[i].ingredientQuantity;
+                summary += ingredients[i].nutrition.proteins * ingredients[i].quantity;
             }
         }
 
-        return summary / ingredients.Count;
+        // Special Ingredient
+        for (int i = 0; i < specialIngredients.Count; i++)
+        {
+            if (specialIngredients[i].nutrition.proteins > 0)
+            {
+                summary += specialIngredients[i].nutrition.proteins * specialIngredients[i].quantity;
+            }
+        }
+
+        return summary / (ingredients.Count + specialIngredients.Count);
     }
 
     public float GetTotalFatSummary()
@@ -138,13 +342,22 @@ public class FoodObject : ItemObject
         
         for (int i = 0; i < ingredients.Count; i++)
         {
-            if (ingredients[i].ingredientObject.nutrition.fat > 0)
+            if (ingredients[i].nutrition.fat > 0)
             {
-                summary += ingredients[i].ingredientObject.nutrition.fat * ingredients[i].ingredientQuantity;
+                summary += ingredients[i].nutrition.fat * ingredients[i].quantity;
+            }
+        }
+        
+        // Special Ingredient
+        for (int i = 0; i < specialIngredients.Count; i++)
+        {
+            if (specialIngredients[i].nutrition.fat > 0)
+            {
+                summary += specialIngredients[i].nutrition.fat * specialIngredients[i].quantity;
             }
         }
 
-        return summary / ingredients.Count;
+        return summary / (ingredients.Count + specialIngredients.Count);
     }
     public float GetTotalSaturatedfatSummary()
     {
@@ -152,13 +365,22 @@ public class FoodObject : ItemObject
         
         for (int i = 0; i < ingredients.Count; i++)
         {
-            if (ingredients[i].ingredientObject.nutrition.saturatedfat > 0)
+            if (ingredients[i].nutrition.saturatedfat > 0)
             {
-                summary += ingredients[i].ingredientObject.nutrition.saturatedfat * ingredients[i].ingredientQuantity;
+                summary += ingredients[i].nutrition.saturatedfat * ingredients[i].quantity;
             }
         }
 
-        return summary / ingredients.Count;
+        // Special Ingredient
+        for (int i = 0; i < specialIngredients.Count; i++)
+        {
+            if (specialIngredients[i].nutrition.saturatedfat > 0)
+            {
+                summary += specialIngredients[i].nutrition.saturatedfat * specialIngredients[i].quantity;
+            }
+        }
+
+        return summary / (ingredients.Count + specialIngredients.Count);
     }
     public float GetTotalWaterSummary()
     {
@@ -166,13 +388,22 @@ public class FoodObject : ItemObject
         
         for (int i = 0; i < ingredients.Count; i++)
         {
-            if (ingredients[i].ingredientObject.nutrition.water > 0)
+            if (ingredients[i].nutrition.water > 0)
             {
-                summary += ingredients[i].ingredientObject.nutrition.water * ingredients[i].ingredientQuantity;
+                summary += ingredients[i].nutrition.water * ingredients[i].quantity;
             }
         }
 
-        return summary / ingredients.Count;
+        // Special Ingredient
+        for (int i = 0; i < specialIngredients.Count; i++)
+        {
+            if (specialIngredients[i].nutrition.water > 0)
+            {
+                summary += specialIngredients[i].nutrition.water * specialIngredients[i].quantity;
+            }
+        }
+
+        return summary / (ingredients.Count + specialIngredients.Count);
     }
     public float GetTotalPotassiumSummary()
     {
@@ -180,13 +411,22 @@ public class FoodObject : ItemObject
         
         for (int i = 0; i < ingredients.Count; i++)
         {
-            if (ingredients[i].ingredientObject.nutrition.potassium > 0)
+            if (ingredients[i].nutrition.potassium > 0)
             {
-                summary += ingredients[i].ingredientObject.nutrition.potassium * ingredients[i].ingredientQuantity;
+                summary += ingredients[i].nutrition.potassium * ingredients[i].quantity;
             }
         }
 
-        return summary / ingredients.Count;
+        // Special Ingredient
+        for (int i = 0; i < specialIngredients.Count; i++)
+        {
+            if (specialIngredients[i].nutrition.potassium > 0)
+            {
+                summary += specialIngredients[i].nutrition.potassium * specialIngredients[i].quantity;
+            }
+        }
+
+        return summary / (ingredients.Count + specialIngredients.Count);
     }
     public float GetTotalSodiumSummary()
     {
@@ -194,13 +434,22 @@ public class FoodObject : ItemObject
         
         for (int i = 0; i < ingredients.Count; i++)
         {
-            if (ingredients[i].ingredientObject.nutrition.sodium > 0)
+            if (ingredients[i].nutrition.sodium > 0)
             {
-                summary += ingredients[i].ingredientObject.nutrition.sodium * ingredients[i].ingredientQuantity;
+                summary += ingredients[i].nutrition.sodium * ingredients[i].quantity;
             }
         }
 
-        return summary / ingredients.Count;
+        // Special Ingredient
+        for (int i = 0; i < specialIngredients.Count; i++)
+        {
+            if (specialIngredients[i].nutrition.sodium > 0)
+            {
+                summary += specialIngredients[i].nutrition.sodium * specialIngredients[i].quantity;
+            }
+        }
+
+        return summary / (ingredients.Count + specialIngredients.Count);
     }
     public float GetTotalCalciumSummary()
     {
@@ -208,13 +457,22 @@ public class FoodObject : ItemObject
         
         for (int i = 0; i < ingredients.Count; i++)
         {
-            if (ingredients[i].ingredientObject.nutrition.calcium > 0)
+            if (ingredients[i].nutrition.calcium > 0)
             {
-                summary += ingredients[i].ingredientObject.nutrition.calcium * ingredients[i].ingredientQuantity;
+                summary += ingredients[i].nutrition.calcium * ingredients[i].quantity;
             }
         }
 
-        return summary / ingredients.Count;
+        // Special Ingredient
+        for (int i = 0; i < specialIngredients.Count; i++)
+        {
+            if (specialIngredients[i].nutrition.calcium > 0)
+            {
+                summary += specialIngredients[i].nutrition.calcium * specialIngredients[i].quantity;
+            }
+        }
+
+        return summary / (ingredients.Count + specialIngredients.Count);
     }
     public float GetTotalPhosphorusSummary()
     {
@@ -222,13 +480,22 @@ public class FoodObject : ItemObject
         
         for (int i = 0; i < ingredients.Count; i++)
         {
-            if (ingredients[i].ingredientObject.nutrition.phosphorus > 0)
+            if (ingredients[i].nutrition.phosphorus > 0)
             {
-                summary += ingredients[i].ingredientObject.nutrition.phosphorus * ingredients[i].ingredientQuantity;
+                summary += ingredients[i].nutrition.phosphorus * ingredients[i].quantity;
             }
         }
 
-        return summary / ingredients.Count;
+        // Special Ingredient
+        for (int i = 0; i < specialIngredients.Count; i++)
+        {
+            if (specialIngredients[i].nutrition.phosphorus > 0)
+            {
+                summary += specialIngredients[i].nutrition.phosphorus * specialIngredients[i].quantity;
+            }
+        }
+
+        return summary / (ingredients.Count + specialIngredients.Count);
     }
     public float GetTotalMagnesiumSummary()
     {
@@ -236,13 +503,22 @@ public class FoodObject : ItemObject
         
         for (int i = 0; i < ingredients.Count; i++)
         {
-            if (ingredients[i].ingredientObject.nutrition.magnesium > 0)
+            if (ingredients[i].nutrition.magnesium > 0)
             {
-                summary += ingredients[i].ingredientObject.nutrition.magnesium * ingredients[i].ingredientQuantity;
+                summary += ingredients[i].nutrition.magnesium * ingredients[i].quantity;
             }
         }
 
-        return summary / ingredients.Count;
+        // Special Ingredient
+        for (int i = 0; i < specialIngredients.Count; i++)
+        {
+            if (specialIngredients[i].nutrition.magnesium > 0)
+            {
+                summary += specialIngredients[i].nutrition.magnesium * specialIngredients[i].quantity;
+            }
+        }
+
+        return summary / (ingredients.Count + specialIngredients.Count);
     }
     public float GetTotalZincSummary()
     {
@@ -250,13 +526,22 @@ public class FoodObject : ItemObject
         
         for (int i = 0; i < ingredients.Count; i++)
         {
-            if (ingredients[i].ingredientObject.nutrition.zinc > 0)
+            if (ingredients[i].nutrition.zinc > 0)
             {
-                summary += ingredients[i].ingredientObject.nutrition.zinc * ingredients[i].ingredientQuantity;
+                summary += ingredients[i].nutrition.zinc * ingredients[i].quantity;
             }
         }
 
-        return summary / ingredients.Count;
+        // Special Ingredient
+        for (int i = 0; i < specialIngredients.Count; i++)
+        {
+            if (specialIngredients[i].nutrition.zinc > 0)
+            {
+                summary += specialIngredients[i].nutrition.zinc * specialIngredients[i].quantity;
+            }
+        }
+
+        return summary / (ingredients.Count + specialIngredients.Count);
     }
     public float GetTotalIronSummary()
     {
@@ -264,13 +549,22 @@ public class FoodObject : ItemObject
         
         for (int i = 0; i < ingredients.Count; i++)
         {
-            if (ingredients[i].ingredientObject.nutrition.iron > 0)
+            if (ingredients[i].nutrition.iron > 0)
             {
-                summary += ingredients[i].ingredientObject.nutrition.iron * ingredients[i].ingredientQuantity;
+                summary += ingredients[i].nutrition.iron * ingredients[i].quantity;
             }
         }
 
-        return summary / ingredients.Count;
+        // Special Ingredient
+        for (int i = 0; i < specialIngredients.Count; i++)
+        {
+            if (specialIngredients[i].nutrition.iron > 0)
+            {
+                summary += specialIngredients[i].nutrition.iron * specialIngredients[i].quantity;
+            }
+        }
+
+        return summary / (ingredients.Count + specialIngredients.Count);
     }
     public float GetTotalManganeseSummary()
     {
@@ -278,13 +572,22 @@ public class FoodObject : ItemObject
         
         for (int i = 0; i < ingredients.Count; i++)
         {
-            if (ingredients[i].ingredientObject.nutrition.manganese > 0)
+            if (ingredients[i].nutrition.manganese > 0)
             {
-                summary += ingredients[i].ingredientObject.nutrition.manganese * ingredients[i].ingredientQuantity;
+                summary += ingredients[i].nutrition.manganese * ingredients[i].quantity;
             }
         }
 
-        return summary / ingredients.Count;
+        // Special Ingredient
+        for (int i = 0; i < specialIngredients.Count; i++)
+        {
+            if (specialIngredients[i].nutrition.manganese > 0)
+            {
+                summary += specialIngredients[i].nutrition.manganese * specialIngredients[i].quantity;
+            }
+        }
+
+        return summary / (ingredients.Count + specialIngredients.Count);
     }
     public float GetTotalCopperSummary()
     {
@@ -292,13 +595,22 @@ public class FoodObject : ItemObject
         
         for (int i = 0; i < ingredients.Count; i++)
         {
-            if (ingredients[i].ingredientObject.nutrition.copper > 0)
+            if (ingredients[i].nutrition.copper > 0)
             {
-                summary += ingredients[i].ingredientObject.nutrition.copper * ingredients[i].ingredientQuantity;
+                summary += ingredients[i].nutrition.copper * ingredients[i].quantity;
             }
         }
 
-        return summary / ingredients.Count;
+        // Special Ingredient
+        for (int i = 0; i < specialIngredients.Count; i++)
+        {
+            if (specialIngredients[i].nutrition.copper > 0)
+            {
+                summary += specialIngredients[i].nutrition.copper * specialIngredients[i].quantity;
+            }
+        }
+
+        return summary / (ingredients.Count + specialIngredients.Count);
     }
     public float GetTotalSeleniumSummary()
     {
@@ -306,13 +618,22 @@ public class FoodObject : ItemObject
         
         for (int i = 0; i < ingredients.Count; i++)
         {
-            if (ingredients[i].ingredientObject.nutrition.selenium > 0)
+            if (ingredients[i].nutrition.selenium > 0)
             {
-                summary += ingredients[i].ingredientObject.nutrition.selenium * ingredients[i].ingredientQuantity;
+                summary += ingredients[i].nutrition.selenium * ingredients[i].quantity;
             }
         }
 
-        return summary / ingredients.Count;
+        // Special Ingredient
+        for (int i = 0; i < specialIngredients.Count; i++)
+        {
+            if (specialIngredients[i].nutrition.selenium > 0)
+            {
+                summary += specialIngredients[i].nutrition.selenium * specialIngredients[i].quantity;
+            }
+        }
+
+        return summary / (ingredients.Count + specialIngredients.Count);
     }
     public float GetTotalVitaminB1Summary()
     {
@@ -320,13 +641,22 @@ public class FoodObject : ItemObject
         
         for (int i = 0; i < ingredients.Count; i++)
         {
-            if (ingredients[i].ingredientObject.nutrition.vitaminB1 > 0)
+            if (ingredients[i].nutrition.vitaminB1 > 0)
             {
-                summary += ingredients[i].ingredientObject.nutrition.vitaminB1 * ingredients[i].ingredientQuantity;
+                summary += ingredients[i].nutrition.vitaminB1 * ingredients[i].quantity;
             }
         }
 
-        return summary / ingredients.Count;
+        // Special Ingredient
+        for (int i = 0; i < specialIngredients.Count; i++)
+        {
+            if (specialIngredients[i].nutrition.vitaminB1 > 0)
+            {
+                summary += specialIngredients[i].nutrition.vitaminB1 * specialIngredients[i].quantity;
+            }
+        }
+
+        return summary / (ingredients.Count + specialIngredients.Count);
     }
     public float GetTotalVitaminB2Summary()
     {
@@ -334,13 +664,22 @@ public class FoodObject : ItemObject
         
         for (int i = 0; i < ingredients.Count; i++)
         {
-            if (ingredients[i].ingredientObject.nutrition.vitaminB2 > 0)
+            if (ingredients[i].nutrition.vitaminB2 > 0)
             {
-                summary += ingredients[i].ingredientObject.nutrition.vitaminB2 * ingredients[i].ingredientQuantity;
+                summary += ingredients[i].nutrition.vitaminB2 * ingredients[i].quantity;
             }
         }
 
-        return summary / ingredients.Count;
+        // Special Ingredient
+        for (int i = 0; i < specialIngredients.Count; i++)
+        {
+            if (specialIngredients[i].nutrition.vitaminB2 > 0)
+            {
+                summary += specialIngredients[i].nutrition.vitaminB2 * specialIngredients[i].quantity;
+            }
+        }
+
+        return summary / (ingredients.Count + specialIngredients.Count);
     }
     public float GetTotalVitaminB3Summary()
     {
@@ -348,13 +687,22 @@ public class FoodObject : ItemObject
         
         for (int i = 0; i < ingredients.Count; i++)
         {
-            if (ingredients[i].ingredientObject.nutrition.vitaminB3 > 0)
+            if (ingredients[i].nutrition.vitaminB3 > 0)
             {
-                summary += ingredients[i].ingredientObject.nutrition.vitaminB3 * ingredients[i].ingredientQuantity;
+                summary += ingredients[i].nutrition.vitaminB3 * ingredients[i].quantity;
             }
         }
 
-        return summary / ingredients.Count;
+        // Special Ingredient
+        for (int i = 0; i < specialIngredients.Count; i++)
+        {
+            if (specialIngredients[i].nutrition.vitaminB3 > 0)
+            {
+                summary += specialIngredients[i].nutrition.vitaminB3 * specialIngredients[i].quantity;
+            }
+        }
+
+        return summary / (ingredients.Count + specialIngredients.Count);
     }
     public float GetTotalVitaminB5Summary()
     {
@@ -362,13 +710,22 @@ public class FoodObject : ItemObject
         
         for (int i = 0; i < ingredients.Count; i++)
         {
-            if (ingredients[i].ingredientObject.nutrition.vitaminB5 > 0)
+            if (ingredients[i].nutrition.vitaminB5 > 0)
             {
-                summary += ingredients[i].ingredientObject.nutrition.vitaminB5 * ingredients[i].ingredientQuantity;
+                summary += ingredients[i].nutrition.vitaminB5 * ingredients[i].quantity;
             }
         }
 
-        return summary / ingredients.Count;
+        // Special Ingredient
+        for (int i = 0; i < specialIngredients.Count; i++)
+        {
+            if (specialIngredients[i].nutrition.vitaminB5 > 0)
+            {
+                summary += specialIngredients[i].nutrition.vitaminB5 * specialIngredients[i].quantity;
+            }
+        }
+
+        return summary / (ingredients.Count + specialIngredients.Count);
     }
     public float GetTotalVitaminB6Summary()
     {
@@ -376,13 +733,22 @@ public class FoodObject : ItemObject
         
         for (int i = 0; i < ingredients.Count; i++)
         {
-            if (ingredients[i].ingredientObject.nutrition.vitaminB6 > 0)
+            if (ingredients[i].nutrition.vitaminB6 > 0)
             {
-                summary += ingredients[i].ingredientObject.nutrition.vitaminB6 * ingredients[i].ingredientQuantity;
+                summary += ingredients[i].nutrition.vitaminB6 * ingredients[i].quantity;
             }
         }
 
-        return summary / ingredients.Count;
+        // Special Ingredient
+        for (int i = 0; i < specialIngredients.Count; i++)
+        {
+            if (specialIngredients[i].nutrition.vitaminB6 > 0)
+            {
+                summary += specialIngredients[i].nutrition.vitaminB6 * specialIngredients[i].quantity;
+            }
+        }
+
+        return summary / (ingredients.Count + specialIngredients.Count);
     }
     public float GetTotalVitaminB7Summary()
     {
@@ -390,13 +756,22 @@ public class FoodObject : ItemObject
         
         for (int i = 0; i < ingredients.Count; i++)
         {
-            if (ingredients[i].ingredientObject.nutrition.vitaminB7 > 0)
+            if (ingredients[i].nutrition.vitaminB7 > 0)
             {
-                summary += ingredients[i].ingredientObject.nutrition.vitaminB7 * ingredients[i].ingredientQuantity;
+                summary += ingredients[i].nutrition.vitaminB7 * ingredients[i].quantity;
             }
         }
 
-        return summary / ingredients.Count;
+        // Special Ingredient
+        for (int i = 0; i < specialIngredients.Count; i++)
+        {
+            if (specialIngredients[i].nutrition.vitaminB7 > 0)
+            {
+                summary += specialIngredients[i].nutrition.vitaminB7 * specialIngredients[i].quantity;
+            }
+        }
+
+        return summary / (ingredients.Count + specialIngredients.Count);
     }
     public float GetTotalVitaminB9Summary()
     {
@@ -404,13 +779,22 @@ public class FoodObject : ItemObject
         
         for (int i = 0; i < ingredients.Count; i++)
         {
-            if (ingredients[i].ingredientObject.nutrition.vitaminB9 > 0)
+            if (ingredients[i].nutrition.vitaminB9 > 0)
             {
-                summary += ingredients[i].ingredientObject.nutrition.vitaminB9 * ingredients[i].ingredientQuantity;
+                summary += ingredients[i].nutrition.vitaminB9 * ingredients[i].quantity;
             }
         }
 
-        return summary / ingredients.Count;
+        // Special Ingredient
+        for (int i = 0; i < specialIngredients.Count; i++)
+        {
+            if (specialIngredients[i].nutrition.vitaminB9 > 0)
+            {
+                summary += specialIngredients[i].nutrition.vitaminB9 * specialIngredients[i].quantity;
+            }
+        }
+
+        return summary / (ingredients.Count + specialIngredients.Count);
     }
     public float GetTotalVitaminB12Summary()
     {
@@ -418,13 +802,22 @@ public class FoodObject : ItemObject
         
         for (int i = 0; i < ingredients.Count; i++)
         {
-            if (ingredients[i].ingredientObject.nutrition.vitaminB12 > 0)
+            if (ingredients[i].nutrition.vitaminB12 > 0)
             {
-                summary += ingredients[i].ingredientObject.nutrition.vitaminB12 * ingredients[i].ingredientQuantity;
+                summary += ingredients[i].nutrition.vitaminB12 * ingredients[i].quantity;
             }
         }
 
-        return summary / ingredients.Count;
+        // Special Ingredient
+        for (int i = 0; i < specialIngredients.Count; i++)
+        {
+            if (specialIngredients[i].nutrition.vitaminB12 > 0)
+            {
+                summary += specialIngredients[i].nutrition.vitaminB12 * specialIngredients[i].quantity;
+            }
+        }
+
+        return summary / (ingredients.Count + specialIngredients.Count);
     }
     public float GetTotalVitaminCSummary()
     {
@@ -432,55 +825,94 @@ public class FoodObject : ItemObject
         
         for (int i = 0; i < ingredients.Count; i++)
         {
-            if (ingredients[i].ingredientObject.nutrition.vitaminC > 0)
+            if (ingredients[i].nutrition.vitaminC > 0)
             {
-                summary += ingredients[i].ingredientObject.nutrition.vitaminC * ingredients[i].ingredientQuantity;
+                summary += ingredients[i].nutrition.vitaminC * ingredients[i].quantity;
             }
         }
 
-        return summary / ingredients.Count;
+        // Special Ingredient
+        for (int i = 0; i < specialIngredients.Count; i++)
+        {
+            if (specialIngredients[i].nutrition.vitaminC > 0)
+            {
+                summary += specialIngredients[i].nutrition.vitaminC * specialIngredients[i].quantity;
+            }
+        }
+
+        return summary / (ingredients.Count + specialIngredients.Count);
     }
+    
     public float GetTotalVitaminASummary()
     {
         var summary = 0f;
         
         for (int i = 0; i < ingredients.Count; i++)
         {
-            if (ingredients[i].ingredientObject.nutrition.vitaminA > 0)
+            if (ingredients[i].nutrition.vitaminA > 0)
             {
-                summary += ingredients[i].ingredientObject.nutrition.vitaminA * ingredients[i].ingredientQuantity;
+                summary += ingredients[i].nutrition.vitaminA * ingredients[i].quantity;
             }
         }
 
-        return summary / ingredients.Count;
+        // Special Ingredient
+        for (int i = 0; i < specialIngredients.Count; i++)
+        {
+            if (specialIngredients[i].nutrition.vitaminA > 0)
+            {
+                summary += specialIngredients[i].nutrition.vitaminA * specialIngredients[i].quantity;
+            }
+        }
+
+        return summary / (ingredients.Count + specialIngredients.Count);
     }
+    
     public float GetTotalTotalVitaminDSummary()
     {
         var summary = 0f;
         
         for (int i = 0; i < ingredients.Count; i++)
         {
-            if (ingredients[i].ingredientObject.nutrition.vitaminD > 0)
+            if (ingredients[i].nutrition.vitaminD > 0)
             {
-                summary += ingredients[i].ingredientObject.nutrition.vitaminD * ingredients[i].ingredientQuantity;
+                summary += ingredients[i].nutrition.vitaminD * ingredients[i].quantity;
             }
         }
 
-        return summary / ingredients.Count;
+        // Special Ingredient
+        for (int i = 0; i < specialIngredients.Count; i++)
+        {
+            if (specialIngredients[i].nutrition.vitaminD > 0)
+            {
+                summary += specialIngredients[i].nutrition.vitaminD * specialIngredients[i].quantity;
+            }
+        }
+
+        return summary / (ingredients.Count + specialIngredients.Count);
     }
+    
     public float GetTotalVitaminESummary()
     {
         var summary = 0f;
         
         for (int i = 0; i < ingredients.Count; i++)
         {
-            if (ingredients[i].ingredientObject.nutrition.vitaminE > 0)
+            if (ingredients[i].nutrition.vitaminE > 0)
             {
-                summary += ingredients[i].ingredientObject.nutrition.vitaminE * ingredients[i].ingredientQuantity;
+                summary += ingredients[i].nutrition.vitaminE * ingredients[i].quantity;
             }
         }
 
-        return summary / ingredients.Count;
+        // Special Ingredient
+        for (int i = 0; i < specialIngredients.Count; i++)
+        {
+            if (specialIngredients[i].nutrition.vitaminE > 0)
+            {
+                summary += specialIngredients[i].nutrition.vitaminE * specialIngredients[i].quantity;
+            }
+        }
+
+        return summary / (ingredients.Count + specialIngredients.Count);
     }
 
     public float GetTotalVitaminKSummary()
@@ -489,12 +921,21 @@ public class FoodObject : ItemObject
         
         for (int i = 0; i < ingredients.Count; i++)
         {
-            if (ingredients[i].ingredientObject.nutrition.vitaminK > 0)
+            if (ingredients[i].nutrition.vitaminK > 0)
             {
-                summary += ingredients[i].ingredientObject.nutrition.vitaminK * ingredients[i].ingredientQuantity;
+                summary += ingredients[i].nutrition.vitaminK * ingredients[i].quantity;
             }
         }
 
-        return summary / ingredients.Count;
+        // Special Ingredient
+        for (int i = 0; i < specialIngredients.Count; i++)
+        {
+            if (specialIngredients[i].nutrition.vitaminK > 0)
+            {
+                summary += specialIngredients[i].nutrition.vitaminK * specialIngredients[i].quantity;
+            }
+        }
+
+        return summary / (ingredients.Count + specialIngredients.Count);
     }
 }

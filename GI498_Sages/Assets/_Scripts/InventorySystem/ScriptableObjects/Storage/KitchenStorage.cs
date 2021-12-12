@@ -271,7 +271,7 @@ namespace _Scripts.CookingSystem
         public void TakeOutCookedFood()
         {
             var psHandler = Manager.Instance.playerManager.PSHandler();
-            psHandler.JustPutInFood(recipeItemSlot); // Add Food to Player
+            //psHandler.JustPutInFood(recipeItemSlot); // Add Food to Player
             ClearStove();
         }
 

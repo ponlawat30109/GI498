@@ -29,7 +29,7 @@ namespace _Scripts.CookingSystem.UI
         [SerializeField] private List<IngredientSlotInfoComponent> currentHoverComponentList = new List<IngredientSlotInfoComponent>();
 
         private bool _isOneOfIngredientRecipe = false;
-        private int _currentQuantity;
+        [SerializeField] private int _currentQuantity;
         
         public void InitializeItem(IngredientObject toInitItem,KitchenUI parentStorage,Transform transformStorageInfo,bool _isOneOfIngredientRecipe,int quantity)
         {
@@ -43,7 +43,6 @@ namespace _Scripts.CookingSystem.UI
             transform.SetParent(parentStorageUI.GetStorageSlotTransform());
         }
 
-        
         
         public void UpdateQuantityText()
         {
@@ -88,6 +87,17 @@ namespace _Scripts.CookingSystem.UI
             {
                 itemBackground.sprite = defualtBackgroundSprite;
             }
+
+            if (item != null)
+            {
+                SetCurrentQuantity(item.quantity);
+                UpdateQuantityText();
+            }
+
+            if (_currentQuantity < 1)
+            {
+                Destroy(this.gameObject);
+            }
         }
 
         public void OnPointerClick(PointerEventData eventData)
@@ -130,8 +140,6 @@ namespace _Scripts.CookingSystem.UI
                 currentHoverComponentList.Add(newComponent);
                 }
                 */
-                
-                
 
                 // slotInfoComponentPrefab
                 // slotInfoParentTransform
