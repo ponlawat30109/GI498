@@ -423,9 +423,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcafd02d0680e934ab55487457521864, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onTest: 0
+  onTest: 1
   tv: {fileID: 0}
   playerRankHolder: {fileID: 11400000, guid: 3a9e8e246b9a05546a8c1fc7d52cc18c, type: 2}
+  orderSound: 4
+  completeOrderSound: 5
+  levelList: []
 --- !u!1 &4928698367685226312
 GameObject:
   m_ObjectHideFlags: 0

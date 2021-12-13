@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DIshScoreManager : MonoBehaviour
+public class DishScoreManager : MonoBehaviour
 {
-    private static DIshScoreManager instance;
-    public static DIshScoreManager Instance { get => instance; }
+    private static DishScoreManager instance;
+    public static DishScoreManager Instance { get => instance; }
 
     [SerializeField] private GameObject resultGroup;
     [SerializeField] private Scoring scorer;
@@ -232,9 +232,20 @@ public class DIshScoreManager : MonoBehaviour
                 OpenPage2();
                 resultGroup.SetActive(true);
 
-                if(DataCarrier.Instance != null)
+                if (DataCarrier.Instance != null)
                     DataCarrier.AddExp(resultScore.finalStar * 10);
+                    
+                NPCScript.NPCManager.Instance.CompleteOrder();
+                    
             }
+            else
+            {
+                Debug.Log("Level Stander is null.");
+            }
+        }
+        else
+        {
+            Debug.Log("NPCScript.NPCManager.Instance is null");
         }
         
     }

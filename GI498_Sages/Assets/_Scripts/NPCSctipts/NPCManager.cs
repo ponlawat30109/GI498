@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using _Scripts.ManagerCollection;
 using UnityEngine;
 
 namespace NPCScript
@@ -107,6 +108,11 @@ namespace NPCScript
             {
                 Debug.Log("orderRemaining " + orderRemaining);
                 Debug.Log("numberOfNpcInQueue " + numberOfNpcInQueue);
+            }
+
+            if (Manager.Instance.storageManager != null)
+            {
+                Manager.Instance.storageManager.ClearIngredientQuantity();
             }
         }
 

@@ -14,23 +14,46 @@ namespace _Scripts.ManagerCollection
         [Serializable]
         public struct StorageCollection
         {
+            public enum StorageName
+            {
+                Default,
+                Player,
+                Fridge,
+                FridgeMeat,
+                ShelfNormal,
+                ShelfSpecial
+            }
+            
             public StorageObject.StorageTypeEnum type;
             public Storage storage;
+            public StorageName storageName;
         }
         
+        [Header("Ingredient Manager")]
+        [SerializeField] public IngredientStorageManager ingredientStorageManager;
+        
+        [Space]
+        [Header("Storage Collection")]
         public List<StorageCollection> storageCollections;
-
         public List<MiniStorage> miniStorageCollections;
 
-        public List<RecipeSlot> recipeCollections;
-        public List<IngredientObject> ingredientCollections;
-        public List<IngredientObject> specialIngredientCollections;
+        [Space]
+        /* For Backdoor only
+            - use for clear things and debug...
+         */
+        [Header("All Ingredient and Recipe")]
+        [SerializeField] private List<IngredientObject> ingredientCollections;
+        [SerializeField] private List<IngredientObject> specialIngredientCollections;
+        [SerializeField] private List<RecipeSlot> recipeCollections;
 
         
         ////////////////////////////////////////////////////////////////////////////////////////////
 
         private void Start()
         {
+            ingredientStorageManager.DefineCurrentRank();
+            ingredientStorageManager.AssignIngredientByRank();
+            
             foreach (var storage in storageCollections)
             {
                 if (storage.type == StorageObject.StorageTypeEnum.Storage)
@@ -53,38 +76,7 @@ namespace _Scripts.ManagerCollection
                 }
             }
         }
-
-        /*public void SetPlayerStorage()
-        {
-            foreach (var storage in storageCollections)
-            {
-                if (storage.type == StorageObject.StorageTypeEnum.Player)
-                {
-                    if (storage.storage == null)
-                    {
-                        Manager.Instance.playerManager.PSHandler().storage = FindPlayerStorageClone();
-                    }
-                }
-            }
-        }
-
-        public Storage FindPlayerStorageClone()
-        {
-            var objs =  GameObject.FindGameObjectsWithTag("PlayerStorage");
-
-            Storage toReturn = null;
-
-            foreach (var gObj in objs)
-            {
-                if (gObj.name.Contains("Storage"))
-                {
-                    toReturn = gObj.GetComponent<Storage>();
-                }
-            }
-            
-            return toReturn;
-        }*/
-
+        
         /////////////////////////////////////////////////////////////////////////////////////////////
 
         public Storage GetStorageByType(StorageObject.StorageTypeEnum type)
@@ -94,6 +86,21 @@ namespace _Scripts.ManagerCollection
             foreach (var storage in storageCollections)
             {
                 if (storage.type == type)
+                {
+                    obj = storage.storage;
+                }
+            }
+
+            return obj;
+        }
+        
+        public Storage GetStorageByName(StorageCollection.StorageName toGetName)
+        {
+            var obj = gameObject.GetComponent<Storage>();
+            
+            foreach (var storage in storageCollections)
+            {
+                if (storage.storageName == toGetName)
                 {
                     obj = storage.storage;
                 }
