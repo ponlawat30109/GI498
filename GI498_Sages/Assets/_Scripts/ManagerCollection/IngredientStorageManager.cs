@@ -16,18 +16,21 @@ namespace _Scripts.ManagerCollection
         }
 
         [SerializeField] private StorageManager parent;
-        
-        [Space] [Header("Ingredient Collection")] 
+
+        [Space]
+        [Header("Ingredient Collection")]
         [SerializeField] private List<IngredientObject> inVegetableStorageIngredientList = new List<IngredientObject>();
         [SerializeField] private List<IngredientObject> inMeatStorageIngredientList = new List<IngredientObject>();
         [SerializeField] private List<IngredientObject> inShelfStorageIngredientList = new List<IngredientObject>();
         [SerializeField] private List<IngredientObject> inShelfStorageSpecialIngredientList = new List<IngredientObject>();
 
         [SerializeField] private int currentRank;
-        [Space] [Header("Rank of Ingredient")]
+        [Space]
+        [Header("Rank of Ingredient")]
         [SerializeField] private List<IngredientRank> ingredientRankList = new List<IngredientRank>();
 
-        [Space][Space]
+        [Space]
+        [Space]
         private float _currentCheckTime = 0;
         [SerializeField] private float checkRankInterval = 2;
 
@@ -38,7 +41,7 @@ namespace _Scripts.ManagerCollection
 
         private void Update()
         {
-            
+
             if (_currentCheckTime < checkRankInterval)
             {
                 _currentCheckTime += Time.deltaTime;
@@ -47,7 +50,7 @@ namespace _Scripts.ManagerCollection
             {
                 DefineCurrentRank();
                 // AssignIngredientByRank();
-                
+
                 // Reset
                 _currentCheckTime = 0;
             }
@@ -55,9 +58,10 @@ namespace _Scripts.ManagerCollection
 
         public void DefineCurrentRank()
         {
-            currentRank = RankManager.Instance.GetCurrentRank();
+            if (RankManager.Instance != null)
+                currentRank = RankManager.Instance.GetCurrentRank();
         }
-        
+
         public void AssignIngredientByRank()
         {
             if (IsIngredientNull())
@@ -65,7 +69,7 @@ namespace _Scripts.ManagerCollection
                 Debug.Log("[IngredientStorageManager.cs] Found Null in Ingredient list.");
                 return;
             }
-            
+
             AssignIngredientOfList();
         }
 
@@ -108,11 +112,11 @@ namespace _Scripts.ManagerCollection
             var b = inMeatStorageIngredientList;
             var bTargetName = StorageManager.StorageCollection.StorageName.FridgeMeat;
             var bTarget = parent.GetStorageByName(bTargetName).GetStorageObject();
-            
+
             var c = inShelfStorageIngredientList;
             var cTargetName = StorageManager.StorageCollection.StorageName.ShelfNormal;
             var cTarget = parent.GetStorageByName(cTargetName).GetStorageObject();
-            
+
             var d = inShelfStorageSpecialIngredientList;
             var dTargetName = StorageManager.StorageCollection.StorageName.ShelfSpecial;
             var dTarget = parent.GetStorageByName(dTargetName).GetStorageObject();
@@ -125,7 +129,7 @@ namespace _Scripts.ManagerCollection
                     AddItemToStorage(aTarget, item);
                 }
             }
-            
+
             foreach (var item in b)
             {
                 if (IsInRankIngredient(item))
@@ -133,7 +137,7 @@ namespace _Scripts.ManagerCollection
                     AddItemToStorage(bTarget, item);
                 }
             }
-            
+
             foreach (var item in c)
             {
                 if (IsInRankIngredient(item))
@@ -141,7 +145,7 @@ namespace _Scripts.ManagerCollection
                     AddItemToStorage(cTarget, item);
                 }
             }
-            
+
             foreach (var item in d)
             {
                 if (IsInRankIngredient(item))
@@ -150,8 +154,8 @@ namespace _Scripts.ManagerCollection
                 }
             }
         }
-        
-        public void AddItemToStorage(StorageObject target,ItemObject item)
+
+        public void AddItemToStorage(StorageObject target, ItemObject item)
         {
             target.AddItem(item);
         }
@@ -178,10 +182,10 @@ namespace _Scripts.ManagerCollection
                     break;
                 }
             }
-            
+
             return isFound;
         }
-            
+
         public bool IsIngredientNull()
         {
             var a = inVegetableStorageIngredientList;
@@ -198,7 +202,7 @@ namespace _Scripts.ManagerCollection
 
             // Check Session
             var foundCount = 0;
-            
+
             // Check A
             for (int i = 0; i < a.Count; i++)
             {
@@ -207,7 +211,7 @@ namespace _Scripts.ManagerCollection
                     foundCount++;
                 }
             }
-            
+
             // Check B
             for (int i = 0; i < b.Count; i++)
             {
@@ -216,7 +220,7 @@ namespace _Scripts.ManagerCollection
                     foundCount++;
                 }
             }
-            
+
             // Check C
             for (int i = 0; i < c.Count; i++)
             {
@@ -225,7 +229,7 @@ namespace _Scripts.ManagerCollection
                     foundCount++;
                 }
             }
-            
+
             // Check D
             for (int i = 0; i < d.Count; i++)
             {
@@ -234,10 +238,10 @@ namespace _Scripts.ManagerCollection
                     foundCount++;
                 }
             }
-            
+
             // Define Return
             var isFoundNull = false;
-            
+
             if (foundCount > 0)
             {
                 isFoundNull = true;
@@ -246,13 +250,13 @@ namespace _Scripts.ManagerCollection
             {
                 isFoundNull = false;
             }
-            
+
             return isFoundNull;
         }
 
         private void OnApplicationQuit()
         {
-            
+
             var aTargetName = StorageManager.StorageCollection.StorageName.Fridge;
             var aTarget = parent.GetStorageByName(aTargetName).GetStorageObject();
 
@@ -261,10 +265,10 @@ namespace _Scripts.ManagerCollection
 
             var cTargetName = StorageManager.StorageCollection.StorageName.ShelfNormal;
             var cTarget = parent.GetStorageByName(cTargetName).GetStorageObject();
-            
+
             var dTargetName = StorageManager.StorageCollection.StorageName.ShelfSpecial;
             var dTarget = parent.GetStorageByName(dTargetName).GetStorageObject();
-            
+
             aTarget.GetStorageSlot().Clear();
             bTarget.GetStorageSlot().Clear();
             cTarget.GetStorageSlot().Clear();
