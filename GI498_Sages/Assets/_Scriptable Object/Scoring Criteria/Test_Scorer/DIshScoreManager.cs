@@ -216,6 +216,9 @@ public class DIshScoreManager : MonoBehaviour
         SetResult(resultScore);
         OpenPage2();
         resultGroup.SetActive(true);
+
+        if (DataCarrier.Instance != null)
+            DataCarrier.AddExp(resultScore.finalStar * 10);
     }
 
     public void Calculate(Nutrition nutr)
@@ -228,6 +231,9 @@ public class DIshScoreManager : MonoBehaviour
                 SetResult(resultScore);
                 OpenPage2();
                 resultGroup.SetActive(true);
+
+                if(DataCarrier.Instance != null)
+                    DataCarrier.AddExp(resultScore.finalStar * 10);
             }
         }
         
