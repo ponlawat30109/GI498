@@ -8,6 +8,7 @@ public class ScoreSlotUI : MonoBehaviour
     public Text contentTitle;
     public Text value;
     public Text unit;
+    public Text score;
     public Text detail;
     public List<GameObject> stars;
 

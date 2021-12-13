@@ -128,7 +128,7 @@ public class DIshScoreManager : MonoBehaviour
         if (sugars.text == string.Empty) sugars.text = "10000";
         if (fiber.text == string.Empty) fiber.text = "29000";
         if (proteins.text == string.Empty) proteins.text = "34000";
-        if (fat.text == string.Empty) fat.text = "56000";
+        if (fat.text == string.Empty) fat.text = "30000";
         if (saturatedfat.text == string.Empty) saturatedfat.text = "15000";
         if (water.text == string.Empty) water.text = "100000";
         if (potassium.text == string.Empty) potassium.text = "10000";
@@ -216,6 +216,9 @@ public class DIshScoreManager : MonoBehaviour
         SetResult(resultScore);
         OpenPage2();
         resultGroup.SetActive(true);
+
+        if (DataCarrier.Instance != null)
+            DataCarrier.AddExp(resultScore.finalStar * 10);
     }
 
     public void Calculate(Nutrition nutr)
@@ -228,6 +231,9 @@ public class DIshScoreManager : MonoBehaviour
                 SetResult(resultScore);
                 OpenPage2();
                 resultGroup.SetActive(true);
+
+                if(DataCarrier.Instance != null)
+                    DataCarrier.AddExp(resultScore.finalStar * 10);
             }
         }
         
@@ -298,6 +304,7 @@ public class DIshScoreManager : MonoBehaviour
         ui.contentTitle.text = holder.limiter.name;
         ui.value.text = holder.value.ToString();
         ui.unit.text = holder.limiter.unitName;
+        ui.score.text = holder.actualScore.ToString();
         ui.detail.text = holder.detail;
         ui.ActiveStar(holder.star);
 
@@ -323,6 +330,7 @@ public class DIshScoreManager : MonoBehaviour
 
     public void OpenPage2()
     {
+        Debug.Log("OpenPage2");
         page2Group.SetActive(true);
         page3Group.SetActive(false);
         page4Group.SetActive(false);
