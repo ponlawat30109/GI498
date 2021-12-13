@@ -43,11 +43,17 @@ namespace _Scripts.InventorySystem.UI
             
             var a = parent.GetStorageObject();
             var b = psHandler.storage.GetStorageObject();
-            var item = parent.GetSelectSlot().GetItem();
-            
-            parent.TakeOut(a, b, item);
-            
-            Debug.Log($"[Button] Take {item.itemName} from {a.storageType} to {b.storageType}.");
+
+            if (parent.GetSelectSlot() != null)
+            {
+                var item = parent.GetSelectSlot().GetItem();
+                if (item != null)
+                {
+                    parent.TakeOut(a, b, item);
+                    //Debug.Log($"[Button] Take {item.itemName} from {a.storageType} to {b.storageType}.");
+                    parent.CloseUI();
+                }
+            }
         }
     
         public void CloseButtonAction()
