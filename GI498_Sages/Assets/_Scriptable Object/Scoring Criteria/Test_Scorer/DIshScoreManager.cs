@@ -5,8 +5,13 @@ using UnityEngine.UI;
 
 public class DIshScoreManager : MonoBehaviour
 {
+    private static DIshScoreManager instance;
+    public static DIshScoreManager Instance { get => instance; }
+
+    [SerializeField] private GameObject resultGroup;
     [SerializeField] private Scoring scorer;
-    [SerializeField] private LevelStandard levelStandard;
+
+    [SerializeField] private LevelStandard testLevelStandard;
 
     [SerializeField] private GameObject scoreSlotUIPrefab;
 
@@ -63,8 +68,22 @@ public class DIshScoreManager : MonoBehaviour
     public InputField vitaminK;
     #endregion
 
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        instance = this;
+    }
+
     private void Start()
     {
+        resultGroup.SetActive(false);
+
+        //ForTest
         inputFields.Add(cholesterol);
         inputFields.Add(carbohydrate);
         inputFields.Add(sugars);
@@ -183,17 +202,32 @@ public class DIshScoreManager : MonoBehaviour
 
     public void Calculate()
     {
-        var resultScore = scorer.ValueCalculate(nutr, levelStandard);
-        ShowResult(resultScore);
+        var resultScore = scorer.ValueCalculate(nutr, testLevelStandard);
+        SetResult(resultScore);
     }
 
     public void Calculate(Nutrition nutr, LevelStandard levelStandard)
     {
         var resultScore = scorer.ValueCalculate(nutr, levelStandard);
-        ShowResult(resultScore);
+        SetResult(resultScore);
+        resultGroup.SetActive(true);
     }
 
-    public void ShowResult(ResultScore resultScore)
+    public void Calculate(Nutrition nutr)
+    {
+        if(NPCScript.NPCManager.Instance != null)
+        {
+            if(NPCScript.NPCManager.Instance.LevelStandard != null)
+            {
+                var resultScore = scorer.ValueCalculate(nutr, NPCScript.NPCManager.Instance.LevelStandard);
+                SetResult(resultScore);
+                resultGroup.SetActive(true);
+            }
+        }
+        
+    }
+
+    public void SetResult(ResultScore resultScore)
     {
         scoreText.text = resultScore.finalScore.ToString();
         starText.text = resultScore.finalStar.ToString();
