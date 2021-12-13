@@ -44,11 +44,8 @@ public class ServeTable : MonoBehaviour
     {
         // Give Exp to Player or Show Summary UI
         var nutrition = CreateNutrition();
-        DIshScoreManager.Instance.Calculate(nutrition);
-        NPCScript.NPCManager.Instance.CompleteOrder(1);
+        DishScoreManager.Instance.Calculate(nutrition);
 
-        Manager.Instance.storageManager.ClearIngredientQuantity();
-        
         // Clear Food
         parent.currentHoldFoodObject.isCooked = false;
 
@@ -95,7 +92,7 @@ public class ServeTable : MonoBehaviour
         nutrition.vitaminD = parent.currentHoldFoodObject.GetTotalTotalVitaminDSummary();
         nutrition.vitaminE = parent.currentHoldFoodObject.GetTotalVitaminESummary();
         nutrition.vitaminK = parent.currentHoldFoodObject.GetTotalVitaminKSummary();
-
+        
         return nutrition;
     }
 }

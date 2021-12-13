@@ -332,7 +332,7 @@ public class FoodObject : ItemObject
                 summary += specialIngredients[i].nutrition.proteins * specialIngredients[i].quantity;
             }
         }
-
+        
         return summary / (ingredients.Count + specialIngredients.Count);
     }
 
