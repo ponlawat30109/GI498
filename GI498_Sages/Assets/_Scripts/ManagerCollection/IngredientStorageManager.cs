@@ -46,7 +46,7 @@ namespace _Scripts.ManagerCollection
             else if (_currentCheckTime >= checkRankInterval)
             {
                 DefineCurrentRank();
-                //AssignIngredientByRank();
+                // AssignIngredientByRank();
                 
                 // Reset
                 _currentCheckTime = 0;
