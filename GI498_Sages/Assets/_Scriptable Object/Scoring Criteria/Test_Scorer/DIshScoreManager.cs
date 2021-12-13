@@ -18,15 +18,18 @@ public class DIshScoreManager : MonoBehaviour
     [Header("1 Page")]
     [SerializeField] private Text scoreText;
     [SerializeField] private Text starText;
-    
+
     [Header("2 Page")]
+    [SerializeField] private GameObject page2Group;
     [SerializeField] private List<ScoreSlotUI> fourthPriority_slotList;
 
     [Header("3 Page")]
+    [SerializeField] private GameObject page3Group;
     [SerializeField] private Transform normalContentHolder;
     [SerializeField] private List<ScoreSlotUI> normalSlotList;
 
     [Header("4 Page")]
+    [SerializeField] private GameObject page4Group;
     [SerializeField] private Transform problemContentHolder;
     [SerializeField] private List<ScoreSlotUI> problemSlotList;
 
@@ -70,7 +73,7 @@ public class DIshScoreManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null)
+        if (instance != null)
         {
             Destroy(gameObject);
             return;
@@ -81,6 +84,7 @@ public class DIshScoreManager : MonoBehaviour
 
     private void Start()
     {
+        OpenPage2();
         resultGroup.SetActive(false);
 
         //ForTest
@@ -210,6 +214,7 @@ public class DIshScoreManager : MonoBehaviour
     {
         var resultScore = scorer.ValueCalculate(nutr, levelStandard);
         SetResult(resultScore);
+        OpenPage2();
         resultGroup.SetActive(true);
     }
 
@@ -221,6 +226,7 @@ public class DIshScoreManager : MonoBehaviour
             {
                 var resultScore = scorer.ValueCalculate(nutr, NPCScript.NPCManager.Instance.LevelStandard);
                 SetResult(resultScore);
+                OpenPage2();
                 resultGroup.SetActive(true);
             }
         }
@@ -313,5 +319,12 @@ public class DIshScoreManager : MonoBehaviour
         {
             slotList[i].gameObject.SetActive(false);
         }
+    }
+
+    public void OpenPage2()
+    {
+        page2Group.SetActive(true);
+        page3Group.SetActive(false);
+        page4Group.SetActive(false);
     }
 }
