@@ -45,7 +45,7 @@ public class ServeTable : MonoBehaviour
         // Give Exp to Player or Show Summary UI
         var nutrition = CreateNutrition();
         DIshScoreManager.Instance.Calculate(nutrition);
-        NPCScript.NPCManager.Instance.CompleteOrder();
+        NPCScript.NPCManager.Instance.CompleteOrder(1);
 
         Manager.Instance.storageManager.ClearIngredientQuantity();
         
