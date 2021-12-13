@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Leech Lime Leaves
   m_EditorClassIdentifier: 
   itemName: Leech Lime Leaves
-  itemIcon: {fileID: 0}
+  itemIcon: {fileID: 21300000, guid: eb069f7ea91d89840976d27d8e49fb4d, type: 3}
   type: 0
-  ingamePrefab: {fileID: 0}
+  ingamePrefab: {fileID: 1933213746720370918, guid: 62c6cafce84dc9b4c96cdbefa4839766, type: 3}
   description: "\u0E43\u0E1A\u0E21\u0E30\u0E01\u0E23\u0E39\u0E14 \u0E0A\u0E48\u0E27\u0E22\u0E43\u0E19\u0E01\u0E32\u0E23\u0E14\u0E31\u0E1A\u0E01\u0E25\u0E34\u0E48\u0E19\u0E04\u0E32\u0E27
     \u0E2B\u0E23\u0E37\u0E2D\u0E01\u0E25\u0E34\u0E48\u0E19\u0E44\u0E21\u0E48\u0E1E\u0E36\u0E07\u0E1B\u0E23\u0E30\u0E2A\u0E07\u0E04\u0E4C\u0E15\u0E48\u0E32\u0E07\u0E46
     \u0E41\u0E25\u0E30\u0E0A\u0E48\u0E27\u0E22\u0E40\u0E1E\u0E37\u0E48\u0E21\u0E23\u0E2A\u0E43\u0E2B\u0E49\u0E40\u0E1B\u0E47\u0E19\u0E2D\u0E32\u0E2B\u0E32\u0E23\u0E44\u0E14\u0E49\u0E2D\u0E22\u0E48\u0E32\u0E07\u0E14\u0E35"
@@ -51,3 +51,5 @@ MonoBehaviour:
     vitaminD: 0
     vitaminE: 0
     vitaminK: 0
+  isSpecialIngredient: 0
+  quantity: 0

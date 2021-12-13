@@ -900,7 +900,7 @@ MonoBehaviour:
     TextDetail TextDetail TextDetail TextDetail TextDetail TextDetail TextDetail
     TextDetail TextDetail TextDetail TextDetail TextDetail TextDetail
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 75db110ba0dcb4445ace18e841228888, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8b2f53fc3f258314986a79efcbebd564, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -2244,7 +2244,7 @@ MonoBehaviour:
     TextDetail TextDetail TextDetail TextDetail TextDetail TextDetail TextDetail
     TextDetail TextDetail TextDetail TextDetail TextDetail TextDetail
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 75db110ba0dcb4445ace18e841228888, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8b2f53fc3f258314986a79efcbebd564, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -2754,7 +2754,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Take
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 75db110ba0dcb4445ace18e841228888, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8b2f53fc3f258314986a79efcbebd564, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -2834,6 +2834,7 @@ GameObject:
   - component: {fileID: 5817100830709744932}
   - component: {fileID: 5817100830709744935}
   - component: {fileID: 1220343886}
+  - component: {fileID: 3590651703380133357}
   m_Layer: 5
   m_Name: Close Button
   m_TagString: Untagged
@@ -2956,6 +2957,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ControlPath: <Gamepad>/select
+--- !u!114 &3590651703380133357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5817100830709744953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d54531977ecb194c95e2d3aa7a5d72a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ControlPath: <Gamepad>/select
 --- !u!1 &5817100830745634624
 GameObject:
   m_ObjectHideFlags: 0
@@ -3023,7 +3037,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Put In
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 75db110ba0dcb4445ace18e841228888, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8b2f53fc3f258314986a79efcbebd564, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -3293,7 +3307,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: X
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 75db110ba0dcb4445ace18e841228888, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8b2f53fc3f258314986a79efcbebd564, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -3376,6 +3390,9 @@ GameObject:
   - component: {fileID: 1774423353}
   - component: {fileID: 1774423354}
   - component: {fileID: 1774423355}
+  - component: {fileID: 430080114271247577}
+  - component: {fileID: 3150847035731469183}
+  - component: {fileID: 6344692241149214262}
   m_Layer: 5
   m_Name: Fridge Storage Test UI
   m_TagString: UIPanel
@@ -3520,6 +3537,61 @@ MonoBehaviour:
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!114 &1774423355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5817100831565019886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84b150086fa5c584c8d7cf546d076fbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UIPanelActive: 0
+--- !u!114 &430080114271247577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5817100831565019886}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MoveRepeatDelay: 0.5
+  m_MoveRepeatRate: 0.1
+  m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_PointAction: {fileID: 1054132383583890850, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_MoveAction: {fileID: 3710738434707379630, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_SubmitAction: {fileID: 2064916234097673511, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_CancelAction: {fileID: -1967631576421560919, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_LeftClickAction: {fileID: 8056856818456041789, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_MiddleClickAction: {fileID: 3279352641294131588, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_RightClickAction: {fileID: 3837173908680883260, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_ScrollWheelAction: {fileID: 4502412055082496612, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_TrackedDevicePositionAction: {fileID: 4754684134866288074, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_TrackedDeviceOrientationAction: {fileID: 1025543830046995696, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_DeselectOnBackgroundClick: 1
+  m_PointerBehavior: 0
+--- !u!114 &3150847035731469183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5817100831565019886}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 10
+--- !u!114 &6344692241149214262
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3966,7 +4038,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Name Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 75db110ba0dcb4445ace18e841228888, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8b2f53fc3f258314986a79efcbebd564, type: 2}
   m_sharedMaterial: {fileID: -5283922331488380430, guid: 41df3690eaa745541adf6c90b0e6a2ec, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -5160,7 +5232,7 @@ PrefabInstance:
     - target: {fileID: 5890040973965496430, guid: adcead407d7ec1941ba04618607ddb71, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 75db110ba0dcb4445ace18e841228888, type: 2}
+      objectReference: {fileID: 11400000, guid: 8b2f53fc3f258314986a79efcbebd564, type: 2}
     - target: {fileID: 5890040973965496430, guid: adcead407d7ec1941ba04618607ddb71, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 1
@@ -5270,7 +5342,7 @@ PrefabInstance:
     - target: {fileID: 5890040973965496430, guid: adcead407d7ec1941ba04618607ddb71, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 75db110ba0dcb4445ace18e841228888, type: 2}
+      objectReference: {fileID: 11400000, guid: 8b2f53fc3f258314986a79efcbebd564, type: 2}
     - target: {fileID: 5890040973965496430, guid: adcead407d7ec1941ba04618607ddb71, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 1
@@ -5380,7 +5452,7 @@ PrefabInstance:
     - target: {fileID: 5890040973965496430, guid: adcead407d7ec1941ba04618607ddb71, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 75db110ba0dcb4445ace18e841228888, type: 2}
+      objectReference: {fileID: 11400000, guid: 8b2f53fc3f258314986a79efcbebd564, type: 2}
     - target: {fileID: 5890040973965496430, guid: adcead407d7ec1941ba04618607ddb71, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 1
