@@ -9,5 +9,5 @@ public class LevelStandard : ScriptableObject
     public string sex;
     public string age = "adult"; //default
     public float weight = 50; //default
-    public EnergyScore energrScore = new EnergyScore();
+    public LimiterSet limiterSet = new LimiterSet();
 }
