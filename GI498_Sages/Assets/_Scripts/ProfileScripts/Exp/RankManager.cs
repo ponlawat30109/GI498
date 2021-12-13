@@ -204,4 +204,9 @@ public class RankManager : MonoBehaviour
         rankBoxList.Add(rankBox);
     }
 
+    public int GetCurrentRank()
+    {
+        return currentRankIndex;
+    }
+
 }
