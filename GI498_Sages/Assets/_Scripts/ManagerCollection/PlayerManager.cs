@@ -20,6 +20,15 @@ namespace _Scripts.ManagerCollection
             {
                 CheckHandler();
             }
+
+            if (playerStorageHandler != null)
+            {
+                if (playerStorageHandler.storage == null)
+                {
+                    //Manager.Instance.storageManager.SetPlayerStorage();
+                    Debug.Log("Player Storage is null");
+                }
+            }
         }
 
         private void CheckHandler()

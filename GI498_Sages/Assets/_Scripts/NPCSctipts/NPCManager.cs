@@ -19,6 +19,7 @@ namespace NPCScript
         [SerializeField] private RankSystem playerRankHolder;
         [SerializeField] private AudioManager.Track orderSound;
         [SerializeField] private AudioManager.Track completeOrderSound;
+        [SerializeField] private List<LevelStandard> levelList;
 
         #region NPCLoop
         private float releaseLoopTime = 0;
@@ -35,15 +36,17 @@ namespace NPCScript
         private NPCController orderingNpc;
 
         private FoodObject order;
-        public FoodObject Order
-        {
-            get => order;
-        }
+        public FoodObject Order { get => order; }
         private List<FoodObject> foodList;
+
+        private LevelStandard levelStandard;
+        public LevelStandard LevelStandard { get => levelStandard; }
 
         public int numberOfNpcInQueue { get; private set; }
         public int orderRemaining {get; private set;}
         #endregion
+
+        private System.Random rnd = new System.Random();
 
         private void Awake()
         {
@@ -130,6 +133,7 @@ namespace NPCScript
         }
 
         ///<summary>
+        /// if _isFreeRelease is true this manager will auto ReleaseNPC with no Countdown
         /// if _isFreeRelease is false you have to use [ReleaseNPC()] by yourself
         /// </summary>
         public void SetReleaseNoTime(bool _isFreeRelease)
@@ -194,8 +198,17 @@ namespace NPCScript
                 if (_Scripts.ManagerCollection.Manager.Instance != null)
                 {
                     _Scripts.ManagerCollection.Manager.Instance.playerManager.PSHandler().JustPutInFood(order);
-                    Debug.Log("NPC Rnd Food: " + order.itemName);
                 }
+
+                if(levelList.Count > 0)
+                {
+                    levelStandard = levelList[rnd.Next(levelList.Count)];
+                }
+                else
+                {
+                    levelStandard = null;
+                }
+
                 if(tv != null)
                     tv.TVChangeSprite(order.itemIcon);
             }

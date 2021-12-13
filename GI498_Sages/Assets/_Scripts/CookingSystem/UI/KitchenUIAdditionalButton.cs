@@ -16,7 +16,7 @@ public class KitchenUIAdditionalButton : MonoBehaviour
     {
         putInButton.onClick.AddListener(PutInButtonAction);
         takeOutButton.onClick.AddListener(TakeOutButtonAction);
-        closeButton.onClick.AddListener(CloseButtonAction);
+        // closeButton.onClick.AddListener(CloseButtonAction);
     }
         
     // Storage Interact Method
@@ -28,15 +28,39 @@ public class KitchenUIAdditionalButton : MonoBehaviour
         var psHandler = Manager.Instance.playerManager.PSHandler();
         //var a = parent;
         //var b = psHandler.storage.GetStorageObject();
-        var item = (IngredientObject) psHandler.currentHoldItemObject;
-
+        
         if (psHandler.IsHoldingItem() && parent.GetStorageObject().HasFreeSpace())
         {
-            parent.GetStorageObject().PutIn(item);
-            parent.CheckWhenIngredientAdd(item);
+            // If Holding Ingredient
+            if (psHandler.currentHoldItemObject.type == ItemType.Ingredient)
+            {
+                if (psHandler.currentHoldFoodObject == null && psHandler.currentHoldItemObject != null)
+                {
+                    var item = (IngredientObject) psHandler.currentHoldItemObject;
+                    //parent.GetStorageObject().PutIn(item);
+                    psHandler.JustTakeOut(item);
+                    parent.AddStoveTempItem(item);
+                    parent.CheckWhenIngredientAdd(item);
+                
+                    //
+                    //parent.GetStorageObject().GetSlotByItem(item);
+                }
+            }
+            else
+            {
+                if (psHandler.currentHoldFoodObject == null && psHandler.currentHoldItemObject != null)
+                {
+                    if (psHandler.currentHoldItemObject.type == ItemType.Tool)
+                    {
+                        Manager.Instance.notifyManager.CreateNotify("Ewww!", "It's not ingredient!");
+                    }
+                    else
+                    {
+                        Manager.Instance.notifyManager.CreateNotify("Ahhh!", "It's not ingredient!");
+                    }
+                }
+            }
         }
-        
-        //Debug.Log($"[Button] Put {item.itemName} from {b.storageType} to {a}.");
     }
 
     // Take Out Item from A storage and Add to B storage
@@ -48,15 +72,17 @@ public class KitchenUIAdditionalButton : MonoBehaviour
         
         if (psHandler.storage.GetStorageObject().HasFreeSpace() && psHandler.IsHoldingItem() == false) // Player Have Free Space
         {
-            if (parent.IsTrashFull() == false) // Trash Is Not Full
+            if (parent.GetStoveTempRecipe().GetIngredient().Count > 0)
             {
-                // Remove Item from this Storage
-                parent.RemoveAtSelectSlot();
+                parent.GrabTrash();
+                parent.DeSelectSlot();
+                //parent.CloseUI();
             }
             else
             {
-                parent.GrabTrash();
+                Manager.Instance.notifyManager.CreateNotify("Ops..", "Nothing to throw...");
             }
+            
         }
         else
         {

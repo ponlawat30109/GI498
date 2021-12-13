@@ -12,23 +12,29 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public PlayerInput _playerInput;
     // Vector2 mousePosition;
 
+    [Header("Character Controller")]
     [SerializeField] private CharacterController controller;
-    private Vector3 playerVelocity;
+    [HideInInspector] public Vector3 playerVelocity;
     private bool ground;
     [SerializeField] private float playerSpeed = 2.0f;
     [SerializeField] private float gravity = -9.81f;
-    float currentPlayerspeed;
+    private float currentPlayerspeed;
+    [HideInInspector] public bool isRunning = false;
     // [SerializeField] private float jumpHeight = 0f;
 
     private Vector2 currentMovementInput;
     private Vector2 smoothInputVelocity;
     private float smoothInputSpeed = 0.2f;
+     public bool isMoving = false;
 
-    // [HideInInspector] public static bool kitchenOpenKey;
-    // [HideInInspector] public static bool pickItemKey;
-    // [HideInInspector] public static bool storageOpenKey;
-
+    [Header("UI Handler")]
     public bool UIPanelActive = false;
+
+    [Header("Player Anim")]
+    [SerializeField] private PlayerAnimController animCtrl;
+
+    // private int idleTime = 5;
+    // private float lastIdleTime;
 
     private void OnEnable()
     {
@@ -51,23 +57,51 @@ public class PlayerController : MonoBehaviour
         controller = GetComponent<CharacterController>();
 
         currentPlayerspeed = playerSpeed;
+        // lastIdleTime = Time.time;
     }
 
     private void Start()
     {
         // _playerInput.Mouse.MouseClick.performed += ctx => MouseAction();
-        _playerInput.Movement.Run.started += ctx => currentPlayerspeed = playerSpeed * 2;
-        _playerInput.Movement.Run.canceled += ctx => currentPlayerspeed = playerSpeed;
+        _playerInput.Movement.Run.started += ctx =>
+        {
+            currentPlayerspeed = playerSpeed * 2;
+            isRunning = true;
+            animCtrl.SetTargetSpeed(PlayerAnimController.Activity.Run);
+        };
+        _playerInput.Movement.Run.canceled += ctx =>
+        {
+            currentPlayerspeed = playerSpeed;
+            isRunning = false;
+            animCtrl.SetTargetSpeed(PlayerAnimController.Activity.Walk);
+        };
     }
 
     void Update()
     {
-        Movement();
+        // animCtrl.SetTargetSpeed(PlayerAnimController.Activity.Stand);
+
+        if (!UIPanelActive)
+            Movement();
 
         if (_playerInput.Movement.Exit.triggered && UIPanelActive == false)
         {
             OnExitAction();
         }
+
+        // if (Keyboard.current.anyKey.wasPressedThisFrame)
+        // {
+        //     lastIdleTime = Time.time;
+        // }
+
+        // if (IsIdle())
+        // {
+        //     Cursor.visible = false;
+        // }
+        // else
+        // {
+        //     Cursor.visible = true;
+        // }
     }
 
     // void MouseAction()
@@ -99,20 +133,22 @@ public class PlayerController : MonoBehaviour
         currentMovementInput = Vector2.SmoothDamp(currentMovementInput, movementInput, ref smoothInputVelocity, smoothInputSpeed);
         Vector3 move = new Vector3(currentMovementInput.x, 0, currentMovementInput.y);
 
-
-        // {
-        //     currentPlayerspeed *= 2;
-        // }
-        // else
-        // {
-        //     currentPlayerspeed = playerSpeed;
-        // }
-
         controller.Move(move * Time.deltaTime * currentPlayerspeed);
 
         if (move != Vector3.zero)
         {
             gameObject.transform.forward = move;
+        }
+
+        if (movementInput != Vector2.zero)
+        {
+            isMoving = true;
+            animCtrl.SetTargetSpeed(PlayerAnimController.Activity.Walk);
+        }
+        else
+        {
+            isMoving = false;
+            animCtrl.SetTargetSpeed(PlayerAnimController.Activity.Stand);
         }
 
         // if (Input.GetButtonDown("Jump") && ground)
@@ -132,4 +168,9 @@ public class PlayerController : MonoBehaviour
         // _Scripts.SceneAnimator.Instance.UnLoadScene();
         _Scripts.SceneAnimator.Instance.ChangeScene(unloadScenes, loadScenes);
     }
+
+    // public bool IsIdle()
+    // {
+    //     return Time.time - lastIdleTime > idleTime;
+    // }
 }

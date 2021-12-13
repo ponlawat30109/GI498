@@ -6,29 +6,838 @@ using UnityEngine;
 public class Scoring : ScriptableObject
 {
     [Header("% score Level")]
-    public float star5 = -10;
-    public float star4 = -5;
-    public float star3 = 0;
-    public float star2 = 5;
-    public float star1 = 10;
+    public float star5 = 100f / 100f;
+    public float star4 = 75f / 100f;
+    public float star3 = 50f / 100f;
+    public float star2 = 25f / 100f;
+    public float star1 = 0f;
 
     [SerializeField] private LevelStandard defaultStandard;
+    private System.Random rnd = new System.Random();
 
-    public EnergyScore energyScore;
-
-    public void ScoreCalculate(List<IngredientObject> ingredients, LevelStandard starndard)
+    public ResultScore ValueCalculate(List<IngredientObject> ingredients, LevelStandard standard)
     {
+        if(standard == null)
+        {
+            standard = defaultStandard;
+        }
         var dishNutr = new Nutrition();
         SetZeroNutr(dishNutr);
         SumNitr(dishNutr, ingredients);
-
-        List<DishScoreHolder> dishScoreHolders = new List<DishScoreHolder>();
+        return ValueCalculate(dishNutr, standard);
 
         //CalculateEachEnergy(carb, protein, etc) => save in DishScoreHolder
         //TotalEnergy = all ENergy => save in DishScoreHolder
         //Calculate other nutrition
         //var BaseTotalEnergy = CalculateScore(dishNutr, starndard.energrScore.totalEnergyLimit, dishScoreHolders);
     }
+
+    public ResultScore ValueCalculate(Nutrition dishNutr, LevelStandard standard)
+    {
+        if (standard == null)
+        {
+            standard = defaultStandard;
+        }
+        ResultScore resultScore = new ResultScore();
+        List<DishScoreHolder> allScore = new List<DishScoreHolder>();
+
+        //default unit = milligram
+        var changeUnit = 0.001f; // 1 milligram = 0.001 gram
+
+        // 1 kCal = 4.18 kJ
+        // 1 kJ = 0.24 kCal
+
+        //var carbohydrateEnergy = (dishNutr.carbohydrate + dishNutr.sugars + dishNutr.fiber) * 4 * changeUnit;   // carb 1 g = 4 kCal = 17 kJ
+        var carbohydrateEnergy = dishNutr.carbohydrate * 4 * changeUnit;
+        var proteinEnergy = dishNutr.proteins * 4 * changeUnit;        // prot 1 g =  4 kCal = 17 kJ
+        var fatEnergy = (dishNutr.cholesterol + dishNutr.fat) * 9 * changeUnit;   // fat 1 g = 9 kCal = 38 kJ // fat is already include saturatedfat fat
+        var alcoholEnergy = 0f;        // alc 1 g = 7 kCal = 29 kJ
+        alcoholEnergy *= 5.6f * changeUnit;         // alc 1 mL = 5.6 kCal = 23 kJ        
+
+        var totalEnergy = carbohydrateEnergy + proteinEnergy + fatEnergy + alcoholEnergy;
+
+        if (standard.limiterSet.totalEnergyLimit.weight > 0)
+        {
+            DishScoreHolder totalEnergyScore = new DishScoreHolder();
+            if (standard.limiterSet.totalEnergyLimit.limterType != LimiterType.None && standard.limiterSet.totalEnergyLimit.calType != CalculateType.None)
+                totalEnergyScore.limiter = standard.limiterSet.totalEnergyLimit;
+            else if (defaultStandard != null)
+            {
+                if (defaultStandard.limiterSet.totalEnergyLimit.limterType != LimiterType.None && defaultStandard.limiterSet.totalEnergyLimit.calType != CalculateType.None)
+                {
+                    totalEnergyScore.limiter = defaultStandard.limiterSet.totalEnergyLimit;
+                }
+            }
+            if (totalEnergyScore.limiter != null)
+            {
+                totalEnergyScore.value = totalEnergy;
+                allScore.Add(totalEnergyScore);
+            }
+        }
+
+        //energyScore.carbohydrateProportion = carbohydrateCal / totalEnergy;
+        //energyScore.fatProportion = fatCal / totalEnergy;
+        //energyScore.proteinProportion = proteinCal / totalEnergy;
+
+        if (standard.limiterSet.carbLimit.weight > 0)
+        {
+            DishScoreHolder carbEnergyScore = new DishScoreHolder();
+            if (standard.limiterSet.carbLimit.limterType != LimiterType.None && standard.limiterSet.carbLimit.calType != CalculateType.None)
+                carbEnergyScore.limiter = standard.limiterSet.carbLimit;
+            else if (defaultStandard != null)
+            {
+                if (defaultStandard.limiterSet.carbLimit.limterType != LimiterType.None && defaultStandard.limiterSet.carbLimit.calType != CalculateType.None)
+                {
+                    carbEnergyScore.limiter = defaultStandard.limiterSet.carbLimit;
+                }
+            }
+            if (carbEnergyScore.limiter != null)
+            {
+                carbEnergyScore.value = carbohydrateEnergy;
+                allScore.Add(carbEnergyScore);
+            }
+        }
+
+        if (standard.limiterSet.proteinLimit.weight > 0)
+        {
+            DishScoreHolder protEnergyScore = new DishScoreHolder();
+            if (standard.limiterSet.proteinLimit.limterType != LimiterType.None && standard.limiterSet.proteinLimit.calType != CalculateType.None)
+                protEnergyScore.limiter = standard.limiterSet.proteinLimit;
+            else if (defaultStandard != null)
+            {
+                if (defaultStandard.limiterSet.proteinLimit.limterType != LimiterType.None && defaultStandard.limiterSet.proteinLimit.calType != CalculateType.None)
+                {
+                    protEnergyScore.limiter = defaultStandard.limiterSet.proteinLimit;
+                }
+            }
+            if (protEnergyScore.limiter != null)
+            {
+                protEnergyScore.value = proteinEnergy;
+                allScore.Add(protEnergyScore);
+            }
+        }
+
+        if (standard.limiterSet.fatLimit.weight > 0)
+        {
+            DishScoreHolder fatEnergyScore = new DishScoreHolder();
+            if (standard.limiterSet.fatLimit.limterType != LimiterType.None && standard.limiterSet.fatLimit.calType != CalculateType.None)
+                fatEnergyScore.limiter = standard.limiterSet.fatLimit;
+            else if (defaultStandard != null)
+            {
+                if (defaultStandard.limiterSet.fatLimit.limterType != LimiterType.None && defaultStandard.limiterSet.fatLimit.calType != CalculateType.None)
+                {
+                    fatEnergyScore.limiter = defaultStandard.limiterSet.fatLimit;
+                }
+            }
+            if (fatEnergyScore.limiter != null)
+            {
+                fatEnergyScore.value = fatEnergy;
+                allScore.Add(fatEnergyScore);
+            }
+        }
+
+        if (standard.limiterSet.saturatedFatLimit.weight > 0)
+        {
+            DishScoreHolder satFatScore = new DishScoreHolder();
+            if (standard.limiterSet.saturatedFatLimit.limterType != LimiterType.None && standard.limiterSet.saturatedFatLimit.calType != CalculateType.None)
+                satFatScore.limiter = standard.limiterSet.saturatedFatLimit;
+            else if (defaultStandard != null)
+            {
+                if (defaultStandard.limiterSet.saturatedFatLimit.limterType != LimiterType.None && defaultStandard.limiterSet.saturatedFatLimit.calType != CalculateType.None)
+                {
+                    satFatScore.limiter = defaultStandard.limiterSet.saturatedFatLimit;
+                }
+            }
+            if (satFatScore.limiter != null)
+            {
+                satFatScore.value = dishNutr.saturatedfat;
+                allScore.Add(satFatScore);
+            }
+        }
+
+        //DishScoreHolder CholScore = new DishScoreHolder();
+        //CholScore.limiter = null;
+        //CholScore.name = "Cholesterol";
+        //CholScore.value = 
+        //dishEnergyScore.Add(CholScore);
+
+        //DishScoreHolder alcEnergyScore = new DishScoreHolder();
+        //alcEnergyScore.limiter = null;
+        //alcEnergyScore.name = "Alcohol";
+        //alcEnergyScore.value = alcoholEnergy;
+        //dishEnergyScore.Add(alcEnergyScore);
+
+
+        if (standard.limiterSet.sugarLimit.weight > 0)
+        {
+            DishScoreHolder sugarScore = new DishScoreHolder();
+            if (standard.limiterSet.sugarLimit.limterType != LimiterType.None && standard.limiterSet.sugarLimit.calType != CalculateType.None)
+                sugarScore.limiter = standard.limiterSet.sugarLimit;
+            else if (defaultStandard != null)
+            {
+                if (defaultStandard.limiterSet.sugarLimit.limterType != LimiterType.None && defaultStandard.limiterSet.sugarLimit.calType != CalculateType.None)
+                {
+                    sugarScore.limiter = defaultStandard.limiterSet.sugarLimit;
+                }
+            }
+            if (sugarScore.limiter != null)
+            {
+                sugarScore.value = dishNutr.sugars;
+                allScore.Add(sugarScore);
+            }
+        }
+
+        if (standard.limiterSet.fiberLimit.weight > 0)
+        {
+            DishScoreHolder fiberScore = new DishScoreHolder();
+            if (standard.limiterSet.fiberLimit.limterType != LimiterType.None && standard.limiterSet.fiberLimit.calType != CalculateType.None)
+                fiberScore.limiter = standard.limiterSet.fiberLimit;
+            else if (defaultStandard != null)
+            {
+                if (defaultStandard.limiterSet.fiberLimit.limterType != LimiterType.None && defaultStandard.limiterSet.fiberLimit.calType != CalculateType.None)
+                {
+                    fiberScore.limiter = defaultStandard.limiterSet.fiberLimit;
+                }
+            }
+            if (fiberScore.limiter != null)
+            {
+                fiberScore.value = dishNutr.fiber;
+                allScore.Add(fiberScore);
+            }
+        }
+
+        foreach(var scoreHolder in allScore)
+        {
+            if(scoreHolder.limiter.weight > 0)
+            {
+                switch(scoreHolder.limiter.calType)
+                {
+                    case CalculateType.BaseTotalEnergy:
+                        CalculateScore(scoreHolder);
+                        break;
+                    case CalculateType.PercentEnergy:
+                        CalculateScoreByEnergy(scoreHolder, totalEnergy);
+                        break;
+                    case CalculateType.Mass_Gram:
+                        CalculateScore(scoreHolder);
+                        break;
+                }
+            }
+        }
+
+        resultScore.allScore = allScore;
+        resultScore.totalEnergy = totalEnergy;
+        CalculateFinalScore(resultScore);
+        
+        return resultScore;
+    }
+
+    public void CalculateFinalScore(ResultScore resultScoreHolder)
+    {
+        float totalWeight = 0;
+        float totalScore = 0;
+        foreach(var scoreHolder in resultScoreHolder.allScore)
+        {
+            if (scoreHolder.limiter != null)
+            {
+                if (scoreHolder.limiter.weight > 0)
+                {
+                    totalWeight += scoreHolder.limiter.weight;
+                    totalScore += scoreHolder.limiter.weight * scoreHolder.actualScore;
+                }
+            }
+        }
+
+        var finalScore = totalScore / totalWeight;
+        resultScoreHolder.finalScore = finalScore;
+
+        if (finalScore >= star5) resultScoreHolder.finalStar = 5;
+        else if (finalScore >= star4) resultScoreHolder.finalStar = 4;
+        else if (finalScore >= star3) resultScoreHolder.finalStar = 3;
+        else if (finalScore >= star2) resultScoreHolder.finalStar = 2;
+        else if (finalScore > star1) resultScoreHolder.finalStar = 1;
+        else resultScoreHolder.finalStar = 0;
+    }
+
+    public void CalculateScore(DishScoreHolder scoreHolder)
+    {
+        Limiter limiter = scoreHolder.limiter;
+
+        switch (scoreHolder.limiter.calType)
+        {
+            case CalculateType.Mass_Gram:
+                {
+                    scoreHolder.value *= 0.001f;
+                    break;
+                }
+            case CalculateType.Mass_Miligram:
+                {
+                    //do not thing
+                    break;
+                }
+        }
+
+        switch (scoreHolder.limiter.limterType)
+        {
+            case LimiterType.InLimiterBest:
+                {
+                    if (limiter.lowerLimit != -1 && limiter.upperLimit != -1)
+                    {
+                        var fiveStarLowerLimit = limiter.lowerLimit + (limiter.upperLimit - limiter.lowerLimit) * ((1f - limiter.alpha) / 2);
+                        var fiveStarUpperLimit = limiter.upperLimit - (limiter.upperLimit - limiter.lowerLimit) * ((1f - limiter.alpha) / 2);
+                        if (scoreHolder.value >= fiveStarLowerLimit && scoreHolder.value <= fiveStarUpperLimit)
+                        {
+                            scoreHolder.star = 5;
+                            var median = (fiveStarLowerLimit + fiveStarUpperLimit) / 2;
+                            if (scoreHolder.value < median)
+                            {
+                                var lower = fiveStarLowerLimit;
+                                scoreHolder.actualScore = star5 + (scoreHolder.value - lower) / (median - lower) * (100f - star5);
+                            }
+                            else
+                            {
+                                var upper = fiveStarUpperLimit;
+                                scoreHolder.actualScore = star5 + (upper - scoreHolder.value) / (upper - median) * (100f - star5);
+                            }
+                        }
+                        else if (scoreHolder.value >= limiter.lowerLimit && scoreHolder.value <= limiter.upperLimit)
+                        {
+                            scoreHolder.star = 4;
+                            if (scoreHolder.value < fiveStarLowerLimit)
+                            {
+                                var lower = limiter.lowerLimit;
+                                var upper = fiveStarLowerLimit;
+                                scoreHolder.actualScore = star4 + (scoreHolder.value - lower) / (upper - lower) * (star5 - star4);
+                            }
+                            else //scoreHolder.value > maxScoreUpperLimit
+                            {
+                                var lower = limiter.upperLimit;
+                                var upper = fiveStarUpperLimit;
+                                scoreHolder.actualScore = star5 + (upper - scoreHolder.value) / (upper - lower) * (star5 - star4);
+                            }
+                        }
+                        else
+                        {
+                            var betaValue = limiter.lowerLimit * (1 - limiter.beta);
+                            var zeroStarLowerLimit = limiter.lowerLimit - betaValue;
+                            var zeroStarUpperLimit = limiter.upperLimit + betaValue;
+                            if (scoreHolder.value < zeroStarLowerLimit || scoreHolder.value > zeroStarUpperLimit)
+                            {
+                                scoreHolder.star = 0;
+                                scoreHolder.actualScore = 0;
+                            }
+                            else
+                            {
+                                if (scoreHolder.value < limiter.lowerLimit)
+                                {
+                                    var lower = zeroStarLowerLimit;
+                                    var upper = limiter.lowerLimit;
+                                    scoreHolder.actualScore = (scoreHolder.value - lower) / (upper - lower) * (star4 - star1);
+                                }
+                                else if (scoreHolder.value > limiter.upperLimit)
+                                {
+                                    var lower = limiter.upperLimit;
+                                    var upper = zeroStarUpperLimit;
+                                    scoreHolder.actualScore = (upper - scoreHolder.value) / (upper - lower) * (star4 - star1);
+                                }
+
+                                if (scoreHolder.actualScore >= star3) scoreHolder.star = 3;
+                                else if (scoreHolder.actualScore >= star2) scoreHolder.star = 2;
+                                else if (scoreHolder.actualScore > star1) scoreHolder.star = 1;
+                                else scoreHolder.star = 0;
+                            }
+                        }
+                        if (scoreHolder.value < limiter.lowerLimit)
+                        {
+                            scoreHolder.detail = "< " + limiter.lowerLimit;
+                        }
+                        else if (scoreHolder.value > limiter.upperLimit)
+                        {
+                            scoreHolder.detail = "> " + limiter.upperLimit;
+                        }
+                        else
+                        {
+                            scoreHolder.detail = $"= {limiter.lowerLimit} ~ {limiter.upperLimit}";
+                        }
+                    }
+                    else if (limiter.median != -1)
+                    {
+                        var alphaValue = limiter.median * ((1f - limiter.alpha) / 2);
+                        var fiveStarLowerLimit = limiter.median - alphaValue;
+                        var fiveStarUpperLimit = limiter.median - alphaValue;
+                        if (scoreHolder.value >= fiveStarLowerLimit && scoreHolder.value <= fiveStarUpperLimit)
+                        {
+                            scoreHolder.star = 5;
+                            var median = limiter.median;
+                            if (scoreHolder.value < median)
+                            {
+                                var lower = fiveStarLowerLimit;
+                                scoreHolder.actualScore = star5 + (scoreHolder.value - lower) / (median - lower) * (100f - star5);
+                            }
+                            else
+                            {
+                                var upper = fiveStarUpperLimit;
+                                scoreHolder.actualScore = star5 + (upper - scoreHolder.value) / (upper - median) * (100f - star5);
+                            }
+                        }
+                        else
+                        {
+                            var betaValue = limiter.median * (1 - limiter.beta);
+                            var zeroStarLowerLimit = limiter.lowerLimit - betaValue;
+                            var zeroStarUpperLimit = limiter.upperLimit + betaValue;
+                            if (scoreHolder.value < zeroStarLowerLimit || scoreHolder.value > zeroStarUpperLimit)
+                            {
+                                scoreHolder.star = 0;
+                                scoreHolder.actualScore = 0;
+                            }
+                            else
+                            {
+                                if (scoreHolder.value < limiter.lowerLimit)
+                                {
+                                    var lower = zeroStarLowerLimit;
+                                    var upper = limiter.lowerLimit;
+                                    scoreHolder.actualScore = (scoreHolder.value - lower) / (upper - lower) * (star5 - star1);
+                                }
+                                else if (scoreHolder.value > limiter.upperLimit)
+                                {
+                                    var lower = limiter.upperLimit;
+                                    var upper = zeroStarUpperLimit;
+                                    scoreHolder.actualScore = (upper - scoreHolder.value) / (upper - lower) * (star5 - star1);
+                                }
+
+                                if (scoreHolder.actualScore >= star4) scoreHolder.star = 4;
+                                else if (scoreHolder.actualScore >= star3) scoreHolder.star = 3;
+                                else if (scoreHolder.actualScore >= star2) scoreHolder.star = 2;
+                                else if (scoreHolder.actualScore > star1) scoreHolder.star = 1;
+                                else scoreHolder.star = 0;
+                            }
+                        }
+
+                        if (scoreHolder.value < limiter.median)
+                        {
+                            scoreHolder.detail = "< " + limiter.median;
+                        }
+                        else if (scoreHolder.value > limiter.median)
+                        {
+                            scoreHolder.detail = "> " + limiter.median;
+                        }
+                        else
+                        {
+                            scoreHolder.detail = $"{fiveStarLowerLimit} ~ {fiveStarUpperLimit} (median = {limiter.median})";
+                        }
+                    }
+                    //else if(limiter.median == -1 && limiter.lowerLimit != -1 && limiter.upperLimit != -1)
+                    //{
+
+                    //}
+                    break;
+                }
+            case LimiterType.LessIsBetter:
+                {
+                    if (limiter.lowerLimit != -1)
+                    {
+                        var zeroStarLowerLimit = limiter.lowerLimit * limiter.beta;
+                        var fiveStarLowerLimit = limiter.lowerLimit + ((limiter.lowerLimit - zeroStarLowerLimit) / (1 - limiter.alpha) * limiter.alpha);
+                        if (scoreHolder.value >= fiveStarLowerLimit)
+                        {
+                            scoreHolder.star = 5;
+                            var lower = fiveStarLowerLimit;
+                            var upper = fiveStarLowerLimit + (fiveStarLowerLimit - limiter.lowerLimit);
+                            scoreHolder.actualScore = star5 + (scoreHolder.value - lower) / (upper - lower) * (100f - star5);
+                        }
+                        else if (scoreHolder.value >= limiter.lowerLimit)
+                        {
+                            scoreHolder.star = 4;
+                            var lower = limiter.lowerLimit;
+                            var upper = fiveStarLowerLimit;
+                            scoreHolder.actualScore = star4 + (scoreHolder.value - lower) / (upper - lower) * (star5 - star4);
+                        }
+                        else if (scoreHolder.value < zeroStarLowerLimit)
+                        {
+                            scoreHolder.star = 0;
+                            scoreHolder.actualScore = 0;
+                        }
+                        else //scoreHolder.value < limiter.lowerLimit
+                        {
+                            var lower = zeroStarLowerLimit;
+                            var upper = limiter.lowerLimit;
+                            scoreHolder.actualScore = (scoreHolder.value - lower) / (upper - lower) * (star4 - star1);
+
+                            if (scoreHolder.actualScore >= star3) scoreHolder.star = 3;
+                            else if (scoreHolder.actualScore >= star2) scoreHolder.star = 2;
+                            else if (scoreHolder.actualScore > star1) scoreHolder.star = 1;
+                            else scoreHolder.star = 0;
+                        }
+                        if (scoreHolder.value < limiter.lowerLimit)
+                        {
+                            scoreHolder.detail = "< " + limiter.lowerLimit;
+                        }
+                        else if (scoreHolder.value > limiter.lowerLimit)
+                        {
+                            scoreHolder.detail = "> " + limiter.lowerLimit;
+                        }
+                        else
+                        {
+                            scoreHolder.detail = $"= {limiter.lowerLimit}";
+                        }
+                    }
+                    break;
+                }
+            case LimiterType.MoreIsBetter:
+                {
+                    if (limiter.upperLimit != -1)
+                    {
+                        var fiveStarUpperLimit = limiter.upperLimit * (1 - limiter.alpha);
+                        var zeroStarUpperLimit = limiter.upperLimit / (1 - limiter.beta) * limiter.beta;
+                        if (scoreHolder.value <= fiveStarUpperLimit)
+                        {
+                            scoreHolder.star = 5;
+                            var lower = fiveStarUpperLimit - (limiter.upperLimit - fiveStarUpperLimit);
+                            var upper = fiveStarUpperLimit;
+                            scoreHolder.actualScore = star5 + (upper - scoreHolder.value) / (upper - lower) * (100f - star5);
+                        }
+                        else if (scoreHolder.value <= limiter.upperLimit)
+                        {
+                            scoreHolder.star = 4;
+                            var lower = limiter.upperLimit;
+                            var upper = fiveStarUpperLimit;
+                            scoreHolder.actualScore = star5 + (upper - scoreHolder.value) / (upper - lower) * (star5 - star4);
+
+                        }
+                        else
+                        {
+                            if (scoreHolder.value > zeroStarUpperLimit)
+                            {
+                                scoreHolder.star = 0;
+                                scoreHolder.actualScore = 0;
+                            }
+                            else
+                            {
+                                //scoreHolder.value > limiter.upperLimit
+
+                                var lower = limiter.upperLimit;
+                                var upper = zeroStarUpperLimit;
+                                scoreHolder.actualScore = (upper - scoreHolder.value) / (upper - lower) * (star4 - star1);
+
+                                if (scoreHolder.actualScore >= star3) scoreHolder.star = 3;
+                                else if (scoreHolder.actualScore >= star2) scoreHolder.star = 2;
+                                else if (scoreHolder.actualScore > star1) scoreHolder.star = 1;
+                                else scoreHolder.star = 0;
+                            }
+                        }
+                        if (scoreHolder.value < limiter.upperLimit)
+                        {
+                            scoreHolder.detail = "< " + limiter.upperLimit;
+                        }
+                        else if (scoreHolder.value > limiter.upperLimit)
+                        {
+                            scoreHolder.detail = "> " + limiter.upperLimit;
+                        }
+                        else
+                        {
+                            scoreHolder.detail = $"= {limiter.upperLimit}";
+                        }
+                    }
+                    break;
+                }
+            default:
+                break;
+        }
+
+        if (scoreHolder.actualScore > 100)
+            scoreHolder.actualScore = 100;
+        else if (scoreHolder.actualScore < 0)
+            scoreHolder.actualScore = 0;
+
+        Debug.Log(scoreHolder.limiter.name + "value: " + scoreHolder.value);
+        Debug.Log(scoreHolder.limiter.name + "score: " + scoreHolder.actualScore);
+        Debug.Log(scoreHolder.limiter.name + "star: " + scoreHolder.star);
+    }
+
+    public void CalculateScoreByEnergy(DishScoreHolder scoreHolder, float totalEnergy)
+    {
+        if(totalEnergy <= 0)
+        {
+            Debug.Log("totalEnergy == 0");
+            return;
+        }
+        //Calculate by PercentEnergy Concept
+        Limiter limiter = scoreHolder.limiter;
+        var percentEnergy = scoreHolder.value / totalEnergy;
+        switch (scoreHolder.limiter.limterType)
+        {
+            case LimiterType.InLimiterBest:
+                {
+                    if (limiter.lowerLimit != -1 && limiter.upperLimit != -1)
+                    {
+                        var fiveStarLowerLimit = limiter.lowerLimit + (limiter.upperLimit - limiter.lowerLimit) * ((1f - limiter.alpha) / 2);
+                        var fiveStarUpperLimit = limiter.upperLimit - (limiter.upperLimit - limiter.lowerLimit) * ((1f - limiter.alpha) / 2);
+                        if (percentEnergy >= fiveStarLowerLimit && percentEnergy <= fiveStarUpperLimit)
+                        {
+                            scoreHolder.star = 5;
+                            var median = (fiveStarLowerLimit + fiveStarUpperLimit) / 2;
+                            if (percentEnergy < median)
+                            {
+                                var lower = fiveStarLowerLimit;
+                                scoreHolder.actualScore = star5 + (percentEnergy - lower) / (median - lower) * (100f - star5);
+                            }
+                            else
+                            {
+                                var upper = fiveStarUpperLimit;
+                                scoreHolder.actualScore = star5 + (upper - percentEnergy) / (upper - median) * (100f - star5);
+                            }
+                        }
+                        else if (percentEnergy >= limiter.lowerLimit && percentEnergy <= limiter.upperLimit)
+                        {
+                            scoreHolder.star = 4;
+                            if (percentEnergy < fiveStarLowerLimit)
+                            {
+                                var lower = limiter.lowerLimit;
+                                var upper = fiveStarLowerLimit;
+                                scoreHolder.actualScore = star4 + (percentEnergy - lower) / (upper - lower) * (star5 - star4);
+                            }
+                            else //scoreHolder.value > maxScoreUpperLimit
+                            {
+                                var lower = limiter.upperLimit;
+                                var upper = fiveStarUpperLimit;
+                                scoreHolder.actualScore = star5 + (upper - percentEnergy) / (upper - lower) * (star5 - star4);
+                            }
+                        }
+                        else
+                        {
+                            var betaValue = limiter.lowerLimit * (1 - limiter.beta);
+                            var zeroStarLowerLimit = limiter.lowerLimit - betaValue;
+                            var zeroStarUpperLimit = limiter.upperLimit + betaValue;
+                            if (percentEnergy < zeroStarLowerLimit || percentEnergy > zeroStarUpperLimit)
+                            {
+                                scoreHolder.star = 0;
+                                scoreHolder.actualScore = 0;
+                            }
+                            else
+                            {
+                                if (percentEnergy < limiter.lowerLimit)
+                                {
+                                    var lower = zeroStarLowerLimit;
+                                    var upper = limiter.lowerLimit;
+                                    scoreHolder.actualScore = (percentEnergy - lower) / (upper - lower) * (star4 - star1);
+                                }
+                                else if (percentEnergy > limiter.upperLimit)
+                                {
+                                    var lower = limiter.upperLimit;
+                                    var upper = zeroStarUpperLimit;
+                                    scoreHolder.actualScore = (upper - percentEnergy) / (upper - lower) * (star4 - star1);
+                                }
+
+                                if (scoreHolder.actualScore >= star3) scoreHolder.star = 3;
+                                else if (scoreHolder.actualScore >= star2) scoreHolder.star = 2;
+                                else if (scoreHolder.actualScore > star1) scoreHolder.star = 1;
+                                else scoreHolder.star = 0;
+                            }
+                        }
+                        if (scoreHolder.value < limiter.lowerLimit * totalEnergy)
+                        {
+                            scoreHolder.detail = "< " + limiter.lowerLimit * totalEnergy;
+                        }
+                        else if (scoreHolder.value > limiter.upperLimit * totalEnergy)
+                        {
+                            scoreHolder.detail = "> " + limiter.upperLimit * totalEnergy;
+                        }
+                        else
+                        {
+                            scoreHolder.detail = $"= {limiter.lowerLimit * totalEnergy} ~ {limiter.upperLimit * totalEnergy}";
+                        }
+                    }
+                    else if (limiter.median != -1)
+                    {
+                        var alphaValue = limiter.median * ((1f - limiter.alpha) / 2);
+                        var fiveStarLowerLimit = limiter.median - alphaValue;
+                        var fiveStarUpperLimit = limiter.median - alphaValue;
+                        if (percentEnergy >= fiveStarLowerLimit && percentEnergy <= fiveStarUpperLimit)
+                        {
+                            scoreHolder.star = 5;
+                            var median = limiter.median;
+                            if (percentEnergy < median)
+                            {
+                                var lower = fiveStarLowerLimit;
+                                scoreHolder.actualScore = star5 + (percentEnergy - lower) / (median - lower) * (100f - star5);
+                            }
+                            else
+                            {
+                                var upper = fiveStarUpperLimit;
+                                scoreHolder.actualScore = star5 + (percentEnergy) / (upper - median) * (100f - star5);
+                            }
+                        }
+                        else
+                        {
+                            var betaValue = limiter.median * (1 - limiter.beta);
+                            var zeroStarLowerLimit = limiter.lowerLimit - betaValue;
+                            var zeroStarUpperLimit = limiter.upperLimit + betaValue;
+                            if (percentEnergy < zeroStarLowerLimit || percentEnergy > zeroStarUpperLimit)
+                            {
+                                scoreHolder.star = 0;
+                                scoreHolder.actualScore = 0;
+                            }
+                            else
+                            {
+                                if (percentEnergy < limiter.lowerLimit)
+                                {
+                                    var lower = zeroStarLowerLimit;
+                                    var upper = limiter.lowerLimit;
+                                    scoreHolder.actualScore = (percentEnergy - lower) / (upper - lower) * (star5 - star1);
+                                }
+                                else if (percentEnergy > limiter.upperLimit)
+                                {
+                                    var lower = limiter.upperLimit;
+                                    var upper = zeroStarUpperLimit;
+                                    scoreHolder.actualScore = (upper - percentEnergy) / (upper - lower) * (star5 - star1);
+                                }
+
+                                if (scoreHolder.actualScore >= star4) scoreHolder.star = 4;
+                                else if (scoreHolder.actualScore >= star3) scoreHolder.star = 3;
+                                else if (scoreHolder.actualScore >= star2) scoreHolder.star = 2;
+                                else if (scoreHolder.actualScore > star1) scoreHolder.star = 1;
+                                else scoreHolder.star = 0;
+                            }
+                        }
+                        if (scoreHolder.value < limiter.median * totalEnergy)
+                        {
+                            scoreHolder.detail = "< " + limiter.median * totalEnergy;
+                        }
+                        else if (scoreHolder.value > limiter.median * totalEnergy)
+                        {
+                            scoreHolder.detail = "> " + limiter.median * totalEnergy;
+                        }
+                        else
+                        {
+                            scoreHolder.detail = $"= {limiter.median * totalEnergy} ~ {limiter.median * totalEnergy}";
+                        }
+                    }
+                    //else if(limiter.median == -1 && limiter.lowerLimit != -1 && limiter.upperLimit != -1)
+                    //{
+
+                    //}
+                    break;
+                }
+            case LimiterType.MoreIsBetter:
+                {
+                    if (limiter.lowerLimit != -1)
+                    {
+                        var zeroStarLowerLimit = limiter.lowerLimit * limiter.beta;
+                        var fiveStarLowerLimit = limiter.lowerLimit + ((limiter.lowerLimit - zeroStarLowerLimit) / (1 - limiter.alpha) * limiter.alpha);
+                        if (percentEnergy >= fiveStarLowerLimit)
+                        {
+                            scoreHolder.star = 5;
+                            var lower = fiveStarLowerLimit;
+                            var upper = fiveStarLowerLimit + (fiveStarLowerLimit - limiter.lowerLimit);
+                            scoreHolder.actualScore = star5 + (percentEnergy - lower) / (upper - lower) * (100f - star5);
+                        }
+                        else if (percentEnergy >= limiter.lowerLimit)
+                        {
+                            scoreHolder.star = 4;
+                            var lower = limiter.lowerLimit;
+                            var upper = fiveStarLowerLimit;
+                            scoreHolder.actualScore = star4 + (percentEnergy - lower) / (upper - lower) * (star5 - star4);
+                        }
+                        else if (percentEnergy < zeroStarLowerLimit)
+                        {
+                            scoreHolder.star = 0;
+                            scoreHolder.actualScore = 0;
+                        }
+                        else //scoreHolder.value < limiter.lowerLimit
+                        {
+                            var lower = zeroStarLowerLimit;
+                            var upper = limiter.lowerLimit;
+                            scoreHolder.actualScore = (percentEnergy - lower) / (upper - lower) * (star4 - star1);
+
+                            if (scoreHolder.actualScore >= star3) scoreHolder.star = 3;
+                            else if (scoreHolder.actualScore >= star2) scoreHolder.star = 2;
+                            else if (scoreHolder.actualScore > star1) scoreHolder.star = 1;
+                            else scoreHolder.star = 0;
+                        }
+                        if (scoreHolder.value < limiter.upperLimit * totalEnergy)
+                        {
+                            scoreHolder.detail = "< " + limiter.upperLimit * totalEnergy;
+                        }
+                        else if (scoreHolder.value > limiter.upperLimit * totalEnergy)
+                        {
+                            scoreHolder.detail = "> " + limiter.upperLimit * totalEnergy;
+                        }
+                        else
+                        {
+                            scoreHolder.detail = $"= {limiter.upperLimit * totalEnergy}";
+                        }
+                    }
+                    break;
+                }
+            case LimiterType.LessIsBetter:
+                {
+                    Debug.Log("CalByEnergy | LessIsBetter: " + limiter.name);
+                    if (limiter.upperLimit != -1)
+                    {
+                        var fiveStarUpperLimit = limiter.upperLimit * (1 - limiter.alpha);
+                        var zeroStarUpperLimit = limiter.upperLimit / (1 - limiter.beta) * limiter.beta;
+                        if (percentEnergy <= fiveStarUpperLimit)
+                        {
+                            scoreHolder.star = 5;
+                            var lower = fiveStarUpperLimit - (limiter.upperLimit - fiveStarUpperLimit);
+                            var upper = fiveStarUpperLimit;
+                            scoreHolder.actualScore = star5 + (upper - percentEnergy) / (upper - lower) * (100f - star5);
+                        }
+                        else if (percentEnergy <= limiter.upperLimit)
+                        {
+                            scoreHolder.star = 4;
+                            var lower = limiter.upperLimit;
+                            var upper = fiveStarUpperLimit;
+                            scoreHolder.actualScore = star5 + (upper - percentEnergy) / (upper - lower) * (star5 - star4);
+
+                        }
+                        else
+                        {
+                            if (percentEnergy > zeroStarUpperLimit)
+                            {
+                                scoreHolder.star = 0;
+                                scoreHolder.actualScore = 0;
+                            }
+                            else
+                            {
+                                //scoreHolder.value > limiter.upperLimit
+
+                                var lower = limiter.upperLimit;
+                                var upper = zeroStarUpperLimit;
+                                scoreHolder.actualScore = (upper - percentEnergy) / (upper - lower) * (star4 - star1);
+
+                                if (scoreHolder.actualScore >= star3) scoreHolder.star = 3;
+                                else if (scoreHolder.actualScore >= star2) scoreHolder.star = 2;
+                                else if (scoreHolder.actualScore > star1) scoreHolder.star = 1;
+                                else scoreHolder.star = 0;
+                            }
+                        }
+                        if (scoreHolder.value < limiter.upperLimit * totalEnergy)
+                        {
+                            scoreHolder.detail = "< " + limiter.upperLimit * totalEnergy;
+                        }
+                        else if (scoreHolder.value > limiter.upperLimit * totalEnergy)
+                        {
+                            scoreHolder.detail = "> " + limiter.upperLimit * totalEnergy;
+                        }
+                        else
+                        {
+                            scoreHolder.detail = $"= {limiter.upperLimit * totalEnergy}";
+                        }
+                    }
+                    break;
+                }
+            default:
+                break;
+        }
+
+        if (scoreHolder.actualScore > 100)
+            scoreHolder.actualScore = 100;
+        else if (scoreHolder.actualScore < 0)
+            scoreHolder.actualScore = 0;
+
+    }
+
 
     public void SetZeroNutr(Nutrition nutr)
     {
@@ -101,175 +910,61 @@ public class Scoring : ScriptableObject
         }
     }
 
-    public float CalculateTotalEnergy()
-    {
-        float energy = 0;
-        return energy;
-    }
-
-    public void CalculateScore(float nutr, Limiter limit, List<DishScoreHolder> dishScoreHolders)
-    {
-        DishScoreHolder dishScore = new DishScoreHolder();
-        //dishScore.nutrition = 
-        switch (limit.calType)
-        {
-            case CalculateType.BaseTotalEnergy:
-                {
-                    break;
-                }
-            default:
-                break;
-        }
-
-        //return null;
-
-    //public string nutrition;
-    //public float actualScore;
-    //public string detail;
-    //public Limiter limiter;
-
-}
-
-    //public Nutrition CalculateLevel(Nutrition dishNutr, Nutrition standard)
-    //{
-    //    var score = new Nutrition();
-    //    score.cholesterol = (standard.cholesterol - dishNutr.cholesterol) / standard.cholesterol;
-    //    score.carbohydrate = (standard.carbohydrate - dishNutr.carbohydrate) / standard.carbohydrate;
-    //    score.sugars = (standard.sugars - dishNutr.sugars) / standard.sugars;
-    //    score.fiber = (standard.fiber - dishNutr.fiber) / standard.fiber;
-    //    score.proteins = (standard.proteins - dishNutr.proteins) / standard.proteins;
-    //    score.fat = (standard.fat - dishNutr.fat) / standard.fat;
-    //    score.saturatedfat = (standard.saturatedfat - dishNutr.saturatedfat) / standard.saturatedfat;
-    //    score.water = (standard.water - dishNutr.water) / standard.water;
-    //    score.potassium = (standard.potassium - dishNutr.potassium) / standard.potassium;
-    //    score.sodium = (standard.sodium - dishNutr.sodium) / standard.sodium;
-    //    score.calcium = (standard.calcium - dishNutr.calcium) / standard.calcium;
-    //    score.phosphorus = (standard.phosphorus - dishNutr.phosphorus) / standard.phosphorus;
-    //    score.magnesium = (standard.magnesium - dishNutr.magnesium) / standard.magnesium;
-    //    score.zinc = (standard.zinc - dishNutr.zinc) / standard.zinc;
-    //    score.iron = (standard.iron - dishNutr.iron) / standard.iron;
-    //    score.manganese = (standard.manganese - dishNutr.manganese) / standard.manganese;
-    //    score.copper = (standard.copper - dishNutr.copper) / standard.copper;
-    //    score.selenium = (standard.selenium - dishNutr.selenium) / standard.selenium;
-    //    score.vitaminB1 = (standard.vitaminB1 - dishNutr.vitaminB1) / standard.vitaminB1;
-    //    score.vitaminB2 = (standard.vitaminB2 - dishNutr.vitaminB2) / standard.vitaminB2;
-    //    score.vitaminB3 = (standard.vitaminB3 - dishNutr.vitaminB3) / standard.vitaminB3;
-    //    score.vitaminB5 = (standard.vitaminB5 - dishNutr.vitaminB5) / standard.vitaminB5;
-    //    score.vitaminB6 = (standard.vitaminB6 - dishNutr.vitaminB6) / standard.vitaminB6;
-    //    score.vitaminB7 = (standard.vitaminB7 - dishNutr.vitaminB7) / standard.vitaminB7;
-    //    score.vitaminB9 = (standard.vitaminB9 - dishNutr.vitaminB9) / standard.vitaminB9;
-    //    score.vitaminB12 = (standard.vitaminB12 - dishNutr.vitaminB12) / standard.vitaminB12;
-    //    score.vitaminC = (standard.vitaminC - dishNutr.vitaminC) / standard.vitaminC;
-    //    score.vitaminA = (standard.vitaminA - dishNutr.vitaminA) / standard.vitaminA;
-    //    score.vitaminD = (standard.vitaminD - dishNutr.vitaminD) / standard.vitaminD;
-    //    score.vitaminE = (standard.vitaminE - dishNutr.vitaminE) / standard.vitaminE;
-    //    score.vitaminK = (standard.vitaminK - dishNutr.vitaminK) / standard.vitaminK;
-    //    score.sugars = dishNutr.sugars - standard.sugars;
-    //    return score;
-    //}
-
-    public void CalculateEachStar(ref float score)
-    {
-        if (score <= star5) score = 5;
-        else if (score <= star4) score = 4;
-        else if (score <= star3) score = 3;
-        else if (score <= star2) score = 2;
-        else if (score <= star1) score = 1;
-        else score = 0;
-    }
-
-    public void CalculateEachPercent(ref float score, float dishNutr, float standard)
-    {
-        score = (standard - dishNutr) / standard;
-    }
-
-    public void CalNutrToStar(ref float score, float dishNutr, float standard)
-    {
-        CalculateEachPercent(ref score, dishNutr, standard);
-        CalculateEachStar(ref score);
-    }
-
-    public float EnergyCal(Nutrition dishNutr)
-    {
-        energyScore = new EnergyScore();
-        var changeUnit = 0.001f; // 1 milligram = 0.001 gram
-
-        // 1 kCal = 4.18 kJ
-        // 1 kJ = 0.24 kCal
-
-        var carbohydrateCal = dishNutr.carbohydrate + dishNutr.sugars + dishNutr.fiber;   // carb 1 g = 4 kCal = 17 kJ
-        carbohydrateCal *= 4 * changeUnit;
-
-        var proteinCal = dishNutr.proteins;        // prot 1 g =  4 kCal = 17 kJ
-        proteinCal *= 4 * changeUnit;
-
-        var fatCal = dishNutr.cholesterol + dishNutr.fat;            // fat 1 g = 9 kCal = 38 kJ
-        fatCal *= 9 * changeUnit;
-
-        var alcoholCal = 0f;        // alc 1 g = 7 kCal = 29 kJ
-        alcoholCal *= 5.6f * changeUnit;         // alc 1 mL = 5.6 kCal = 23 kJ
-
-        var totalEnergy = carbohydrateCal + proteinCal + fatCal + alcoholCal;
-        energyScore.totalEnergy = totalEnergy;
-        energyScore.carbohydrateProportion = carbohydrateCal / totalEnergy;
-        energyScore.fatProportion = fatCal / totalEnergy;
-        energyScore.proteinProportion = proteinCal / totalEnergy;
-        //energyScore.sugarProportion = dishNutr.sugars * changeUnit * 4 / totalEnergy;
-        //for sugar : good is <= 5% for TotalEnergy or 6 teaSpoon or 24g/day
-        //but it only about sugar that we add in dish during cooking. so it's almost nothing with sugar in other ingredient
-
-        return energyScore.totalEnergy;
-    }
 }
 
 [System.Serializable]
-public class EnergyScore
+public class LimiterSet
 {
-    public Limiter totalEnergyLimit;
-    public float totalEnergy; //calories good = 2000 kcal/day => 670 kcal/day
-    public Limiter carbLimit;
-    public float carbohydrateProportion; //good = 45-65% for TotalEnergy
-    public Limiter proteinLimit;
-    public float proteinProportion; //good = 10-35% for TotalEnergy
-    public Limiter fatLimit;
-    public float fatProportion; //good = 20-35% for TotalEnergy
+    public Limiter totalEnergyLimit; //calories good = 2000 kcal/day => 670 kcal/day
+    public Limiter carbLimit; //good = 45-65% for TotalEnergy
+    public Limiter proteinLimit; //good = 10-35% for TotalEnergy
+    public Limiter fatLimit; //good = 20-35% for TotalEnergy
     public Limiter cholesterolLimit;
     public Limiter saturatedFatLimit;
     public Limiter sugarLimit;
-    public float sugarProportion;
     //good <= 5% for TotalEnergy or 6 teaSpoon or 24g/day
     //but it only about sugar that we add in dish during cooking. so it's almost nothing with sugar in other ingredient
     public Limiter fiberLimit;
-    public float fiber;
     //good => 14g/1000kcal
     //good = 25g - 28g for adult
     //good = age*1 + 5 for child(< 6 years old)
     public Limiter sodiumLimit;
     public Limiter vitaminALimit;
-    public float vitaminA;
     public Limiter vitaminDLimit;
-    public float vitaminD;
 }
 
-[System.Serializable]
+public class ResultScore
+{
+    public List<DishScoreHolder> allScore;
+    public float finalScore;
+    public int finalStar;
+    public float totalEnergy;
+    //public Gameobject dish;
+}
+
 public class DishScoreHolder
 {
-    public string nutrition;
+    public float value;
     public float actualScore;
+    public int star;
     public string detail;
+    public string comment;
     public Limiter limiter;
-    //public Gameobject dish;
 }
 
 [System.Serializable]
 public class Limiter
 {   // -1 = default = null information
+    public string name;
+    public bool isTop4Priority = false;
     public LimiterType limterType;
     public float median = -1;
     public float lowerLimit = -1;
     public float upperLimit = -1;
     public string unitName;
     public CalculateType calType;
+    public float alpha = 0.4f;
+    public float beta = 0.2f;
     public float weight;
     public List<string> defectEatTooLittle;
     public List<string> defectOvereating;
@@ -291,5 +986,6 @@ public enum CalculateType
     None,
     Mass_Gram,
     PercentEnergy,
-    BaseTotalEnergy
+    BaseTotalEnergy,
+    Mass_Miligram
 }

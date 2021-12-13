@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1408992422368471420}
   - component: {fileID: 5172035357202615940}
   - component: {fileID: 8949630539935202590}
-  - component: {fileID: 197118926055434090}
+  - component: {fileID: 4431486096558527009}
   m_Layer: 5
   m_Name: Ingredient Info UI
   m_TagString: Untagged
@@ -78,7 +78,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &197118926055434090
+--- !u!114 &4431486096558527009
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 7307776871873896366}
   - component: {fileID: 2390024095742728846}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Name Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

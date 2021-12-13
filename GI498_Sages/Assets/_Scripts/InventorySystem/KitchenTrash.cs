@@ -19,9 +19,13 @@ public class KitchenTrash : MonoBehaviour
 
     private async void Update()
     {
-        await Task.Delay(System.TimeSpan.FromSeconds(5));
-        trashBin.ClearHolding();
-        trashBin.ClearModel();
+        await Task.Delay(System.TimeSpan.FromSeconds(2));
+        if (trashBin.IsCurrentItemNotNull())
+        {
+            trashBin.ClearHolding();
+            trashBin.ClearModel();
+        }
+
 
         // Debug.Log("Tashbin clear");
 

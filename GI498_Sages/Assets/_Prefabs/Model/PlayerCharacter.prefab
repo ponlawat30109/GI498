@@ -58,7 +58,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 6323182693916775772}
+  - {fileID: 5778632945425369486}
   m_Father: {fileID: 6937198689929658304}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -75,7 +75,7 @@ CapsuleCollider:
   m_Radius: 0.61
   m_Height: 1.94
   m_Direction: 1
-  m_Center: {x: 0, y: 0.31, z: 0}
+  m_Center: {x: 0, y: 0.49, z: 0}
 --- !u!1 &6937198689929658310
 GameObject:
   m_ObjectHideFlags: 0
@@ -104,7 +104,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6937198689929658310}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: -4}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6937198690084637099}
@@ -148,13 +148,13 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 1.58
-  m_Radius: 0.5
+  m_Height: 1.61
+  m_Radius: 0.59
   m_SlopeLimit: 90
-  m_StepOffset: 0.01
-  m_SkinWidth: 0.08
+  m_StepOffset: 0.001
+  m_SkinWidth: 0.01
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.36, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6937198689929658308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,8 +168,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 2640055213866337544}
+  playerVelocity: {x: 0, y: 0, z: 0}
   playerSpeed: 2
   gravity: -9.81
+  isRunning: 0
+  isMoving: 0
+  UIPanelActive: 0
+  animCtrl: {fileID: 2843414968769920076}
 --- !u!114 &-1519259995229880885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -227,6 +232,18 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 0a9fbd96-a0f1-4ba1-9905-3fb2db9b5be4
     m_ActionName: Movement/OpenStorage[/Keyboard/f]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 09fa818d-2d2a-4e83-a70e-1a9d3f3eb544
+    m_ActionName: Movement/Run[/Keyboard/leftShift]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: fbd53450-fd3d-4205-81a1-181baa4da8ca
+    m_ActionName: Movement/Exit[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 23e21cf9-bb6d-4267-9ad5-dd1ab6921090
+    m_ActionName: UI/ClosePanel[/Keyboard/tab]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard
   m_DefaultActionMap: Mouse
@@ -262,7 +279,7 @@ Transform:
   m_Father: {fileID: 6937198689929658304}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &2343129638218795430
+--- !u!1001 &2843414968777626996
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -279,7 +296,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8593997103929629946, guid: 40cd9bba1eace4344b006e624ea10667, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.364
       objectReference: {fileID: 0}
     - target: {fileID: 8593997103929629946, guid: 40cd9bba1eace4344b006e624ea10667, type: 3}
       propertyPath: m_LocalPosition.z
@@ -319,11 +336,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 40cd9bba1eace4344b006e624ea10667, type: 3}
---- !u!4 &6323182693916775772 stripped
+--- !u!4 &5778632945425369486 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8593997103929629946, guid: 40cd9bba1eace4344b006e624ea10667, type: 3}
-  m_PrefabInstance: {fileID: 2343129638218795430}
+  m_PrefabInstance: {fileID: 2843414968777626996}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2843414968769920076 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 25946424, guid: 40cd9bba1eace4344b006e624ea10667, type: 3}
+  m_PrefabInstance: {fileID: 2843414968777626996}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c2f9cc6d71719c4e98c26475418bb66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4973201361764070250
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -345,11 +373,11 @@ PrefabInstance:
       objectReference: {fileID: 4131792483785713013}
     - target: {fileID: 2684634927926049340, guid: d0ade1f35465e124482e1aa6d20636f8, type: 3}
       propertyPath: m_Size.y
-      value: 1.54
+      value: 1.88
       objectReference: {fileID: 0}
     - target: {fileID: 2684634927926049340, guid: d0ade1f35465e124482e1aa6d20636f8, type: 3}
       propertyPath: m_Center.y
-      value: 0.35
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2684634927926049472, guid: d0ade1f35465e124482e1aa6d20636f8, type: 3}
       propertyPath: m_Name

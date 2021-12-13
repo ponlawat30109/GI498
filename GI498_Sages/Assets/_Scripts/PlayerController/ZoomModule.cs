@@ -1,5 +1,5 @@
-
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Cinemachine;
 
 public class ZoomModule : MonoBehaviour
@@ -26,10 +26,20 @@ public class ZoomModule : MonoBehaviour
         float y = _cInput.GetAxisValue(1);
         float z = _cInput.GetAxisValue(2);
 
-        if (z != 0)
+        var view = Mouse.current.position.ReadValue();
+        var isInsideScreen = view.x < 0 || view.x > Screen.width - 1 || view.y < 0 || view.y > Screen.height - 1;
+
+        if (z != 0 && !isInsideScreen && !PlayerController.instance.UIPanelActive)
         {
             ZoomScreen(z);
         }
+
+        // var view = camera.ScreenToViewportPoint(Input.mousePosition);
+
+
+        // if(Mouse.current.position.ReadValue() == Vector2.zero){
+
+        // }
     }
 
     void ZoomScreen(float increment)

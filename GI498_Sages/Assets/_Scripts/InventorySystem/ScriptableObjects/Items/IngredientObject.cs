@@ -44,9 +44,26 @@ public struct Nutrition
 public class IngredientObject : ItemObject
 {
     public Nutrition nutrition;
+    public bool isSpecialIngredient;
+    public int quantity;
 
     private void Awake()
     {
         type = ItemType.Ingredient;
+    }
+    
+    public void AddQuantity()
+    {
+        quantity++;
+    }
+        
+    public void SubQuantity()
+    {
+        quantity--;
+    }
+        
+    public void SetQuantity(int value)
+    {
+        quantity = value;
     }
 }
