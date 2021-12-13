@@ -26,7 +26,7 @@ MonoBehaviour:
       upperLimit: -1
       unitName: kcal
       calType: 3
-      alpha: 0.4
+      alpha: 0.3
       beta: 0.2
       weight: 2
       defectEatTooLittle:
@@ -59,7 +59,7 @@ MonoBehaviour:
       lowerLimit: 0.45
       upperLimit: 0.65
       unitName: kcal
-      calType: 0
+      calType: 2
       alpha: 0.4
       beta: 0.2
       weight: 2
@@ -172,7 +172,7 @@ MonoBehaviour:
       upperLimit: -1
       unitName: g
       calType: 1
-      alpha: 0.4
+      alpha: 0.12
       beta: 0.2
       weight: 0.5
       defectEatTooLittle: []
