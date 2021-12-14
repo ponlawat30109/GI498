@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace _Scripts.InventorySystem.UI.NPCOrder
 {
@@ -9,7 +10,22 @@ namespace _Scripts.InventorySystem.UI.NPCOrder
 
         public void InitOrderUI()
         {
-            npcInformationUiComponent.InitComponent();
+            if (NPCScript.NPCManager.Instance != null)
+            {
+                var npcManager = NPCScript.NPCManager.Instance;
+                
+                //var npc = npcManager.GetNpc();
+                //npcInformationUiComponent.InitComponent(npc.GetImage(),npc.GetName(),npc.GetMedicDetail());
+                
+                var order = npcManager.Order;
+                
+                if (order != null)
+                {
+                    orderInformationUiComponent.InitComponent(order);
+                }
+                
+            }
+            
         }
         
     }
