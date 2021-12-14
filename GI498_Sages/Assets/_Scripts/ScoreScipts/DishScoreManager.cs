@@ -18,6 +18,7 @@ public class DishScoreManager : MonoBehaviour
     [Header("1 Page")]
     [SerializeField] private Text scoreText;
     [SerializeField] private Text starText;
+    [SerializeField] private GameObject stars;
 
     [Header("2 Page")]
     [SerializeField] private GameObject page2Group;
@@ -252,7 +253,7 @@ public class DishScoreManager : MonoBehaviour
 
     public void SetResult(ResultScore resultScore)
     {
-        scoreText.text = resultScore.finalScore.ToString();
+        scoreText.text = resultScore.finalScore.ToString("D");
         starText.text = resultScore.finalStar.ToString();
 
         int count_fourthPriority = 0;
@@ -313,9 +314,9 @@ public class DishScoreManager : MonoBehaviour
     public void SetSlotDetail(ScoreSlotUI ui, DishScoreHolder holder)
     {
         ui.contentTitle.text = holder.limiter.name;
-        ui.value.text = holder.value.ToString();
+        ui.value.text = holder.value.ToString("0.##");
         ui.unit.text = holder.limiter.unitName;
-        ui.score.text = holder.actualScore.ToString();
+        ui.score.text = holder.actualScore.ToString("D");
         ui.detail.text = holder.detail;
         ui.ActiveStar(holder.star);
 

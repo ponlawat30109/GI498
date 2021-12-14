@@ -250,7 +250,7 @@ public class Scoring : ScriptableObject
             }
         }
 
-        var finalScore = totalScore / totalWeight;
+        var finalScore = Mathf.Ceil(totalScore / totalWeight);
         resultScoreHolder.finalScore = finalScore;
 
         if (finalScore >= star5) resultScoreHolder.finalStar = 5;
@@ -545,6 +545,13 @@ public class Scoring : ScriptableObject
             default:
                 break;
         }
+
+        scoreHolder.actualScore = Mathf.Ceil(scoreHolder.actualScore);
+
+        if (scoreHolder.actualScore > 100)
+            scoreHolder.actualScore = 100;
+        else if (scoreHolder.actualScore < 0)
+            scoreHolder.actualScore = 0;
     }
 
     public void CalculateScoreByEnergy(DishScoreHolder scoreHolder, float totalEnergy)
@@ -822,6 +829,8 @@ public class Scoring : ScriptableObject
             default:
                 break;
         }
+
+        scoreHolder.actualScore = Mathf.Ceil(scoreHolder.actualScore);
 
         if (scoreHolder.actualScore > 100)
             scoreHolder.actualScore = 100;
