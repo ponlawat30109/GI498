@@ -201,6 +201,21 @@ MonoBehaviour:
       defectEatTooLittle: []
       defectOvereating: []
       commentForGoodDish: []
+    waterLimit:
+      name: "\u0E19\u0E49\u0E33"
+      isTop4Priority: 0
+      limterType: 0
+      median: -1
+      lowerLimit: -1
+      upperLimit: -1
+      unitName: 
+      calType: 0
+      alpha: 0.4
+      beta: 0.2
+      weight: 0
+      defectEatTooLittle: []
+      defectOvereating: []
+      commentForGoodDish: []
     vitaminALimit:
       name: "\u0E27\u0E34\u0E15\u0E32\u0E21\u0E34\u0E19 A"
       isTop4Priority: 0

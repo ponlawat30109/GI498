@@ -341,7 +341,6 @@ public class DishScoreManager : MonoBehaviour
 
     public void OpenPage2()
     {
-        Debug.Log("OpenPage2");
         page2Group.SetActive(true);
         page3Group.SetActive(false);
         page4Group.SetActive(false);
