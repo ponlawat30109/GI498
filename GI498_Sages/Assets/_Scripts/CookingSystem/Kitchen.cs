@@ -86,7 +86,7 @@ namespace _Scripts.CookingSystem
             {
                 var pass = IsCanCook();
                 
-                Debug.Log($"Current stove status IsCanCook:{pass}, IsCooked:{stoveTempRecipe.isCooked}");
+                //Debug.Log($"Current stove status IsCanCook:{pass}, IsCooked:{stoveTempRecipe.isCooked}");
 
                 if (pass && stoveTempRecipe.isCooked == false)
                 {
@@ -326,7 +326,7 @@ namespace _Scripts.CookingSystem
                             ingredientStorage.TakeOutCookedFood(); // Clear Storage
                             currentCorrectIngredient = 0;
                             ClearTempRecipe();
-                            Manager.Instance.storageManager.ClearIngredientQuantity();
+                            //Manager.Instance.storageManager.ClearIngredientQuantity();
                             kitchenUI.ClearSlotList();
                             
                         }
@@ -414,8 +414,7 @@ namespace _Scripts.CookingSystem
             isCanProcess = false;
             currentStoveTime = 0;
             CloseUI();
-            UIPanelHandler.instance.CloseUIPanel();
-            
+
             // Comment Code Below locate to KitchenStorage Take out case Recipe is Cooked
             //var psHandler = Manager.Instance.playerManager.PSHandler();
             //psHandler.JustPutInFood(recipeItem);
@@ -459,7 +458,7 @@ namespace _Scripts.CookingSystem
             if (GetCurrentCorrectIngredient() >= GetRecipeTotalIngredientQuantity())
             {
                 result = true;
-                Debug.Log($"{GetCurrentCorrectIngredient()} / {GetRecipeTotalIngredientQuantity()} To be can process.");
+                //Debug.Log($"{GetCurrentCorrectIngredient()} / {GetRecipeTotalIngredientQuantity()} To be can process.");
             }
             
             return result;
@@ -607,6 +606,7 @@ namespace _Scripts.CookingSystem
         public void CloseUI()
         {
             kitchenUI.gameObject.SetActive(false);
+            UIPanelHandler.instance.CloseUIPanel();
         }
         
         public KitchenStorage GetStorageObject()
