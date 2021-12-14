@@ -137,6 +137,7 @@ public class RankManager : MonoBehaviour
                 {
                     currentRankIndex = i - 1;
                     SetCurrentRankVisual();
+                    DataCarrier.SetRankIndex(currentRankIndex);
                 }
                 SetRankBox(targetRank, false);
             }
@@ -153,6 +154,7 @@ public class RankManager : MonoBehaviour
         if (expSlider.maxValue == 0)
         {
             currentRankIndex = rankList.Count - 1;
+            DataCarrier.SetRankIndex(currentRankIndex);
             SetCurrentRankVisual();
         }
         expSlider.value = (float)currentExp;
@@ -169,12 +171,15 @@ public class RankManager : MonoBehaviour
             playerRankHolder.AddFoodList(targetRank.newRecipe);
         if (targetRank.newIngredient != null)
             playerRankHolder.AddIngredientList(targetRank.newIngredient);
+
+        DataCarrier.SetRankIndex(currentRankIndex);
     }
 
     public void SetCurrentRankVisual()
     {
         var rankList = playerRankHolder.RankList;
         var rank = rankList[currentRankIndex];
+        Debug.Log($"currenRankIndex {currentRankIndex} | rankList.Count {rankList.Count}");
         rankNameText.SetText(rank.rankName);
         rankImage.sprite = rank.sprite;
 
@@ -192,6 +197,11 @@ public class RankManager : MonoBehaviour
         bool haveIngredient = rank.newIngredient != null ? true : false;
 
         var rankBox = rankBoxList[currentRankIndex].GetComponent<RankBox>();
+        if(rankBox == null)
+        {
+            Debug.Log("rankBox = null");
+            return;
+        }
         rankBox.ActiveDetail(haveRecipe, haveIngredient);
     }
 
