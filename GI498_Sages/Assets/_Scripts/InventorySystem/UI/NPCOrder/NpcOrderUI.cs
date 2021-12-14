@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +8,15 @@ namespace _Scripts.InventorySystem.UI.NPCOrder
     {
         [SerializeField] private NpcInformationUiComponent npcInformationUiComponent;
         [SerializeField] private OrderInformationUiComponent orderInformationUiComponent;
+
+        [SerializeField] private Button acceptButton;
+        [SerializeField] private Button closeButton;
+
+        private void Start()
+        {
+            acceptButton.onClick.AddListener(ButtonClickAction);
+            closeButton.onClick.AddListener(ButtonClickAction);
+        }
 
         public void InitOrderUI()
         {
@@ -23,10 +33,16 @@ namespace _Scripts.InventorySystem.UI.NPCOrder
                 {
                     orderInformationUiComponent.InitComponent(order);
                 }
-                
             }
-            
+            else
+            {
+                Debug.Log("NPC Manager is null.");
+            }
         }
-        
+
+        public void ButtonClickAction()
+        {
+            InitOrderUI();
+        }
     }
 }
