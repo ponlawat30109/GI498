@@ -58,8 +58,8 @@ namespace _Scripts.ManagerCollection
 
         public void DefineCurrentRank()
         {
-            if (RankManager.Instance != null)
-                currentRank = RankManager.Instance.GetCurrentRank();
+            if (DataCarrier.Instance != null)
+                currentRank = DataCarrier.currentRankIndex;
         }
 
         public void AssignIngredientByRank()

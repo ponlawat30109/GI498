@@ -75,10 +75,6 @@ public class Scoring : ScriptableObject
             }
         }
 
-        //energyScore.carbohydrateProportion = carbohydrateCal / totalEnergy;
-        //energyScore.fatProportion = fatCal / totalEnergy;
-        //energyScore.proteinProportion = proteinCal / totalEnergy;
-
         if (standard.limiterSet.carbLimit.weight > 0)
         {
             DishScoreHolder carbEnergyScore = new DishScoreHolder();
@@ -155,19 +151,6 @@ public class Scoring : ScriptableObject
             }
         }
 
-        //DishScoreHolder CholScore = new DishScoreHolder();
-        //CholScore.limiter = null;
-        //CholScore.name = "Cholesterol";
-        //CholScore.value = 
-        //dishEnergyScore.Add(CholScore);
-
-        //DishScoreHolder alcEnergyScore = new DishScoreHolder();
-        //alcEnergyScore.limiter = null;
-        //alcEnergyScore.name = "Alcohol";
-        //alcEnergyScore.value = alcoholEnergy;
-        //dishEnergyScore.Add(alcEnergyScore);
-
-
         if (standard.limiterSet.sugarLimit.weight > 0)
         {
             DishScoreHolder sugarScore = new DishScoreHolder();
@@ -206,7 +189,26 @@ public class Scoring : ScriptableObject
             }
         }
 
-        foreach(var scoreHolder in allScore)
+        if (standard.limiterSet.fiberLimit.weight > 0)
+        {
+            DishScoreHolder fiberScore = new DishScoreHolder();
+            if (standard.limiterSet.fiberLimit.limterType != LimiterType.None && standard.limiterSet.fiberLimit.calType != CalculateType.None)
+                fiberScore.limiter = standard.limiterSet.fiberLimit;
+            else if (defaultStandard != null)
+            {
+                if (defaultStandard.limiterSet.fiberLimit.limterType != LimiterType.None && defaultStandard.limiterSet.fiberLimit.calType != CalculateType.None)
+                {
+                    fiberScore.limiter = defaultStandard.limiterSet.fiberLimit;
+                }
+            }
+            if (fiberScore.limiter != null)
+            {
+                fiberScore.value = dishNutr.fiber;
+                allScore.Add(fiberScore);
+            }
+        }
+
+        foreach (var scoreHolder in allScore)
         {
             if(scoreHolder.limiter.weight > 0)
             {
@@ -919,6 +921,7 @@ public class LimiterSet
     //good = 25g - 28g for adult
     //good = age*1 + 5 for child(< 6 years old)
     public Limiter sodiumLimit;
+    public Limiter waterLimit;
     public Limiter vitaminALimit;
     public Limiter vitaminDLimit;
 }

@@ -29,6 +29,8 @@ public class DataCarrier : MonoBehaviour
         }
     }
 
+    public static int currentRankIndex { get; private set; }
+
     private void Awake()
     {
         if (Instance == null)
@@ -54,6 +56,11 @@ public class DataCarrier : MonoBehaviour
             Debug.Log("playerProfileData  null");
         else
             playerProfileData.comingExp += xP;
+    }
+
+    public static void SetRankIndex(int rankIndex)
+    {
+        currentRankIndex = rankIndex;
     }
 
     private void OnApplicationQuit()
