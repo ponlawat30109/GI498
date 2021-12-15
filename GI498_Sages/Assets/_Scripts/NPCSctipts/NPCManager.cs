@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using _Scripts.ManagerCollection;
 using UnityEngine;
 
 namespace NPCScript
@@ -79,7 +80,7 @@ namespace NPCScript
             
         }
 
-        public void CompleteOrder(int xp)
+        public void CompleteOrder()
         {
             if(AudioManager.Instance != null)
                 AudioManager.Instance.PlaySfx(completeOrderSound);
@@ -87,8 +88,6 @@ namespace NPCScript
             if (order != null && orderingNpc != null)
             {
                 order = null;
-                if (onTest == false)
-                    DataCarrier.AddExp(xp);
                 orderingNpc.GetOrder();
                 orderingNpc = null;
                 if(tv != null)
@@ -109,6 +108,11 @@ namespace NPCScript
             {
                 Debug.Log("orderRemaining " + orderRemaining);
                 Debug.Log("numberOfNpcInQueue " + numberOfNpcInQueue);
+            }
+
+            if (Manager.Instance.storageManager != null)
+            {
+                Manager.Instance.storageManager.ClearIngredientQuantity();
             }
         }
 
@@ -231,7 +235,7 @@ namespace NPCScript
             {
                 if(GUILayout.Button("Complete Order"))
                 {
-                    CompleteOrder(10);
+                    CompleteOrder();
                 }
                 if(GUILayout.Button("ReleaseNPC"))
                 {

@@ -48,6 +48,8 @@ public class PlayerProfile : MonoBehaviour
         gainExp += DataCarrier.PlayerProfileData.comingExp;
         DataCarrier.PlayerProfileData.comingExp = 0;
 
+        DataCarrier.PlayerProfileData.exp += gainExp;
+
         if (gainExp > 0)
         {
             RankManager.Instance.UpdateExp(exp, gainExp);
