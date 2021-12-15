@@ -9,12 +9,13 @@ namespace _Scripts.InventorySystem.UI.NPCOrder
     public class NpcInformationUiComponent : MonoBehaviour
     {
         [SerializeField] private Image npcImage;
+        [SerializeField] private Sprite defaultSprite;
         [SerializeField] private TMP_Text npcNameText;
         [SerializeField] private TMP_Text npcMedicText;
 
-        public void InitComponent(Sprite npcSprite, string npcName,string medicDetail)
+        public void InitComponent(string npcName,string medicDetail)
         {
-            npcImage.sprite = npcSprite;
+            npcImage.sprite = defaultSprite;
             npcNameText.text = npcName;
             npcMedicText.text = medicDetail;
         }

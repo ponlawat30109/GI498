@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using _Scripts.ManagerCollection;
+using _Scripts.NPCSctipts;
 using UnityEngine;
 
 namespace NPCScript
@@ -38,6 +39,7 @@ namespace NPCScript
 
         private FoodObject order;
         public FoodObject Order { get => order; }
+        
         private List<FoodObject> foodList;
 
         private LevelStandard levelStandard;
@@ -76,8 +78,6 @@ namespace NPCScript
             onTest = false;
             foodList = playerRankHolder.FoodList;
             Debug.Assert(tv != null, "NPCManager: tv is null");
-
-            
         }
 
         public void CompleteOrder()
@@ -120,6 +120,7 @@ namespace NPCScript
         {
             orderRemaining = _orderRemaining;
         }
+        
         public void AddRemainingOrder(int number)
         {
             orderRemaining += number;
@@ -223,6 +224,30 @@ namespace NPCScript
             }
         }
 
+        public void DefineFoodList(NpcInformation npcInfo)
+        {
+            switch (npcInfo.GetMedic())
+            {
+                case NpcInformation.NpcPatientType.Normal:
+                {
+                    
+                    break;
+                }
+                
+                case NpcInformation.NpcPatientType.KidneyDisease:
+                {
+                    
+                    break;
+                }
+                
+                case NpcInformation.NpcPatientType.Diabetes:
+                {
+                    
+                    break;
+                }
+            }
+        }
+        
         private void OnApplicationQuit()
         {
             if (playerRankHolder != null)

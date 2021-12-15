@@ -1,4 +1,5 @@
 using System;
+using _Scripts.NPCSctipts;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -40,12 +41,13 @@ namespace _Scripts.InventorySystem.UI.NPCOrder
             if (NPCScript.NPCManager.Instance != null)
             {
                 var npcManager = NPCScript.NPCManager.Instance;
-                //var npc = npcManager.GetNpc();
+                var npcInfo = new NpcInformation();
+                var npc = npcInfo.RandomInfo();
                 var order = npcManager.Order;
                 
                 if (order != null)// && npc != null)
                 {
-                    //npcInformationUiComponent.InitComponent(npc.GetImage(),npc.GetName(),npc.GetMedicDetail());
+                    npcInformationUiComponent.InitComponent(npc.GetRandomName(),npc.GetMedicString());
                     orderInformationUiComponent.InitComponent(order);
                     this.gameObject.SetActive(false);
                     isTakeOrder = true;
