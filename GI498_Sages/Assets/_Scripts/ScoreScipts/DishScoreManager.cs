@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using _Scripts.ManagerCollection;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -236,7 +237,8 @@ public class DishScoreManager : MonoBehaviour
                     DataCarrier.AddExp(resultScore.finalStar * 10);
                     
                 NPCScript.NPCManager.Instance.CompleteOrder();
-                    
+                Manager.Instance.npcOrderUI.SetIsTakeOrder(false);
+
             }
             else
             {

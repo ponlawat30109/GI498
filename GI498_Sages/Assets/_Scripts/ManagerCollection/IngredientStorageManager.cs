@@ -34,6 +34,8 @@ namespace _Scripts.ManagerCollection
         private float _currentCheckTime = 0;
         [SerializeField] private float checkRankInterval = 2;
 
+        [SerializeField] private bool isTesting = false;
+
         private void Start()
         {
             _currentCheckTime = 0;
@@ -58,8 +60,16 @@ namespace _Scripts.ManagerCollection
 
         public void DefineCurrentRank()
         {
-            if (DataCarrier.Instance != null)
-                currentRank = DataCarrier.currentRankIndex;
+            if (isTesting == true)
+            {
+                currentRank = 6;
+            }
+            else
+            {
+                if (DataCarrier.Instance != null)
+                    currentRank = DataCarrier.currentRankIndex;
+            }
+            
         }
 
         public void AssignIngredientByRank()

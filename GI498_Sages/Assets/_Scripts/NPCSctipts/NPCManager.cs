@@ -76,7 +76,7 @@ namespace NPCScript
             //End Test
 
             onTest = false;
-            foodList = playerRankHolder.FoodList;
+            //foodList = playerRankHolder.FoodList;
             Debug.Assert(tv != null, "NPCManager: tv is null");
         }
 
@@ -200,10 +200,6 @@ namespace NPCScript
                 var foodListRange = foodList.Count;
                 var foodNumber = Random.Range(0, foodListRange);
                 order = foodList[foodNumber];
-                if (_Scripts.ManagerCollection.Manager.Instance != null)
-                {
-                    _Scripts.ManagerCollection.Manager.Instance.playerManager.PSHandler().JustPutInFood(order);
-                }
 
                 if(levelList.Count > 0)
                 {
@@ -230,19 +226,22 @@ namespace NPCScript
             {
                 case NpcInformation.NpcPatientType.Normal:
                 {
-                    
+                    foodList = Manager.Instance.storageManager.recipeStorageManager.GetRecipeCollectionByType(NpcInformation
+                        .NpcPatientType.Normal).recipeList;
                     break;
                 }
                 
                 case NpcInformation.NpcPatientType.KidneyDisease:
                 {
-                    
+                    foodList = Manager.Instance.storageManager.recipeStorageManager.GetRecipeCollectionByType(NpcInformation
+                        .NpcPatientType.KidneyDisease).recipeList;
                     break;
                 }
                 
                 case NpcInformation.NpcPatientType.Diabetes:
                 {
-                    
+                    foodList = Manager.Instance.storageManager.recipeStorageManager.GetRecipeCollectionByType(NpcInformation
+                        .NpcPatientType.Diabetes).recipeList;
                     break;
                 }
             }

@@ -4,6 +4,7 @@ using System.Linq;
 using _Scripts.InventorySystem;
 using _Scripts.InventorySystem.ScriptableObjects.Storage;
 using _Scripts.InventorySystem.UI;
+using _Scripts.NPCSctipts;
 using UnityEngine;
 
 namespace _Scripts.ManagerCollection
@@ -31,22 +32,24 @@ namespace _Scripts.ManagerCollection
         
         [Header("Ingredient Manager")]
         [SerializeField] public IngredientStorageManager ingredientStorageManager;
+
+        [Header("Recipe Manager")]
+        [SerializeField] public RecipeStorageManager recipeStorageManager;
         
         [Space]
         [Header("Storage Collection")]
         public List<StorageCollection> storageCollections;
-        public List<MiniStorage> miniStorageCollections;
 
+        [Space]
         [Space]
         /* For Backdoor only
             - use for clear things and debug...
          */
-        [Header("All Ingredient and Recipe")]
+        [Header("All Ingredient and Recipe (For Clear Quantity)")]
         [SerializeField] private List<IngredientObject> ingredientCollections;
         [SerializeField] private List<IngredientObject> specialIngredientCollections;
-        [SerializeField] private List<RecipeSlot> recipeCollections;
 
-        
+
         ////////////////////////////////////////////////////////////////////////////////////////////
 
         private void Start()
@@ -65,14 +68,6 @@ namespace _Scripts.ManagerCollection
                             storage.storage.GetStorageObject().GetStorageSlot()[i].quantity = 999;
                         }
                     }
-                }
-            }
-
-            for (int i = 0; i < recipeCollections.Count; i++)
-            {
-                if (recipeCollections[i] != null)
-                {
-                    recipeCollections[i].quantity = 999;
                 }
             }
         }
@@ -109,12 +104,6 @@ namespace _Scripts.ManagerCollection
             return obj;
         }
 
-        public FoodObject TakeRecipeByIndex(int index)
-        {
-            recipeCollections[index].quantity -= 1;
-            return recipeCollections[index].item;
-        }
-
         public void ClearIngredientQuantity()
         {
             foreach (var ingredient in ingredientCollections)
@@ -127,46 +116,38 @@ namespace _Scripts.ManagerCollection
                 ingredient.quantity = 0;
             }
         }
+
+        public void ClearRecipeCollection()
+        {
+            foreach (var recipe in recipeStorageManager.GetRecipeCollectionByType(NpcInformation.NpcPatientType.Normal).recipeList)
+            {
+                if (recipe.isCooked)
+                {
+                    recipe.ResetFoodObject();
+                }
+            }
+            
+            foreach (var recipe in recipeStorageManager.GetRecipeCollectionByType(NpcInformation.NpcPatientType.KidneyDisease).recipeList)
+            {
+                if (recipe.isCooked)
+                {
+                    recipe.ResetFoodObject();
+                }
+            }
+            
+            foreach (var recipe in recipeStorageManager.GetRecipeCollectionByType(NpcInformation.NpcPatientType.Diabetes).recipeList)
+            {
+                if (recipe.isCooked)
+                {
+                    recipe.ResetFoodObject();
+                }
+            }
+        }
         
         private void OnApplicationQuit()
         {
-            foreach (var recipe in recipeCollections)
-            {
-                if (recipe.item.isCooked)
-                {
-                    recipe.item.ResetFoodObject();
-                }
-            }
-
+            ClearRecipeCollection();
             ClearIngredientQuantity();
-        }
-    }
-    
-    [Serializable]
-    public class RecipeSlot
-    {
-        public FoodObject item;
-        public int quantity;
-
-        public RecipeSlot(FoodObject _item, int _quantity)
-        {
-            item = _item;
-            quantity = _quantity;
-        }
-
-        public void AddAmount(int value)
-        {
-            quantity += value;
-        }
-
-        public void SubAmount(int value)
-        {
-            if (quantity - value <= 0)
-            {
-                quantity = 0; // Or Remove slot
-                return;
-            }
-            quantity -= value;
         }
     }
 }

@@ -26,13 +26,17 @@ namespace _Scripts.NPCSctipts
             newInfo.npcName = GetRandomName();
             
             // Define Type
-            if (Random.Range(0, 1) == 1)
+            var random = Random.Range(0, 3);
+            
+            if (random > 1)
             {
                 newInfo.isSpecialNpc = true;
+                Debug.Log($"[NPC] {newInfo.npcName} is special.");
             }
             else
             {
                 newInfo.isSpecialNpc = false;
+                Debug.Log($"[NPC] {newInfo.npcName} is normal.");
             }
 
             if (newInfo.isSpecialNpc)
@@ -63,6 +67,11 @@ namespace _Scripts.NPCSctipts
             return newInfo;
         }
 
+        public string GetCurrentName()
+        {
+            return npcName;
+        }
+        
         public string GetRandomName()
         {
             
@@ -88,19 +97,19 @@ namespace _Scripts.NPCSctipts
             {
                 case NpcPatientType.Normal:
                 {
-                    summaryString = $"{npcName} เป็นบุคคลทั่วไปปกติสามารถทานอาหารได้ทุกรูปแบบ";
+                    summaryString = $"{GetCurrentName()} เป็นบุคคลทั่วไปปกติสามารถทานอาหารได้ทุกรูปแบบ";
                     break;
                 }
 
                 case NpcPatientType.KidneyDisease:
                 {
-                    summaryString = $"{npcName} เป็นผู้ป่วยโรคไต *ควรระวังปริมาณอาหารบางชนิด";
+                    summaryString = $"{GetCurrentName()} เป็นผู้ป่วยโรคไต *ควรระวังปริมาณอาหารบางชนิด";
                     break;
                 }
                 
                 case NpcPatientType.Diabetes:
                 {
-                    summaryString = $"{npcName} เป็นผู้ป่วยโรคเบาหวาน *ควรระวังปริมาณอาหารบางชนิด";
+                    summaryString = $"{GetCurrentName()} เป็นผู้ป่วยโรคเบาหวาน *ควรระวังปริมาณอาหารบางชนิด";
                     break;
                 }
             }

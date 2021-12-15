@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb8cc96c8ddd34b48b53864f7acb4664, type: 3}
+  m_Name: spc_ChickenNGlassNoodleSpicySalad
+  m_EditorClassIdentifier: 
+  itemName: ChickenNGlassNoodleSpicySalad
+  itemIcon: {fileID: 21300000, guid: a55701539b7db16459e972a1c6229a02, type: 3}
+  type: 2
+  ingamePrefab: {fileID: 205199441127379643, guid: 8bc860b76f26ece4eb09ebadf7f288c8, type: 3}
+  description: "\u0E22\u0E33\u0E27\u0E38\u0E49\u0E19\u0E40\u0E2A\u0E49\u0E19"
+  cookedPrefab: {fileID: 6819415034671354043, guid: de4d303c9f1c151488c673f8f02168e4, type: 3}
+  ingredients:
+  - {fileID: 11400000, guid: 99cffe130010c3d4c84cef0014386d92, type: 2}
+  - {fileID: 11400000, guid: a424728e92035e24598f543d8699ea3d, type: 2}
+  - {fileID: 11400000, guid: a1b2263d34376354ca0becc4dd9e927a, type: 2}
+  - {fileID: 11400000, guid: 57d8ae8e60fd9124ba64979a6c25fcc8, type: 2}
+  - {fileID: 11400000, guid: 00e94c0be050cb04e9d08111bd46b447, type: 2}
+  - {fileID: 11400000, guid: 37b78f7b397fb954f9a8271b71ba7848, type: 2}
+  - {fileID: 11400000, guid: f39d799a331df4a499c36a22af8e42f0, type: 2}
+  - {fileID: 11400000, guid: 1fd17890007251f42a38a8a188ace9f2, type: 2}
+  specialIngredients: []
+  cookingTime: 2
+  isLowSodium: 0
+  isCooked: 0
