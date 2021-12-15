@@ -324,6 +324,9 @@ public class Scoring : ScriptableObject
                             var betaValue = limiter.lowerLimit * (1 - limiter.beta);
                             var zeroStarLowerLimit = limiter.lowerLimit - betaValue;
                             var zeroStarUpperLimit = limiter.upperLimit + betaValue;
+
+                            if (zeroStarLowerLimit < 0) zeroStarLowerLimit = 0;
+
                             if (scoreHolder.value < zeroStarLowerLimit || scoreHolder.value > zeroStarUpperLimit)
                             {
                                 scoreHolder.star = 0;
@@ -388,6 +391,9 @@ public class Scoring : ScriptableObject
                             var betaValue = limiter.median * (1 - limiter.beta);
                             var zeroStarLowerLimit = limiter.median - betaValue;
                             var zeroStarUpperLimit = limiter.median + betaValue;
+
+                            if (zeroStarLowerLimit < 0) zeroStarLowerLimit = 0;
+
                             if (scoreHolder.value < zeroStarLowerLimit || scoreHolder.value > zeroStarUpperLimit)
                             {
                                 scoreHolder.star = 0;
@@ -440,6 +446,9 @@ public class Scoring : ScriptableObject
                     {
                         var zeroStarLowerLimit = limiter.lowerLimit * limiter.beta;
                         var fiveStarLowerLimit = limiter.lowerLimit + (limiter.lowerLimit * limiter.alpha);
+
+                        if (zeroStarLowerLimit < 0) zeroStarLowerLimit = 0;
+
                         if (scoreHolder.value >= fiveStarLowerLimit)
                         {
                             scoreHolder.star = 5;
@@ -608,6 +617,9 @@ public class Scoring : ScriptableObject
                             var betaValue = limiter.lowerLimit * (1 - limiter.beta);
                             var zeroStarLowerLimit = limiter.lowerLimit - betaValue;
                             var zeroStarUpperLimit = limiter.upperLimit + betaValue;
+
+                            if (zeroStarLowerLimit < 0) zeroStarLowerLimit = 0;
+
                             if (percentEnergy < zeroStarLowerLimit || percentEnergy > zeroStarUpperLimit)
                             {
                                 scoreHolder.star = 0;
@@ -651,7 +663,7 @@ public class Scoring : ScriptableObject
                     {
                         var alphaValue = limiter.median * limiter.alpha;
                         var fiveStarLowerLimit = limiter.median - alphaValue;
-                        var fiveStarUpperLimit = limiter.median - alphaValue;
+                        var fiveStarUpperLimit = limiter.median + alphaValue;
                         if (percentEnergy >= fiveStarLowerLimit && percentEnergy <= fiveStarUpperLimit)
                         {
                             scoreHolder.star = 5;
@@ -670,8 +682,11 @@ public class Scoring : ScriptableObject
                         else
                         {
                             var betaValue = limiter.median * (1 - limiter.beta);
-                            var zeroStarLowerLimit = limiter.lowerLimit - betaValue;
-                            var zeroStarUpperLimit = limiter.upperLimit + betaValue;
+                            var zeroStarLowerLimit = limiter.median - betaValue;
+                            var zeroStarUpperLimit = limiter.median + betaValue;
+
+                            if (zeroStarLowerLimit < 0) zeroStarLowerLimit = 0;
+
                             if (percentEnergy < zeroStarLowerLimit || percentEnergy > zeroStarUpperLimit)
                             {
                                 scoreHolder.star = 0;
@@ -679,13 +694,13 @@ public class Scoring : ScriptableObject
                             }
                             else
                             {
-                                if (percentEnergy < limiter.lowerLimit)
+                                if (percentEnergy <= fiveStarLowerLimit)
                                 {
                                     var lower = zeroStarLowerLimit;
                                     var upper = limiter.lowerLimit;
                                     scoreHolder.actualScore = (percentEnergy - lower) / (upper - lower) * (star5 - star1);
                                 }
-                                else if (percentEnergy > limiter.upperLimit)
+                                else if (percentEnergy >= fiveStarUpperLimit)
                                 {
                                     var lower = limiter.upperLimit;
                                     var upper = zeroStarUpperLimit;
@@ -724,6 +739,9 @@ public class Scoring : ScriptableObject
                     {
                         var zeroStarLowerLimit = limiter.lowerLimit * limiter.beta;
                         var fiveStarLowerLimit = limiter.lowerLimit + (limiter.lowerLimit * limiter.alpha);
+
+                        if (zeroStarLowerLimit < 0) zeroStarLowerLimit = 0;
+
                         if (percentEnergy >= fiveStarLowerLimit)
                         {
                             scoreHolder.star = 5;
