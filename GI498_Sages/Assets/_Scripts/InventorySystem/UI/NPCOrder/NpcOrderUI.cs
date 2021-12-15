@@ -12,10 +12,27 @@ namespace _Scripts.InventorySystem.UI.NPCOrder
         [SerializeField] private Button acceptButton;
         [SerializeField] private Button closeButton;
 
+        private bool isTakeOrder = false;
+
         private void Start()
         {
-            acceptButton.onClick.AddListener(ButtonClickAction);
-            closeButton.onClick.AddListener(ButtonClickAction);
+            acceptButton.onClick.AddListener(ButtonTakeAction);
+            closeButton.onClick.AddListener(ButtonCloseAction);
+        }
+
+        private void Update()
+        {
+            if (isTakeOrder == true)
+            {
+                acceptButton.gameObject.SetActive(false);
+                closeButton.gameObject.SetActive(true);
+            }
+            else
+            {
+                acceptButton.gameObject.SetActive(true);
+                closeButton.gameObject.SetActive(false);
+            }
+            
         }
 
         public void InitOrderUI()
@@ -23,15 +40,15 @@ namespace _Scripts.InventorySystem.UI.NPCOrder
             if (NPCScript.NPCManager.Instance != null)
             {
                 var npcManager = NPCScript.NPCManager.Instance;
-                
                 //var npc = npcManager.GetNpc();
-                //npcInformationUiComponent.InitComponent(npc.GetImage(),npc.GetName(),npc.GetMedicDetail());
-                
                 var order = npcManager.Order;
                 
-                if (order != null)
+                if (order != null)// && npc != null)
                 {
+                    //npcInformationUiComponent.InitComponent(npc.GetImage(),npc.GetName(),npc.GetMedicDetail());
                     orderInformationUiComponent.InitComponent(order);
+                    this.gameObject.SetActive(false);
+                    isTakeOrder = true;
                 }
             }
             else
@@ -40,7 +57,17 @@ namespace _Scripts.InventorySystem.UI.NPCOrder
             }
         }
 
-        public void ButtonClickAction()
+        public void OpenUI()
+        {
+            this.gameObject.SetActive(true);
+        }
+        
+        public void ButtonCloseAction()
+        {
+            this.gameObject.SetActive(false);
+        }
+        
+        public void ButtonTakeAction()
         {
             InitOrderUI();
         }
