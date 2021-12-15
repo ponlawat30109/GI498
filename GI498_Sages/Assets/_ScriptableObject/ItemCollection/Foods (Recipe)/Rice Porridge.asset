@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb8cc96c8ddd34b48b53864f7acb4664, type: 3}
+  m_Name: Rice Porridge
+  m_EditorClassIdentifier: 
+  itemName: Rice Porridge
+  itemIcon: {fileID: 0}
+  type: 2
+  ingamePrefab: {fileID: 5486850418394000142, guid: b3f045adfe0716b40be0bd5ad2391726, type: 3}
+  description: "\u0E42\u0E08\u0E4A\u0E01"
+  cookedPrefab: {fileID: 4812442483057933167, guid: f80f19f407ed476458333831ba5bdd7c, type: 3}
+  ingredients:
+  - {fileID: 11400000, guid: 722f6f1644823524a908b68a0bf0ccfb, type: 2}
+  - {fileID: 11400000, guid: 8d468bfd6cf9ecf4298cac41c7ca41f3, type: 2}
+  - {fileID: 11400000, guid: 41f58a84d72cd904db5e10f88c639b1a, type: 2}
+  - {fileID: 11400000, guid: 1e2c4347a7b27d34f8ffca18cc8502fe, type: 2}
+  - {fileID: 11400000, guid: 110a41e4d285f5b4faa9465b6da295dc, type: 2}
+  specialIngredients: []
+  cookingTime: 5
+  isLowSodium: 0
+  isCooked: 0

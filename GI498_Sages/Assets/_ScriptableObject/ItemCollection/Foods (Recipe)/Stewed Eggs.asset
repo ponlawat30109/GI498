@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb8cc96c8ddd34b48b53864f7acb4664, type: 3}
+  m_Name: Stewed Eggs
+  m_EditorClassIdentifier: 
+  itemName: Stewed Eggs
+  itemIcon: {fileID: 0}
+  type: 2
+  ingamePrefab: {fileID: 5486850418394000142, guid: b3f045adfe0716b40be0bd5ad2391726, type: 3}
+  description: "\u0E44\u0E02\u0E48\u0E1E\u0E30\u0E42\u0E25\u0E49"
+  cookedPrefab: {fileID: 2589255081000889932, guid: f6a1437fce608d14a84d0d7b17f3aa37, type: 3}
+  ingredients:
+  - {fileID: 11400000, guid: 3016351532d3d8e41afdeb9eb3554655, type: 2}
+  - {fileID: 11400000, guid: 41f58a84d72cd904db5e10f88c639b1a, type: 2}
+  - {fileID: 11400000, guid: 9dde140c116fdc04e86b7918c745f0ea, type: 2}
+  - {fileID: 11400000, guid: 9fc70b37f5fb81d48804e07a9200615d, type: 2}
+  - {fileID: 11400000, guid: c350c3817bb7c414a90b27386e68d31d, type: 2}
+  - {fileID: 11400000, guid: 2bac5a15a498a6e4c92f1ce9790bbbd3, type: 2}
+  - {fileID: 11400000, guid: f39d799a331df4a499c36a22af8e42f0, type: 2}
+  - {fileID: 11400000, guid: 03211efb22655914bbc057f995734395, type: 2}
+  specialIngredients: []
+  cookingTime: 5
+  isLowSodium: 0
+  isCooked: 0
