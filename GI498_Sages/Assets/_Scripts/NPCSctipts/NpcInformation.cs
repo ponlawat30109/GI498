@@ -9,26 +9,26 @@ namespace _Scripts.NPCSctipts
         private string npcName;
         private bool isSpecialNpc;
         private NpcPatientType currentType;
-        
+
         public enum NpcPatientType
         {
             Normal,
             KidneyDisease,
             Diabetes
         }
-        
+
         public NpcInformation RandomInfo()
         {
             // Create New
             var newInfo = new NpcInformation();
-            
+
             // Define Name
             newInfo.npcName = GetRandomName();
-            
+
             // Define Type
-            var random = Random.Range(0, 3);
-            
-            if (random > 1)
+            var random = Random.Range(0, 100);
+
+            if (random > 75)
             {
                 newInfo.isSpecialNpc = true;
                 Debug.Log($"[NPC] {newInfo.npcName} is special.");
@@ -41,23 +41,19 @@ namespace _Scripts.NPCSctipts
 
             if (newInfo.isSpecialNpc)
             {
-                int count = Enum.GetValues(typeof(NpcPatientType)).Length;
-                var rnd = Random.Range(1, count);
+                // int count = Enum.GetValues(typeof(NpcPatientType)).Length;
+                var rnd = Random.Range(1, 100);
+                Debug.Log(rnd);
 
-                switch (rnd)
+                if (rnd >= 1 && rnd <= 90)
                 {
-                    case 1:
-                    {
-                        newInfo.currentType = NpcPatientType.KidneyDisease;
-                        break;
-                    }
-                    
-                    case 2:
-                    {
-                        newInfo.currentType = NpcPatientType.Diabetes;
-                        break;
-                    }
+                    newInfo.currentType = NpcPatientType.KidneyDisease;
                 }
+                else
+                {
+                    newInfo.currentType = NpcPatientType.Diabetes;
+                }
+
             }
             else
             {
@@ -71,15 +67,15 @@ namespace _Scripts.NPCSctipts
         {
             return npcName;
         }
-        
+
         public string GetRandomName()
         {
-            
-            var randomFName = nameArray[Random.Range(0,nameArray.Length)];
-            var randomLName = nameArray[Random.Range(0,nameArray.Length)];
+
+            var randomFName = nameArray[Random.Range(0, nameArray.Length)];
+            var randomLName = nameArray[Random.Range(0, nameArray.Length)];
 
             var returnName = $"{randomFName} {randomLName}";
-            
+
             return returnName;
         }
 
@@ -87,7 +83,7 @@ namespace _Scripts.NPCSctipts
         {
             return currentType;
         }
-        
+
         public string GetMedicString()
         {
             var summaryString = "";
@@ -96,24 +92,24 @@ namespace _Scripts.NPCSctipts
             switch (GetMedic())
             {
                 case NpcPatientType.Normal:
-                {
-                    summaryString = $"{GetCurrentName()} เป็นบุคคลทั่วไปปกติ\nสามารถทานอาหารได้ทุกรูปแบบ";
-                    break;
-                }
+                    {
+                        summaryString = $"{GetCurrentName()} เป็นบุคคลทั่วไปปกติ\nสามารถทานอาหารได้ทุกรูปแบบ";
+                        break;
+                    }
 
                 case NpcPatientType.KidneyDisease:
-                {
-                    summaryString = $"{GetCurrentName()} เป็นผู้ป่วยโรคไต *ควรระวังปริมาณอาหารบางชนิด";
-                    break;
-                }
-                
+                    {
+                        summaryString = $"{GetCurrentName()} เป็นผู้ป่วยโรคไต *ควรระวังปริมาณอาหารบางชนิด";
+                        break;
+                    }
+
                 case NpcPatientType.Diabetes:
-                {
-                    summaryString = $"{GetCurrentName()} เป็นผู้ป่วยโรคเบาหวาน *ควรระวังปริมาณอาหารบางชนิด";
-                    break;
-                }
+                    {
+                        summaryString = $"{GetCurrentName()} เป็นผู้ป่วยโรคเบาหวาน *ควรระวังปริมาณอาหารบางชนิด";
+                        break;
+                    }
             }
-            
+
             return summaryString;
         }
 
