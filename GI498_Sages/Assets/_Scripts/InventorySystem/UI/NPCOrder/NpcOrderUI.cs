@@ -31,6 +31,7 @@ namespace _Scripts.InventorySystem.UI.NPCOrder
         {
             acceptButton.onClick.AddListener(ButtonTakeAction);
             closeButton.onClick.AddListener(ButtonCloseAction);
+            closeButton.gameObject.SetActive(true);
         }
 
         private void Update()
@@ -38,12 +39,12 @@ namespace _Scripts.InventorySystem.UI.NPCOrder
             if (isTakeOrder == true)
             {
                 acceptButton.gameObject.SetActive(false);
-                closeButton.gameObject.SetActive(true);
+                //closeButton.gameObject.SetActive(true);
             }
             else
             {
                 acceptButton.gameObject.SetActive(true);
-                closeButton.gameObject.SetActive(false);
+                //closeButton.gameObject.SetActive(false);
             }
         }
 
@@ -97,6 +98,11 @@ namespace _Scripts.InventorySystem.UI.NPCOrder
             }
         }
 
+        public OrderInformationUiComponent GetOrderInfoComponent()
+        {
+            return orderInformationUiComponent;
+        }
+        
         public bool IsTakeOrder()
         {
             return isTakeOrder;

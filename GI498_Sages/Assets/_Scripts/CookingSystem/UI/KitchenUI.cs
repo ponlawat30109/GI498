@@ -34,7 +34,7 @@ namespace _Scripts.CookingSystem.UI
         [SerializeField] private float currentTime = 0;
         private float refreshInterval = .4f;
         //private bool _isSomeChange;
-        //private FoodObject _tempItem;
+        private FoodObject _tempRecipeItem;
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -127,7 +127,10 @@ namespace _Scripts.CookingSystem.UI
                 recipeStatusText.text = "(Need to process)";
             }
 
-            CreateIngredientInfoList();
+            if (recipeItem != _tempRecipeItem)
+            {
+                CreateIngredientInfoList();
+            }
         }
 
         public void SetDefualtRecipeUI()
@@ -188,6 +191,8 @@ namespace _Scripts.CookingSystem.UI
                 }
             }
 
+            _tempRecipeItem = recipeItem;
+
             /*foreach (var ingredient in recipeItem.ingredients)
             {
                 var newComponentInfo = Instantiate(ingredientInfoComponentPrefab, recipeIngredientInfoContainer);
@@ -230,6 +235,7 @@ namespace _Scripts.CookingSystem.UI
                             parent.IsOneOfIngredient(stoveTemp.ingredients[i])
                             , stoveTemp.ingredients[i].quantity);
 
+                        componentSlot.transform.localScale = Vector3.one;
                         slotList.Add(componentSlot);
                     }
                     // Update

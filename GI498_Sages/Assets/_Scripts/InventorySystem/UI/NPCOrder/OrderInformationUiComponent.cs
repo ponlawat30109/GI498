@@ -69,6 +69,23 @@ namespace _Scripts.InventorySystem.UI.NPCOrder
             ingredientInfoComponentsList.Clear();
         }
 
+        /// <summary>
+        /// Return True = currentOrder == null
+        /// Return False = currentOrder != null
+        /// </summary>
+        /// <returns></returns>
+        public bool IsCurrentOrderNull()
+        {
+            var result = false;
+            
+            if (currentOrder == null)
+            {
+                result = true;
+            }
+
+            return result;
+        }
+
         public void OnEnable()
         {
             CreateIngredientInfoComponentList();
