@@ -1,6 +1,11 @@
+// #if UNITY_EDITOR
+
+// using UnityEditor;
+
+// #endif
+
 using System;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,7 +18,7 @@ namespace _Scripts
         {
             public bool needLoad;
             public bool isLoaded;
-            public SceneAsset sceneAsset;
+            public string sceneAsset;
         }
 
         [SerializeField] private List<ScenePackage> scenePackages;
@@ -32,7 +37,7 @@ namespace _Scripts
                     {
                         if (scenePackage.needLoad)
                         {
-                            SceneManager.LoadScene(scenePackage.sceneAsset.name, LoadSceneMode.Additive);
+                            SceneManager.LoadScene(scenePackage.sceneAsset, LoadSceneMode.Additive);
                             scenePackage.isLoaded = true;
                         }
                     }
@@ -49,7 +54,7 @@ namespace _Scripts
                     var scenePackage = scene;
                     if (scenePackage.isLoaded)
                     {
-                        SceneManager.UnloadSceneAsync(scenePackage.sceneAsset.name);
+                        SceneManager.UnloadSceneAsync(scenePackage.sceneAsset);
                         scenePackage.isLoaded = false;
                     }
                 }
@@ -65,7 +70,7 @@ namespace _Scripts
 
                 if (scene.sceneAsset != null)
                 {
-                    var sceneAsync = SceneManager.LoadSceneAsync(scene.sceneAsset.name, LoadSceneMode.Additive);
+                    var sceneAsync = SceneManager.LoadSceneAsync(scene.sceneAsset, LoadSceneMode.Additive);
                     scene.isLoaded = true;
                     return sceneAsync;
                 }
@@ -89,7 +94,7 @@ namespace _Scripts
 
                 if (scene.sceneAsset != null)
                 {
-                    SceneManager.UnloadSceneAsync(scene.sceneAsset.name);
+                    SceneManager.UnloadSceneAsync(scene.sceneAsset);
                     scene.isLoaded = false;
                 }
             }
@@ -103,7 +108,7 @@ namespace _Scripts
 
         private int GetScenePackageIndexByName(string toGetSceneName)
         {
-            return scenePackages.FindIndex(result => result.sceneAsset.name == toGetSceneName);
+            return scenePackages.FindIndex(result => result.sceneAsset == toGetSceneName);
         }
 
         public void SetActiveScene(string scene)
@@ -111,4 +116,5 @@ namespace _Scripts
             SceneManager.SetActiveScene(SceneManager.GetSceneByName(scene));
         }
     }
+
 }
