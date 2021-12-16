@@ -15,11 +15,14 @@ public class DishScoreManager : MonoBehaviour
     [SerializeField] private LevelStandard testLevelStandard;
 
     [SerializeField] private GameObject scoreSlotUIPrefab;
+    
 
     [Header("1 Page")]
     [SerializeField] private Text scoreText;
-    [SerializeField] private Text starText;
-    [SerializeField] private GameObject stars;
+    [SerializeField] private List<GameObject> blackStars;
+    [SerializeField] private List<GameObject> stars;
+    [SerializeField] private List<GameObject> diamonds;
+    [SerializeField] private List<GameObject> eggEmotion;
 
     [Header("2 Page")]
     [SerializeField] private GameObject page2Group;
@@ -255,8 +258,60 @@ public class DishScoreManager : MonoBehaviour
 
     public void SetResult(ResultScore resultScore)
     {
-        scoreText.text = resultScore.finalScore.ToString("D");
-        starText.text = resultScore.finalStar.ToString();
+        scoreText.text = resultScore.finalScore.ToString("0");
+
+        try
+        {
+            if (resultScore.finalStar == 5)
+            {
+                foreach (var star in stars)
+                {
+                    star.SetActive(false);
+                }
+                foreach (var star in blackStars)
+                {
+                    star.SetActive(false);
+                }
+                foreach (var obj in diamonds)
+                {
+                    obj.SetActive(true);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < stars.Count; i++)
+                {
+                    if (i < resultScore.finalStar)
+                        stars[i].SetActive(true);
+                    else
+                    {
+                        stars[i].SetActive(false);
+                    }
+                    blackStars[i].SetActive(true);
+                    diamonds[i].SetActive(false);
+                }
+            }
+        }
+        catch
+        {
+            Debug.Log($"Catch Error ({name}): set star active");
+        }
+
+
+        if (eggEmotion.Count > 0)
+        {
+            for (int i = 0; i < eggEmotion.Count; i++)
+            {
+                if (i == resultScore.finalStar - 1)
+                    eggEmotion[i].SetActive(true);
+                else
+                    eggEmotion[i].SetActive(false);
+            }
+            if (resultScore.finalStar == 0)
+            {
+                eggEmotion[0].SetActive(true);
+            }
+        }
 
         int count_fourthPriority = 0;
         int count_normalContent = 0;
@@ -265,7 +320,7 @@ public class DishScoreManager : MonoBehaviour
         foreach (var scoreHolder in resultScore.allScore)
         {
             //Top4Priority
-            if (scoreHolder.limiter.isTop4Priority == true)
+            if (scoreHolder.isPriority == true)
             {
                 if(count_fourthPriority < fourthPriority_slotList.Count)
                 {
@@ -318,7 +373,7 @@ public class DishScoreManager : MonoBehaviour
         ui.contentTitle.text = holder.limiter.name;
         ui.value.text = holder.value.ToString("0.##");
         ui.unit.text = holder.limiter.unitName;
-        ui.score.text = holder.actualScore.ToString("D");
+        ui.score.text = holder.actualScore.ToString("0");
         ui.detail.text = holder.detail;
         ui.ActiveStar(holder.star);
 
