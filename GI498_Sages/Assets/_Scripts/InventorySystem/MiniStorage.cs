@@ -110,24 +110,6 @@ namespace _Scripts.InventorySystem
                     GrabItem(psHandler);
                 }
             }
-            
-            /* Old
-            var psHandler = Manager.Instance.playerManager.PSHandler();
-            var playerStorage = psHandler.storage.GetStorageObject();
-           
-            // If this Storage Have Free Space mean player Interact to Put Item && Player Have Item
-            if (storageObject.HasFreeSpace() && psHandler.IsHoldingItem())
-            {
-                // Take Out Item from Player Hand to This
-                var itemToTake = psHandler.currentHoldItemObject;
-                Manager.Instance.playerManager.PSHandler().TakeOut(playerStorage,storageObject,itemToTake);
-            }
-            else if(playerStorage.HasFreeSpace() && storageObject.IsSlotIndexHasItem(miniStorageId))
-            {
-                // Take Out This Item to Player Hand.
-                GetItem(playerStorage);
-                ClearHolding();
-            }*/
         }
 
         public void PlaceItem(PlayerStorageHandler ps, ItemObject item)

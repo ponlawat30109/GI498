@@ -4,13 +4,10 @@ using UnityEngine.InputSystem;
 //using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour
-//public class PlayerController : MonoBehaviour, IPointerDownHandler
 {
     public static PlayerController instance;
 
-    // private NavMeshAgent _agent;
     [SerializeField] public PlayerInput _playerInput;
-    // Vector2 mousePosition;
 
     [Header("Character Controller")]
     [SerializeField] private CharacterController controller;
@@ -20,7 +17,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float gravity = -9.81f;
     private float currentPlayerspeed;
     [HideInInspector] public bool isRunning = false;
-    // [SerializeField] private float jumpHeight = 0f;
 
     private Vector2 currentMovementInput;
     private Vector2 smoothInputVelocity;
@@ -32,9 +28,6 @@ public class PlayerController : MonoBehaviour
 
     [Header("Player Anim")]
     [SerializeField] private PlayerAnimController animCtrl;
-
-    // private int idleTime = 5;
-    // private float lastIdleTime;
 
     private void OnEnable()
     {
@@ -48,8 +41,6 @@ public class PlayerController : MonoBehaviour
 
     void Awake()
     {
-        // _agent = GetComponent<NavMeshAgent>();
-
         // if(instance != null)
         instance = this;
 
@@ -57,12 +48,10 @@ public class PlayerController : MonoBehaviour
         controller = GetComponent<CharacterController>();
 
         currentPlayerspeed = playerSpeed;
-        // lastIdleTime = Time.time;
     }
 
     private void Start()
     {
-        // _playerInput.Mouse.MouseClick.performed += ctx => MouseAction();
         _playerInput.Movement.Run.started += ctx =>
         {
             currentPlayerspeed = playerSpeed * 2;
@@ -79,8 +68,6 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        // animCtrl.SetTargetSpeed(PlayerAnimController.Activity.Stand);
-
         if (!UIPanelActive)
             Movement();
 
@@ -88,38 +75,7 @@ public class PlayerController : MonoBehaviour
         {
             OnExitAction();
         }
-
-        // if (Keyboard.current.anyKey.wasPressedThisFrame)
-        // {
-        //     lastIdleTime = Time.time;
-        // }
-
-        // if (IsIdle())
-        // {
-        //     Cursor.visible = false;
-        // }
-        // else
-        // {
-        //     Cursor.visible = true;
-        // }
     }
-
-    // void MouseAction()
-    // {
-    //     //mousePosition = _playerInput.Mouse.MousePosition.ReadValue<Vector2>();
-    //     //mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
-    //     mousePosition = Mouse.current.position.ReadValue();
-
-    //     Ray _ray = Camera.main.ScreenPointToRay(mousePosition);
-    //     RaycastHit _raycastHitInfo;
-
-    //     if (Physics.Raycast(_ray, out _raycastHitInfo))
-    //         if (_raycastHitInfo.transform.CompareTag("Floor"))
-    //         {
-    //             //Debug.Log(_raycastHitInfo.transform.tag);
-    //             _agent.SetDestination(_raycastHitInfo.point);
-    //         }
-    // }
 
     void Movement()
     {
@@ -151,11 +107,6 @@ public class PlayerController : MonoBehaviour
             animCtrl.SetTargetSpeed(PlayerAnimController.Activity.Stand);
         }
 
-        // if (Input.GetButtonDown("Jump") && ground)
-        // {
-        //     playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravity);
-        // }
-
         playerVelocity.y += gravity * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
     }
@@ -165,12 +116,6 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Exit Kitchen");
         var loadScenes = new string[] { "scn_Profile" };
         var unloadScenes = new string[] { "KitchenAssembly" };
-        // _Scripts.SceneAnimator.Instance.UnLoadScene();
         _Scripts.SceneAnimator.Instance.ChangeScene(unloadScenes, loadScenes);
     }
-
-    // public bool IsIdle()
-    // {
-    //     return Time.time - lastIdleTime > idleTime;
-    // }
 }

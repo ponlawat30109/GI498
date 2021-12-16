@@ -60,8 +60,6 @@ namespace _Scripts.InventorySystem.Player
         
         private void Start()
         {
-            //storage = Manager.Instance.storageManager.GetStorageByType(StorageObject.StorageTypeEnum.Player);
-
             _justPressCollectItem = false;
             _justPressOpenStorage = false;
         }
@@ -90,9 +88,6 @@ namespace _Scripts.InventorySystem.Player
                 SetModel();
             }
             
-            /*
-            if(currentHoldItemObject == null || storage.GetStorageObject().GetSlotCount() < 1 || currentHoldItemModel.transform.childCount > 1)
-            */
             if(currentHoldItemObject == null && !storage.GetStorageObject().IsSlotIndexHasItem(0))
             {
                 ClearModel();
@@ -137,7 +132,6 @@ namespace _Scripts.InventorySystem.Player
                     }
                     
                     _justPressOpenStorage = true;
-                    // Debug.Log($"Press {openStorageKey.ToString()} Key.");
                 }
             }
             else
@@ -151,11 +145,6 @@ namespace _Scripts.InventorySystem.Player
                             toInteractStorageObject.CloseUI();
                         }
                     }
-
-                    //Debug.Log($"Can not Press {openStorageKey.ToString()} Key for now.");
-                    /*Debug.Log($"Open again time:{currentOpenStorageTimeCount.ToString()}");
-                    Debug.Log($"_justPressOpenStorage : {_justPressOpenStorage.ToString()}");
-                    Debug.Log($"canInteractToOpenStorage : {canInteractToOpenStorage.ToString()}");*/
                 }
             }
 
@@ -170,7 +159,6 @@ namespace _Scripts.InventorySystem.Player
                 {
                     _currentOpenStorageTimeCount = 0;
                     _justPressOpenStorage = false;
-                    //Debug.Log($"Set Just Press {openStorageKey.ToString()} Key to False");
                 }
             }
             else
@@ -250,16 +238,6 @@ namespace _Scripts.InventorySystem.Player
                     
                 }
             }
-            else
-            {
-                if (PlayerController.instance._playerInput.Movement.PickItem.triggered)
-                {
-                    //Debug.Log($"Can not Press {collectItemKey.ToString()} Key for now.");
-                    /*Debug.Log($"Open again time:{_currentCollectItemTimeCount.ToString()}");
-                    Debug.Log($"_justPressOpenStorage : {_justPressCollectItem.ToString()}");
-                    Debug.Log($"_canInteractToCollectItem : {_canInteractToCollectItem.ToString()}");*/
-                }
-            }
 
             if (_justPressCollectItem == true)
             {
@@ -288,12 +266,7 @@ namespace _Scripts.InventorySystem.Player
         /// </summary>
         /// <returns></returns>
         private bool IsCanCollectItem()
-        {
-            /*if (IsHoldingItem() == false && playerInventory.GetInventory().HasFreeSpace())
-            {
-                result = true;
-            }*/
-            
+        {       
             bool result = IsHoldingItem() == false && storage.GetStorageObject().HasFreeSpace();
 
             return result;
@@ -394,8 +367,6 @@ namespace _Scripts.InventorySystem.Player
             Debug.Log($"Set from Item {currentHoldItemObject.itemName}");
             newProp.transform.SetParent(currentHoldItemModel.transform);
             Debug.Log($"Current Holding Model is Model {newProp.name}");
-            //newProp.transform.localPosition = Vector3.zero;
-            //newProp.transform.rotation = Quaternion.identity;
         }
         
         private void SetFoodModel()
@@ -410,10 +381,6 @@ namespace _Scripts.InventorySystem.Player
                 var newProp = Instantiate(currentHoldFoodObject.ingamePrefab, holdingPosition);
                 newProp.transform.SetParent(currentHoldItemModel.transform);
             }
-            
-            
-            //newProp.transform.localPosition = Vector3.zero;
-            //newProp.transform.rotation = Quaternion.identity;
         }
 
         public void ClearHoldingItem()

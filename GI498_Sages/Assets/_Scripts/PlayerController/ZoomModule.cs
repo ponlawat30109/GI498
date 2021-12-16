@@ -33,13 +33,6 @@ public class ZoomModule : MonoBehaviour
         {
             ZoomScreen(z);
         }
-
-        // var view = camera.ScreenToViewportPoint(Input.mousePosition);
-
-
-        // if(Mouse.current.position.ReadValue() == Vector2.zero){
-
-        // }
     }
 
     void ZoomScreen(float increment)

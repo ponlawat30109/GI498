@@ -65,25 +65,6 @@ public class PlayerAnimController : MonoBehaviour
         SetTargetSpeed(activity);
     }
 
-    // private void Update()
-    // {
-    //     if (PlayerController.instance.isRunning)
-    //     {
-    //         Move(Activity.Run);
-    //     }
-    //     else
-    //     {
-    //         if (PlayerController.instance.isMoving)
-    //         {
-    //             Move(Activity.Walk);
-    //         }
-    //         else
-    //         {
-    //             Move(Activity.Stand);
-    //         }
-    //     }
-    // }
-
     public enum Activity
     {
         Stand,

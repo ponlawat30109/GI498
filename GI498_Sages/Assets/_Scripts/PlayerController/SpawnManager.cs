@@ -22,12 +22,10 @@ namespace _Scripts.ManagerCollection
         void Awake()
         {
             // _vcam = GetComponent<CinemachineVirtualCamera>();
-            // UnityEngine.SceneManagement.SceneManager.SetActiveScene(UnityEngine.SceneManagement.SceneManager.GetSceneByName("KitchenAssembly"));
         }
 
         async void Start()
         {
-            // UnityEngine.SceneManagement.SceneManager.SetActiveScene(UnityEngine.SceneManagement.SceneManager.GetSceneByName("KitchenAssembly"));
             await Task.Delay(System.TimeSpan.FromSeconds(0.1));
             player = (GameObject)Instantiate(playerPrefabs, spawnpoint.transform.position, Quaternion.identity);
 
@@ -37,11 +35,6 @@ namespace _Scripts.ManagerCollection
             _vcam.Follow = followTarget;
             _vcam.LookAt = followTarget;
         }
-
-        // void Update()
-        // {
-
-        // }
 
         private void OnDestroy()
         {

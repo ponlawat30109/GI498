@@ -34,8 +34,6 @@ public class UIPanelHandler : MonoBehaviour
 
     void Start()
     {
-        // CheckUIisActive();
-
         _playerInput.UI.ClosePanel.started += ctx =>
         {
             UIPanelActive = false;
@@ -47,25 +45,6 @@ public class UIPanelHandler : MonoBehaviour
             CloseUIPanel();
         };
     }
-
-    // void Update()
-    // {
-    //     // CheckUIisActive();
-
-    //     // if (PlayerController.instance._playerInput.UI.ClosePanel.triggered)
-    //     // {
-    //     //     UIPanelActive = false;
-    //     //     PlayerController.instance.UIPanelActive = UIPanelActive;
-    //     //     // Debug.Log("Close UI");
-    //     // }
-
-    //     // await Task.Delay(System.TimeSpan.FromSeconds(0.1));
-    //     // CloseUIPanel();
-
-    //     // PlayerController.instance.UIPanelActive = UIPanelActive;
-
-    //     // CheckUIisActive();
-    // }
 
     public void CheckUIisActive()
     {

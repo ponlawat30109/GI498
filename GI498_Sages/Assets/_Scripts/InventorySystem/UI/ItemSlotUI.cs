@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace _Scripts.InventorySystem.UI
 {
-    public class ItemSlotUI : MonoBehaviour,IPointerClickHandler,IPointerEnterHandler,IPointerExitHandler
+    public class ItemSlotUI : MonoBehaviour, IPointerClickHandler
     {
         [SerializeField] private ItemObject item;
         [SerializeField] private Image itemImage;
@@ -14,17 +14,17 @@ namespace _Scripts.InventorySystem.UI
         [SerializeField] private Sprite deselectUiSprite;
         [SerializeField] private StorageUI parentStorageUI;
         [SerializeField] private TMP_Text nameText;
-        
+
         [SerializeField] private GameObject infoPrefab;
         [SerializeField] private Transform storageInfoTransform;
         [SerializeField] private StorageInformationUI informationUI;
-    
-        public void InitializeItem(ItemObject toInitItem,StorageUI parentStorage,Transform transformStorageInfo)
+
+        public void InitializeItem(ItemObject toInitItem, StorageUI parentStorage, Transform transformStorageInfo)
         {
             item = toInitItem;
             itemImage.sprite = toInitItem.itemIcon;
             nameText.text = toInitItem.itemName;
-        
+
             parentStorageUI = parentStorage;
             storageInfoTransform = transformStorageInfo;
 
@@ -56,7 +56,7 @@ namespace _Scripts.InventorySystem.UI
                 {
                     itemFrameImage.sprite = deselectUiSprite;
                     parentStorageUI.GetParent().DeSelectSlot();
-                    
+
                 }
                 else
                 {
@@ -64,21 +64,6 @@ namespace _Scripts.InventorySystem.UI
                     parentStorageUI.ChangeObjInfo(item.itemName, item.description, item.itemIcon);
                 }
             }
-        }
-
-        public void OnPointerEnter(PointerEventData eventData)
-        {
-            //if (parentStorageUI.GetParent().IsSlotUISelectable)
-            //{
-            //    var newInfo = Instantiate(infoPrefab, Vector3.zero, Quaternion.identity, storageInfoTransform.transform);
-            //    informationUI = newInfo.gameObject.GetComponent<StorageInformationUI>();
-            //    informationUI.InitializeInformation(item.itemName, item.description, item.itemIcon);
-            //}
-        }
-
-        public void OnPointerExit(PointerEventData eventData)
-        {
-            //informationUI.Clear();
         }
     }
 }
