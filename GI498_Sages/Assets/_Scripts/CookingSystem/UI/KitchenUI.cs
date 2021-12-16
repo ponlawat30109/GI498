@@ -245,6 +245,34 @@ namespace _Scripts.CookingSystem.UI
                     }
                 }
             }
+            
+            if (stoveTemp.specialIngredients.Count > 0)
+            {
+                for (int i = 0; i < stoveTemp.specialIngredients.Count; i++)
+                {
+                    //If item not in slotList -> Create new one
+                    if (IsInSlotList(stoveTemp.specialIngredients[i]) == false)
+                    {
+                        var newSlot = Instantiate(slotPrefab, Vector3.zero, Quaternion.identity);
+                        var componentSlot = newSlot.gameObject.GetComponent<IngredientSlotUI>();
+
+                        componentSlot.InitializeItem(
+                            stoveTemp.specialIngredients[i]
+                            , this
+                            , storageSlotInformation,
+                            parent.IsOneOfIngredient(stoveTemp.specialIngredients[i])
+                            , stoveTemp.specialIngredients[i].quantity);
+
+                        componentSlot.transform.localScale = Vector3.one;
+                        slotList.Add(componentSlot);
+                    }
+                    // Update
+                    else
+                    {
+                        UpdateIngredientSlotUI();
+                    }
+                }
+            }
         }
 
         public void UpdateIngredientSlotUI()

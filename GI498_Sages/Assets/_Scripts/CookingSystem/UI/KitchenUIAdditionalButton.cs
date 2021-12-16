@@ -72,7 +72,8 @@ public class KitchenUIAdditionalButton : MonoBehaviour
         
         if (psHandler.storage.GetStorageObject().HasFreeSpace() && psHandler.IsHoldingItem() == false) // Player Have Free Space
         {
-            if (parent.GetStoveTempRecipe().GetIngredient().Count > 0)
+            if (parent.GetStoveTempRecipe().GetIngredient().Count +
+                parent.GetStoveTempRecipe().GetSpecialIngredient().Count > 0)
             {
                 parent.GrabTrash();
                 parent.DeSelectSlot();

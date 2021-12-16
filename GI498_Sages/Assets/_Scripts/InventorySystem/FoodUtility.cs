@@ -16,7 +16,7 @@ namespace _Scripts.InventorySystem
 
         public static bool IsLowSodium(float sodiumMilligrams)
         {
-            if (sodiumMilligrams < 140)
+            if (sodiumMilligrams < 3400/3)
             {
                 return true;
             }

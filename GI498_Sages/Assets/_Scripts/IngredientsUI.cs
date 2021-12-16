@@ -21,23 +21,64 @@ public class IngredientsUI : MonoBehaviour
             Manager.Instance.npcOrderUI.OpenUI();
         }
         
-        
         if (Manager.Instance.npcOrderUI != null)
         {
-            if (Manager.Instance.npcOrderUI.IsTakeOrder() == false)
+            var orderPanel = Manager.Instance.npcOrderUI;
+
+            // ถ้ามี Order อยู่ 
+            if (orderPanel.GetOrderInfoComponent().IsCurrentOrderNull() == false)
             {
-                panel.gameObject.SetActive(false);
+                //ยังไม่ได้เทคออเดอร์
+                if (orderPanel.IsTakeOrder() == false)
+                {
+                    // UI Panel ถูกปิดไป
+                    if (orderPanel.gameObject.activeSelf == false)
+                    {
+                        panel.gameObject.SetActive(true);
+                        _playerInput.Enable();
+                    }
+                }
+                // เทคออเดอร์แล้ว
+                else
+                {
+                    // UI Panel ถูกปิดไป
+                    if (orderPanel.gameObject.activeSelf == false)
+                    {
+                        panel.gameObject.SetActive(true);
+                        _playerInput.Enable();
+                    }
+                }
             }
+            // ถ้ายังไม่มี Order มา
             else
             {
-                panel.gameObject.SetActive(true);
+                //ยังไม่ได้เทคออเดอร์
+                if (orderPanel.IsTakeOrder() == false)
+                {
+                    // UI Panel ถูกปิดไป
+                    if (orderPanel.gameObject.activeSelf == false)
+                    {
+                        panel.gameObject.SetActive(false);
+                        _playerInput.Enable();
+                    }
+                }
+                // เทคออเดอร์แล้ว
+                else
+                {
+                    // UI Panel ถูกปิดไป
+                    if (orderPanel.gameObject.activeSelf == false)
+                    {
+                        panel.gameObject.SetActive(true);
+                        _playerInput.Enable();
+                    }
+                }
             }
         }
     }
     
     private void OnEnable()
     {
-        _playerInput.Enable();
+        //_playerInput.Enable();
     }
 
     private void OnDisable()
