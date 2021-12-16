@@ -14,7 +14,7 @@ namespace _Scripts.InventorySystem.UI.NPCOrder
         [SerializeField] private TMP_Text foodDescriptionText;
         [SerializeField] private GameObject ingredientInfoPrefab;
         [SerializeField] private Transform ingredientListContainer;
-
+        [SerializeField] private FoodObject currentOrder;
         [SerializeField] private List<IngredientInfoComponent> ingredientInfoComponentsList = new List<IngredientInfoComponent>();
 
         public void InitComponent(FoodObject orderRecipe)
@@ -22,15 +22,15 @@ namespace _Scripts.InventorySystem.UI.NPCOrder
             orderImage.sprite = orderRecipe.itemIcon;
             foodNameText.text = orderRecipe.itemName;
             foodDescriptionText.text = orderRecipe.description;
-
-            CreateIngredientInfoComponentList(orderRecipe);
+            currentOrder = orderRecipe;
+            //CreateIngredientInfoComponentList();
         }
 
-        public void CreateIngredientInfoComponentList(FoodObject orderRecipe)
+        public void CreateIngredientInfoComponentList()
         {
-            if (orderRecipe.ingredients.Count > 0)
+            if (currentOrder.ingredients.Count > 0)
             {
-                foreach (var ingredient in orderRecipe.ingredients)
+                foreach (var ingredient in currentOrder.ingredients)
                 {
                     if (ingredient != null)
                     {
@@ -43,9 +43,9 @@ namespace _Scripts.InventorySystem.UI.NPCOrder
                 }
             }
             
-            if (orderRecipe.specialIngredients.Count > 0)
+            if (currentOrder.specialIngredients.Count > 0)
             {
-                foreach (var ingredient in orderRecipe.specialIngredients)
+                foreach (var ingredient in currentOrder.specialIngredients)
                 {
                     if (ingredient != null)
                     {
@@ -68,7 +68,12 @@ namespace _Scripts.InventorySystem.UI.NPCOrder
             
             ingredientInfoComponentsList.Clear();
         }
-        
+
+        public void OnEnable()
+        {
+            CreateIngredientInfoComponentList();
+        }
+
         public void OnDisable()
         {
             if (ingredientInfoComponentsList.Count > 0)

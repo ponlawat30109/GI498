@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using _Scripts.ManagerCollection;
+using _Scripts.NPCSctipts;
 using UnityEngine;
 
 namespace NPCScript
@@ -38,6 +39,7 @@ namespace NPCScript
 
         private FoodObject order;
         public FoodObject Order { get => order; }
+        
         private List<FoodObject> foodList;
 
         private LevelStandard levelStandard;
@@ -74,10 +76,8 @@ namespace NPCScript
             //End Test
 
             onTest = false;
-            foodList = playerRankHolder.FoodList;
+            //foodList = playerRankHolder.FoodList;
             Debug.Assert(tv != null, "NPCManager: tv is null");
-
-            
         }
 
         public void CompleteOrder()
@@ -120,6 +120,7 @@ namespace NPCScript
         {
             orderRemaining = _orderRemaining;
         }
+        
         public void AddRemainingOrder(int number)
         {
             orderRemaining += number;
@@ -199,10 +200,6 @@ namespace NPCScript
                 var foodListRange = foodList.Count;
                 var foodNumber = Random.Range(0, foodListRange);
                 order = foodList[foodNumber];
-                if (_Scripts.ManagerCollection.Manager.Instance != null)
-                {
-                    _Scripts.ManagerCollection.Manager.Instance.playerManager.PSHandler().JustPutInFood(order);
-                }
 
                 if(levelList.Count > 0)
                 {
@@ -223,6 +220,33 @@ namespace NPCScript
             }
         }
 
+        public void DefineFoodList(NpcInformation npcInfo)
+        {
+            switch (npcInfo.GetMedic())
+            {
+                case NpcInformation.NpcPatientType.Normal:
+                {
+                    foodList = Manager.Instance.storageManager.recipeStorageManager.GetRecipeCollectionByType(NpcInformation
+                        .NpcPatientType.Normal).recipeList;
+                    break;
+                }
+                
+                case NpcInformation.NpcPatientType.KidneyDisease:
+                {
+                    foodList = Manager.Instance.storageManager.recipeStorageManager.GetRecipeCollectionByType(NpcInformation
+                        .NpcPatientType.KidneyDisease).recipeList;
+                    break;
+                }
+                
+                case NpcInformation.NpcPatientType.Diabetes:
+                {
+                    foodList = Manager.Instance.storageManager.recipeStorageManager.GetRecipeCollectionByType(NpcInformation
+                        .NpcPatientType.Diabetes).recipeList;
+                    break;
+                }
+            }
+        }
+        
         private void OnApplicationQuit()
         {
             if (playerRankHolder != null)

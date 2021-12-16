@@ -80,6 +80,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f39d799a331df4a499c36a22af8e42f0, type: 2}
   - {fileID: 11400000, guid: a424728e92035e24598f543d8699ea3d, type: 2}
   inShelfStorageSpecialIngredientList:
+  - {fileID: 11400000, guid: 2219bd06dd037ef459d4f36966ebe564, type: 2}
+  - {fileID: 11400000, guid: eb1159d350aae9f489878b95bb1f7a92, type: 2}
+  - {fileID: 11400000, guid: a6b7e22f467a9434882e213b0bb50991, type: 2}
+  - {fileID: 11400000, guid: 44cba9f6b6027a1489605e30df17f1fe, type: 2}
+  - {fileID: 11400000, guid: c52b8c98e602b0448ba01b8b4716575f, type: 2}
   - {fileID: 11400000, guid: 6dcc8370f34a1cb43b5b327f8344a328, type: 2}
   currentRank: 0
   ingredientRankList:
@@ -94,7 +99,38 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 3016351532d3d8e41afdeb9eb3554655, type: 2}
   - rankIndex: 2
     comment: Silver Egg
-    ingredientList: []
+    ingredientList:
+    - {fileID: 11400000, guid: fb0d4f0865a798446a864c66fc70cd77, type: 2}
+    - {fileID: 11400000, guid: 99cffe130010c3d4c84cef0014386d92, type: 2}
+    - {fileID: 11400000, guid: 3016351532d3d8e41afdeb9eb3554655, type: 2}
+    - {fileID: 11400000, guid: 5a19e8b4dc561b245a2bbd29cae75384, type: 2}
+    - {fileID: 11400000, guid: 08af9b043340b084eb7a407cfc39c9db, type: 2}
+    - {fileID: 11400000, guid: a424728e92035e24598f543d8699ea3d, type: 2}
+    - {fileID: 11400000, guid: 9fc70b37f5fb81d48804e07a9200615d, type: 2}
+    - {fileID: 11400000, guid: 24d3d12e62d35d746a17fb8245a75e5e, type: 2}
+    - {fileID: 11400000, guid: 03211efb22655914bbc057f995734395, type: 2}
+    - {fileID: 11400000, guid: 722f6f1644823524a908b68a0bf0ccfb, type: 2}
+    - {fileID: 11400000, guid: 00e94c0be050cb04e9d08111bd46b447, type: 2}
+    - {fileID: 11400000, guid: 37b78f7b397fb954f9a8271b71ba7848, type: 2}
+    - {fileID: 11400000, guid: 110a41e4d285f5b4faa9465b6da295dc, type: 2}
+    - {fileID: 11400000, guid: 3a339c753b8ccf44692fd05535e09a59, type: 2}
+    - {fileID: 11400000, guid: f39d799a331df4a499c36a22af8e42f0, type: 2}
+    - {fileID: 0}
+    - {fileID: 11400000, guid: df3a9fd2dc3658649b3faafd55a2261f, type: 2}
+    - {fileID: 11400000, guid: 64beb0207d6f5e943b11848b807d82d1, type: 2}
+    - {fileID: 11400000, guid: 57d8ae8e60fd9124ba64979a6c25fcc8, type: 2}
+    - {fileID: 11400000, guid: 1fd17890007251f42a38a8a188ace9f2, type: 2}
+    - {fileID: 11400000, guid: 9827aad0c06520a4aab1b81662a33e82, type: 2}
+    - {fileID: 11400000, guid: 6c238d28b4df9e34689ab3b19ac75ec9, type: 2}
+    - {fileID: 11400000, guid: 2c85f7640e78b7343ae5ad4f14cb3faa, type: 2}
+    - {fileID: 11400000, guid: 6f48b05fc978f3f47a14f4ed622af171, type: 2}
+    - {fileID: 11400000, guid: b7059230d957f584f877b578f72701c3, type: 2}
+    - {fileID: 11400000, guid: a1b2263d34376354ca0becc4dd9e927a, type: 2}
+    - {fileID: 11400000, guid: 8d468bfd6cf9ecf4298cac41c7ca41f3, type: 2}
+    - {fileID: 11400000, guid: b8105f848f1dd7144ba8f47666232e21, type: 2}
+    - {fileID: 11400000, guid: 1d8e57b3f4d422b4cb8410602d5ab77f, type: 2}
+    - {fileID: 11400000, guid: 5e340b029e4f2084fb41ede23560b44a, type: 2}
+    - {fileID: 11400000, guid: a2ee084267382f64c88e6e4a05e66ab3, type: 2}
   - rankIndex: 3
     comment: Gold Egg
     ingredientList: []
@@ -103,11 +139,16 @@ MonoBehaviour:
     ingredientList: []
   - rankIndex: 5
     comment: Platinum Egg
-    ingredientList: []
+    ingredientList:
+    - {fileID: 11400000, guid: 2219bd06dd037ef459d4f36966ebe564, type: 2}
+    - {fileID: 11400000, guid: eb1159d350aae9f489878b95bb1f7a92, type: 2}
+    - {fileID: 11400000, guid: a6b7e22f467a9434882e213b0bb50991, type: 2}
+    - {fileID: 11400000, guid: 44cba9f6b6027a1489605e30df17f1fe, type: 2}
+    - {fileID: 11400000, guid: c52b8c98e602b0448ba01b8b4716575f, type: 2}
+    - {fileID: 11400000, guid: 6dcc8370f34a1cb43b5b327f8344a328, type: 2}
   - rankIndex: 6
     comment: Star Platinum Egg
-    ingredientList:
-    - {fileID: 11400000, guid: 1d8e57b3f4d422b4cb8410602d5ab77f, type: 2}
+    ingredientList: []
   checkRankInterval: 2
 --- !u!1 &7102736891372998938
 GameObject:
@@ -138,6 +179,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7102736891052469432}
+  - {fileID: 1461223453351160312}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -154,6 +196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ingredientStorageManager: {fileID: 7102736891052469433}
+  recipeStorageManager: {fileID: 5600212054460626125}
   storageCollections:
   - type: 0
     storage: {fileID: 0}
@@ -205,7 +248,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a424728e92035e24598f543d8699ea3d, type: 2}
   - {fileID: 11400000, guid: a2ee084267382f64c88e6e4a05e66ab3, type: 2}
   specialIngredientCollections:
+  - {fileID: 11400000, guid: eb1159d350aae9f489878b95bb1f7a92, type: 2}
+  - {fileID: 11400000, guid: a6b7e22f467a9434882e213b0bb50991, type: 2}
+  - {fileID: 11400000, guid: 44cba9f6b6027a1489605e30df17f1fe, type: 2}
+  - {fileID: 11400000, guid: c52b8c98e602b0448ba01b8b4716575f, type: 2}
   - {fileID: 11400000, guid: 6dcc8370f34a1cb43b5b327f8344a328, type: 2}
+  - {fileID: 11400000, guid: 2219bd06dd037ef459d4f36966ebe564, type: 2}
   recipeCollections:
   - item: {fileID: 11400000, guid: 2983025be34d12540a6609c2bba6c2ff, type: 2}
     quantity: 0
@@ -217,3 +265,76 @@ MonoBehaviour:
     quantity: 0
   - item: {fileID: 11400000, guid: be6fe39d34577724ea8146e7da5eca4b, type: 2}
     quantity: 0
+--- !u!1001 &4210312903299186025
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 7102736891372998936}
+    m_Modifications:
+    - target: {fileID: 190187831512405468, guid: 39bd85076296d5c4eaa7b462ed22de7d, type: 3}
+      propertyPath: m_Name
+      value: Recipe Storage Manager
+      objectReference: {fileID: 0}
+    - target: {fileID: 3326268665725392017, guid: 39bd85076296d5c4eaa7b462ed22de7d, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3326268665725392017, guid: 39bd85076296d5c4eaa7b462ed22de7d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3326268665725392017, guid: 39bd85076296d5c4eaa7b462ed22de7d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3326268665725392017, guid: 39bd85076296d5c4eaa7b462ed22de7d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3326268665725392017, guid: 39bd85076296d5c4eaa7b462ed22de7d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3326268665725392017, guid: 39bd85076296d5c4eaa7b462ed22de7d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3326268665725392017, guid: 39bd85076296d5c4eaa7b462ed22de7d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3326268665725392017, guid: 39bd85076296d5c4eaa7b462ed22de7d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3326268665725392017, guid: 39bd85076296d5c4eaa7b462ed22de7d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3326268665725392017, guid: 39bd85076296d5c4eaa7b462ed22de7d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3326268665725392017, guid: 39bd85076296d5c4eaa7b462ed22de7d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 39bd85076296d5c4eaa7b462ed22de7d, type: 3}
+--- !u!4 &1461223453351160312 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3326268665725392017, guid: 39bd85076296d5c4eaa7b462ed22de7d, type: 3}
+  m_PrefabInstance: {fileID: 4210312903299186025}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5600212054460626125 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8636209147296631204, guid: 39bd85076296d5c4eaa7b462ed22de7d, type: 3}
+  m_PrefabInstance: {fileID: 4210312903299186025}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bceaa39edd4a134e8cfded464c132f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

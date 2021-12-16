@@ -10,18 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fb8cc96c8ddd34b48b53864f7acb4664, type: 3}
-  m_Name: "\u0E44\u0E02\u0E48\u0E14\u0E32\u0E27"
+  m_Name: spc_Omelet
   m_EditorClassIdentifier: 
-  itemName: "\u0E44\u0E02\u0E48\u0E14\u0E32\u0E27"
-  itemIcon: {fileID: 21300000, guid: c4f340e8bf1864b4caf374b4c368b668, type: 3}
+  itemName: Omelet
+  itemIcon: {fileID: 0}
   type: 2
-  ingamePrefab: {fileID: 1933213746720370918, guid: 62c6cafce84dc9b4c96cdbefa4839766, type: 3}
-  description: Egg menu for test
-  cookedPrefab: {fileID: 1736267606748628461, guid: eefc861b168fc834c9b7cbe20139d71f, type: 3}
+  ingamePrefab: {fileID: 205199441127379643, guid: 8bc860b76f26ece4eb09ebadf7f288c8, type: 3}
+  description: "\u0E02\u0E49\u0E32\u0E27\u0E44\u0E02\u0E48\u0E40\u0E08\u0E35\u0E22\u0E27"
+  cookedPrefab: {fileID: 6589093857605918195, guid: 948cd5aadc46061449756406d0e1ed1d, type: 3}
   ingredients:
   - {fileID: 11400000, guid: 3016351532d3d8e41afdeb9eb3554655, type: 2}
-  - {fileID: 11400000, guid: c350c3817bb7c414a90b27386e68d31d, type: 2}
+  - {fileID: 11400000, guid: 722f6f1644823524a908b68a0bf0ccfb, type: 2}
+  - {fileID: 11400000, guid: 00e94c0be050cb04e9d08111bd46b447, type: 2}
   specialIngredients: []
-  cookingTime: 5
+  cookingTime: 2
   isLowSodium: 0
   isCooked: 0

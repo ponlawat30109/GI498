@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using _Scripts.InventorySystem.UI.NPCOrder;
+using UnityEngine;
 
 namespace _Scripts.ManagerCollection
 {
@@ -8,6 +9,8 @@ namespace _Scripts.ManagerCollection
         [SerializeField] public StorageManager storageManager;
         [SerializeField] public PlayerManager playerManager;
         [SerializeField] public NotifyManager notifyManager;
+
+        [SerializeField] public NpcOrderUI npcOrderUI;
         
         public static Manager Instance{ set; get;} // Instance
 
