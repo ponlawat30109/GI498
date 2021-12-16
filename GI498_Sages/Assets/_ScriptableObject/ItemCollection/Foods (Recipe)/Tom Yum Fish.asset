@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb8cc96c8ddd34b48b53864f7acb4664, type: 3}
+  m_Name: Tom Yum Fish
+  m_EditorClassIdentifier: 
+  itemName: Tom Yum Fish
+  itemIcon: {fileID: 0}
+  type: 2
+  ingamePrefab: {fileID: 5486850418394000142, guid: b3f045adfe0716b40be0bd5ad2391726, type: 3}
+  description: "\u0E15\u0E49\u0E21\u0E22\u0E33\u0E1B\u0E25\u0E32"
+  cookedPrefab: {fileID: 5812712736101172040, guid: 45e9231889f09104db5bf6a8f4b1545b, type: 3}
+  ingredients:
+  - {fileID: 11400000, guid: 5a19e8b4dc561b245a2bbd29cae75384, type: 2}
+  - {fileID: 11400000, guid: 00e94c0be050cb04e9d08111bd46b447, type: 2}
+  - {fileID: 11400000, guid: 37b78f7b397fb954f9a8271b71ba7848, type: 2}
+  - {fileID: 11400000, guid: 6f48b05fc978f3f47a14f4ed622af171, type: 2}
+  - {fileID: 11400000, guid: 2c85f7640e78b7343ae5ad4f14cb3faa, type: 2}
+  - {fileID: 11400000, guid: 1fd17890007251f42a38a8a188ace9f2, type: 2}
+  specialIngredients: []
+  cookingTime: 5
+  isLowSodium: 0
+  isCooked: 0
