@@ -16,25 +16,26 @@ MonoBehaviour:
   itemIcon: {fileID: 21300000, guid: 2d6758219a95c554693968194431598d, type: 3}
   type: 0
   ingamePrefab: {fileID: 2509524808630148918, guid: f4ccfd4ae56162741b497152256d30e6, type: 3}
-  description: "\u0E02\u0E19\u0E21\u0E1B\u0E31\u0E07 \u0E40\u0E1B\u0E47\u0E19\u0E2D\u0E32\u0E2B\u0E32\u0E23\u0E17\u0E35\u0E48\u0E43\u0E2B\u0E49\u0E04\u0E48\u0E32
+  description: "\u0E02\u0E19\u0E21\u0E1B\u0E31\u0E07 ( 1 \u0E41\u0E1C\u0E48\u0E19
+    ) \u0E40\u0E1B\u0E47\u0E19\u0E2D\u0E32\u0E2B\u0E32\u0E23\u0E17\u0E35\u0E48\u0E43\u0E2B\u0E49\u0E04\u0E48\u0E32
     \u0E04\u0E32\u0E23\u0E4C\u0E42\u0E1A\u0E44\u0E2E\u0E40\u0E14\u0E23\u0E15 \u0E40\u0E1B\u0E47\u0E19\u0E2B\u0E25\u0E31\u0E01
     \u0E40\u0E1B\u0E47\u0E19\u0E41\u0E2B\u0E25\u0E48\u0E07\u0E1E\u0E25\u0E31\u0E07\u0E07\u0E32\u0E19\u0E0A\u0E31\u0E49\u0E19\u0E14\u0E35\r"
   nutrition:
     cholesterol: 0
-    carbohydrate: 49000
-    sugars: 5000
-    fiber: 2700
-    proteins: 9000
-    fat: 3200
-    saturatedfat: 700
-    water: 20000
-    potassium: 115
-    sodium: 491
-    calcium: 260
-    phosphorus: 121
-    magnesium: 25
+    carbohydrate: 12250
+    sugars: 1250
+    fiber: 675
+    proteins: 2250
+    fat: 800
+    saturatedfat: 175
+    water: 5000
+    potassium: 28.75
+    sodium: 122.75
+    calcium: 65
+    phosphorus: 30.25
+    magnesium: 6.25
     zinc: 0
-    iron: 3600
+    iron: 900
     manganese: 0
     copper: 0
     selenium: 0
@@ -42,7 +43,7 @@ MonoBehaviour:
     vitaminB2: 0
     vitaminB3: 0
     vitaminB5: 0
-    vitaminB6: 0.1
+    vitaminB6: 0.025
     vitaminB7: 0
     vitaminB9: 0
     vitaminB12: 0
@@ -51,3 +52,5 @@ MonoBehaviour:
     vitaminD: 0
     vitaminE: 0
     vitaminK: 0
+  isSpecialIngredient: 0
+  quantity: 0

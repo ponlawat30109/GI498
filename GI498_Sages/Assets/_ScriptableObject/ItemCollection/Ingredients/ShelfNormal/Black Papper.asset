@@ -16,26 +16,27 @@ MonoBehaviour:
   itemIcon: {fileID: 21300000, guid: ccccc7a608707e6429dbb4b00523d6e7, type: 3}
   type: 0
   ingamePrefab: {fileID: 3566281046056200763, guid: 169b7dfe0753a6e45b201d85a715ec85, type: 3}
-  description: "\u0E1E\u0E23\u0E34\u0E01\u0E44\u0E17\u0E22 \u0E19\u0E2D\u0E01\u0E08\u0E32\u0E01\u0E17\u0E33\u0E43\u0E2B\u0E49\u0E2D\u0E32\u0E2B\u0E32\u0E23\u0E23\u0E2A\u0E0A\u0E32\u0E15\u0E34\u0E14\u0E35\u0E02\u0E36\u0E49\u0E19\u0E41\u0E25\u0E49\u0E27
+  description: "\u0E1E\u0E23\u0E34\u0E01\u0E44\u0E17\u0E22 ( 1/2 \u0E0A\u0E49\u0E2D\u0E19\u0E0A\u0E32
+    ) \u0E19\u0E2D\u0E01\u0E08\u0E32\u0E01\u0E17\u0E33\u0E43\u0E2B\u0E49\u0E2D\u0E32\u0E2B\u0E32\u0E23\u0E23\u0E2A\u0E0A\u0E32\u0E15\u0E34\u0E14\u0E35\u0E02\u0E36\u0E49\u0E19\u0E41\u0E25\u0E49\u0E27
     \u0E01\u0E47\u0E21\u0E35\u0E2A\u0E23\u0E23\u0E1E\u0E04\u0E38\u0E13 \u0E0A\u0E48\u0E27\u0E22\u0E22\u0E48\u0E2D\u0E22\u0E2D\u0E32\u0E2B\u0E32\u0E23
     \u0E02\u0E31\u0E1A\u0E2A\u0E32\u0E23\u0E1E\u0E34\u0E29\u0E43\u0E19\u0E23\u0E48\u0E32\u0E07\u0E01\u0E32\u0E22
     \u0E41\u0E01\u0E49\u0E17\u0E49\u0E2D\u0E07\u0E2D\u0E37\u0E14"
   nutrition:
     cholesterol: 0
-    carbohydrate: 68800
+    carbohydrate: 688
     sugars: 0
-    fiber: 26500
-    proteins: 11000
-    fat: 3300
-    saturatedfat: 600
-    water: 11600
-    potassium: 73
-    sodium: 5
-    calcium: 53
-    phosphorus: 164
-    magnesium: 194
+    fiber: 265
+    proteins: 110
+    fat: 33
+    saturatedfat: 6
+    water: 116
+    potassium: 0.73
+    sodium: 0.05
+    calcium: 0.53
+    phosphorus: 1.64
+    magnesium: 1.94
     zinc: 0
-    iron: 3.2
+    iron: 0.32
     manganese: 0
     copper: 0
     selenium: 0
@@ -47,8 +48,10 @@ MonoBehaviour:
     vitaminB7: 0
     vitaminB9: 0
     vitaminB12: 0
-    vitaminC: 21
+    vitaminC: 0.21
     vitaminA: 0
     vitaminD: 0
-    vitaminE: 0.7
-    vitaminK: 0.1637
+    vitaminE: 0.007
+    vitaminK: 0.001637
+  isSpecialIngredient: 0
+  quantity: 0
