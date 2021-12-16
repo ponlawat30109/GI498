@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36851529be1a1fc46a7e4f67b15459cd, type: 3}
+  m_Name: Limeade
+  m_EditorClassIdentifier: 
+  itemName: Limeade
+  itemIcon: {fileID: 0}
+  type: 0
+  ingamePrefab: {fileID: 5941161177466214308, guid: 4cd40969b3ab0754db6c7d398052d3f6, type: 3}
+  description: "\u0E19\u0E49\u0E33\u0E21\u0E30\u0E19\u0E32\u0E27 \u0E0A\u0E48\u0E27\u0E22\u0E40\u0E1E\u0E37\u0E48\u0E21\u0E23\u0E2A\u0E0A\u0E32\u0E15\u0E34\u0E43\u0E2B\u0E49\u0E01\u0E31\u0E1A\u0E2D\u0E32\u0E2B\u0E32\u0E23
+    \u0E17\u0E33\u0E43\u0E2B\u0E49\u0E2D\u0E32\u0E2B\u0E32\u0E23\u0E44\u0E21\u0E48\u0E08\u0E37\u0E14\u0E0A\u0E37\u0E48\u0E19
+    \u0E41\u0E25\u0E30\u0E22\u0E31\u0E07\u0E2A\u0E32\u0E21\u0E32\u0E23\u0E16\u0E0A\u0E48\u0E27\u0E22\u0E25\u0E49\u0E32\u0E07\u0E1E\u0E34\u0E29
+    \u0E22\u0E31\u0E1A\u0E22\u0E31\u0E49\u0E07\u0E21\u0E30\u0E40\u0E23\u0E47\u0E07
+    \u0E44\u0E14\u0E49\u0E2D\u0E35\u0E01\u0E14\u0E49\u0E27\u0E22"
+  nutrition:
+    cholesterol: 0
+    carbohydrate: 7000
+    sugars: 1700
+    fiber: 300
+    proteins: 400
+    fat: 0
+    saturatedfat: 0
+    water: 88000
+    potassium: 103
+    sodium: 1
+    calcium: 6
+    phosphorus: 0
+    magnesium: 6
+    zinc: 0
+    iron: 0.1
+    manganese: 0
+    copper: 0
+    selenium: 0
+    vitaminB1: 0
+    vitaminB2: 0
+    vitaminB3: 0
+    vitaminB5: 0
+    vitaminB6: 0
+    vitaminB7: 0
+    vitaminB9: 0
+    vitaminB12: 0
+    vitaminC: 38.7
+    vitaminA: 0
+    vitaminD: 0
+    vitaminE: 0
+    vitaminK: 0
+  isSpecialIngredient: 0
+  quantity: 0

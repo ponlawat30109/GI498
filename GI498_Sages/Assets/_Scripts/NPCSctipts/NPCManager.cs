@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using _Scripts.ManagerCollection;
+using _Scripts.NPCSctipts;
 using UnityEngine;
 
 namespace NPCScript
@@ -19,6 +21,7 @@ namespace NPCScript
         [SerializeField] private RankSystem playerRankHolder;
         [SerializeField] private AudioManager.Track orderSound;
         [SerializeField] private AudioManager.Track completeOrderSound;
+        [SerializeField] private List<LevelStandard> levelList;
 
         #region NPCLoop
         private float releaseLoopTime = 0;
@@ -35,15 +38,18 @@ namespace NPCScript
         private NPCController orderingNpc;
 
         private FoodObject order;
-        public FoodObject Order
-        {
-            get => order;
-        }
+        public FoodObject Order { get => order; }
+        
         private List<FoodObject> foodList;
+
+        private LevelStandard levelStandard;
+        public LevelStandard LevelStandard { get => levelStandard; }
 
         public int numberOfNpcInQueue { get; private set; }
         public int orderRemaining {get; private set;}
         #endregion
+
+        private System.Random rnd = new System.Random();
 
         private void Awake()
         {
@@ -70,13 +76,11 @@ namespace NPCScript
             //End Test
 
             onTest = false;
-            foodList = playerRankHolder.FoodList;
+            //foodList = playerRankHolder.FoodList;
             Debug.Assert(tv != null, "NPCManager: tv is null");
-
-            
         }
 
-        public void CompleteOrder(int xp)
+        public void CompleteOrder()
         {
             if(AudioManager.Instance != null)
                 AudioManager.Instance.PlaySfx(completeOrderSound);
@@ -84,8 +88,6 @@ namespace NPCScript
             if (order != null && orderingNpc != null)
             {
                 order = null;
-                if (onTest == false)
-                    DataCarrier.AddExp(xp);
                 orderingNpc.GetOrder();
                 orderingNpc = null;
                 if(tv != null)
@@ -107,12 +109,18 @@ namespace NPCScript
                 Debug.Log("orderRemaining " + orderRemaining);
                 Debug.Log("numberOfNpcInQueue " + numberOfNpcInQueue);
             }
+
+            if (Manager.Instance.storageManager != null)
+            {
+                Manager.Instance.storageManager.ClearIngredientQuantity();
+            }
         }
 
         public void SetRemainingOrder(int _orderRemaining)
         {
             orderRemaining = _orderRemaining;
         }
+        
         public void AddRemainingOrder(int number)
         {
             orderRemaining += number;
@@ -192,11 +200,16 @@ namespace NPCScript
                 var foodListRange = foodList.Count;
                 var foodNumber = Random.Range(0, foodListRange);
                 order = foodList[foodNumber];
-                if (_Scripts.ManagerCollection.Manager.Instance != null)
+
+                if(levelList.Count > 0)
                 {
-                    _Scripts.ManagerCollection.Manager.Instance.playerManager.PSHandler().JustPutInFood(order);
-                    Debug.Log("NPC Rnd Food: " + order.itemName);
+                    levelStandard = levelList[rnd.Next(levelList.Count)];
                 }
+                else
+                {
+                    levelStandard = null;
+                }
+
                 if(tv != null)
                     tv.TVChangeSprite(order.itemIcon);
             }
@@ -207,6 +220,33 @@ namespace NPCScript
             }
         }
 
+        public void DefineFoodList(NpcInformation npcInfo)
+        {
+            switch (npcInfo.GetMedic())
+            {
+                case NpcInformation.NpcPatientType.Normal:
+                {
+                    foodList = Manager.Instance.storageManager.recipeStorageManager.GetRecipeCollectionByType(NpcInformation
+                        .NpcPatientType.Normal).recipeList;
+                    break;
+                }
+                
+                case NpcInformation.NpcPatientType.KidneyDisease:
+                {
+                    foodList = Manager.Instance.storageManager.recipeStorageManager.GetRecipeCollectionByType(NpcInformation
+                        .NpcPatientType.KidneyDisease).recipeList;
+                    break;
+                }
+                
+                case NpcInformation.NpcPatientType.Diabetes:
+                {
+                    foodList = Manager.Instance.storageManager.recipeStorageManager.GetRecipeCollectionByType(NpcInformation
+                        .NpcPatientType.Diabetes).recipeList;
+                    break;
+                }
+            }
+        }
+        
         private void OnApplicationQuit()
         {
             if (playerRankHolder != null)
@@ -219,7 +259,7 @@ namespace NPCScript
             {
                 if(GUILayout.Button("Complete Order"))
                 {
-                    CompleteOrder(10);
+                    CompleteOrder();
                 }
                 if(GUILayout.Button("ReleaseNPC"))
                 {

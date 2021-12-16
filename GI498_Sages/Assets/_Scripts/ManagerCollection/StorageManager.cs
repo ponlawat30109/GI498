@@ -4,6 +4,7 @@ using System.Linq;
 using _Scripts.InventorySystem;
 using _Scripts.InventorySystem.ScriptableObjects.Storage;
 using _Scripts.InventorySystem.UI;
+using _Scripts.NPCSctipts;
 using UnityEngine;
 
 namespace _Scripts.ManagerCollection
@@ -14,23 +15,48 @@ namespace _Scripts.ManagerCollection
         [Serializable]
         public struct StorageCollection
         {
+            public enum StorageName
+            {
+                Default,
+                Player,
+                Fridge,
+                FridgeMeat,
+                ShelfNormal,
+                ShelfSpecial
+            }
+            
             public StorageObject.StorageTypeEnum type;
             public Storage storage;
+            public StorageName storageName;
         }
         
+        [Header("Ingredient Manager")]
+        [SerializeField] public IngredientStorageManager ingredientStorageManager;
+
+        [Header("Recipe Manager")]
+        [SerializeField] public RecipeStorageManager recipeStorageManager;
+        
+        [Space]
+        [Header("Storage Collection")]
         public List<StorageCollection> storageCollections;
 
-        public List<MiniStorage> miniStorageCollections;
+        [Space]
+        [Space]
+        /* For Backdoor only
+            - use for clear things and debug...
+         */
+        [Header("All Ingredient and Recipe (For Clear Quantity)")]
+        [SerializeField] private List<IngredientObject> ingredientCollections;
+        [SerializeField] private List<IngredientObject> specialIngredientCollections;
 
-        public List<RecipeSlot> recipeCollections;
-        public List<IngredientObject> ingredientCollections;
-        public List<IngredientObject> specialIngredientCollections;
 
-        
         ////////////////////////////////////////////////////////////////////////////////////////////
 
         private void Start()
         {
+            ingredientStorageManager.DefineCurrentRank();
+            ingredientStorageManager.AssignIngredientByRank();
+            
             foreach (var storage in storageCollections)
             {
                 if (storage.type == StorageObject.StorageTypeEnum.Storage)
@@ -44,47 +70,8 @@ namespace _Scripts.ManagerCollection
                     }
                 }
             }
-
-            for (int i = 0; i < recipeCollections.Count; i++)
-            {
-                if (recipeCollections[i] != null)
-                {
-                    recipeCollections[i].quantity = 999;
-                }
-            }
         }
-
-        /*public void SetPlayerStorage()
-        {
-            foreach (var storage in storageCollections)
-            {
-                if (storage.type == StorageObject.StorageTypeEnum.Player)
-                {
-                    if (storage.storage == null)
-                    {
-                        Manager.Instance.playerManager.PSHandler().storage = FindPlayerStorageClone();
-                    }
-                }
-            }
-        }
-
-        public Storage FindPlayerStorageClone()
-        {
-            var objs =  GameObject.FindGameObjectsWithTag("PlayerStorage");
-
-            Storage toReturn = null;
-
-            foreach (var gObj in objs)
-            {
-                if (gObj.name.Contains("Storage"))
-                {
-                    toReturn = gObj.GetComponent<Storage>();
-                }
-            }
-            
-            return toReturn;
-        }*/
-
+        
         /////////////////////////////////////////////////////////////////////////////////////////////
 
         public Storage GetStorageByType(StorageObject.StorageTypeEnum type)
@@ -101,11 +88,20 @@ namespace _Scripts.ManagerCollection
 
             return obj;
         }
-
-        public FoodObject TakeRecipeByIndex(int index)
+        
+        public Storage GetStorageByName(StorageCollection.StorageName toGetName)
         {
-            recipeCollections[index].quantity -= 1;
-            return recipeCollections[index].item;
+            var obj = gameObject.GetComponent<Storage>();
+            
+            foreach (var storage in storageCollections)
+            {
+                if (storage.storageName == toGetName)
+                {
+                    obj = storage.storage;
+                }
+            }
+
+            return obj;
         }
 
         public void ClearIngredientQuantity()
@@ -120,46 +116,38 @@ namespace _Scripts.ManagerCollection
                 ingredient.quantity = 0;
             }
         }
+
+        public void ClearRecipeCollection()
+        {
+            foreach (var recipe in recipeStorageManager.GetRecipeCollectionByType(NpcInformation.NpcPatientType.Normal).recipeList)
+            {
+                if (recipe.isCooked)
+                {
+                    recipe.ResetFoodObject();
+                }
+            }
+            
+            foreach (var recipe in recipeStorageManager.GetRecipeCollectionByType(NpcInformation.NpcPatientType.KidneyDisease).recipeList)
+            {
+                if (recipe.isCooked)
+                {
+                    recipe.ResetFoodObject();
+                }
+            }
+            
+            foreach (var recipe in recipeStorageManager.GetRecipeCollectionByType(NpcInformation.NpcPatientType.Diabetes).recipeList)
+            {
+                if (recipe.isCooked)
+                {
+                    recipe.ResetFoodObject();
+                }
+            }
+        }
         
         private void OnApplicationQuit()
         {
-            foreach (var recipe in recipeCollections)
-            {
-                if (recipe.item.isCooked)
-                {
-                    recipe.item.ResetFoodObject();
-                }
-            }
-
+            ClearRecipeCollection();
             ClearIngredientQuantity();
-        }
-    }
-    
-    [Serializable]
-    public class RecipeSlot
-    {
-        public FoodObject item;
-        public int quantity;
-
-        public RecipeSlot(FoodObject _item, int _quantity)
-        {
-            item = _item;
-            quantity = _quantity;
-        }
-
-        public void AddAmount(int value)
-        {
-            quantity += value;
-        }
-
-        public void SubAmount(int value)
-        {
-            if (quantity - value <= 0)
-            {
-                quantity = 0; // Or Remove slot
-                return;
-            }
-            quantity -= value;
         }
     }
 }

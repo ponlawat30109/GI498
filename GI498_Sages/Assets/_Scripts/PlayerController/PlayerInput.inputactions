@@ -328,6 +328,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "OpenIngredientsPanel",
+                    "type": "Button",
+                    "id": "7159e938-e3d4-4ffe-8d93-c1ac6d5cd0cd",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -350,6 +358,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "ClosePanel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5d00bcb1-347c-4e56-a43b-49b44248435b",
+                    "path": "<Keyboard>/i",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenIngredientsPanel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "232fbebb-f6d2-40c5-889e-91960bc31a7a",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenIngredientsPanel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

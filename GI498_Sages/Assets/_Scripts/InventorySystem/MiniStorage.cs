@@ -21,6 +21,12 @@ namespace _Scripts.InventorySystem
         
         public event Action OnInteracted;
 
+        private void Start()
+        {
+            ClearHolding();
+            ClearModel();
+        }
+
         private void Update()
         {
             if (currentHoldItemModel.transform.childCount < 1)
@@ -238,7 +244,10 @@ namespace _Scripts.InventorySystem
             
             for (int i = 0; i < childs; i++)
             {
-                Destroy(currentHoldItemModel.transform.GetChild(i).gameObject);
+                if (currentHoldItemModel.transform.GetChild(i).gameObject != null)
+                {
+                    Destroy(currentHoldItemModel.transform.GetChild(i).gameObject);
+                }
             }
         }
     }

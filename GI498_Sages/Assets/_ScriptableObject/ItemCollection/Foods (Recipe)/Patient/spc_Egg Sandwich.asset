@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb8cc96c8ddd34b48b53864f7acb4664, type: 3}
+  m_Name: spc_Egg Sandwich
+  m_EditorClassIdentifier: 
+  itemName: Egg Sandwich
+  itemIcon: {fileID: 21300000, guid: 93a504ed8ccd3af4083d1269be59bdd2, type: 3}
+  type: 2
+  ingamePrefab: {fileID: 205199441127379643, guid: 8bc860b76f26ece4eb09ebadf7f288c8, type: 3}
+  description: Sandwich made by toast and boiled egg.
+  cookedPrefab: {fileID: 5378946344903914261, guid: 0149e14d7efe37347b2aecafa32aae9e, type: 3}
+  ingredients:
+  - {fileID: 11400000, guid: 3016351532d3d8e41afdeb9eb3554655, type: 2}
+  - {fileID: 11400000, guid: 24d3d12e62d35d746a17fb8245a75e5e, type: 2}
+  specialIngredients: []
+  cookingTime: 2
+  isLowSodium: 0
+  isCooked: 0

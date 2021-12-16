@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb8cc96c8ddd34b48b53864f7acb4664, type: 3}
+  m_Name: Garlic Pork
+  m_EditorClassIdentifier: 
+  itemName: Garlic Pork
+  itemIcon: {fileID: 0}
+  type: 2
+  ingamePrefab: {fileID: 205199441127379643, guid: 8bc860b76f26ece4eb09ebadf7f288c8, type: 3}
+  description: "\u0E2B\u0E21\u0E39\u0E01\u0E23\u0E30\u0E40\u0E17\u0E35\u0E22\u0E21"
+  cookedPrefab: {fileID: 1947900950977150177, guid: 7a65adc4c40b58140b58841c6d73cc15, type: 3}
+  ingredients: []
+  specialIngredients: []
+  cookingTime: 5
+  isLowSodium: 0
+  isCooked: 0

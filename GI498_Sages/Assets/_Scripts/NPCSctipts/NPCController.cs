@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using _Scripts.InventorySystem.UI.NPCOrder;
+using _Scripts.ManagerCollection;
 using UnityEngine;
 
 namespace NPCScript
@@ -59,7 +61,14 @@ namespace NPCScript
                                 {
                                     npcState = NPCState.Order;
                                     animCtrl.SetTargetSpeed(PlayerAnimController.Activity.Stand);
+                                    
+                                    Manager.Instance.npcOrderUI.InitNpc();
+                                    var npc = Manager.Instance.npcOrderUI.currentNpcInformation;
+                                    NPCManager.Instance.DefineFoodList(npc);
                                     NPCManager.Instance.RandomFood(this);
+                                    Manager.Instance.npcOrderUI.InitOrderUI();
+                                    Manager.Instance.npcOrderUI.OpenUI();
+                                    
                                 }
                                 else if (targetPoint.isReleasePoint)
                                 {

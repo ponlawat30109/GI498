@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb8cc96c8ddd34b48b53864f7acb4664, type: 3}
+  m_Name: Omelet
+  m_EditorClassIdentifier: 
+  itemName: Omelet
+  itemIcon: {fileID: 0}
+  type: 2
+  ingamePrefab: {fileID: 205199441127379643, guid: 8bc860b76f26ece4eb09ebadf7f288c8, type: 3}
+  description: "\u0E02\u0E49\u0E32\u0E27\u0E44\u0E02\u0E48\u0E40\u0E08\u0E35\u0E22\u0E27"
+  cookedPrefab: {fileID: 6589093857605918195, guid: 948cd5aadc46061449756406d0e1ed1d, type: 3}
+  ingredients:
+  - {fileID: 11400000, guid: 3016351532d3d8e41afdeb9eb3554655, type: 2}
+  - {fileID: 11400000, guid: 722f6f1644823524a908b68a0bf0ccfb, type: 2}
+  - {fileID: 11400000, guid: 00e94c0be050cb04e9d08111bd46b447, type: 2}
+  specialIngredients: []
+  cookingTime: 2
+  isLowSodium: 0
+  isCooked: 0

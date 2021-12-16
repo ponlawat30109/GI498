@@ -341,6 +341,14 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""OpenIngredientsPanel"",
+                    ""type"": ""Button"",
+                    ""id"": ""7159e938-e3d4-4ffe-8d93-c1ac6d5cd0cd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -363,6 +371,28 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""ClosePanel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5d00bcb1-347c-4e56-a43b-49b44248435b"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenIngredientsPanel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""232fbebb-f6d2-40c5-889e-91960bc31a7a"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenIngredientsPanel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -394,6 +424,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_ClosePanel = m_UI.FindAction("ClosePanel", throwIfNotFound: true);
+        m_UI_OpenIngredientsPanel = m_UI.FindAction("OpenIngredientsPanel", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -574,11 +605,13 @@ public class @PlayerInput : IInputActionCollection, IDisposable
     private readonly InputActionMap m_UI;
     private IUIActions m_UIActionsCallbackInterface;
     private readonly InputAction m_UI_ClosePanel;
+    private readonly InputAction m_UI_OpenIngredientsPanel;
     public struct UIActions
     {
         private @PlayerInput m_Wrapper;
         public UIActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @ClosePanel => m_Wrapper.m_UI_ClosePanel;
+        public InputAction @OpenIngredientsPanel => m_Wrapper.m_UI_OpenIngredientsPanel;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -591,6 +624,9 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @ClosePanel.started -= m_Wrapper.m_UIActionsCallbackInterface.OnClosePanel;
                 @ClosePanel.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnClosePanel;
                 @ClosePanel.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnClosePanel;
+                @OpenIngredientsPanel.started -= m_Wrapper.m_UIActionsCallbackInterface.OnOpenIngredientsPanel;
+                @OpenIngredientsPanel.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnOpenIngredientsPanel;
+                @OpenIngredientsPanel.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnOpenIngredientsPanel;
             }
             m_Wrapper.m_UIActionsCallbackInterface = instance;
             if (instance != null)
@@ -598,6 +634,9 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @ClosePanel.started += instance.OnClosePanel;
                 @ClosePanel.performed += instance.OnClosePanel;
                 @ClosePanel.canceled += instance.OnClosePanel;
+                @OpenIngredientsPanel.started += instance.OnOpenIngredientsPanel;
+                @OpenIngredientsPanel.performed += instance.OnOpenIngredientsPanel;
+                @OpenIngredientsPanel.canceled += instance.OnOpenIngredientsPanel;
             }
         }
     }
@@ -630,5 +669,6 @@ public class @PlayerInput : IInputActionCollection, IDisposable
     public interface IUIActions
     {
         void OnClosePanel(InputAction.CallbackContext context);
+        void OnOpenIngredientsPanel(InputAction.CallbackContext context);
     }
 }
