@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2329419555540320701
+--- !u!1 &4043937273778169147
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,45 +8,45 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3164130774850517111}
-  - component: {fileID: 6278248505285782320}
-  - component: {fileID: 6928351629243671658}
+  - component: {fileID: 279884815624123242}
+  - component: {fileID: 720693065225960768}
+  - component: {fileID: 5898599288470419454}
   m_Layer: 0
-  m_Name: lime juice
+  m_Name: Oil bottle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3164130774850517111
+--- !u!4 &279884815624123242
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2329419555540320701}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.000000012994, y: 0.0296, z: -0.121}
-  m_LocalScale: {x: 70.15828, y: 70.15828, z: 70.15828}
+  m_GameObject: {fileID: 4043937273778169147}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.269, z: 0}
+  m_LocalScale: {x: 161.02165, y: 161.02165, z: 161.02165}
   m_Children: []
-  m_Father: {fileID: 3534725264355778232}
+  m_Father: {fileID: 8904801494104515540}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &6278248505285782320
+--- !u!33 &720693065225960768
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2329419555540320701}
-  m_Mesh: {fileID: 5640328913150283682, guid: 990400000785b2d47b324721c33516f6, type: 3}
---- !u!23 &6928351629243671658
+  m_GameObject: {fileID: 4043937273778169147}
+  m_Mesh: {fileID: 4703021864137384219, guid: e21f5e87e1200e64f88262d56f3bafd8, type: 3}
+--- !u!23 &5898599288470419454
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2329419555540320701}
+  m_GameObject: {fileID: 4043937273778169147}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -59,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 21d8bba4d2bb0fa419aea1bca024341e, type: 2}
+  - {fileID: 2100000, guid: 4405f01ce2a0df142bc3cd72983e2444, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -81,7 +81,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &4070443731012140125
+--- !u!1 &4809911788963101906
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -89,26 +89,26 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3534725264355778232}
+  - component: {fileID: 8904801494104515540}
   m_Layer: 0
-  m_Name: lime juice
+  m_Name: Oil bottle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3534725264355778232
+--- !u!4 &8904801494104515540
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4070443731012140125}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_GameObject: {fileID: 4809911788963101906}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 3164130774850517111}
+  - {fileID: 279884815624123242}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
