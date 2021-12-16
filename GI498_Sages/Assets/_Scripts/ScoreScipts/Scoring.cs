@@ -50,12 +50,12 @@ public class Scoring : ScriptableObject
         //var carbohydrateEnergy = (dishNutr.carbohydrate + dishNutr.sugars + dishNutr.fiber) * 4 * changeUnit;   // carb 1 g = 4 kCal = 17 kJ
         var carbohydrateEnergy = dishNutr.carbohydrate * 4 * changeUnit;
         var proteinEnergy = dishNutr.proteins * 4 * changeUnit;        // prot 1 g =  4 kCal = 17 kJ
-        var fatEnergy = (dishNutr.cholesterol + dishNutr.fat) * 9 * changeUnit;   // fat 1 g = 9 kCal = 38 kJ // fat is already include saturatedfat fat
+        var fatEnergy = dishNutr.fat * 9 * changeUnit;   // fat 1 g = 9 kCal = 38 kJ // fat is already include saturatedfat fat
         var alcoholEnergy = 0f;        // alc 1 g = 7 kCal = 29 kJ
         alcoholEnergy *= 5.6f * changeUnit;         // alc 1 mL = 5.6 kCal = 23 kJ        
 
         var totalEnergy = carbohydrateEnergy + proteinEnergy + fatEnergy + alcoholEnergy;
-
+        
         if (standard.limiterSet.totalEnergyLimit.weight > 0)
         {
             DishScoreHolder totalEnergyScore = new DishScoreHolder();
@@ -93,7 +93,10 @@ public class Scoring : ScriptableObject
             }
             if (carbEnergyScore.limiter != null)
             {
-                carbEnergyScore.value = carbohydrateEnergy;
+                if (carbEnergyScore.limiter.calType == CalculateType.PercentEnergy)
+                    carbEnergyScore.value = carbohydrateEnergy;
+                else
+                    carbEnergyScore.value = dishNutr.carbohydrate;
                 allScore.Add(carbEnergyScore);
             }
         }
@@ -114,7 +117,10 @@ public class Scoring : ScriptableObject
             }
             if (protEnergyScore.limiter != null)
             {
-                protEnergyScore.value = proteinEnergy;
+                if (protEnergyScore.limiter.calType == CalculateType.PercentEnergy)
+                    protEnergyScore.value = proteinEnergy;
+                else
+                    protEnergyScore.value = dishNutr.proteins;
                 allScore.Add(protEnergyScore);
             }
         }
@@ -135,7 +141,10 @@ public class Scoring : ScriptableObject
             }
             if (fatEnergyScore.limiter != null)
             {
-                fatEnergyScore.value = fatEnergy;
+                if (fatEnergyScore.limiter.calType == CalculateType.PercentEnergy)
+                    fatEnergyScore.value = fatEnergy;
+                else
+                    fatEnergyScore.value = dishNutr.fat;
                 allScore.Add(fatEnergyScore);
             }
         }
@@ -156,7 +165,10 @@ public class Scoring : ScriptableObject
             }
             if (satFatScore.limiter != null)
             {
-                satFatScore.value = dishNutr.saturatedfat;
+                if(satFatScore.limiter.calType == CalculateType.PercentEnergy)
+                    satFatScore.value = dishNutr.saturatedfat * 9 * changeUnit;
+                else
+                    satFatScore.value = dishNutr.saturatedfat;
                 allScore.Add(satFatScore);
             }
         }
@@ -177,29 +189,32 @@ public class Scoring : ScriptableObject
             }
             if (sugarScore.limiter != null)
             {
-                sugarScore.value = dishNutr.sugars;
+                if(sugarScore.limiter.calType == CalculateType.PercentEnergy)
+                    sugarScore.value = dishNutr.sugars * 4;
+                else
+                    sugarScore.value = dishNutr.sugars;
                 allScore.Add(sugarScore);
             }
         }
 
-        if (standard.limiterSet.fiberLimit.weight > 0)
+        if (standard.limiterSet.cholesterolLimit.weight > 0)
         {
-            DishScoreHolder fiberScore = new DishScoreHolder();
-            if (standard.limiterSet.fiberLimit.isTop4Priority == true)
-                fiberScore.isPriority = true;
-            if (standard.limiterSet.fiberLimit.limterType != LimiterType.None && standard.limiterSet.fiberLimit.calType != CalculateType.None)
-                fiberScore.limiter = standard.limiterSet.fiberLimit;
+            DishScoreHolder cholesScore = new DishScoreHolder();
+            if (standard.limiterSet.cholesterolLimit.isTop4Priority == true)
+                cholesScore.isPriority = true;
+            if (standard.limiterSet.cholesterolLimit.limterType != LimiterType.None && standard.limiterSet.cholesterolLimit.calType != CalculateType.None)
+                cholesScore.limiter = standard.limiterSet.cholesterolLimit;
             else if (defaultStandard != null)
             {
-                if (defaultStandard.limiterSet.fiberLimit.limterType != LimiterType.None && defaultStandard.limiterSet.fiberLimit.calType != CalculateType.None)
+                if (defaultStandard.limiterSet.cholesterolLimit.limterType != LimiterType.None && defaultStandard.limiterSet.cholesterolLimit.calType != CalculateType.None)
                 {
-                    fiberScore.limiter = defaultStandard.limiterSet.fiberLimit;
+                    cholesScore.limiter = defaultStandard.limiterSet.cholesterolLimit;
                 }
             }
-            if (fiberScore.limiter != null)
+            if (cholesScore.limiter != null)
             {
-                fiberScore.value = dishNutr.fiber;
-                allScore.Add(fiberScore);
+                cholesScore.value = dishNutr.cholesterol;
+                allScore.Add(cholesScore);
             }
         }
 
@@ -223,6 +238,512 @@ public class Scoring : ScriptableObject
                 allScore.Add(fiberScore);
             }
         }
+
+        if (standard.limiterSet.waterLimit.weight > 0)
+        {
+            DishScoreHolder waterScore = new DishScoreHolder();
+            if (standard.limiterSet.waterLimit.isTop4Priority == true)
+                waterScore.isPriority = true;
+            if (standard.limiterSet.waterLimit.limterType != LimiterType.None && standard.limiterSet.waterLimit.calType != CalculateType.None)
+                waterScore.limiter = standard.limiterSet.waterLimit;
+            else if (defaultStandard != null)
+            {
+                if (defaultStandard.limiterSet.waterLimit.limterType != LimiterType.None && defaultStandard.limiterSet.waterLimit.calType != CalculateType.None)
+                {
+                    waterScore.limiter = defaultStandard.limiterSet.waterLimit;
+                }
+            }
+            if (waterScore.limiter != null)
+            {
+                waterScore.value = dishNutr.water;
+                allScore.Add(waterScore);
+            }
+        }
+
+        if (standard.limiterSet.PotassiumLimit.weight > 0)
+        {
+            DishScoreHolder potassScore = new DishScoreHolder();
+            if (standard.limiterSet.PotassiumLimit.isTop4Priority == true)
+                potassScore.isPriority = true;
+            if (standard.limiterSet.PotassiumLimit.limterType != LimiterType.None && standard.limiterSet.PotassiumLimit.calType != CalculateType.None)
+                potassScore.limiter = standard.limiterSet.PotassiumLimit;
+            else if (defaultStandard != null)
+            {
+                if (defaultStandard.limiterSet.PotassiumLimit.limterType != LimiterType.None && defaultStandard.limiterSet.PotassiumLimit.calType != CalculateType.None)
+                {
+                    potassScore.limiter = defaultStandard.limiterSet.PotassiumLimit;
+                }
+            }
+            if (potassScore.limiter != null)
+            {
+                potassScore.value = dishNutr.potassium;
+                allScore.Add(potassScore);
+            }
+        }
+
+        if (standard.limiterSet.sodiumLimit.weight > 0)
+        {
+            DishScoreHolder sodiumScore = new DishScoreHolder();
+            if (standard.limiterSet.sodiumLimit.isTop4Priority == true)
+                sodiumScore.isPriority = true;
+            if (standard.limiterSet.sodiumLimit.limterType != LimiterType.None && standard.limiterSet.sodiumLimit.calType != CalculateType.None)
+                sodiumScore.limiter = standard.limiterSet.sodiumLimit;
+            else if (defaultStandard != null)
+            {
+                if (defaultStandard.limiterSet.sodiumLimit.limterType != LimiterType.None && defaultStandard.limiterSet.sodiumLimit.calType != CalculateType.None)
+                {
+                    sodiumScore.limiter = defaultStandard.limiterSet.sodiumLimit;
+                }
+            }
+            if (sodiumScore.limiter != null)
+            {
+                sodiumScore.value = dishNutr.sodium;
+                allScore.Add(sodiumScore);
+            }
+        }
+
+        if (standard.limiterSet.calciumLimit.weight > 0)
+        {
+            DishScoreHolder calcScore = new DishScoreHolder();
+            if (standard.limiterSet.calciumLimit.isTop4Priority == true)
+                calcScore.isPriority = true;
+            if (standard.limiterSet.calciumLimit.limterType != LimiterType.None && standard.limiterSet.calciumLimit.calType != CalculateType.None)
+                calcScore.limiter = standard.limiterSet.calciumLimit;
+            else if (defaultStandard != null)
+            {
+                if (defaultStandard.limiterSet.calciumLimit.limterType != LimiterType.None && defaultStandard.limiterSet.calciumLimit.calType != CalculateType.None)
+                {
+                    calcScore.limiter = defaultStandard.limiterSet.calciumLimit;
+                }
+            }
+            if (calcScore.limiter != null)
+            {
+                calcScore.value = dishNutr.calcium;
+                allScore.Add(calcScore);
+            }
+        }
+
+        if (standard.limiterSet.phosphorusLimit.weight > 0)
+        {
+            DishScoreHolder phospScore = new DishScoreHolder();
+            if (standard.limiterSet.phosphorusLimit.isTop4Priority == true)
+                phospScore.isPriority = true;
+            if (standard.limiterSet.phosphorusLimit.limterType != LimiterType.None && standard.limiterSet.phosphorusLimit.calType != CalculateType.None)
+                phospScore.limiter = standard.limiterSet.phosphorusLimit;
+            else if (defaultStandard != null)
+            {
+                if (defaultStandard.limiterSet.phosphorusLimit.limterType != LimiterType.None && defaultStandard.limiterSet.phosphorusLimit.calType != CalculateType.None)
+                {
+                    phospScore.limiter = defaultStandard.limiterSet.phosphorusLimit;
+                }
+            }
+            if (phospScore.limiter != null)
+            {
+                phospScore.value = dishNutr.phosphorus;
+                allScore.Add(phospScore);
+            }
+        }
+
+        if (standard.limiterSet.magnesiumLimit.weight > 0)
+        {
+            DishScoreHolder magnScore = new DishScoreHolder();
+            if (standard.limiterSet.magnesiumLimit.isTop4Priority == true)
+                magnScore.isPriority = true;
+            if (standard.limiterSet.magnesiumLimit.limterType != LimiterType.None && standard.limiterSet.magnesiumLimit.calType != CalculateType.None)
+                magnScore.limiter = standard.limiterSet.magnesiumLimit;
+            else if (defaultStandard != null)
+            {
+                if (defaultStandard.limiterSet.magnesiumLimit.limterType != LimiterType.None && defaultStandard.limiterSet.magnesiumLimit.calType != CalculateType.None)
+                {
+                    magnScore.limiter = defaultStandard.limiterSet.magnesiumLimit;
+                }
+            }
+            if (magnScore.limiter != null)
+            {
+                magnScore.value = dishNutr.magnesium;
+                allScore.Add(magnScore);
+            }
+        }
+
+        if (standard.limiterSet.zincLimit.weight > 0)
+        {
+            DishScoreHolder zincScore = new DishScoreHolder();
+            if (standard.limiterSet.zincLimit.isTop4Priority == true)
+                zincScore.isPriority = true;
+            if (standard.limiterSet.zincLimit.limterType != LimiterType.None && standard.limiterSet.zincLimit.calType != CalculateType.None)
+                zincScore.limiter = standard.limiterSet.zincLimit;
+            else if (defaultStandard != null)
+            {
+                if (defaultStandard.limiterSet.zincLimit.limterType != LimiterType.None && defaultStandard.limiterSet.zincLimit.calType != CalculateType.None)
+                {
+                    zincScore.limiter = defaultStandard.limiterSet.zincLimit;
+                }
+            }
+            if (zincScore.limiter != null)
+            {
+                zincScore.value = dishNutr.zinc;
+                allScore.Add(zincScore);
+            }
+        }
+
+        if (standard.limiterSet.ironLimit.weight > 0)
+        {
+            DishScoreHolder ironScore = new DishScoreHolder();
+            if (standard.limiterSet.ironLimit.isTop4Priority == true)
+                ironScore.isPriority = true;
+            if (standard.limiterSet.ironLimit.limterType != LimiterType.None && standard.limiterSet.ironLimit.calType != CalculateType.None)
+                ironScore.limiter = standard.limiterSet.ironLimit;
+            else if (defaultStandard != null)
+            {
+                if (defaultStandard.limiterSet.ironLimit.limterType != LimiterType.None && defaultStandard.limiterSet.ironLimit.calType != CalculateType.None)
+                {
+                    ironScore.limiter = defaultStandard.limiterSet.ironLimit;
+                }
+            }
+            if (ironScore.limiter != null)
+            {
+                ironScore.value = dishNutr.iron;
+                allScore.Add(ironScore);
+            }
+        }
+
+        if (standard.limiterSet.manganeseLimit.weight > 0)
+        {
+            DishScoreHolder mangScore = new DishScoreHolder();
+            if (standard.limiterSet.manganeseLimit.isTop4Priority == true)
+                mangScore.isPriority = true;
+            if (standard.limiterSet.manganeseLimit.limterType != LimiterType.None && standard.limiterSet.manganeseLimit.calType != CalculateType.None)
+                mangScore.limiter = standard.limiterSet.manganeseLimit;
+            else if (defaultStandard != null)
+            {
+                if (defaultStandard.limiterSet.manganeseLimit.limterType != LimiterType.None && defaultStandard.limiterSet.manganeseLimit.calType != CalculateType.None)
+                {
+                    mangScore.limiter = defaultStandard.limiterSet.manganeseLimit;
+                }
+            }
+            if (mangScore.limiter != null)
+            {
+                mangScore.value = dishNutr.manganese;
+                allScore.Add(mangScore);
+            }
+        }
+
+        if (standard.limiterSet.copperLimit.weight > 0)
+        {
+            DishScoreHolder coppScore = new DishScoreHolder();
+            if (standard.limiterSet.copperLimit.isTop4Priority == true)
+                coppScore.isPriority = true;
+            if (standard.limiterSet.copperLimit.limterType != LimiterType.None && standard.limiterSet.copperLimit.calType != CalculateType.None)
+                coppScore.limiter = standard.limiterSet.copperLimit;
+            else if (defaultStandard != null)
+            {
+                if (defaultStandard.limiterSet.copperLimit.limterType != LimiterType.None && defaultStandard.limiterSet.copperLimit.calType != CalculateType.None)
+                {
+                    coppScore.limiter = defaultStandard.limiterSet.copperLimit;
+                }
+            }
+            if (coppScore.limiter != null)
+            {
+                coppScore.value = dishNutr.copper;
+                allScore.Add(coppScore);
+            }
+        }
+
+        if (standard.limiterSet.seleniumLimit.weight > 0)
+        {
+            DishScoreHolder seleScore = new DishScoreHolder();
+            if (standard.limiterSet.seleniumLimit.isTop4Priority == true)
+                seleScore.isPriority = true;
+            if (standard.limiterSet.seleniumLimit.limterType != LimiterType.None && standard.limiterSet.seleniumLimit.calType != CalculateType.None)
+                seleScore.limiter = standard.limiterSet.seleniumLimit;
+            else if (defaultStandard != null)
+            {
+                if (defaultStandard.limiterSet.seleniumLimit.limterType != LimiterType.None && defaultStandard.limiterSet.seleniumLimit.calType != CalculateType.None)
+                {
+                    seleScore.limiter = defaultStandard.limiterSet.seleniumLimit;
+                }
+            }
+            if (seleScore.limiter != null)
+            {
+                seleScore.value = dishNutr.selenium;
+                allScore.Add(seleScore);
+            }
+        }
+
+        if (standard.limiterSet.vitaminALimit.weight > 0)
+        {
+            DishScoreHolder aScore = new DishScoreHolder();
+            if (standard.limiterSet.vitaminALimit.isTop4Priority == true)
+                aScore.isPriority = true;
+            if (standard.limiterSet.vitaminALimit.limterType != LimiterType.None && standard.limiterSet.vitaminALimit.calType != CalculateType.None)
+                aScore.limiter = standard.limiterSet.vitaminALimit;
+            else if (defaultStandard != null)
+            {
+                if (defaultStandard.limiterSet.vitaminALimit.limterType != LimiterType.None && defaultStandard.limiterSet.vitaminALimit.calType != CalculateType.None)
+                {
+                    aScore.limiter = defaultStandard.limiterSet.vitaminALimit;
+                }
+            }
+            if (aScore.limiter != null)
+            {
+                aScore.value = dishNutr.vitaminA;
+                allScore.Add(aScore);
+            }
+        }
+
+        if (standard.limiterSet.vitaminB1Limit.weight > 0)
+        {
+            DishScoreHolder b1Score = new DishScoreHolder();
+            if (standard.limiterSet.vitaminB1Limit.isTop4Priority == true)
+                b1Score.isPriority = true;
+            if (standard.limiterSet.vitaminB1Limit.limterType != LimiterType.None && standard.limiterSet.vitaminB1Limit.calType != CalculateType.None)
+                b1Score.limiter = standard.limiterSet.vitaminB1Limit;
+            else if (defaultStandard != null)
+            {
+                if (defaultStandard.limiterSet.vitaminB1Limit.limterType != LimiterType.None && defaultStandard.limiterSet.vitaminB1Limit.calType != CalculateType.None)
+                {
+                    b1Score.limiter = defaultStandard.limiterSet.vitaminB1Limit;
+                }
+            }
+            if (b1Score.limiter != null)
+            {
+                b1Score.value = dishNutr.vitaminB1;
+                allScore.Add(b1Score);
+            }
+        }
+
+        if (standard.limiterSet.vitaminB2Limit.weight > 0)
+        {
+            DishScoreHolder b2Score = new DishScoreHolder();
+            if (standard.limiterSet.vitaminB2Limit.isTop4Priority == true)
+                b2Score.isPriority = true;
+            if (standard.limiterSet.vitaminB2Limit.limterType != LimiterType.None && standard.limiterSet.vitaminB2Limit.calType != CalculateType.None)
+                b2Score.limiter = standard.limiterSet.vitaminB2Limit;
+            else if (defaultStandard != null)
+            {
+                if (defaultStandard.limiterSet.vitaminB2Limit.limterType != LimiterType.None && defaultStandard.limiterSet.vitaminB2Limit.calType != CalculateType.None)
+                {
+                    b2Score.limiter = defaultStandard.limiterSet.vitaminB2Limit;
+                }
+            }
+            if (b2Score.limiter != null)
+            {
+                b2Score.value = dishNutr.vitaminB2;
+                allScore.Add(b2Score);
+            }
+        }
+
+        if (standard.limiterSet.vitaminB3Limit.weight > 0)
+        {
+            DishScoreHolder b3Score = new DishScoreHolder();
+            if (standard.limiterSet.vitaminB3Limit.isTop4Priority == true)
+                b3Score.isPriority = true;
+            if (standard.limiterSet.vitaminB3Limit.limterType != LimiterType.None && standard.limiterSet.vitaminB3Limit.calType != CalculateType.None)
+                b3Score.limiter = standard.limiterSet.vitaminB3Limit;
+            else if (defaultStandard != null)
+            {
+                if (defaultStandard.limiterSet.vitaminB3Limit.limterType != LimiterType.None && defaultStandard.limiterSet.vitaminB3Limit.calType != CalculateType.None)
+                {
+                    b3Score.limiter = defaultStandard.limiterSet.vitaminB3Limit;
+                }
+            }
+            if (b3Score.limiter != null)
+            {
+                b3Score.value = dishNutr.vitaminB3;
+                allScore.Add(b3Score);
+            }
+        }
+
+        if (standard.limiterSet.vitaminB5Limit.weight > 0)
+        {
+            DishScoreHolder b5Score = new DishScoreHolder();
+            if (standard.limiterSet.vitaminB5Limit.isTop4Priority == true)
+                b5Score.isPriority = true;
+            if (standard.limiterSet.vitaminB5Limit.limterType != LimiterType.None && standard.limiterSet.vitaminB5Limit.calType != CalculateType.None)
+                b5Score.limiter = standard.limiterSet.vitaminB5Limit;
+            else if (defaultStandard != null)
+            {
+                if (defaultStandard.limiterSet.vitaminB5Limit.limterType != LimiterType.None && defaultStandard.limiterSet.vitaminB5Limit.calType != CalculateType.None)
+                {
+                    b5Score.limiter = defaultStandard.limiterSet.vitaminB5Limit;
+                }
+            }
+            if (b5Score.limiter != null)
+            {
+                b5Score.value = dishNutr.vitaminB5;
+                allScore.Add(b5Score);
+            }
+        }
+
+        if (standard.limiterSet.vitaminB6Limit.weight > 0)
+        {
+            DishScoreHolder b6Score = new DishScoreHolder();
+            if (standard.limiterSet.vitaminB6Limit.isTop4Priority == true)
+                b6Score.isPriority = true;
+            if (standard.limiterSet.vitaminB6Limit.limterType != LimiterType.None && standard.limiterSet.vitaminB6Limit.calType != CalculateType.None)
+                b6Score.limiter = standard.limiterSet.vitaminB6Limit;
+            else if (defaultStandard != null)
+            {
+                if (defaultStandard.limiterSet.vitaminB6Limit.limterType != LimiterType.None && defaultStandard.limiterSet.vitaminB6Limit.calType != CalculateType.None)
+                {
+                    b6Score.limiter = defaultStandard.limiterSet.vitaminB6Limit;
+                }
+            }
+            if (b6Score.limiter != null)
+            {
+                b6Score.value = dishNutr.vitaminB6;
+                allScore.Add(b6Score);
+            }
+        }
+
+        if (standard.limiterSet.vitaminB7Limit.weight > 0)
+        {
+            DishScoreHolder b7Score = new DishScoreHolder();
+            if (standard.limiterSet.vitaminB7Limit.isTop4Priority == true)
+                b7Score.isPriority = true;
+            if (standard.limiterSet.vitaminB7Limit.limterType != LimiterType.None && standard.limiterSet.vitaminB7Limit.calType != CalculateType.None)
+                b7Score.limiter = standard.limiterSet.vitaminB7Limit;
+            else if (defaultStandard != null)
+            {
+                if (defaultStandard.limiterSet.vitaminB7Limit.limterType != LimiterType.None && defaultStandard.limiterSet.vitaminB7Limit.calType != CalculateType.None)
+                {
+                    b7Score.limiter = defaultStandard.limiterSet.vitaminB7Limit;
+                }
+            }
+            if (b7Score.limiter != null)
+            {
+                b7Score.value = dishNutr.vitaminB7;
+                allScore.Add(b7Score);
+            }
+        }
+
+        if (standard.limiterSet.vitaminB9Limit.weight > 0)
+        {
+            DishScoreHolder b9Score = new DishScoreHolder();
+            if (standard.limiterSet.vitaminB9Limit.isTop4Priority == true)
+                b9Score.isPriority = true;
+            if (standard.limiterSet.vitaminB9Limit.limterType != LimiterType.None && standard.limiterSet.vitaminB9Limit.calType != CalculateType.None)
+                b9Score.limiter = standard.limiterSet.vitaminB9Limit;
+            else if (defaultStandard != null)
+            {
+                if (defaultStandard.limiterSet.vitaminB9Limit.limterType != LimiterType.None && defaultStandard.limiterSet.vitaminB9Limit.calType != CalculateType.None)
+                {
+                    b9Score.limiter = defaultStandard.limiterSet.vitaminB9Limit;
+                }
+            }
+            if (b9Score.limiter != null)
+            {
+                b9Score.value = dishNutr.vitaminB9;
+                allScore.Add(b9Score);
+            }
+        }
+
+        if (standard.limiterSet.vitaminB12Limit.weight > 0)
+        {
+            DishScoreHolder b12Score = new DishScoreHolder();
+            if (standard.limiterSet.vitaminB12Limit.isTop4Priority == true)
+                b12Score.isPriority = true;
+            if (standard.limiterSet.vitaminB12Limit.limterType != LimiterType.None && standard.limiterSet.vitaminB12Limit.calType != CalculateType.None)
+                b12Score.limiter = standard.limiterSet.vitaminB12Limit;
+            else if (defaultStandard != null)
+            {
+                if (defaultStandard.limiterSet.vitaminB12Limit.limterType != LimiterType.None && defaultStandard.limiterSet.vitaminB12Limit.calType != CalculateType.None)
+                {
+                    b12Score.limiter = defaultStandard.limiterSet.vitaminB12Limit;
+                }
+            }
+            if (b12Score.limiter != null)
+            {
+                b12Score.value = dishNutr.vitaminB12;
+                allScore.Add(b12Score);
+            }
+        }
+
+        if (standard.limiterSet.vitaminCLimit.weight > 0)
+        {
+            DishScoreHolder cScore = new DishScoreHolder();
+            if (standard.limiterSet.vitaminCLimit.isTop4Priority == true)
+                cScore.isPriority = true;
+            if (standard.limiterSet.vitaminCLimit.limterType != LimiterType.None && standard.limiterSet.vitaminCLimit.calType != CalculateType.None)
+                cScore.limiter = standard.limiterSet.vitaminCLimit;
+            else if (defaultStandard != null)
+            {
+                if (defaultStandard.limiterSet.vitaminCLimit.limterType != LimiterType.None && defaultStandard.limiterSet.vitaminCLimit.calType != CalculateType.None)
+                {
+                    cScore.limiter = defaultStandard.limiterSet.vitaminCLimit;
+                }
+            }
+            if (cScore.limiter != null)
+            {
+                cScore.value = dishNutr.vitaminC;
+                allScore.Add(cScore);
+            }
+        }
+
+        if (standard.limiterSet.vitaminDLimit.weight > 0)
+        {
+            DishScoreHolder dScore = new DishScoreHolder();
+            if (standard.limiterSet.vitaminDLimit.isTop4Priority == true)
+                dScore.isPriority = true;
+            if (standard.limiterSet.vitaminDLimit.limterType != LimiterType.None && standard.limiterSet.vitaminDLimit.calType != CalculateType.None)
+                dScore.limiter = standard.limiterSet.vitaminDLimit;
+            else if (defaultStandard != null)
+            {
+                if (defaultStandard.limiterSet.vitaminDLimit.limterType != LimiterType.None && defaultStandard.limiterSet.vitaminDLimit.calType != CalculateType.None)
+                {
+                    dScore.limiter = defaultStandard.limiterSet.vitaminDLimit;
+                }
+            }
+            if (dScore.limiter != null)
+            {
+                dScore.value = dishNutr.vitaminD;
+                allScore.Add(dScore);
+            }
+        }
+
+        if (standard.limiterSet.vitaminELimit.weight > 0)
+        {
+            DishScoreHolder eScore = new DishScoreHolder();
+            if (standard.limiterSet.vitaminELimit.isTop4Priority == true)
+                eScore.isPriority = true;
+            if (standard.limiterSet.vitaminELimit.limterType != LimiterType.None && standard.limiterSet.vitaminELimit.calType != CalculateType.None)
+                eScore.limiter = standard.limiterSet.vitaminELimit;
+            else if (defaultStandard != null)
+            {
+                if (defaultStandard.limiterSet.vitaminELimit.limterType != LimiterType.None && defaultStandard.limiterSet.vitaminELimit.calType != CalculateType.None)
+                {
+                    eScore.limiter = defaultStandard.limiterSet.vitaminELimit;
+                }
+            }
+            if (eScore.limiter != null)
+            {
+                eScore.value = dishNutr.vitaminE;
+                allScore.Add(eScore);
+            }
+        }
+
+        if (standard.limiterSet.vitaminKLimit.weight > 0)
+        {
+            DishScoreHolder kScore = new DishScoreHolder();
+            if (standard.limiterSet.vitaminKLimit.isTop4Priority == true)
+                kScore.isPriority = true;
+            if (standard.limiterSet.vitaminKLimit.limterType != LimiterType.None && standard.limiterSet.vitaminKLimit.calType != CalculateType.None)
+                kScore.limiter = standard.limiterSet.vitaminKLimit;
+            else if (defaultStandard != null)
+            {
+                if (defaultStandard.limiterSet.vitaminKLimit.limterType != LimiterType.None && defaultStandard.limiterSet.vitaminKLimit.calType != CalculateType.None)
+                {
+                    kScore.limiter = defaultStandard.limiterSet.vitaminKLimit;
+                }
+            }
+            if (kScore.limiter != null)
+            {
+                kScore.value = dishNutr.vitaminK;
+                allScore.Add(kScore);
+            }
+        }
+
+
 
         foreach (var scoreHolder in allScore)
         {
@@ -288,11 +809,14 @@ public class Scoring : ScriptableObject
                     scoreHolder.value *= 0.001f;
                     break;
                 }
-            case CalculateType.Mass_Miligram:
+            case CalculateType.Mass_Microgram:
                 {
-                    //do nothing
+                    scoreHolder.value *= 1000;
                     break;
                 }
+            default: //Mass_Miligram, Mass_Vitamin
+                //do nothing
+                break;
         }
 
         switch (scoreHolder.limiter.limterType)
@@ -911,23 +1435,38 @@ public class Scoring : ScriptableObject
 [System.Serializable]
 public class LimiterSet
 {
-    public Limiter totalEnergyLimit; //calories good = 2000 kcal/day => 670 kcal/day
-    public Limiter carbLimit; //good = 45-65% for TotalEnergy
-    public Limiter proteinLimit; //good = 10-35% for TotalEnergy
-    public Limiter fatLimit; //good = 20-35% for TotalEnergy
+    public Limiter totalEnergyLimit;
+    public Limiter carbLimit;
+    public Limiter proteinLimit;
+    public Limiter fatLimit;
     public Limiter cholesterolLimit;
     public Limiter saturatedFatLimit;
     public Limiter sugarLimit;
-    //good <= 5% for TotalEnergy or 6 teaSpoon or 24g/day
-    //but it only about sugar that we add in dish during cooking. so it's almost nothing with sugar in other ingredient
     public Limiter fiberLimit;
-    //good => 14g/1000kcal
-    //good = 25g - 28g for adult
-    //good = age*1 + 5 for child(< 6 years old)
-    public Limiter sodiumLimit;
     public Limiter waterLimit;
+    public Limiter PotassiumLimit;
+    public Limiter sodiumLimit;
+    public Limiter calciumLimit;
+    public Limiter phosphorusLimit;
+    public Limiter magnesiumLimit;
+    public Limiter zincLimit;
+    public Limiter ironLimit;
+    public Limiter manganeseLimit;
+    public Limiter copperLimit;
+    public Limiter seleniumLimit;
     public Limiter vitaminALimit;
+    public Limiter vitaminB1Limit;
+    public Limiter vitaminB2Limit;
+    public Limiter vitaminB3Limit;
+    public Limiter vitaminB5Limit;
+    public Limiter vitaminB6Limit;
+    public Limiter vitaminB7Limit;
+    public Limiter vitaminB9Limit;
+    public Limiter vitaminB12Limit;
+    public Limiter vitaminCLimit;
     public Limiter vitaminDLimit;
+    public Limiter vitaminELimit;
+    public Limiter vitaminKLimit;
 }
 
 public class ResultScore
@@ -985,5 +1524,7 @@ public enum CalculateType
     Mass_Gram,
     PercentEnergy,
     BaseTotalEnergy,
-    Mass_Miligram
+    Mass_Miligram,
+    Mass_Microgram,
+    Mass_Vitamin
 }
