@@ -63,9 +63,9 @@ namespace NPCScript
                                     animCtrl.SetTargetSpeed(PlayerAnimController.Activity.Stand);
                                     
                                     Manager.Instance.npcOrderUI.InitNpc();
-                                    var npc = Manager.Instance.npcOrderUI.currentNpcInformation;
-                                    NPCManager.Instance.DefineFoodList(npc);
-                                    NPCManager.Instance.RandomFood(this);
+                                    var npcInfo = Manager.Instance.npcOrderUI.currentNpcInformation;
+                                    NPCManager.Instance.DefineFoodList(npcInfo);
+                                    NPCManager.Instance.RandomFood(this,npcInfo);
                                     Manager.Instance.npcOrderUI.InitOrderUI();
                                     Manager.Instance.npcOrderUI.OpenUI();
                                     

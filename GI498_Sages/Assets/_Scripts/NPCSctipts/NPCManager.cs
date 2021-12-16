@@ -189,7 +189,7 @@ namespace NPCScript
             Debug.Log("orderRemaining " + orderRemaining);
         }
 
-        public void RandomFood(NPCController npc)
+        public void RandomFood(NPCController npc,NpcInformation npcInfo)
         {
             if (AudioManager.Instance != null)
                 AudioManager.Instance.PlaySfx(orderSound);
@@ -203,7 +203,26 @@ namespace NPCScript
 
                 if(levelList.Count > 0)
                 {
-                    levelStandard = levelList[rnd.Next(levelList.Count)];
+                    switch (npcInfo.GetMedic())
+                    {
+                        case NpcInformation.NpcPatientType.Normal:
+                        {
+                            levelStandard = levelList[0];
+                            break;
+                        }
+                        
+                        case NpcInformation.NpcPatientType.KidneyDisease:
+                        {
+                            levelStandard = levelList[1];
+                            break;
+                        }
+                        
+                        case NpcInformation.NpcPatientType.Diabetes:
+                        {
+                            levelStandard = levelList[2];
+                            break;
+                        }
+                    }
                 }
                 else
                 {
