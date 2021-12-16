@@ -38,7 +38,7 @@ public class UIPanelHandler : MonoBehaviour
         {
             UIPanelActive = false;
             PlayerController.instance.UIPanelActive = UIPanelActive;
-            Debug.Log("Close UI");
+            //Debug.Log("Close UI");
         };
         _playerInput.UI.ClosePanel.canceled += ctx =>
         {

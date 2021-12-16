@@ -36,6 +36,7 @@ namespace _Scripts.InventorySystem
 
         public void Interacted()
         {
+            storageUI.JustOpen();
             storageUI.gameObject.SetActive(true);
         }
 

@@ -28,9 +28,11 @@ namespace _Scripts.InventorySystem.UI
 
         private float currentTime = 0;
         private float refreshInterval = 1;
+        private bool isJustOpen = false;
     
         void Start()
         {
+            isJustOpen = false;
             CreateUI();
         }
         
@@ -45,6 +47,11 @@ namespace _Scripts.InventorySystem.UI
                 }
                 
                 currentTime++;
+            }
+
+            if (isJustOpen)
+            {
+                SetSelectFirstSlot();
             }
         }
 
@@ -61,6 +68,37 @@ namespace _Scripts.InventorySystem.UI
             infoImage.sprite = null;
         }
 
+        public void JustOpen()
+        {
+            isJustOpen = true;
+        }
+
+        public void SetSelectFirstSlot()
+        {
+            if (slotList.Count > 0)
+            {
+                if (slotList[0] != null)
+                {
+                    var slot = slotList[0];
+                    parent.SetSelectSlot(slot);
+                    var slotItem = slot.GetItem();
+                    ChangeObjInfo(slotItem.itemName,slotItem.description,slotItem.itemIcon);
+                }
+                else
+                {
+                    // SlotList[0] is null
+                    Debug.Log("SlotList[0] is null");
+                }
+            }
+            else
+            {
+                // Slot List do not have any slot
+                Debug.Log("Slot List do not have any slot");
+            }
+
+            isJustOpen = false;
+        }
+        
         // Storage UI Method 
         public void UpdateUI()
         {
@@ -101,6 +139,8 @@ namespace _Scripts.InventorySystem.UI
                     parent.GetStorageObject().GetStorageSlot().RemoveAt(i);
                 }
             }
+
+            SetSelectFirstSlot();
 
             var layoutSpacer = storageSlot.GetComponent<LayoutGroupSpacer>();
             if(layoutSpacer != null)
