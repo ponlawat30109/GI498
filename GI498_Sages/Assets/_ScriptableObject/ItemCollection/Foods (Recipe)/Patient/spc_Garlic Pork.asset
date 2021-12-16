@@ -18,7 +18,13 @@ MonoBehaviour:
   ingamePrefab: {fileID: 205199441127379643, guid: 8bc860b76f26ece4eb09ebadf7f288c8, type: 3}
   description: "\u0E2B\u0E21\u0E39\u0E01\u0E23\u0E30\u0E40\u0E17\u0E35\u0E22\u0E21"
   cookedPrefab: {fileID: 1947900950977150177, guid: 7a65adc4c40b58140b58841c6d73cc15, type: 3}
-  ingredients: []
+  ingredients:
+  - {fileID: 11400000, guid: 1e2c4347a7b27d34f8ffca18cc8502fe, type: 2}
+  - {fileID: 11400000, guid: 6c238d28b4df9e34689ab3b19ac75ec9, type: 2}
+  - {fileID: 11400000, guid: c350c3817bb7c414a90b27386e68d31d, type: 2}
+  - {fileID: 11400000, guid: 110a41e4d285f5b4faa9465b6da295dc, type: 2}
+  - {fileID: 11400000, guid: f39d799a331df4a499c36a22af8e42f0, type: 2}
+  - {fileID: 11400000, guid: 9fc70b37f5fb81d48804e07a9200615d, type: 2}
   specialIngredients: []
   cookingTime: 5
   isLowSodium: 0

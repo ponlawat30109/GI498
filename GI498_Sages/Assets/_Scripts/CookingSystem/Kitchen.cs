@@ -20,7 +20,7 @@ namespace _Scripts.CookingSystem
         [SerializeField] private bool isStackable;
         [SerializeField] private bool isSlotUISelectable;
 
-        [Header("Cooking Processing")] 
+        [Header("Cooking Processing")]
         [SerializeField] private FoodObject stoveTempRecipe;
         [SerializeField] private List<IngredientObject> ingredientStructs; // for Debug
         [SerializeField] private List<IngredientObject> specialIngredientStructs;  // for Debug
@@ -29,7 +29,7 @@ namespace _Scripts.CookingSystem
         [SerializeField] private bool isCooking;
         [SerializeField] private int currentCorrectIngredient;
         [SerializeField] private int totalNeedIngredient;
-        
+
         //[Header("Kitchen Trash")]
         private bool _isWrongIngredientFound;
         //private int _currentIngredientRemoveCount = 0;
@@ -45,7 +45,7 @@ namespace _Scripts.CookingSystem
 
         private void Update()
         {
-            
+
             if (stoveTempRecipe != null)
             {
                 ingredientStructs = stoveTempRecipe.ingredients;
@@ -81,11 +81,11 @@ namespace _Scripts.CookingSystem
             {
                 return;
             }
-            
+
             if (currentCorrectIngredient > 0)
             {
                 var pass = IsCanCook();
-                
+
                 //Debug.Log($"Current stove status IsCanCook:{pass}, IsCooked:{stoveTempRecipe.isCooked}");
 
                 if (pass && stoveTempRecipe.isCooked == false)
@@ -102,41 +102,47 @@ namespace _Scripts.CookingSystem
                 isCanProcess = false;
             }
         }
-        
+
         public void CheckStatusUI()
         {
             if (stoveTempRecipe == null)
             {
-                return;
-            }
-            
-            // Check UI
-            if (stoveTempRecipe.isCooked)
-            {
-                // Show Finish Cooked UI
-                stoveStatusUI.SetCurrentStatus(StoveStatusUI.StatusEnum.Finish);
-            }
-            else if (IsCanCook() == false) // If current Ingredient < need ingredient
-            {
-                // Show Waiting UI
                 stoveStatusUI.SetCurrentStatus(StoveStatusUI.StatusEnum.Wait);
-            }
-            else if (IsCanCook())
-            {
-                // Show Cooking UI
-                stoveStatusUI.SetCurrentStatus(StoveStatusUI.StatusEnum.Cooking);
-            }
-            else if (_isWrongIngredientFound)
-            {
-                // Show Trash UI
-                stoveStatusUI.SetCurrentStatus(StoveStatusUI.StatusEnum.Trash);
+                return;
             }
             else
             {
-                // ...
+                // Check UI
+                if (stoveTempRecipe.isCooked)
+                {
+                    // Show Finish Cooked UI
+                    stoveStatusUI.SetCurrentStatus(StoveStatusUI.StatusEnum.Finish);
+                }
+                else if (IsCanCook() == false) // If current Ingredient < need ingredient
+                {
+                    // Show Waiting UI
+                    // stoveStatusUI.SetCurrentStatus(StoveStatusUI.StatusEnum.Wait);
+                    stoveStatusUI.SetCurrentStatus(StoveStatusUI.StatusEnum.Cooking);
+                }
+                else if (IsCanCook())
+                {
+                    // Show Cooking UI
+                    stoveStatusUI.SetCurrentStatus(StoveStatusUI.StatusEnum.Cooking);
+                }
+                else if (_isWrongIngredientFound)
+                {
+                    // Show Trash UI
+                    stoveStatusUI.SetCurrentStatus(StoveStatusUI.StatusEnum.Trash);
+                }
+                else
+                {
+                    // ...
+                }
             }
+
+
         }
-        
+
         public FoodObject GetStoveTempRecipe()
         {
             return stoveTempRecipe;
@@ -168,7 +174,7 @@ namespace _Scripts.CookingSystem
                     count += slot.quantity;
                 }
             }*/
-            
+
             var totalNeed = 0;
 
             for (int i = 0; i < ingredientStorage.GetRecipe().ingredients.Count; i++)
@@ -240,7 +246,7 @@ namespace _Scripts.CookingSystem
                     correctCount += 1;
                 }
             }
-                
+
             for (int j = 0; j < stoveTempRecipe.specialIngredients.Count; j++)
             {
                 if (IsOneOfIngredient(stoveTempRecipe.specialIngredients[j]))
@@ -248,19 +254,19 @@ namespace _Scripts.CookingSystem
                     correctCount += 1;
                 }
             }
-            
+
             /*for (int i = 0; i < totalNeed; i++)
             {
                 
             }*/
-            
+
             return correctCount;
         }
-        
+
         public void CreateTempRecipe(FoodObject original)
         {
             //FoodObject newTempRecipe = ScriptableObject.CreateInstance("FoodObject") as FoodObject;
-            
+
             string itemName = original.itemName;
             Sprite itemIcon = original.itemIcon;
             GameObject prefab = original.ingamePrefab;
@@ -268,8 +274,8 @@ namespace _Scripts.CookingSystem
             List<IngredientObject> normalIngredient = new List<IngredientObject>();
             List<IngredientObject> speicalIngredient = new List<IngredientObject>();
             float cookingTime = original.cookingTime;
-            
-            var newTempRecipe = original.CreateInstance(itemName,itemIcon,prefab,cookedPrefab,normalIngredient,speicalIngredient,cookingTime);
+
+            var newTempRecipe = original.CreateInstance(itemName, itemIcon, prefab, cookedPrefab, normalIngredient, speicalIngredient, cookingTime);
 
             stoveTempRecipe = newTempRecipe;
         }
@@ -278,10 +284,10 @@ namespace _Scripts.CookingSystem
         {
             stoveTempRecipe = null;
         }
-        
+
         public void Interacted()
         {
-            
+
             var psHandler = Manager.Instance.playerManager.PSHandler();
 
             //Debug.Log("Interacted with Kitchen stove.");
@@ -306,11 +312,11 @@ namespace _Scripts.CookingSystem
                         InteractOpenUI();
                     }
                     // If Holding is Ingredient
-                    else if(psHandler.currentHoldFoodObject == null && psHandler.currentHoldItemObject != null)
+                    else if (psHandler.currentHoldFoodObject == null && psHandler.currentHoldItemObject != null)
                     {
                         InteractOpenUI();
                     }
-                    
+
                 }
                 // If Not Holding
                 else
@@ -328,7 +334,7 @@ namespace _Scripts.CookingSystem
                             ClearTempRecipe();
                             //Manager.Instance.storageManager.ClearIngredientQuantity();
                             kitchenUI.ClearSlotList();
-                            
+
                         }
                         else
                         {
@@ -342,10 +348,10 @@ namespace _Scripts.CookingSystem
                         //Notification "Food is cooking inside !!"
                         Manager.Instance.notifyManager.CreateNotify("Hot Pot!", "Your food is cooking.");
                     }
-                    
+
                 }
             }
-            
+
             // 2 ) If Recipe is not inside
             /*
                 - ถ้ามือว่างหรือถืออย่างอื่นที่ไม่ใช่ Recipe ไม่ทำอะไร
@@ -364,7 +370,7 @@ namespace _Scripts.CookingSystem
                         var item = psHandler.currentHoldFoodObject;
                         psHandler.JustTakeOut(item); // - Take Item Out of player hand
                         PlaceRecipeToStove(item); // + place "item" to stove
-                        
+
                     }
                     // If holding Ingredient Object
                     else if (psHandler.currentHoldFoodObject == null && psHandler.currentHoldItemObject != null)
@@ -389,7 +395,7 @@ namespace _Scripts.CookingSystem
         private void Cooking()
         {
             isCooking = true;
-            
+
             if (currentStoveTime <= stoveTempRecipe.cookingTime)
             {
                 currentStoveTime += Time.deltaTime;
@@ -404,11 +410,11 @@ namespace _Scripts.CookingSystem
                 }
             }
         }
-        
+
         private void TakeFinishCookedItem() // Using this method by Auto cooking process
         {
             var recipeItem = stoveTempRecipe;
-            
+
             recipeItem.isCooked = true;
             recipeItem.CheckNutrition();
             isCanProcess = false;
@@ -460,13 +466,13 @@ namespace _Scripts.CookingSystem
                 result = true;
                 //Debug.Log($"{GetCurrentCorrectIngredient()} / {GetRecipeTotalIngredientQuantity()} To be can process.");
             }
-            
+
             return result;
         }
 
         public void CheckWhenIngredientAdd(ItemObject itemToCheck)
         {
-            var item = (IngredientObject) itemToCheck;
+            var item = (IngredientObject)itemToCheck;
             // Is One Of Original Ingredient
             if (IsOneOfIngredient(item))
             {
@@ -547,13 +553,13 @@ namespace _Scripts.CookingSystem
                     // Set it
                     ingredientStorage.SetRecipe(itemObject);
                     CreateTempRecipe(itemObject);
-                    ingredientStorage.InitializeStorageObject(ingredientStorage.GetRecipe().ingredients.Count+ingredientStorage.GetRecipe().specialIngredients.Count,true);
+                    ingredientStorage.InitializeStorageObject(ingredientStorage.GetRecipe().ingredients.Count + ingredientStorage.GetRecipe().specialIngredients.Count, true);
                     kitchenUI.InitRecipe(ingredientStorage.GetRecipe(), stoveTempRecipe);
                 }
             }
             else
             {
-                Manager.Instance.notifyManager.CreateNotify("Awww Hot!Hot!","Food is cooking.");
+                Manager.Instance.notifyManager.CreateNotify("Awww Hot!Hot!", "Food is cooking.");
                 //Debug.Log("Food is cooking can not do anything to stove.");
             }
         }
@@ -564,31 +570,31 @@ namespace _Scripts.CookingSystem
         {
             return kitchenUI.gameObject.activeSelf;
         }
-        
+
         public void GrabTrash()
         {
             var psHandler = Manager.Instance.playerManager.PSHandler();
-            
+
             if (psHandler.IsHoldingItem() == false)
             {
                 // Remove Item In Stove
                 RemoveAtSelectSlot();
-                
+
                 // Give Trash Bag
                 psHandler.JustPutIn(ingredientStorage.GetTrashItem());
             }
             else
             {
-                Manager.Instance.notifyManager.CreateNotify("Holding somethings...","Your are holding something please put it down first.");
+                Manager.Instance.notifyManager.CreateNotify("Holding somethings...", "Your are holding something please put it down first.");
             }
         }
-        
+
         public void RemoveAtSelectSlot()
         {
-            var itemToRemove = (IngredientObject) currentSelectSlot.GetItem();
+            var itemToRemove = (IngredientObject)currentSelectSlot.GetItem();
             // Remove Item at stove
             stoveTempRecipe.SubIngredientQuantityByItemName(itemToRemove);
-            
+
             // Remove Slot
             kitchenUI.UpdateUI();
         }
@@ -597,30 +603,30 @@ namespace _Scripts.CookingSystem
         {
             //return _isTrashFull;
         }*/
-        
+
         /*public void AddTrashCount()
         {
             //_currentIngredientRemoveCount += 1;
         }*/
-        
+
         public void CloseUI()
         {
             kitchenUI.gameObject.SetActive(false);
             UIPanelHandler.instance.CloseUIPanel();
         }
-        
+
         public KitchenStorage GetStorageObject()
         {
             return ingredientStorage;
         }
-        
+
         // Slot UI
         public bool IsSlotUISelectable
         {
             get => isSlotUISelectable;
             set => isSlotUISelectable = value;
         }
-        
+
         public void SetSelectSlot(IngredientSlotUI itemFridgeSlotUI)
         {
             currentSelectSlot = itemFridgeSlotUI;
