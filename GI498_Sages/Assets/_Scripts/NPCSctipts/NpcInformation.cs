@@ -97,7 +97,7 @@ namespace _Scripts.NPCSctipts
             {
                 case NpcPatientType.Normal:
                 {
-                    summaryString = $"{GetCurrentName()} เป็นบุคคลทั่วไปปกติสามารถทานอาหารได้ทุกรูปแบบ";
+                    summaryString = $"{GetCurrentName()} เป็นบุคคลทั่วไปปกติ\nสามารถทานอาหารได้ทุกรูปแบบ";
                     break;
                 }
 
