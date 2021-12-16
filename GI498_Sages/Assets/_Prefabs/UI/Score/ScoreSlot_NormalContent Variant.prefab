@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 143278830812579634, guid: 6491e01597d85e94cb7a5b247f11961d, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3171086861858823852, guid: 6491e01597d85e94cb7a5b247f11961d, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -23,9 +27,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: ScoreSlot_NormalContent Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 4935971953516513886, guid: 6491e01597d85e94cb7a5b247f11961d, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338967040634241236, guid: 6491e01597d85e94cb7a5b247f11961d, type: 3}
+      propertyPath: m_FontData.m_BestFit
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5338967040634241236, guid: 6491e01597d85e94cb7a5b247f11961d, type: 3}
       propertyPath: m_FontData.m_MaxSize
-      value: 25
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338967040634241236, guid: 6491e01597d85e94cb7a5b247f11961d, type: 3}
+      propertyPath: m_FontData.m_MinSize
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338967040634241236, guid: 6491e01597d85e94cb7a5b247f11961d, type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 26
       objectReference: {fileID: 0}
     - target: {fileID: 5425725584287881182, guid: 6491e01597d85e94cb7a5b247f11961d, type: 3}
       propertyPath: m_AnchoredPosition.x

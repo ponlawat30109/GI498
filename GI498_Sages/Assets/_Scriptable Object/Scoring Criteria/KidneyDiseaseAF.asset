@@ -10,25 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: df46103993e8c3c48bfe186d59a39ca2, type: 3}
-  m_Name: defaultStandard
+  m_Name: KidneyDiseaseAF
   m_EditorClassIdentifier: 
-  sickness: none
+  sickness: "\u0E42\u0E23\u0E04\u0E44\u0E15 (\u0E2B\u0E25\u0E31\u0E07\u0E1F\u0E2D\u0E01\u0E44\u0E15)"
   sex: 
   age: adult
-  weight: 50
+  weight: 55
   limiterSet:
     totalEnergyLimit:
       name: "\u0E1E\u0E25\u0E31\u0E07\u0E07\u0E32\u0E19\u0E23\u0E27\u0E21"
-      isTop4Priority: 1
+      isTop4Priority: 0
       limterType: 1
-      median: 666.6667
-      lowerLimit: -1
-      upperLimit: -1
+      median: -1
+      lowerLimit: 550
+      upperLimit: 641.7
       unitName: kcal
       calType: 3
-      alpha: 0.089
-      beta: 0.463
-      weight: 2
+      alpha: 0.051
+      beta: 275
+      weight: 1
       defectEatTooLittle:
       - "\u0E1E\u0E25\u0E31\u0E07\u0E07\u0E32\u0E19\u0E19\u0E49\u0E2D\u0E22\u0E08\u0E31\u0E07
         \u0E08\u0E30\u0E1E\u0E2D\u0E17\u0E33\u0E07\u0E32\u0E19\u0E27\u0E31\u0E19\u0E19\u0E35\u0E49\u0E21\u0E31\u0E49\u0E22\u0E19\u0E49\u0E2D?"
@@ -53,15 +53,15 @@ MonoBehaviour:
         \u0E2B\u0E27\u0E31\u0E07\u0E27\u0E48\u0E32\u0E2A\u0E32\u0E23\u0E2D\u0E32\u0E2B\u0E32\u0E23\u0E08\u0E30\u0E1E\u0E23\u0E49\u0E2D\u0E21\u0E14\u0E49\u0E27\u0E22\u0E19\u0E30"
     carbLimit:
       name: "\u0E04\u0E32\u0E23\u0E4C\u0E42\u0E1A\u0E44\u0E2E\u0E40\u0E14\u0E23\u0E15"
-      isTop4Priority: 1
+      isTop4Priority: 0
       limterType: 1
       median: -1
-      lowerLimit: 0.45
-      upperLimit: 0.65
+      lowerLimit: 4.1666665
+      upperLimit: 5
       unitName: kcal
       calType: 2
-      alpha: 0.109
-      beta: 0.636
+      alpha: 0.036
+      beta: 0.365
       weight: 2
       defectEatTooLittle:
       - "\u0E41\u0E1B\u0E49\u0E07\u0E19\u0E49\u0E2D\u0E22\u0E44\u0E1B\u0E2B\u0E19\u0E48\u0E2D\u0E22
@@ -81,27 +81,27 @@ MonoBehaviour:
       isTop4Priority: 1
       limterType: 1
       median: -1
-      lowerLimit: 0.1
-      upperLimit: 0.35
-      unitName: kcal
-      calType: 2
-      alpha: 0.12
-      beta: 2.4
+      lowerLimit: 20.166666
+      upperLimit: 23.833334
+      unitName: g
+      calType: 1
+      alpha: 0.05
+      beta: 0.458
       weight: 2
       defectEatTooLittle: []
       defectOvereating: []
       commentForGoodDish: []
     fatLimit:
       name: "\u0E44\u0E02\u0E21\u0E31\u0E19"
-      isTop4Priority: 1
-      limterType: 1
+      isTop4Priority: 0
+      limterType: 3
       median: -1
-      lowerLimit: 0.2
-      upperLimit: 0.35
-      unitName: kcal
-      calType: 2
-      alpha: 0.164
-      beta: 0.434
+      lowerLimit: -1
+      upperLimit: 16.666666
+      unitName: g
+      calType: 1
+      alpha: 0.4
+      beta: 0.4
       weight: 2
       defectEatTooLittle: []
       defectOvereating:
@@ -114,11 +114,11 @@ MonoBehaviour:
       limterType: 3
       median: -1
       lowerLimit: -1
-      upperLimit: 100
+      upperLimit: 66.666664
       unitName: mg
       calType: 4
       alpha: 0.4
-      beta: 0.2
+      beta: 0.4
       weight: 1
       defectEatTooLittle: []
       defectOvereating:
@@ -131,12 +131,12 @@ MonoBehaviour:
       limterType: 3
       median: -1
       lowerLimit: -1
-      upperLimit: 100
+      upperLimit: 0.36666667
       unitName: mg
       calType: 4
       alpha: 0.4
-      beta: 0.2
-      weight: 1
+      beta: 0.4
+      weight: 2
       defectEatTooLittle: []
       defectOvereating: []
       commentForGoodDish: []
@@ -146,11 +146,11 @@ MonoBehaviour:
       limterType: 3
       median: -1
       lowerLimit: -1
-      upperLimit: 0.13
-      unitName: kcal
-      calType: 2
-      alpha: 0.615
-      beta: 0.384
+      upperLimit: 23.3
+      unitName: mg
+      calType: 4
+      alpha: 0.4
+      beta: 0.4
       weight: 1
       defectEatTooLittle: []
       defectOvereating:
@@ -168,12 +168,12 @@ MonoBehaviour:
       isTop4Priority: 0
       limterType: 2
       median: -1
-      lowerLimit: 8.333333
+      lowerLimit: 6.7
       upperLimit: -1
       unitName: g
       calType: 1
-      alpha: 0.12
-      beta: 0.5
+      alpha: 0.4
+      beta: 0.4
       weight: 1
       defectEatTooLittle: []
       defectOvereating: []
@@ -189,45 +189,45 @@ MonoBehaviour:
     waterLimit:
       name: "\u0E19\u0E49\u0E33"
       isTop4Priority: 0
-      limterType: 0
+      limterType: 1
       median: -1
-      lowerLimit: -1
-      upperLimit: -1
-      unitName: 
-      calType: 0
+      lowerLimit: 166
+      upperLimit: 333
+      unitName: g
+      calType: 1
       alpha: 0.4
       beta: 0.2
-      weight: 0
+      weight: 1
       defectEatTooLittle: []
       defectOvereating: []
       commentForGoodDish: []
     PotassiumLimit:
       name: "\u0E42\u0E1E\u0E41\u0E17\u0E2A\u0E40\u0E0B\u0E35\u0E22\u0E21"
-      isTop4Priority: 0
+      isTop4Priority: 1
       limterType: 1
       median: -1
-      lowerLimit: 1950
-      upperLimit: 3900
+      lowerLimit: 500
+      upperLimit: 1000
       unitName: mg
       calType: 4
       alpha: 0.2
-      beta: 0.33333334
-      weight: 1
+      beta: 0.4
+      weight: 2
       defectEatTooLittle: []
       defectOvereating: []
       commentForGoodDish: []
     sodiumLimit:
       name: "\u0E42\u0E0B\u0E40\u0E14\u0E35\u0E22\u0E21"
-      isTop4Priority: 0
-      limterType: 1
+      isTop4Priority: 1
+      limterType: 3
       median: -1
-      lowerLimit: 450
-      upperLimit: 1337.5
+      lowerLimit: -1
+      upperLimit: 666.6667
       unitName: mg
       calType: 4
       alpha: 0.4
-      beta: 0.746
-      weight: 1
+      beta: 0.4
+      weight: 2
       defectEatTooLittle: []
       defectOvereating: []
       commentForGoodDish: []
@@ -235,14 +235,14 @@ MonoBehaviour:
       name: "\u0E41\u0E04\u0E25\u0E40\u0E0B\u0E35\u0E22\u0E21"
       isTop4Priority: 0
       limterType: 1
-      median: 266.66666
-      lowerLimit: -1
-      upperLimit: -1
-      unitName: mg
-      calType: 4
-      alpha: 0.2
-      beta: 2.75
-      weight: 1
+      median: -1
+      lowerLimit: 0.5
+      upperLimit: 0.67
+      unitName: g
+      calType: 1
+      alpha: 0.4
+      beta: 0.4
+      weight: 2
       defectEatTooLittle: []
       defectOvereating: []
       commentForGoodDish: []
@@ -251,13 +251,13 @@ MonoBehaviour:
       isTop4Priority: 0
       limterType: 1
       median: -1
-      lowerLimit: 233.33333
-      upperLimit: 1000
+      lowerLimit: 1.6666666
+      upperLimit: 333.33334
       unitName: mg
       calType: 4
-      alpha: 0.751
-      beta: 0.353
-      weight: 0.5
+      alpha: 0.4
+      beta: 0.4
+      weight: 2
       defectEatTooLittle: []
       defectOvereating: []
       commentForGoodDish: []
@@ -279,15 +279,15 @@ MonoBehaviour:
     zincLimit:
       name: "Zinc (\u0E2A\u0E31\u0E07\u0E01\u0E30\u0E2A\u0E35)"
       isTop4Priority: 0
-      limterType: 1
-      median: 3.5
+      limterType: 3
+      median: -1
       lowerLimit: -1
-      upperLimit: -1
+      upperLimit: 5
       unitName: mg
       calType: 4
-      alpha: 0.051
-      beta: 3.8
-      weight: 0.5
+      alpha: 0.4
+      beta: 0.4
+      weight: 1
       defectEatTooLittle: []
       defectOvereating: []
       commentForGoodDish: []
@@ -325,13 +325,13 @@ MonoBehaviour:
       name: "Copper (\u0E17\u0E2D\u0E07\u0E41\u0E14\u0E07)"
       isTop4Priority: 0
       limterType: 1
-      median: -1
-      lowerLimit: 0.43333334
-      upperLimit: 0.53333336
+      median: 0.67
+      lowerLimit: -1
+      upperLimit: -1
       unitName: mg
       calType: 4
-      alpha: 0.062
-      beta: 0.38
+      alpha: 0.4
+      beta: 0.4
       weight: 0.5
       defectEatTooLittle: []
       defectOvereating: []
@@ -341,13 +341,13 @@ MonoBehaviour:
       isTop4Priority: 0
       limterType: 1
       median: -1
-      lowerLimit: 18.3
-      upperLimit: 25.7
+      lowerLimit: 16.666666
+      upperLimit: 23.333334
       unitName: "\u03BCm"
       calType: 5
-      alpha: 0.3
-      beta: 4.721
-      weight: 0.5
+      alpha: 0.1
+      beta: 0.4
+      weight: 1
       defectEatTooLittle: []
       defectOvereating: []
       commentForGoodDish: []
@@ -356,8 +356,8 @@ MonoBehaviour:
       isTop4Priority: 0
       limterType: 1
       median: -1
-      lowerLimit: 155
-      upperLimit: 216.66667
+      lowerLimit: 51.67
+      upperLimit: 72.23
       unitName: "\u03BCg"
       calType: 5
       alpha: 0.1
@@ -371,12 +371,12 @@ MonoBehaviour:
       isTop4Priority: 0
       limterType: 1
       median: -1
-      lowerLimit: 0.367
-      upperLimit: 0.4
+      lowerLimit: 0.16
+      upperLimit: 0.5
       unitName: mg
       calType: 4
-      alpha: 0.026
-      beta: 0.478
+      alpha: 0.31
+      beta: 0.242
       weight: 0.5
       defectEatTooLittle: []
       defectOvereating: []
@@ -387,7 +387,7 @@ MonoBehaviour:
       limterType: 1
       median: -1
       lowerLimit: 0.4
-      upperLimit: 0.567
+      upperLimit: 0.56666666
       unitName: mg
       calType: 4
       alpha: 0.103
@@ -401,8 +401,8 @@ MonoBehaviour:
       isTop4Priority: 0
       limterType: 1
       median: -1
-      lowerLimit: 4.3333335
-      upperLimit: 6.3333335
+      lowerLimit: 5
+      upperLimit: 6.6
       unitName: mg
       calType: 4
       alpha: 0.112
@@ -414,15 +414,15 @@ MonoBehaviour:
     vitaminB5Limit:
       name: "\u0E27\u0E34\u0E15\u0E32\u0E21\u0E34\u0E19 B5"
       isTop4Priority: 0
-      limterType: 0
+      limterType: 1
       median: -1
-      lowerLimit: -1
-      upperLimit: -1
-      unitName: 
-      calType: 0
-      alpha: 0.4
-      beta: 0.2
-      weight: 0
+      lowerLimit: 1.6666666
+      upperLimit: 3.3333333
+      unitName: mg
+      calType: 4
+      alpha: 0.2
+      beta: 0.32
+      weight: 0.5
       defectEatTooLittle: []
       defectOvereating: []
       commentForGoodDish: []
@@ -431,12 +431,12 @@ MonoBehaviour:
       isTop4Priority: 0
       limterType: 1
       median: -1
-      lowerLimit: 0.5
-      upperLimit: 0.56666666
+      lowerLimit: 0.6666667
+      upperLimit: 3.3333333
       unitName: mg
       calType: 4
-      alpha: 0.0375
-      beta: 0.469
+      alpha: 0.4
+      beta: 0.167
       weight: 0.5
       defectEatTooLittle: []
       defectOvereating: []
@@ -475,7 +475,7 @@ MonoBehaviour:
       name: "\u0E27\u0E34\u0E15\u0E32\u0E21\u0E34\u0E19 B12"
       isTop4Priority: 0
       limterType: 1
-      median: 0.8
+      median: 0.67
       lowerLimit: -1
       upperLimit: -1
       unitName: "\u03BCg"
@@ -490,14 +490,14 @@ MonoBehaviour:
       name: "\u0E27\u0E34\u0E15\u0E32\u0E21\u0E34\u0E19 C"
       isTop4Priority: 0
       limterType: 1
-      median: 333.33334
-      lowerLimit: -1
-      upperLimit: -1
+      median: -1
+      lowerLimit: 10
+      upperLimit: 20
       unitName: mg
       calType: 4
       alpha: 0.2
       beta: 0.4
-      weight: 0.5
+      weight: 1
       defectEatTooLittle: []
       defectOvereating: []
       commentForGoodDish: []
@@ -505,14 +505,14 @@ MonoBehaviour:
       name: "\u0E27\u0E34\u0E15\u0E32\u0E21\u0E34\u0E19 D"
       isTop4Priority: 0
       limterType: 1
-      median: 200
+      median: 20
       lowerLimit: -1
       upperLimit: -1
       unitName: "\u03BCg"
       calType: 4
       alpha: 0.2
       beta: 0.4
-      weight: 0.5
+      weight: 1
       defectEatTooLittle: []
       defectOvereating: []
       commentForGoodDish: []
@@ -520,13 +520,13 @@ MonoBehaviour:
       name: "\u0E27\u0E34\u0E15\u0E32\u0E21\u0E34\u0E19 E"
       isTop4Priority: 0
       limterType: 1
-      median: -1
-      lowerLimit: 11
-      upperLimit: 13
-      unitName: mg RE
+      median: 7.5
+      lowerLimit: -1
+      upperLimit: -1
+      unitName: mg
       calType: 4
-      alpha: 0.033
-      beta: 0.366
+      alpha: 0.2
+      beta: 0.3
       weight: 0.5
       defectEatTooLittle: []
       defectOvereating: []
@@ -536,11 +536,11 @@ MonoBehaviour:
       isTop4Priority: 0
       limterType: 1
       median: -1
-      lowerLimit: 90
-      upperLimit: 120
+      lowerLimit: 30
+      upperLimit: 40
       unitName: "\u03BCg"
       calType: 5
-      alpha: 0.086
+      alpha: 0.057
       beta: 0.429
       weight: 0.5
       defectEatTooLittle: []

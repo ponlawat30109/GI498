@@ -70,7 +70,7 @@ namespace NPCScript
             if (onTest == true)
             {
                 Debug.Log("NPCManager: Start Test");
-                SetRemainingOrder(5);
+                SetRemainingOrder(9999);
                 SetReleaseNoTime(true);
             }
             //End Test
