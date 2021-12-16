@@ -31,6 +31,7 @@ namespace _Scripts.CookingSystem.UI
         }
         
         [SerializeField] private Image statusImage;
+        [SerializeField] private Image statusBlackImage;
         [SerializeField] private StatusEnum currentStatus;
         [SerializeField] private List<Status> statusList = new List<Status>();
         [SerializeField] private List<EffectObject> effectList = new List<EffectObject>();
@@ -49,6 +50,7 @@ namespace _Scripts.CookingSystem.UI
                 {
                     var s = GetStatus(StatusEnum.Finish);
                     statusImage.sprite = s.sprite;
+                    statusBlackImage.sprite = s.sprite;
                     SetActiveEffectByStatus(s.status);
                     
                     break;
@@ -57,6 +59,7 @@ namespace _Scripts.CookingSystem.UI
                 {
                     var s = GetStatus(StatusEnum.Cooking);
                     statusImage.sprite = s.sprite;
+                    statusBlackImage.sprite = s.sprite;
                     SetActiveEffectByStatus(s.status);
 
                     break;
@@ -65,6 +68,7 @@ namespace _Scripts.CookingSystem.UI
                 {
                     var s = GetStatus(StatusEnum.Wait);
                     statusImage.sprite = s.sprite;
+                    statusBlackImage.sprite = s.sprite;
                     SetActiveEffectByStatus(s.status);
 
                     break;
@@ -74,6 +78,7 @@ namespace _Scripts.CookingSystem.UI
                 {
                     var s = GetStatus(StatusEnum.Fail);
                     statusImage.sprite = s.sprite;
+                    statusBlackImage.sprite = s.sprite;
                     SetActiveEffectByStatus(s.status);
 
                     break;
@@ -82,6 +87,7 @@ namespace _Scripts.CookingSystem.UI
                 {
                     var s = GetStatus(StatusEnum.Trash);
                     statusImage.sprite = s.sprite;
+                    statusBlackImage.sprite = s.sprite;
                     SetActiveEffectByStatus(s.status);
 
                     break;

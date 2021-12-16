@@ -59,6 +59,8 @@ public class Scoring : ScriptableObject
         if (standard.limiterSet.totalEnergyLimit.weight > 0)
         {
             DishScoreHolder totalEnergyScore = new DishScoreHolder();
+            if (standard.limiterSet.totalEnergyLimit.isTop4Priority == true)
+                totalEnergyScore.isPriority = true;
             if (standard.limiterSet.totalEnergyLimit.limterType != LimiterType.None && standard.limiterSet.totalEnergyLimit.calType != CalculateType.None)
                 totalEnergyScore.limiter = standard.limiterSet.totalEnergyLimit;
             else if (defaultStandard != null)
@@ -78,6 +80,8 @@ public class Scoring : ScriptableObject
         if (standard.limiterSet.carbLimit.weight > 0)
         {
             DishScoreHolder carbEnergyScore = new DishScoreHolder();
+            if (standard.limiterSet.carbLimit.isTop4Priority == true)
+                carbEnergyScore.isPriority = true;
             if (standard.limiterSet.carbLimit.limterType != LimiterType.None && standard.limiterSet.carbLimit.calType != CalculateType.None)
                 carbEnergyScore.limiter = standard.limiterSet.carbLimit;
             else if (defaultStandard != null)
@@ -97,6 +101,8 @@ public class Scoring : ScriptableObject
         if (standard.limiterSet.proteinLimit.weight > 0)
         {
             DishScoreHolder protEnergyScore = new DishScoreHolder();
+            if (standard.limiterSet.proteinLimit.isTop4Priority == true)
+                protEnergyScore.isPriority = true;
             if (standard.limiterSet.proteinLimit.limterType != LimiterType.None && standard.limiterSet.proteinLimit.calType != CalculateType.None)
                 protEnergyScore.limiter = standard.limiterSet.proteinLimit;
             else if (defaultStandard != null)
@@ -116,6 +122,8 @@ public class Scoring : ScriptableObject
         if (standard.limiterSet.fatLimit.weight > 0)
         {
             DishScoreHolder fatEnergyScore = new DishScoreHolder();
+            if (standard.limiterSet.fatLimit.isTop4Priority == true)
+                fatEnergyScore.isPriority = true;
             if (standard.limiterSet.fatLimit.limterType != LimiterType.None && standard.limiterSet.fatLimit.calType != CalculateType.None)
                 fatEnergyScore.limiter = standard.limiterSet.fatLimit;
             else if (defaultStandard != null)
@@ -135,6 +143,8 @@ public class Scoring : ScriptableObject
         if (standard.limiterSet.saturatedFatLimit.weight > 0)
         {
             DishScoreHolder satFatScore = new DishScoreHolder();
+            if (standard.limiterSet.saturatedFatLimit.isTop4Priority == true)
+                satFatScore.isPriority = true;
             if (standard.limiterSet.saturatedFatLimit.limterType != LimiterType.None && standard.limiterSet.saturatedFatLimit.calType != CalculateType.None)
                 satFatScore.limiter = standard.limiterSet.saturatedFatLimit;
             else if (defaultStandard != null)
@@ -154,6 +164,8 @@ public class Scoring : ScriptableObject
         if (standard.limiterSet.sugarLimit.weight > 0)
         {
             DishScoreHolder sugarScore = new DishScoreHolder();
+            if (standard.limiterSet.sugarLimit.isTop4Priority == true)
+                sugarScore.isPriority = true;
             if (standard.limiterSet.sugarLimit.limterType != LimiterType.None && standard.limiterSet.sugarLimit.calType != CalculateType.None)
                 sugarScore.limiter = standard.limiterSet.sugarLimit;
             else if (defaultStandard != null)
@@ -173,6 +185,8 @@ public class Scoring : ScriptableObject
         if (standard.limiterSet.fiberLimit.weight > 0)
         {
             DishScoreHolder fiberScore = new DishScoreHolder();
+            if (standard.limiterSet.fiberLimit.isTop4Priority == true)
+                fiberScore.isPriority = true;
             if (standard.limiterSet.fiberLimit.limterType != LimiterType.None && standard.limiterSet.fiberLimit.calType != CalculateType.None)
                 fiberScore.limiter = standard.limiterSet.fiberLimit;
             else if (defaultStandard != null)
@@ -192,6 +206,8 @@ public class Scoring : ScriptableObject
         if (standard.limiterSet.fiberLimit.weight > 0)
         {
             DishScoreHolder fiberScore = new DishScoreHolder();
+            if (standard.limiterSet.fiberLimit.isTop4Priority == true)
+                fiberScore.isPriority = true;
             if (standard.limiterSet.fiberLimit.limterType != LimiterType.None && standard.limiterSet.fiberLimit.calType != CalculateType.None)
                 fiberScore.limiter = standard.limiterSet.fiberLimit;
             else if (defaultStandard != null)
@@ -250,7 +266,7 @@ public class Scoring : ScriptableObject
             }
         }
 
-        var finalScore = totalScore / totalWeight;
+        var finalScore = Mathf.Ceil(totalScore / totalWeight);
         resultScoreHolder.finalScore = finalScore;
 
         if (finalScore >= star5) resultScoreHolder.finalStar = 5;
@@ -274,7 +290,7 @@ public class Scoring : ScriptableObject
                 }
             case CalculateType.Mass_Miligram:
                 {
-                    //do not thing
+                    //do nothing
                     break;
                 }
         }
@@ -324,6 +340,9 @@ public class Scoring : ScriptableObject
                             var betaValue = limiter.lowerLimit * (1 - limiter.beta);
                             var zeroStarLowerLimit = limiter.lowerLimit - betaValue;
                             var zeroStarUpperLimit = limiter.upperLimit + betaValue;
+
+                            if (zeroStarLowerLimit < 0) zeroStarLowerLimit = 0;
+
                             if (scoreHolder.value < zeroStarLowerLimit || scoreHolder.value > zeroStarUpperLimit)
                             {
                                 scoreHolder.star = 0;
@@ -388,6 +407,9 @@ public class Scoring : ScriptableObject
                             var betaValue = limiter.median * (1 - limiter.beta);
                             var zeroStarLowerLimit = limiter.median - betaValue;
                             var zeroStarUpperLimit = limiter.median + betaValue;
+
+                            if (zeroStarLowerLimit < 0) zeroStarLowerLimit = 0;
+
                             if (scoreHolder.value < zeroStarLowerLimit || scoreHolder.value > zeroStarUpperLimit)
                             {
                                 scoreHolder.star = 0;
@@ -440,6 +462,9 @@ public class Scoring : ScriptableObject
                     {
                         var zeroStarLowerLimit = limiter.lowerLimit * limiter.beta;
                         var fiveStarLowerLimit = limiter.lowerLimit + (limiter.lowerLimit * limiter.alpha);
+
+                        if (zeroStarLowerLimit < 0) zeroStarLowerLimit = 0;
+
                         if (scoreHolder.value >= fiveStarLowerLimit)
                         {
                             scoreHolder.star = 5;
@@ -545,6 +570,13 @@ public class Scoring : ScriptableObject
             default:
                 break;
         }
+
+        scoreHolder.actualScore = Mathf.Ceil(scoreHolder.actualScore);
+
+        if (scoreHolder.actualScore > 100)
+            scoreHolder.actualScore = 100;
+        else if (scoreHolder.actualScore < 0)
+            scoreHolder.actualScore = 0;
     }
 
     public void CalculateScoreByEnergy(DishScoreHolder scoreHolder, float totalEnergy)
@@ -601,6 +633,9 @@ public class Scoring : ScriptableObject
                             var betaValue = limiter.lowerLimit * (1 - limiter.beta);
                             var zeroStarLowerLimit = limiter.lowerLimit - betaValue;
                             var zeroStarUpperLimit = limiter.upperLimit + betaValue;
+
+                            if (zeroStarLowerLimit < 0) zeroStarLowerLimit = 0;
+
                             if (percentEnergy < zeroStarLowerLimit || percentEnergy > zeroStarUpperLimit)
                             {
                                 scoreHolder.star = 0;
@@ -627,24 +662,13 @@ public class Scoring : ScriptableObject
                                 else scoreHolder.star = 0;
                             }
                         }
-                        if (scoreHolder.value < limiter.lowerLimit * totalEnergy)
-                        {
-                            scoreHolder.detail = "< " + limiter.lowerLimit * totalEnergy;
-                        }
-                        else if (scoreHolder.value > limiter.upperLimit * totalEnergy)
-                        {
-                            scoreHolder.detail = "> " + limiter.upperLimit * totalEnergy;
-                        }
-                        else
-                        {
-                            scoreHolder.detail = $"= {limiter.lowerLimit * totalEnergy} ~ {limiter.upperLimit * totalEnergy}";
-                        }
+                        scoreHolder.detail = $"Good Value: {limiter.lowerLimit * totalEnergy} ~ {limiter.upperLimit * totalEnergy}";
                     }
                     else if (limiter.median != -1)
                     {
                         var alphaValue = limiter.median * limiter.alpha;
                         var fiveStarLowerLimit = limiter.median - alphaValue;
-                        var fiveStarUpperLimit = limiter.median - alphaValue;
+                        var fiveStarUpperLimit = limiter.median + alphaValue;
                         if (percentEnergy >= fiveStarLowerLimit && percentEnergy <= fiveStarUpperLimit)
                         {
                             scoreHolder.star = 5;
@@ -663,8 +687,11 @@ public class Scoring : ScriptableObject
                         else
                         {
                             var betaValue = limiter.median * (1 - limiter.beta);
-                            var zeroStarLowerLimit = limiter.lowerLimit - betaValue;
-                            var zeroStarUpperLimit = limiter.upperLimit + betaValue;
+                            var zeroStarLowerLimit = limiter.median - betaValue;
+                            var zeroStarUpperLimit = limiter.median + betaValue;
+
+                            if (zeroStarLowerLimit < 0) zeroStarLowerLimit = 0;
+
                             if (percentEnergy < zeroStarLowerLimit || percentEnergy > zeroStarUpperLimit)
                             {
                                 scoreHolder.star = 0;
@@ -672,13 +699,13 @@ public class Scoring : ScriptableObject
                             }
                             else
                             {
-                                if (percentEnergy < limiter.lowerLimit)
+                                if (percentEnergy <= fiveStarLowerLimit)
                                 {
                                     var lower = zeroStarLowerLimit;
                                     var upper = limiter.lowerLimit;
                                     scoreHolder.actualScore = (percentEnergy - lower) / (upper - lower) * (star5 - star1);
                                 }
-                                else if (percentEnergy > limiter.upperLimit)
+                                else if (percentEnergy >= fiveStarUpperLimit)
                                 {
                                     var lower = limiter.upperLimit;
                                     var upper = zeroStarUpperLimit;
@@ -692,18 +719,8 @@ public class Scoring : ScriptableObject
                                 else scoreHolder.star = 0;
                             }
                         }
-                        if (scoreHolder.value < limiter.median * totalEnergy)
-                        {
-                            scoreHolder.detail = $"Good Value: {limiter.median * totalEnergy} (<)";
-                        }
-                        else if (scoreHolder.value > limiter.median * totalEnergy)
-                        {
-                            scoreHolder.detail = $"Good Value: {limiter.median * totalEnergy} (>)";
-                        }
-                        else
-                        {
-                            scoreHolder.detail = $"Good Value: {limiter.median * totalEnergy} (=)";
-                        }
+
+                        scoreHolder.detail = $"Good Value: {limiter.median * totalEnergy}";
                     }
                     //else if(limiter.median == -1 && limiter.lowerLimit != -1 && limiter.upperLimit != -1)
                     //{
@@ -717,6 +734,9 @@ public class Scoring : ScriptableObject
                     {
                         var zeroStarLowerLimit = limiter.lowerLimit * limiter.beta;
                         var fiveStarLowerLimit = limiter.lowerLimit + (limiter.lowerLimit * limiter.alpha);
+
+                        if (zeroStarLowerLimit < 0) zeroStarLowerLimit = 0;
+
                         if (percentEnergy >= fiveStarLowerLimit)
                         {
                             scoreHolder.star = 5;
@@ -747,18 +767,8 @@ public class Scoring : ScriptableObject
                             else if (scoreHolder.actualScore > star1) scoreHolder.star = 1;
                             else scoreHolder.star = 0;
                         }
-                        if (scoreHolder.value < limiter.lowerLimit * totalEnergy)
-                        {
-                            scoreHolder.detail = "< " + limiter.lowerLimit * totalEnergy;
-                        }
-                        else if (scoreHolder.value > limiter.lowerLimit * totalEnergy)
-                        {
-                            scoreHolder.detail = "> " + limiter.lowerLimit * totalEnergy;
-                        }
-                        else
-                        {
-                            scoreHolder.detail = $"= {limiter.lowerLimit * totalEnergy}";
-                        }
+
+                        scoreHolder.detail = $"Good Value: < {limiter.lowerLimit * totalEnergy}";
                     }
                     break;
                 }
@@ -804,18 +814,9 @@ public class Scoring : ScriptableObject
                                 else scoreHolder.star = 0;
                             }
                         }
-                        if (scoreHolder.value < limiter.upperLimit * totalEnergy)
-                        {
-                            scoreHolder.detail = "< " + limiter.upperLimit * totalEnergy;
-                        }
-                        else if (scoreHolder.value > limiter.upperLimit * totalEnergy)
-                        {
-                            scoreHolder.detail = "> " + limiter.upperLimit * totalEnergy;
-                        }
-                        else
-                        {
-                            scoreHolder.detail = $"= {limiter.upperLimit * totalEnergy}";
-                        }
+
+                        scoreHolder.detail = $"Good Value: < {limiter.upperLimit * totalEnergy}";
+
                     }
                     break;
                 }
@@ -823,10 +824,13 @@ public class Scoring : ScriptableObject
                 break;
         }
 
+        scoreHolder.actualScore = Mathf.Ceil(scoreHolder.actualScore);
+
         if (scoreHolder.actualScore > 100)
             scoreHolder.actualScore = 100;
         else if (scoreHolder.actualScore < 0)
             scoreHolder.actualScore = 0;
+
 
     }
 
@@ -943,6 +947,7 @@ public class DishScoreHolder
     public string detail;
     public string comment;
     public Limiter limiter;
+    public bool isPriority = false;
 }
 
 [System.Serializable]
