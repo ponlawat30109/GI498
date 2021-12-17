@@ -190,7 +190,7 @@ public class Scoring : ScriptableObject
             if (sugarScore.limiter != null)
             {
                 if(sugarScore.limiter.calType == CalculateType.PercentEnergy)
-                    sugarScore.value = dishNutr.sugars * 4;
+                    sugarScore.value = dishNutr.sugars * 4 * changeUnit;
                 else
                     sugarScore.value = dishNutr.sugars;
                 allScore.Add(sugarScore);
