@@ -131,31 +131,25 @@ MonoBehaviour:
     - {fileID: 11400000, guid: a2ee084267382f64c88e6e4a05e66ab3, type: 2}
   - rankIndex: 1
     comment: Bronze Egg
-    ingredientList: []
+    ingredientList:
+    - {fileID: 11400000, guid: 2219bd06dd037ef459d4f36966ebe564, type: 2}
+    - {fileID: 11400000, guid: a6b7e22f467a9434882e213b0bb50991, type: 2}
+    - {fileID: 11400000, guid: 44cba9f6b6027a1489605e30df17f1fe, type: 2}
+    - {fileID: 11400000, guid: c52b8c98e602b0448ba01b8b4716575f, type: 2}
+    - {fileID: 11400000, guid: 6dcc8370f34a1cb43b5b327f8344a328, type: 2}
+    - {fileID: 11400000, guid: eb1159d350aae9f489878b95bb1f7a92, type: 2}
   - rankIndex: 2
     comment: Silver Egg
     ingredientList: []
   - rankIndex: 3
     comment: Gold Egg
-    ingredientList:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    ingredientList: []
   - rankIndex: 4
     comment: Diamond Egg
     ingredientList: []
   - rankIndex: 5
     comment: Platinum Egg
-    ingredientList:
-    - {fileID: 11400000, guid: 2219bd06dd037ef459d4f36966ebe564, type: 2}
-    - {fileID: 11400000, guid: eb1159d350aae9f489878b95bb1f7a92, type: 2}
-    - {fileID: 11400000, guid: a6b7e22f467a9434882e213b0bb50991, type: 2}
-    - {fileID: 11400000, guid: 44cba9f6b6027a1489605e30df17f1fe, type: 2}
-    - {fileID: 11400000, guid: c52b8c98e602b0448ba01b8b4716575f, type: 2}
-    - {fileID: 11400000, guid: 6dcc8370f34a1cb43b5b327f8344a328, type: 2}
+    ingredientList: []
   - rankIndex: 6
     comment: Star Platinum Egg
     ingredientList: []
