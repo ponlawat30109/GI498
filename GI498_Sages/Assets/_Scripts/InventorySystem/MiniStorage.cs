@@ -18,6 +18,8 @@ namespace _Scripts.InventorySystem
         [Header("Model")]
         public Transform holdingPosition; // Position of Model On Player Hand
         public GameObject currentHoldItemModel; // Model to Show On Player Hand
+
+        [SerializeField] private bool isTrashBin;
         
         public event Action OnInteracted;
 
@@ -83,6 +85,11 @@ namespace _Scripts.InventorySystem
 
                             case ItemType.Food:
                             {
+                                if (isTrashBin)
+                                {
+                                    return;
+                                }
+                                
                                 Debug.Log($"3 {psHandler.currentHoldFoodObject.itemName}");
                                 PlaceItem(psHandler, psHandler.currentHoldFoodObject);
                                 break;

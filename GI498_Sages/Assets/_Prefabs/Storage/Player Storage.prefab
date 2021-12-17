@@ -45,7 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   storageObject: {fileID: 11400000, guid: 59346fdce302d1f4882cc4a22a64aa40, type: 2}
   storageUI: {fileID: 4505787130681301535, guid: 549f8a8aa7259504695c760230efe873, type: 3}
-  currentSelectSlot: {fileID: 0}
-  maxSlot: 1
-  isStackable: 0
+  currentSelectSlotList: []
+  maxSlot: 0
+  isStackable: 1
   isSlotUISelectable: 0

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using _Scripts.InteractSystem.Interface;
 using _Scripts.InventorySystem.ScriptableObjects.Storage;
 using _Scripts.InventorySystem.UI;
@@ -10,7 +11,7 @@ namespace _Scripts.InventorySystem
     {
         [SerializeField] private StorageObject storageObject; //ScriptableObject
         [SerializeField] private StorageUI storageUI; //UI_Set in Game for each storage
-        [SerializeField] private ItemSlotUI currentSelectSlot; //Auto set when player select slot
+        [SerializeField] public List<ItemSlotUI> currentSelectSlotList = new List<ItemSlotUI>(); //Auto set when player select slot
 
         [SerializeField] private int maxSlot;
         [SerializeField] private bool isStackable;
@@ -72,20 +73,30 @@ namespace _Scripts.InventorySystem
 
         
         // Slot UI
-        public void SetSelectSlot(ItemSlotUI itemFridgeSlotUI)
+        public void AddSelectSlot(ItemSlotUI slotToSelect)
         {
-            currentSelectSlot = itemFridgeSlotUI;
+            currentSelectSlotList.Add(slotToSelect);
         }
 
-        public void DeSelectSlot()
+        public void DeSelectSlot(ItemSlotUI slotToDeSelect)
         {
-            SetSelectSlot(null);
-            Debug.Log("Deselect Slot");
+            for (int i = 0; i < currentSelectSlotList.Count; i++)
+            {
+                if (currentSelectSlotList[i] != null)
+                {
+                    if (currentSelectSlotList[i] == slotToDeSelect)
+                    {
+                        currentSelectSlotList.RemoveAt(i);
+                        Debug.Log("Deselect Slot");
+                    }
+                }
+            }
+            
         }
 
-        public ItemSlotUI GetSelectSlot()
+        public List<ItemSlotUI> GetSelectSlotList()
         {
-            return currentSelectSlot;
+            return currentSelectSlotList;
         }
 
         // Player out of collider range
