@@ -78,6 +78,8 @@ namespace NPCScript
             onTest = false;
             //foodList = playerRankHolder.FoodList;
             Debug.Assert(tv != null, "NPCManager: tv is null");
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.PlayMusic(AudioManager.Track.BGMMenu02);
         }
 
         public void CompleteOrder()

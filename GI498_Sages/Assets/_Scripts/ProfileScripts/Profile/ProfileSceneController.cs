@@ -67,6 +67,8 @@ public class ProfileSceneController : MonoBehaviour
             Debug.Assert(backButton != null, "Profile UI (Canvas): backButton is null");
         }
 
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlayMusic(AudioManager.Track.BGMMenu01);
 
     }
 
