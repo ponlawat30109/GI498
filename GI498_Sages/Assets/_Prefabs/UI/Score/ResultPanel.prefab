@@ -845,8 +845,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 800412634265655522}
   m_HandleRect: {fileID: 800412634265655520}
   m_Direction: 0
-  m_Value: 0
-  m_Size: 0.99999994
+  m_Value: 1
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4743,7 +4743,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 800412634758823549}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.23847912
+  m_Size: 0.23847915
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -9360,7 +9360,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resultGroup: {fileID: 1065082057223989485}
   scorer: {fileID: 11400000, guid: 359ef078dca715948806f03ba6883f25, type: 2}
-  testLevelStandard: {fileID: 11400000, guid: 9b3d05e28e711f34489c19b4c2efadde, type: 2}
+  testLevelStandard: {fileID: 11400000, guid: 25a8e750b1655bf47b2b8cbbdd38b199, type: 2}
   scoreSlotUIPrefab: {fileID: 4665045761970421767}
   scoreText: {fileID: 800412634283019139}
   blackStars:
