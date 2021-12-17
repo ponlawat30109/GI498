@@ -211,13 +211,13 @@ namespace NPCScript
                             break;
                         }
                         
-                        case NpcInformation.NpcPatientType.KidneyDisease:
+                        case NpcInformation.NpcPatientType.KidneyDiseaseBF:
                         {
                             levelStandard = levelList[1];
                             break;
                         }
                         
-                        case NpcInformation.NpcPatientType.Diabetes:
+                        case NpcInformation.NpcPatientType.KidneyDiseaseAF:
                         {
                             levelStandard = levelList[2];
                             break;
@@ -250,17 +250,17 @@ namespace NPCScript
                     break;
                 }
                 
-                case NpcInformation.NpcPatientType.KidneyDisease:
+                case NpcInformation.NpcPatientType.KidneyDiseaseBF:
                 {
                     foodList = Manager.Instance.storageManager.recipeStorageManager.GetRecipeCollectionByType(NpcInformation
-                        .NpcPatientType.KidneyDisease).recipeList;
+                        .NpcPatientType.KidneyDiseaseBF).recipeList;
                     break;
                 }
                 
-                case NpcInformation.NpcPatientType.Diabetes:
+                case NpcInformation.NpcPatientType.KidneyDiseaseAF:
                 {
                     foodList = Manager.Instance.storageManager.recipeStorageManager.GetRecipeCollectionByType(NpcInformation
-                        .NpcPatientType.Diabetes).recipeList;
+                        .NpcPatientType.KidneyDiseaseAF).recipeList;
                     break;
                 }
             }

@@ -15,7 +15,7 @@ MonoBehaviour:
   itemName: Special Rice Porridge
   itemIcon: {fileID: 21300000, guid: 6892cf5aa2122654a94bbaa7bf2c6e67, type: 3}
   type: 2
-  ingamePrefab: {fileID: 5486850418394000142, guid: b3f045adfe0716b40be0bd5ad2391726, type: 3}
+  ingamePrefab: {fileID: 7794683952533260164, guid: 9e1d143272b55924ab9b2a10a93aa179, type: 3}
   description: "\u0E42\u0E08\u0E4A\u0E01"
   cookedPrefab: {fileID: 4812442483057933167, guid: f80f19f407ed476458333831ba5bdd7c, type: 3}
   ingredients:
@@ -26,5 +26,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2219bd06dd037ef459d4f36966ebe564, type: 2}
   - {fileID: 11400000, guid: 44cba9f6b6027a1489605e30df17f1fe, type: 2}
   cookingTime: 5
-  isLowSodium: 1
+  isLowSodium: 0
   isCooked: 0

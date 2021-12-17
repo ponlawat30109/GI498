@@ -127,7 +127,7 @@ namespace _Scripts.ManagerCollection
                 }
             }
             
-            foreach (var recipe in recipeStorageManager.GetRecipeCollectionByType(NpcInformation.NpcPatientType.KidneyDisease).recipeList)
+            foreach (var recipe in recipeStorageManager.GetRecipeCollectionByType(NpcInformation.NpcPatientType.KidneyDiseaseBF).recipeList)
             {
                 if (recipe.isCooked)
                 {
@@ -135,7 +135,7 @@ namespace _Scripts.ManagerCollection
                 }
             }
             
-            foreach (var recipe in recipeStorageManager.GetRecipeCollectionByType(NpcInformation.NpcPatientType.Diabetes).recipeList)
+            foreach (var recipe in recipeStorageManager.GetRecipeCollectionByType(NpcInformation.NpcPatientType.KidneyDiseaseAF).recipeList)
             {
                 if (recipe.isCooked)
                 {

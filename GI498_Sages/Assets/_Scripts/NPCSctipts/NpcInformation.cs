@@ -13,7 +13,8 @@ namespace _Scripts.NPCSctipts
         public enum NpcPatientType
         {
             Normal,
-            KidneyDisease,
+            KidneyDiseaseBF,
+            KidneyDiseaseAF,
             Diabetes
         }
 
@@ -45,13 +46,13 @@ namespace _Scripts.NPCSctipts
                 var rnd = Random.Range(1, 100);
                 Debug.Log(rnd);
 
-                if (rnd >= 1 && rnd <= 90)
+                if (rnd >= 1 && rnd <= 50)
                 {
-                    newInfo.currentType = NpcPatientType.KidneyDisease;
+                    newInfo.currentType = NpcPatientType.KidneyDiseaseBF;
                 }
                 else
                 {
-                    newInfo.currentType = NpcPatientType.Diabetes;
+                    newInfo.currentType = NpcPatientType.KidneyDiseaseAF;
                 }
 
             }
@@ -97,9 +98,15 @@ namespace _Scripts.NPCSctipts
                         break;
                     }
 
-                case NpcPatientType.KidneyDisease:
+                case NpcPatientType.KidneyDiseaseBF:
                     {
-                        summaryString = $"{GetCurrentName()} เป็นผู้ป่วยโรคไต *ควรระวังปริมาณอาหารบางชนิด";
+                        summaryString = $"{GetCurrentName()} เป็นผู้ป่วยโรคไตที่ยังไม่ได้ฟอกไต *ควรระวังปริมาณอาหารบางชนิด";
+                        break;
+                    }
+
+                case NpcPatientType.KidneyDiseaseAF:
+                    {
+                        summaryString = $"{GetCurrentName()} เป็นผู้ป่วยโรคไตที่ฟอกไตแล้ว *ควรระวังปริมาณอาหารบางชนิด";
                         break;
                     }
 
