@@ -38,29 +38,51 @@ namespace _Scripts.InventorySystem.UI
 
         private void Update()
         {
-            if (parentStorageUI.GetParent().GetSelectSlot() == this)
+            if (parentStorageUI.GetParent() != null)
             {
-                itemFrameImage.sprite = selectUiSprite;
+                if (IsInCurrentSelect(this))
+                {
+                    itemFrameImage.sprite = selectUiSprite;
+                }
+                else
+                {
+                    itemFrameImage.sprite = deselectUiSprite;
+                }
             }
-            else
+        }
+
+        public bool IsInCurrentSelect(ItemSlotUI toCheckSlot)
+        {
+            var isFound = false;
+            var selectSlotList = parentStorageUI.GetParent().GetSelectSlotList();
+                
+            for (int i = 0; i < selectSlotList.Count; i++)
             {
-                itemFrameImage.sprite = deselectUiSprite;
+                if (selectSlotList[i] == toCheckSlot)
+                {
+                    isFound = true;
+                }
             }
+
+            return isFound;
         }
 
         public void OnPointerClick(PointerEventData eventData)
         {
             if (parentStorageUI.GetParent().IsSlotUISelectable)
             {
-                if (parentStorageUI.GetParent().GetSelectSlot() == this)
+                // If This Current Select
+                if (IsInCurrentSelect(this))
                 {
+                    // DeSelect
                     itemFrameImage.sprite = deselectUiSprite;
-                    parentStorageUI.GetParent().DeSelectSlot();
+                    parentStorageUI.GetParent().DeSelectSlot(this);
 
                 }
                 else
                 {
-                    parentStorageUI.GetParent().SetSelectSlot(this);
+                    // Select This
+                    parentStorageUI.GetParent().AddSelectSlot(this);
                     parentStorageUI.ChangeObjInfo(item.itemName, item.description, item.itemIcon);
                 }
             }

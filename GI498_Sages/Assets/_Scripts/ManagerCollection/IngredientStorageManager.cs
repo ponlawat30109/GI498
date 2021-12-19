@@ -67,7 +67,7 @@ namespace _Scripts.ManagerCollection
             else
             {
                 if (DataCarrier.Instance != null)
-                    currentRank = DataCarrier.currentRankIndex;
+                    currentRank = DataCarrier.currentRankIndex+1;
             }
             
         }

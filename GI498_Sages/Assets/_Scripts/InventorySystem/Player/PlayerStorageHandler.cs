@@ -23,6 +23,7 @@ namespace _Scripts.InventorySystem.Player
         [Header("Model")]
         public Transform holdingPosition; // Position of Model On Player Hand
         public GameObject currentHoldItemModel; // Model to Show On Player Hand
+        public GameObject basketPrefab; // Model to Show On Player Hand
         [SerializeField] private int childCount;
         
         [Header("Storage Object")]
@@ -91,6 +92,21 @@ namespace _Scripts.InventorySystem.Player
             if(currentHoldItemObject == null && !storage.GetStorageObject().IsSlotIndexHasItem(0))
             {
                 ClearModel();
+            }
+
+            if (storage.GetStorageObject().GetSlotCount() > 1 && currentHoldItemModel.transform.GetChild(0).gameObject.name.Contains("BasketPrefab") == false)
+            {
+                int childs = currentHoldItemModel.transform.childCount;
+
+                for (int i = 0; i < childs; i++)
+                {
+                    var realPrefabName = "BasketPrefab";
+                    if (currentHoldItemModel.transform.GetChild(i).gameObject.name.Contains(realPrefabName) == false)
+                    {
+                        ClearModel();
+                    }
+                }
+                Debug.Log("A");
             }
             
             // Model Things but food!.
@@ -363,10 +379,20 @@ namespace _Scripts.InventorySystem.Player
 
         private void SetModel()
         {
-            var newProp = Instantiate(currentHoldItemObject.ingamePrefab, holdingPosition);
-            Debug.Log($"Set from Item {currentHoldItemObject.itemName}");
-            newProp.transform.SetParent(currentHoldItemModel.transform);
-            Debug.Log($"Current Holding Model is Model {newProp.name}");
+            if (storage.GetStorageObject().GetSlotCount() > 1)
+            {
+                var newProp = Instantiate(basketPrefab, holdingPosition);
+                newProp.transform.SetParent(currentHoldItemModel.transform);
+                Debug.Log($"Current Holding Model is Model Basket({newProp.name})");
+            }
+            else if(storage.GetStorageObject().GetSlotCount() < 2)
+            {
+                var newProp = Instantiate(currentHoldItemObject.ingamePrefab, holdingPosition);
+                Debug.Log($"Set from Item {currentHoldItemObject.itemName}");
+                newProp.transform.SetParent(currentHoldItemModel.transform);
+                Debug.Log($"Current Holding Model is Model {newProp.name}");
+            }
+            
         }
         
         private void SetFoodModel()

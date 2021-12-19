@@ -44,8 +44,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2, y: 2, z: 2.8}
-  m_Center: {x: 0, y: 0.5, z: 0.5}
+  m_Size: {x: 2, y: 1.88, z: 2.8}
+  m_Center: {x: 0, y: 0, z: 0.5}
 --- !u!54 &2684634927926049343
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -74,14 +74,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90320c99a8c348ff90a692849e52f61a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  openKitchenKey: 113
-  openStorageKey: 102
-  collectItemKey: 101
   storage: {fileID: 0}
   currentHoldItemObject: {fileID: 0}
   currentHoldFoodObject: {fileID: 0}
   holdingPosition: {fileID: 0}
   currentHoldItemModel: {fileID: 0}
+  basketPrefab: {fileID: 611077780777445290, guid: 71cd2901cb83cb74d84157ce5f7fa189, type: 3}
   childCount: 0
   toInteractStorageObject: {fileID: 0}
   _nearestStorageObject: {fileID: 0}

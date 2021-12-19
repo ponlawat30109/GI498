@@ -31,9 +31,9 @@ public class MenuController : MonoBehaviour
     void Start()
     {
         //ชุดนี้ลบออกตอนงานเสร็จด้วย 55555
-        Debug.LogWarning("Fon : Don't forget to change UI (3 Button, Information, BG)");
-        Debug.LogWarning("Fon : Don't forget to change UI (Panel Option, Panel Information)");
-        Debug.Log("--------------");
+        //Debug.LogWarning("Fon : Don't forget to change UI (3 Button, Information, BG)");
+        //Debug.LogWarning("Fon : Don't forget to change UI (Panel Option, Panel Information)");
+        //Debug.Log("--------------");
 
         Debug.Assert(buttonStart != null, "MainMenu UI ("+name+"): buttonStart is null");
         Debug.Assert(buttonOption != null, "MainMenu UI (" + name + "): buttonOption is null");

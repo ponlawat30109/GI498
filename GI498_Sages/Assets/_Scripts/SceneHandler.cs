@@ -6,6 +6,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,8 +14,9 @@ namespace _Scripts
 {
     public class SceneHandler : MonoBehaviour
     {
+        public static SceneHandler Instance;
         [Serializable]
-        struct ScenePackage
+        public struct ScenePackage
         {
             public bool needLoad;
             public bool isLoaded;
@@ -25,6 +27,12 @@ namespace _Scripts
 
         [Header("Single Scene Handler")]
         public string sceneName;
+
+
+        private void Awake()
+        {
+            Instance = this;
+        }
 
         public void LoadAllScene()
         {
@@ -59,6 +67,21 @@ namespace _Scripts
                     }
                 }
             }
+        }
+
+        public ScenePackage GetSceneInPackagesByName(string nameToGet)
+        {
+            var package = new ScenePackage();
+            
+            for (int i = 0; i < scenePackages.Count; i++)
+            {
+                if (scenePackages[i].sceneAsset == nameToGet)
+                {
+                    package = scenePackages[i];
+                }
+            }
+
+            return package;
         }
 
         public AsyncOperation LoadSpecificScene()

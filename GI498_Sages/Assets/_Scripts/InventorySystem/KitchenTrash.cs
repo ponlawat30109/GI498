@@ -10,6 +10,7 @@ public class KitchenTrash : MonoBehaviour
     private async void Update()
     {
         await Task.Delay(System.TimeSpan.FromSeconds(2));
+        
         if (trashBin.IsCurrentItemNotNull())
         {
             trashBin.ClearHolding();

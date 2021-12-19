@@ -244,6 +244,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 23e21cf9-bb6d-4267-9ad5-dd1ab6921090
     m_ActionName: UI/ClosePanel[/Keyboard/tab]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7159e938-e3d4-4ffe-8d93-c1ac6d5cd0cd
+    m_ActionName: UI/OpenIngredientsPanel[/Keyboard/i]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard
   m_DefaultActionMap: Mouse
@@ -371,14 +375,6 @@ PrefabInstance:
       propertyPath: currentHoldItemModel
       value: 
       objectReference: {fileID: 4131792483785713013}
-    - target: {fileID: 2684634927926049340, guid: d0ade1f35465e124482e1aa6d20636f8, type: 3}
-      propertyPath: m_Size.y
-      value: 1.88
-      objectReference: {fileID: 0}
-    - target: {fileID: 2684634927926049340, guid: d0ade1f35465e124482e1aa6d20636f8, type: 3}
-      propertyPath: m_Center.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2684634927926049472, guid: d0ade1f35465e124482e1aa6d20636f8, type: 3}
       propertyPath: m_Name
       value: PlayerStorageHandler

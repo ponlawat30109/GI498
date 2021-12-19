@@ -21,8 +21,8 @@ namespace _Scripts.InventorySystem.UI
         [SerializeField] private TMP_Text infoDetailText;
         [SerializeField] private Image infoImage;
 
-        private ItemSlotUI currentSelectSlot;
-        public ItemSlotUI CurrentSelectSlot { get => currentSelectSlot; }
+        //private ItemSlotUI currentSelectSlot;
+        //public ItemSlotUI CurrentSelectSlot { get => currentSelectSlot; }
 
         public List<ItemSlotUI> slotList = new List<ItemSlotUI>();
 
@@ -55,6 +55,27 @@ namespace _Scripts.InventorySystem.UI
             }
         }
 
+        public void DeSelectSlotAll()
+        {
+            if (parent.currentSelectSlotList != null)
+            {
+                /*var slot = parent.currentSelectSlotList;
+                for (int i = 0; i < slot.Count; i++)
+                {
+                    if (slot[i] != null)
+                    {
+                        parent.DeSelectSlot(slot[i]);
+                    }
+                }*/
+
+                if (parent.currentSelectSlotList.Count > 0)
+                {
+                    parent.currentSelectSlotList.Clear();
+                }
+            }
+            
+        }
+        
         public void ChangeObjInfo(string itemName, string detail, Sprite sprite)
         {
             infoNameText.text = itemName;
@@ -79,8 +100,9 @@ namespace _Scripts.InventorySystem.UI
             {
                 if (slotList[0] != null)
                 {
+                    DeSelectSlotAll();
                     var slot = slotList[0];
-                    parent.SetSelectSlot(slot);
+                    parent.AddSelectSlot(slot);
                     var slotItem = slot.GetItem();
                     ChangeObjInfo(slotItem.itemName,slotItem.description,slotItem.itemIcon);
                 }
@@ -118,7 +140,7 @@ namespace _Scripts.InventorySystem.UI
         public void CreateUI()
         {
             ClearObjInfo();
-            currentSelectSlot = null;
+            DeSelectSlotAll();
             var slot = parent.GetStorageObject().GetStorageSlot();
         
             for (int i = 0; i < slot.Count; i++)
@@ -129,10 +151,11 @@ namespace _Scripts.InventorySystem.UI
                     var componentSlot = newSlot.gameObject.GetComponent<ItemSlotUI>();
                     componentSlot.InitializeItem(slot[i].item,this,storageSlotInformation);
                     slotList.Add(componentSlot);
-                    if (currentSelectSlot == null)
+                    
+                    /*if (currentSelectSlot == null)
                     {
                         currentSelectSlot = componentSlot;
-                    }
+                    }*/
                 }
                 else
                 {

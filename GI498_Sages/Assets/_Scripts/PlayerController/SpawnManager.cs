@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using Cinemachine;
+using UnityEngine.SceneManagement;
 
 namespace _Scripts.ManagerCollection
 {
@@ -19,27 +20,27 @@ namespace _Scripts.ManagerCollection
 
         private GameObject player;
 
-        void Awake()
+        void Start()
         {
-            // _vcam = GetComponent<CinemachineVirtualCamera>();
+            StartCoroutine(SpawnPlayer(1));
         }
 
-        async void Start()
+        IEnumerator SpawnPlayer(int time)
         {
-            await Task.Delay(System.TimeSpan.FromSeconds(0.1));
+            yield return new WaitForSeconds(time);
+            
+            // Spawn
             player = (GameObject)Instantiate(playerPrefabs, spawnpoint.transform.position, Quaternion.identity);
-
             Debug.Log($"Camera FoV : {_vcam.m_Lens.FieldOfView}");
-
             Transform followTarget = player.transform;
             _vcam.Follow = followTarget;
             _vcam.LookAt = followTarget;
         }
 
+        
         private void OnDestroy()
         {
             Destroy(player.gameObject);
         }
     }
 }
-

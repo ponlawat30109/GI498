@@ -61,6 +61,13 @@ public class KitchenUIAdditionalButton : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            if (psHandler.IsHoldingItem() == false)
+            {
+                Manager.Instance.notifyManager.CreateNotify("Empty Hand!", "Please holding some ingredient.");
+            }
+        }
     }
 
     // Take Out Item from A storage and Add to B storage

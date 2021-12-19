@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace NPCScript
 {
@@ -13,16 +15,25 @@ namespace NPCScript
         public bool isOrderPoint = false;
         public StandPoint nextPoint;
 
-        private async void Start()
+
+        void Start()
         {
-            await Task.Delay(System.TimeSpan.FromSeconds(0.1));
+            StartCoroutine(SpawnNpc(2));
+           
+        }
+
+        IEnumerator SpawnNpc(int time)
+        {
+            yield return new WaitForSeconds(time);
+            // Spawn
             if (isSpawnPoint) //true
             {
                 var npc = Instantiate(customerPref, transform.position, transform.rotation);
                 var npcCtrl = npc.GetComponent<NPCController>();
                 npcCtrl.GetInitTarget(this);
+                
+                
             }
         }
-
     }
 }

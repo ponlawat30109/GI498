@@ -28,10 +28,15 @@ namespace _Scripts.InventorySystem.UI
             var psHandler = Manager.Instance.playerManager.PSHandler();
             var a = parent.GetStorageObject();
             var b = psHandler.storage.GetStorageObject();
-            var item = psHandler.currentHoldItemObject;
-            
-            parent.PutIn(a, b, item);
-            Debug.Log($"[Button] Put {item.itemName} from {b.storageType} to {a.storageType}.");
+            var currentHoldItem = psHandler.currentHoldItemObject;
+
+            if (currentHoldItem != null)
+            {
+                var item = currentHoldItem;
+                parent.PutIn(a, b, item);
+                Debug.Log($"[Button] Put {item.itemName} from {b.storageType} to {a.storageType}.");
+            }
+
         }
 
         // Take Out Item from A storage and Add to B storage
@@ -43,15 +48,22 @@ namespace _Scripts.InventorySystem.UI
             
             var a = parent.GetStorageObject();
             var b = psHandler.storage.GetStorageObject();
+            var selectSlotList = parent.GetSelectSlotList();
 
-            if (parent.GetSelectSlot() != null)
+            if (selectSlotList != null)
             {
-                var item = parent.GetSelectSlot().GetItem();
-                if (item != null)
+                if (selectSlotList.Count > 0)
                 {
-                    parent.TakeOut(a, b, item);
-                    //Debug.Log($"[Button] Take {item.itemName} from {a.storageType} to {b.storageType}.");
-                    parent.CloseUI();
+                    for (int i = 0; i < selectSlotList.Count; i++)
+                    {
+                        var item = selectSlotList[i].GetItem();
+                        if (item != null)
+                        {
+                            parent.TakeOut(a, b, item);
+                            //Debug.Log($"[Button] Take {item.itemName} from {a.storageType} to {b.storageType}.");
+                            parent.CloseUI();
+                        }
+                    }
                 }
             }
         }
