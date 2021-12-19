@@ -143,6 +143,17 @@ namespace _Scripts.ManagerCollection
                 }
             }
         }
+
+        public void ClearPlayerStorage()
+        {
+            for (int i = 0; i < storageCollections.Count; i++)
+            {
+                if (storageCollections[i].storage.GetStorageObject() != null)
+                {
+                    storageCollections[i].storage.GetStorageObject().GetStorageSlot().Clear();
+                }
+            }
+        }
         
         private void OnApplicationQuit()
         {

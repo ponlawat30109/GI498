@@ -21,6 +21,8 @@ namespace _Scripts.InventorySystem.UI
         [SerializeField] private TMP_Text infoDetailText;
         [SerializeField] private Image infoImage;
 
+        [SerializeField] private Sprite defualtItemIcon;
+
         //private ItemSlotUI currentSelectSlot;
         //public ItemSlotUI CurrentSelectSlot { get => currentSelectSlot; }
 
@@ -101,10 +103,10 @@ namespace _Scripts.InventorySystem.UI
                 if (slotList[0] != null)
                 {
                     DeSelectSlotAll();
-                    var slot = slotList[0];
-                    parent.AddSelectSlot(slot);
-                    var slotItem = slot.GetItem();
-                    ChangeObjInfo(slotItem.itemName,slotItem.description,slotItem.itemIcon);
+                    //var slot = slotList[0];
+                    //parent.AddSelectSlot(slot);
+                    //var slotItem = slot.GetItem();
+                    ChangeObjInfo("????","?????????",defualtItemIcon);
                 }
                 else
                 {

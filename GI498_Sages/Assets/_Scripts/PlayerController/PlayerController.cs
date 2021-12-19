@@ -1,3 +1,4 @@
+using _Scripts.ManagerCollection;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
@@ -116,6 +117,7 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Exit Kitchen");
         var loadScenes = new string[] { "scn_Profile" };
         var unloadScenes = new string[] { "KitchenAssembly" };
+        Manager.Instance.storageManager.ClearPlayerStorage();
         _Scripts.SceneAnimator.Instance.ChangeScene(unloadScenes, loadScenes);
     }
 }
