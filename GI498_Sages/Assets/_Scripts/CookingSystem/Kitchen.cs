@@ -39,6 +39,12 @@ namespace _Scripts.CookingSystem
         {
             isCanProcess = false;
             isCooking = false;
+            
+            if (ingredientStorage.GetRecipe() != null)
+            {
+                ingredientStorage.ClearStove();
+            }
+            
             //_isTrashFull = false;
             //_currentIngredientRemoveCount = 0;
         }
