@@ -133,6 +133,11 @@ namespace _Scripts.InventorySystem.Player
         
         private void OpenStorageKey()
         {
+            if (toInteractStorageObject == null)
+            {
+                return;
+            }
+            
             if (_canInteractToOpenStorage)
             {
                 SetToInteractStorage();
@@ -185,6 +190,11 @@ namespace _Scripts.InventorySystem.Player
 
         private void OpenKitchenKey()
         {
+            if (toInteractKitchenObject == null)
+            {
+                return;
+            }
+            
             if (_canInteractToOpenKitchen)
             {
                 SetToInteractKitchen();
@@ -241,6 +251,11 @@ namespace _Scripts.InventorySystem.Player
         
         private void ItemCollectKey()
         {
+            if (toInteractItemObject == null)
+            {
+                return;
+            }
+            
             if (_canInteractToCollectItem)
             {
                 SetToInteractItem();
